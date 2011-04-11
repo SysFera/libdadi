@@ -52,6 +52,7 @@ struct PluginInfo {
   void *factory; /**< pointer to factory method */
   SharedLibraryPtr sPtr; /**< pointer to sharedLibrary */
   std::list<std::string> deps; /**< list of dependencies */
+  std::list<std::string> paths; /**< path hints to search libraries */
 };
 
 typedef boost::shared_ptr<PluginInfo> PluginInfoPtr;

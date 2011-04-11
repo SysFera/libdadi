@@ -42,6 +42,9 @@ Loader::loadPlugin(const char *mFile) {
   //   return;
   // }
 
+  BOOST_FOREACH(std::string& v, pInfo->paths)
+    reg_->addPath(v);
+
   std::string libname = SharedLibrary::prefix() +
     pInfo->name +
     SharedLibrary::suffix();
@@ -88,8 +91,15 @@ Loader::parseConfig(const char *mFile, PluginInfoPtr pInfo) {
 
     pInfo->name = pt.get<std::string>("plugindescriptor.name");
     pInfo->version = pt.get<std::string>("plugindescriptor.version");
-//    pInfo->path = pt.get<std::string>("plugindescriptor.path");
     pInfo->interface = pt.get<std::string>("plugindescriptor.interface");
+
+    try {
+      BOOST_FOREACH( ptree::value_type& v,
+                     pt.get_child("plugindescriptor.paths") )
+        pInfo->paths.push_back(v.second.get<std::string>("path"));
+    } catch (const ptree_bad_path& e) {
+    }
+
 
     // try {
     //   BOOST_FOREACH( ptree::value_type& v, pt.get_child("plugindescriptor.dependencies"))
