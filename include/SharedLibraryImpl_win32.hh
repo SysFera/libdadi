@@ -1,0 +1,36 @@
+#ifndef _SHARED_LIBRARY_IMPL_WIN32_HH_
+#define _SHARED_LIBRARY_IMPL_WIN32_HH_
+/**
+ * @file   SharedLibraryImpl_win32.hh
+ * @author hguemar <hguemar@sysfera.com>
+ * @date   Tue Mar 29 15:11:35 2011
+ *
+ * @brief  Win32 implementation of class SharedLibrary
+ * based on LoadLibrary calls
+ *
+ */
+
+#include <string>
+
+// TODO: untested
+class SharedLibraryImpl {
+public:
+  SharedLibraryImpl();
+  SharedLibraryImpl(const std::string& path);
+  ~SharedLibraryImpl()
+
+  void loadImpl(const std::string& path);
+  void unloadImpl();
+
+  bool isLoadedImpl() const;
+  bool hasSymbolImpl(const std::string& symbol);
+  void *symbolImpl(const std::string& symbol);
+
+  const std::string& pathImpl() const;
+
+Private:
+  std::string path_;
+  void *handle_;
+};
+
+#endif /* _SHARED_LIBRARY_IMPL_WIN32_HH_ */
