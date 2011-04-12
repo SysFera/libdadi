@@ -38,10 +38,6 @@ Loader::loadPlugin(const char *mFile) {
   PluginInfoPtr pInfo(new PluginInfo);
   parseConfig(mFile, pInfo);
 
-  // if (pInfo->path.empty()) {
-  //   return;
-  // }
-
   BOOST_FOREACH(std::string& v, pInfo->paths)
     reg_->addPath(v);
 
@@ -96,7 +92,7 @@ Loader::parseConfig(const char *mFile, PluginInfoPtr pInfo) {
     try {
       BOOST_FOREACH( ptree::value_type& v,
                      pt.get_child("plugindescriptor.paths") )
-        pInfo->paths.push_back(v.second.get<std::string>("path"));
+        pInfo->paths.push_back(v.second.data());
     } catch (const ptree_bad_path& e) {
     }
 
