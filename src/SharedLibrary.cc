@@ -5,8 +5,6 @@
 #include "SharedLibraryImpl_posix.hh"
 #endif
 
-#include <iostream>
-
 SharedLibrary::SharedLibrary() {}
 
 SharedLibrary::SharedLibrary(const std::string& path)

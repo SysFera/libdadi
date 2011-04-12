@@ -8,5 +8,5 @@ else()
   set( SRCS ${SRCS} SharedLibraryImpl_posix.cc )
 endif()
 
-add_library( Utils ${SRCS} )
-target_link_libraries( Utils ${UTILS_LIB} )
+add_library( dadi ${SRCS} )
+target_link_libraries( dadi ${UTILS_LIB} )
