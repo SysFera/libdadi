@@ -39,26 +39,4 @@ extern "C" {
   bool DIET_EXPORT create_plugin_instance(void **instance);
 }
 
-
-/* TODO: handle separately dependencies to an interface or a plugin */
-#define DECLARE_COMP_SLOT(__ptype,__type,__name)                        \
-  extern "C"                                                            \
-  bool DIET_EXPORT connect_##__ptype##_##__type(void *bar, void *foo);  \
-
-#define COMP_SLOT(__ptype,__type,__name)                              \
-  public:                                                         \
-  virtual void do_connect_##__name(__type * __foo) {                  \
-    __name = __foo;                                                   \
-  }                                                                   \
-                                                                      \
-  friend bool connect_##__ptype##_##__type(void *bar,void * foo);     \
-protected:                                                            \
-__type* __name;
-
-#define IMPLEMENT_COMP_SLOT(__ptype,__type,__name)                      \
-  bool connect_##__ptype##_##__type(void *bar, void *foo) {             \
-    ((__ptype *)bar)->do_connect_##__name((__type *)foo);               \
-    return true;                                                        \
-  }                                                                     \
-
 #endif /* _IPLUGIN_HH_ */

@@ -119,12 +119,6 @@ public:
       //IPlugin *p = get<IPlugin>(*ita);
     }
 
-    // void *conn = sPtr->symbol("connect_IPerson_IWork");
-    // if (conn) {
-    //   ((bool (*)(void*, void*)) (instance, (1)));
-    //    }
-
-
     return static_cast <Interface *>(instance);
   }
 
