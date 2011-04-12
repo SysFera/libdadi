@@ -5,6 +5,8 @@
 #include "SharedLibraryImpl_posix.hh"
 #endif
 
+#include <iostream>
+
 SharedLibrary::SharedLibrary() {}
 
 SharedLibrary::SharedLibrary(const std::string& path)
@@ -45,23 +47,11 @@ SharedLibrary::path() const {
 
 std::string
 SharedLibrary::prefix() {
-#ifdef __WIN32__
-  return "";
-#else /* __WIN32__ */
-  return "lib";
-#endif /* __WIN32__ */
+  return MODULE_PREFIX;
 }
 
 std::string
 SharedLibrary::suffix() {
-#ifdef __WIN32__
-  return ".dll";
-#else /* __WIN32__ */
-  #ifdef __APPLE__
-    return ".dylib";
-  #else /* __APPLE__ */
-    return ".so";
-  #endif /* __APPLE__ */
-#endif /* __WIN32__ */
+  return MODULE_SUFFIX;
 }
 
