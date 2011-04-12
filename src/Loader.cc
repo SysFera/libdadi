@@ -9,6 +9,8 @@
 #include "IPlugin.hh"
 #include "Registry.hh"
 
+namespace dadi {
+
 Loader::Loader() {}
 
 Loader::Loader(Registry* reg) { reg_ = reg; }
@@ -108,3 +110,4 @@ Loader::parseConfig(const char *mFile, PluginInfoPtr pInfo) {
   }
 }
 
+} /* namespace dadi */

@@ -4,7 +4,7 @@
 
 #include "IPlugin.hh"
 
-class DIET_EXPORT IPerson : public IPlugin {
+class DADI_EXPORT IPerson : public IPlugin {
 public:
   void init() { do_init(); }
   void say_hello() { do_say_hello(); }

@@ -15,6 +15,8 @@
 #include <boost/scoped_ptr.hpp>
 #include <boost/shared_ptr.hpp>
 
+namespace dadi {
+
 class SharedLibraryImpl;
 
 /**
@@ -89,6 +91,8 @@ private:
 };
 
 typedef boost::shared_ptr<SharedLibrary> SharedLibraryPtr;
+
+} /* namespace dadi */
 
 #endif /* _SHARED_LIBRARY_HH_ */
 

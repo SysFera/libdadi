@@ -5,7 +5,7 @@
 #include <boost/thread/once.hpp>
 #include <boost/utility.hpp>
 
-namespace diet {
+namespace dadi {
 
   // thread-safe singleton
   template <typename T>
@@ -34,6 +34,7 @@ namespace diet {
 
   template<typename T>boost::once_flag
   Singleton<T>::flag = BOOST_ONCE_INIT;
-}
+
+} /* namespace dadi */
 
 #endif /* _SINGLETON_HH_ */

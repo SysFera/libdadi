@@ -20,6 +20,7 @@
 #include "Loader.hh"
 #include "PluginInfo.hh"
 
+namespace dadi {
 // plugin info lookup structure
 struct name {};
 struct interface {};
@@ -106,7 +107,7 @@ public:
     if (index.end() != it) {
       factory = (*it)->factory;
       if (factory) {
-        ((bool (*)(void **))(factory))((void**) &instance);
+        ((int (*)(void **))(factory))((void**) &instance);
       }
     }
 
@@ -128,5 +129,6 @@ private:
   pinfo_set cache_;
 };
 
+} /* namespace dadi */
 
 #endif /* _REGISTRY_HH_ */

@@ -6,6 +6,7 @@
 #include "PluginInfo.hh"
 #include "SharedLibrary.hh"
 
+namespace dadi {
 class Registry;
 class PluginInfo;
 typedef std::list<SharedLibraryPtr> LibraryCache;
@@ -46,4 +47,5 @@ private:
   Registry *reg_; /**< plugin registry */
 };
 
+} /* namespace dadi */
 #endif /* _LOADER_HH_ */

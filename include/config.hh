@@ -9,7 +9,7 @@
 
 #include "singleton.hh"
 
-namespace diet {
+namespace dadi {
 
   /**
    * @class Config

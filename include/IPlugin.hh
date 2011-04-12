@@ -8,24 +8,24 @@ const int PLUGIN_OK = 0;
 
 // win32 peculiarity required to export symbols in shared libraries
 #if defined(WIN32)
-#  if defined(DIET_EXPORTS)
-#    define DIET_EXPORT __declspec( dllexport )
-#  else /* DIET_EXPORTS */
-#    define DIET_EXPORT __declspec( dllimport )
-#  endif /* DIET_EXPORTS */
+#  if defined(DADI_EXPORTS)
+#    define DADI_EXPORT __declspec( dllexport )
+#  else /* DADI_EXPORTS */
+#    define DADI_EXPORT __declspec( dllimport )
+#  endif /* DADI_EXPORTS */
 #else /* WIN32 */
-#  define DIET_EXPORT
+#  define DADI_EXPORT
 #endif /* WIN32 */
 
-class DIET_EXPORT IPlugin {
+class DADI_EXPORT IPlugin {
 public:
   virtual ~IPlugin() {}
   void init() { do_init(); }
-  void plugin_info(PluginInfoPtr& piPtr) { piPtr_ = piPtr; }
-  PluginInfoPtr& plugin_info() { return piPtr_; }
+  void plugin_info(dadi::PluginInfoPtr& piPtr) { piPtr_ = piPtr; }
+  dadi::PluginInfoPtr& plugin_info() { return piPtr_; }
 protected:
   virtual void do_init()=0;
-  PluginInfoPtr piPtr_;
+  dadi::PluginInfoPtr piPtr_;
 };
 
 
@@ -38,7 +38,7 @@ extern "C" {
  * it should instantiate a new IPlugin instance and return true in case
  * of success, false otherwise.
  */
-  int DIET_EXPORT create_plugin_instance(void **instance);
+  int DADI_EXPORT create_plugin_instance(void **instance);
 }
 
 #endif /* _IPLUGIN_HH_ */

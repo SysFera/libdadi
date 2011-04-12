@@ -13,6 +13,8 @@
 
 #include <string>
 
+namespace dadi {
+
 class SharedLibraryImpl {
 public:
   SharedLibraryImpl();
@@ -33,6 +35,7 @@ private:
   void *handle_;
 };
 
+} /* namespace dadi */
 
 #endif /* _SHARED_LIBRARY_IMPL_POSIX_HH_ */
 

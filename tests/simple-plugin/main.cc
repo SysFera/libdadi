@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
   }
 
   std::cout << "[LOADER]: start\n";
-  Registry reg;
+  dadi::Registry reg;
   int i = 1;
   while(argv[i]) {
     reg.addPath(argv[i++]);

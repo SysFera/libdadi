@@ -7,7 +7,7 @@
 #include <boost/uuid/uuid.hpp>
 #include "SharedLibrary.hh"
 
-
+namespace dadi {
 struct PluginInfo {
   /**
    * @brief default constructor
@@ -56,5 +56,7 @@ struct PluginInfo {
 };
 
 typedef boost::shared_ptr<PluginInfo> PluginInfoPtr;
+
+} /* namespace dadi */
 
 #endif /* _PLUGIN_INFO_HH_ */
