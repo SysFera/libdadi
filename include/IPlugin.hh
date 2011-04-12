@@ -4,6 +4,8 @@
 
 #include "PluginInfo.hh"
 
+const int PLUGIN_OK = 0;
+
 // win32 peculiarity required to export symbols in shared libraries
 #if defined(WIN32)
 #  if defined(DIET_EXPORTS)
@@ -36,7 +38,7 @@ extern "C" {
  * it should instantiate a new IPlugin instance and return true in case
  * of success, false otherwise.
  */
-  bool DIET_EXPORT create_plugin_instance(void **instance);
+  int DIET_EXPORT create_plugin_instance(void **instance);
 }
 
 #endif /* _IPLUGIN_HH_ */
