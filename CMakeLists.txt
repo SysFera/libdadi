@@ -26,7 +26,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 include_directories( ${Boost_INCLUDE_DIR}
   ${PROJECT_SOURCE_DIR}/include )
 
-set( UTILS_LIBS ${Boost_LIBRARIES}  ${CMAKE_DL_LIBS} )
+set( DADI_LIBS ${Boost_LIBRARIES}  ${CMAKE_DL_LIBS} )
 
 add_subdirectory( src )
 add_subdirectory( tests )

@@ -1,2 +1,2 @@
-add_executable( cline-1 main.cc )
-target_link_libraries( cline-1 ${UTILS_LIBS} dadi )
+add_executable( simple-commandline main.cc )
+target_link_libraries( simple-commandline ${DADI_LIBS} dadi )
