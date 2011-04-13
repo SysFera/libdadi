@@ -18,7 +18,6 @@ set_multitoken(po::typed_value<std::vector<std::string> > *option) {
   return option->multitoken();
 }
 
-
 /* class OptionsGroup implementation */
 OptionsGroup&
 OptionsGroup::operator=(const OptionsGroup& other) {
@@ -75,13 +74,13 @@ Options::parseCommandLine(int argc, char* argv[]) {
 }
 
 void
-Options::parseConfigFile(const std::string& file) {
+Options::parseConfigFile(const std::string& file, bool unregistered) {
   boost::shared_ptr<po::options_description> options =
     groups(OptionsGroup::CFG);
 
   std::ifstream ifs(file.c_str());
 
-  store(parse_config_file(ifs, *options), vm_);
+  store(parse_config_file(ifs, *options, unregistered), vm_);
 }
 
 void

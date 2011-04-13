@@ -297,14 +297,17 @@ namespace dadi {
 
     /**
      * @brief parse command line
+     * @param argc
+     * @param argv
      */
     void parseCommandLine(int argc, char *argv[]);
 
     /**
      * @brief parse configuration file
      * @param file configuration file path
+     * @param unregistered allow unregistered option
      */
-    void parseConfigFile(const std::string& file);
+    void parseConfigFile(const std::string& file, bool unregistered = false);
 
     /**
      * @brief parse environment variables
