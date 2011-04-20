@@ -30,3 +30,23 @@ set( UTILS_LIBS ${Boost_LIBRARIES}  ${CMAKE_DL_LIBS} )
 
 add_subdirectory( src )
 add_subdirectory( tests )
+
+# Installation
+#
+set(PUBLIC_HEADERS
+  include/IPlugin.hh
+  include/Loader.hh
+  include/PluginInfo.hh
+  include/Registry.hh
+  include/SharedLibrary.hh
+  include/config.hh
+  include/options.hh
+  include/singleton.hh
+)
+
+install(FILES ${PUBLIC_HEADERS}
+  DESTINATION include/dadi
+)
+install(FILES include/dadi.hh
+  DESTINATION include/
+)
