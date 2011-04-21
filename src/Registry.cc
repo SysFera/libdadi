@@ -5,8 +5,9 @@
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 
-Registry::Registry() : loader_(new Loader(this)) {}
+namespace dadi {
 
+Registry::Registry() : loader_(new Loader(this)) {}
 
 void
 Registry::registerPlugin(PluginInfoPtr pInfo) {
@@ -34,4 +35,5 @@ Registry::load() {
   }
 }
 
+} /* namespace dadi */
 

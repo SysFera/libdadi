@@ -10,7 +10,13 @@
 
 #include <boost/format.hpp>
 
-namespace diet {
+namespace dadi {
+
+template<>
+po::typed_value<std::vector<std::string> >*
+set_multitoken(po::typed_value<std::vector<std::string> > *option) {
+  return option->multitoken();
+}
 
 /* class OptionsGroup implementation */
 OptionsGroup&
@@ -68,13 +74,13 @@ Options::parseCommandLine(int argc, char* argv[]) {
 }
 
 void
-Options::parseConfigFile(const std::string& file) {
+Options::parseConfigFile(const std::string& file, bool unregistered) {
   boost::shared_ptr<po::options_description> options =
     groups(OptionsGroup::CFG);
 
   std::ifstream ifs(file.c_str());
 
-  store(parse_config_file(ifs, *options), vm_);
+  store(parse_config_file(ifs, *options, unregistered), vm_);
 }
 
 void
@@ -159,8 +165,22 @@ operator<< (std::ostream& os, const Options& opt) {
 
 /* Display help message and exit. */
 void
-help(const diet::Options& opt) {
+help(const dadi::Options& opt) {
   std::cout << opt;
   exit(EXIT_SUCCESS);
 }
+
+template<>
+void
+setProperty(std::string key, const std::vector<std::string>& value) {
+  dadi::Config& store_ = dadi::Config::instance();
+  store_[key] = value;
+#ifdef NDEBUG
+  std::cerr << key << ": ";
+  std::ostream_iterator<std::string> it(std::cout, ", ");
+  std::copy(value.begin(), value.end(), it);
+  std::cerr << "\n";
+#endif
 }
+
+} /* namespace dadi */

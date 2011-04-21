@@ -12,6 +12,8 @@
 
 #include <string>
 
+namespace dadi {
+
 // TODO: untested
 class SharedLibraryImpl {
 public:
@@ -32,5 +34,7 @@ Private:
   std::string path_;
   void *handle_;
 };
+
+} /* namespace dadi */
 
 #endif /* _SHARED_LIBRARY_IMPL_WIN32_HH_ */

@@ -5,7 +5,7 @@ project( libutils )
 set( CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake )
 
 find_package( Boost 1.44 REQUIRED
-  filesystem system program_options )
+  filesystem system thread program_options )
 
 # TODO: remove this as soon as Boost > 1.46 is required
 add_definitions( "-DBOOST_FILESYSTEM_VERSION=3" )
@@ -26,7 +26,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 include_directories( ${Boost_INCLUDE_DIR}
   ${PROJECT_SOURCE_DIR}/include )
 
-set( UTILS_LIBS ${Boost_LIBRARIES}  ${CMAKE_DL_LIBS} )
+set( DADI_LIBS ${Boost_LIBRARIES}  ${CMAKE_DL_LIBS} )
 
 add_subdirectory( src )
 add_subdirectory( tests )

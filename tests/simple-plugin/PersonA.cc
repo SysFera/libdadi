@@ -16,15 +16,15 @@ PersonA::do_say_hello() {
 }
 
 
-bool
+int
 create_plugin_instance(void **instance) {
   try {
     *instance = new PersonA;
   } catch (const std::bad_alloc& e) {
-    return false;
+    return 1;
   }
 
-  return true;
+  return PLUGIN_OK;
 }
 
 

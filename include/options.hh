@@ -16,7 +16,7 @@
 
 #include "config.hh"
 
-namespace diet {
+namespace dadi {
 
   namespace po = boost::program_options;
 
@@ -26,12 +26,6 @@ namespace diet {
   po::typed_value<T>*
   set_multitoken(po::typed_value<T> *option) {
     return option;
-  }
-
-  template<>
-  po::typed_value<std::vector<std::string> >*
-  set_multitoken(po::typed_value<std::vector<std::string> > *option) {
-    return option->multitoken();
   }
 
  /**
@@ -303,14 +297,17 @@ namespace diet {
 
     /**
      * @brief parse command line
+     * @param argc
+     * @param argv
      */
     void parseCommandLine(int argc, char *argv[]);
 
     /**
      * @brief parse configuration file
      * @param file configuration file path
+     * @param unregistered allow unregistered option
      */
-    void parseConfigFile(const std::string& file);
+    void parseConfigFile(const std::string& file, bool unregistered = false);
 
     /**
      * @brief parse environment variables
@@ -383,34 +380,24 @@ namespace diet {
    * @param opt Options object
    */
   void
-  help(const diet::Options& opt);
-}
+  help(const dadi::Options& opt);
+
+
 
 template<typename T>
 void
 setProperty(std::string key, const T& value) {
-  diet::Config& store_ = diet::Config::instance();
+  dadi::Config& store_ = dadi::Config::instance();
   store_[key] = value;
 #ifdef NDEBUG
   std::cerr << key << ": " << value << "\n";
 #endif
 }
 
-template<>
-void
-setProperty(std::string key, const std::vector<std::string>& value) {
-  diet::Config& store_ = diet::Config::instance();
-  store_[key] = value;
-#ifdef NDEBUG
-  std::cerr << key << ": ";
-  std::ostream_iterator<std::string> it(std::cout, ", ");
-  std::copy(value.begin(), value.end(), it);
-  std::cerr << "\n";
-#endif
-}
+} /* namespace dadi */
 
-// alias to commonly used spécialization
-#define setPropertyString setProperty<std::string>
+// alias to commonly used specialization
+#define setPropertyString setProperty<std::string >
 #define setPropertyStringList setProperty<std::vector<std::string> >
 
 #endif /* _OPTIONS_HH_ */

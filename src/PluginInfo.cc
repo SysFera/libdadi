@@ -1,5 +1,7 @@
 #include "PluginInfo.hh"
 
+namespace dadi {
+
 PluginInfo::PluginInfo()
   : factory(NULL) {}
 
@@ -46,3 +48,4 @@ PluginInfo::operator!=(const PluginInfo& other) {
   return !(*this == other);
 }
 
+} /* namespace dadi */

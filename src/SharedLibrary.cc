@@ -5,6 +5,8 @@
 #include "SharedLibraryImpl_posix.hh"
 #endif
 
+namespace dadi {
+
 SharedLibrary::SharedLibrary() {}
 
 SharedLibrary::SharedLibrary(const std::string& path)
@@ -53,3 +55,4 @@ SharedLibrary::suffix() {
   return MODULE_SUFFIX;
 }
 
+} /* namespace dadi */

@@ -1,5 +1,6 @@
 #include "SharedLibraryImpl_win32.hh"
 
+namespace dadi {
 
 SharedLibraryImpl::SharedLibraryImpl() : handle_(0) {};
 
@@ -56,4 +57,5 @@ SharedLibraryImpl::pathImpl() const {
   return path_;
 }
 
+} /* namespace dadi */
 
