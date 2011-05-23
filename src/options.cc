@@ -55,7 +55,11 @@ Options::setPositional(const std::string& name, int count) {
 }
 
 void
-Options::parseCommandLine(int argc, char* argv[]) {
+Options::parseCommandLine(int& argc, char* argv[]) {
+  if (!PreCmdHook_.empty()) {
+    PreCmdHook_(argc, argv);
+  }
+
   boost::shared_ptr<po::options_description> options =
     groups(OptionsGroup::CMD);
 
@@ -131,6 +135,12 @@ void
 Options::setUsage(const std::string& usage) {
   usage_ = usage;
 }
+
+void
+Options::setPreCommandHook(const ProcessHook& PreCmdHook) {
+  PreCmdHook_ = PreCmdHook;
+}
+
 
 boost::shared_ptr<po::options_description>
 Options::groups(OptionsGroup::GroupType type) {
