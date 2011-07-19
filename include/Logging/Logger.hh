@@ -3,6 +3,7 @@
 
 #include "Channel.hh"
 #include <map>
+#include <boost/thread/recursive_mutex.hpp>
 
 namespace dadi {
 
@@ -72,6 +73,7 @@ private:
   ChannelPtr channel_; /**< destination channel for logs */
   int level_; /**< minimum level to log */
   static LoggerMap lmap_; /**< logger map */
+  static boost::recursive_mutex mutex_; /**< mutex protecting lmap_ access */
 };
 
 } /* namespace dadi */

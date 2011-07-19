@@ -1,10 +1,14 @@
 #include <Logging/Logger.hh>
+#include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>
 
 namespace dadi {
 
 const std::string Logger::root_;
 LoggerMap Logger::lmap_;
+boost::recursive_mutex Logger::mutex_;
+
+typedef boost::lock_guard<boost::recursive_mutex> Lock;
 
 Logger::Logger(const std::string& name,
                ChannelPtr channel,
@@ -81,11 +85,15 @@ Logger::fatal() const {
 
 LoggerPtr
 Logger::getRootLogger() {
+  Lock lock(mutex_);
+
   return get(root_);
 }
 
 LoggerPtr
 Logger::getLogger(const std::string& name) {
+  Lock lock(mutex_);
+
   return get(name);
 }
 
@@ -93,6 +101,8 @@ LoggerPtr
 Logger::createLogger(const std::string& name,
                      ChannelPtr channel,
                      int level = Message::PRIO_INFORMATION) {
+  Lock lock(mutex_);
+
   if (find(name)) {
     throw std::string("Already exists");
   }
@@ -105,12 +115,16 @@ Logger::createLogger(const std::string& name,
 
 void
 Logger::shutdown() {
+  Lock lock(mutex_);
+
   lmap_.clear();
 }
 
 
 LoggerPtr
 Logger::find(const std::string& name) {
+  Lock lock(mutex_);
+
   LoggerMap::iterator it = lmap_.find(name);
   if (lmap_.end() != it) {
     return it->second;
@@ -121,6 +135,8 @@ Logger::find(const std::string& name) {
 
 LoggerPtr
 Logger::get(const std::string& name) {
+  Lock lock(mutex_);
+
   LoggerPtr logger = find(name);
 
   if (!logger) {
@@ -139,6 +155,8 @@ Logger::get(const std::string& name) {
 
 void
 Logger::add(LoggerPtr logger) {
+  Lock lock(mutex_);
+
   lmap_.insert(LoggerMap::value_type(logger->getName(), logger));
 }
 
