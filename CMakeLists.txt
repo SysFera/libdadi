@@ -78,7 +78,7 @@ set(PUBLIC_HEADERS
   include/Attributes.hh
   include/Logging.hh
   include/Logging/Channel.hh
-  include/Logging/Consolechannel.hh
+  include/Logging/ConsoleChannel.hh
   include/Logging/FileChannel.hh
   include/Logging/FileStrategy.hh
   include/Logging/Logger.hh
