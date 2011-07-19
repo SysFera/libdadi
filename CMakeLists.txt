@@ -26,6 +26,15 @@ set(Boost_USE_MULTITHREADED ON)
 # TODO: remove this as soon as Boost > 1.46 is required
 add_definitions( "-DBOOST_FILESYSTEM_VERSION=3" )
 
+# if we are on Apple, then we cannot build static libs
+if (APPLE)
+  if (NOT BUILD_SHARED_LIBS)
+    message("Cannot build static libraries on Apple platforms")
+  endif (NOT BUILD_SHARED_LIBS)
+
+  set(BUILD_SHARED_LIBS ON CACHE BOOL "Build libraries as shared libraries." FORCE)
+endif()
+
 ## specific stuff for LogServiceChannel
 ## TODO: remove this or make it optional
 option(USE_LOGSERVICE "Build libdadi with logservice support" OFF)
@@ -58,7 +67,7 @@ set(DADI_LIBS ${Boost_LIBRARIES}  ${CMAKE_DL_LIBS})
 
 if(USE_LOGSERVICE)
   include_directories(${LOG_INCLUDE_DIR})
-  set(DADI_LIBS ${DADI_LIBS} ${OMNIORB4_LIBRARIES} ${LOGCOMPONENT_BASE_LIBRARY})
+  set(DADI_LIBS ${DADI_LIBS} ${OMNIORB4_LIBRARIES} ${LOGCOMPONENT_BASE_LIBRARY} ${LOG_LIBRARY})
 endif()
 
 add_subdirectory(src)

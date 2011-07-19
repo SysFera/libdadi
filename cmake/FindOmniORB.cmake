@@ -299,3 +299,18 @@ ENDIF( OMNIORB4_LIBRARY_omnithread_sh )
 ENDIF( OMNIORB4_LIBRARY_omniORB4_sh )
 ENDIF( OMNIORB4_INCLUDE_DIR )
 
+
+# Set required compilation variables
+if (CYGWIN)
+  add_definitions(-D__cygwin__)
+elseif (AIX)
+  add_definitions(-D__aix__)
+elseif (APPLE)
+  add_definitions( -D__darwin__)
+elseif (LINUX)
+  add_definitions(-D__linux__)
+elseif (SUNOS)
+  add_definitions(-D__sunos__)
+elseif(FREEBSD)
+  add_definitions(-D__freebsd__)
+endif (CYGWIN)
