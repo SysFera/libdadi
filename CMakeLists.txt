@@ -29,9 +29,9 @@ add_definitions( "-DBOOST_FILESYSTEM_VERSION=3" )
 ## specific stuff for LogServiceChannel
 ## TODO: remove this or make it optional
 option(USE_LOGSERVICE "Build libdadi with logservice support" OFF)
-if (USE_LOGSERVICE)
-  find_package (LOGSERVICE)
-  if (LOGSERVICE_FOUND)
+if(USE_LOGSERVICE)
+  find_package(LOGSERVICE)
+  if(LOGSERVICE_FOUND)
     add_definitions(-DUSE_LOG_SERVICE)
   else(LOGSERVICE_FOUND)
     set(LOGSERVICE_DIR "" CACHE PATH "Root of log service install tree.")

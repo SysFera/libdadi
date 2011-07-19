@@ -1,15 +1,25 @@
 add_definitions(-DMODULE_PREFIX="${CMAKE_SHARED_MODULE_PREFIX}")
 add_definitions(-DMODULE_SUFFIX="${CMAKE_SHARED_MODULE_SUFFIX}")
 
-file( GLOB logging_SRCS  "logging/*.cc")
+set(logging_SRCS logging/Channel.cc
+  logging/ConsoleChannel.cc
+  logging/FileChannel.cc
+  logging/FileStrategy.cc
+  logging/Logger.cc
+  logging/Message.cc
+  logging/NullChannel.cc)
 
-set( SRCS Attributes.cc options.cc Loader.cc Registry.cc PluginInfo.cc
-  SharedLibrary.cc SharedLibraryImpl_posix.cc ${logging_SRCS} )
+if(USE_LOGSERVICE)
+  set(logging_SRCS ${logging_SRCS} logging/LogServiceChannel.cc)
+endif()
 
-if( WIN32) 
-  set( SRCS ${SRCS} SharedLibraryImpl_win32.cc )
+set(SRCS Attributes.cc options.cc Loader.cc Registry.cc PluginInfo.cc
+  SharedLibrary.cc SharedLibraryImpl_posix.cc ${logging_SRCS})
+
+if(WIN32)
+  set(SRCS ${SRCS} SharedLibraryImpl_win32.cc)
 else()
-  set( SRCS ${SRCS} SharedLibraryImpl_posix.cc )
+  set(SRCS ${SRCS} SharedLibraryImpl_posix.cc)
 endif()
 
 add_library(dadi ${SRCS})
