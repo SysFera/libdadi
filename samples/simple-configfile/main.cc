@@ -46,13 +46,23 @@ int main(int argc, char *argv[], char *envp[]) {
 
   // finally parse configuration file
   // if you want to allow unregistered options, set second arg to true
-  opt.parseConfigFile(cfile, false);
+  try {
+    opt.parseConfigFile(cfile, false);
+  }
+  catch (...) {
+    std::cerr << "Unrecognized configuration file\n";
+    return EXIT_FAILURE;
+  }
   opt.notify();
 
-  std::cout << "==== file ====\n"
-            << "file.name: "
-            << boost::any_cast<std::string>(config["file.name"])
-            << "\n";
+  if (!config["file.name"].empty()) {
+    std::cout << "==== file ====\n"
+              << "file.name: "
+              << boost::any_cast<std::string>(config["file.name"])
+              << "\n";
+  } else {
+    std::cerr << "empty key: file.name\n";
+  }
 
   return EXIT_SUCCESS;
 }
