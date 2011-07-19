@@ -59,6 +59,7 @@ endif()
 # set output path
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+set(MANIFEST_OUTPUT_PATH ${PROJECT_BINARY_DIR}/etc)
 
 include_directories(${Boost_INCLUDE_DIR}
   ${PROJECT_SOURCE_DIR}/include)
