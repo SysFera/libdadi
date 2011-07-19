@@ -1,4 +1,5 @@
 #include <Logging/LogServiceChannel.hh>
+#include <iostream>
 #include <Logging/Message.hh>
 
 namespace dadi {
