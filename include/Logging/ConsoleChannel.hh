@@ -2,6 +2,7 @@
 #define _CONSOLECHANNEL_HH_
 
 #include <iosfwd>
+#include <boost/thread/mutex.hpp>
 #include "Channel.hh"
 
 namespace dadi {
@@ -15,6 +16,7 @@ public:
   void log(const Message& msg);
 private:
   std::ostream& out_;
+  boost::mutex mutex_;
 };
 
 } /* namespace dadi */

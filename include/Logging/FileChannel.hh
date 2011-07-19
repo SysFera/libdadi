@@ -5,8 +5,8 @@
 #include <map>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/scoped_ptr.hpp>
+#include <boost/thread/mutex.hpp>
 #include "FileStrategy.hh"
-
 
 namespace dadi {
 
@@ -71,6 +71,7 @@ private:
   boost::scoped_ptr<RotateStrategy> pRotateStrategy_;
   boost::scoped_ptr<ArchiveStrategy> pArchiveStrategy_;
   boost::iostreams::filtering_ostream out_;
+  boost::mutex mutex_;
 };
 
 } /* namespace dadi */

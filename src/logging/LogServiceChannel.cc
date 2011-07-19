@@ -1,8 +1,11 @@
 #include <Logging/LogServiceChannel.hh>
 #include <iostream>
+#include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>
 
 namespace dadi {
+
+typedef boost::lock_guard<boost::mutex> Lock;
 
 LogServiceChannel::LogServiceChannel(int argc, char *argv[]) {
     try {
@@ -32,6 +35,8 @@ LogServiceChannel::~LogServiceChannel() {
 
 void
 LogServiceChannel::open() {
+  Lock lock(mutex_);
+
   short ret;
   ret = lb->connect("channel connected");
   // switch(ret) {
@@ -48,12 +53,14 @@ LogServiceChannel::open() {
 
 void
 LogServiceChannel::close() {
+  Lock lock(mutex_);
+
   lb->disconnect("channel disconnected");
 }
 
 void
 LogServiceChannel::log(const Message& msg) {
-  std::cout << "message: " << msg.getText() << "\n";
+  Lock lock(mutex_);
   // TODO: implement tags (tags filters on channel side, tags on Message side)
   lb->sendMsg("ANY", msg.getText().c_str());
 }

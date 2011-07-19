@@ -5,11 +5,13 @@
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filter/zlib.hpp>
 #include <boost/filesystem/operations.hpp>
+#include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>
 
 namespace dadi {
 
 namespace io = boost::iostreams;
+typedef boost::lock_guard<boost::mutex> Lock;
 
 const std::string FileChannel::ATTR_PATH = "path";
 const std::string FileChannel::ATTR_COMPRESSION_MODE = "compression_mode";
@@ -42,6 +44,8 @@ FileChannel::~FileChannel() {}
 
 void
 FileChannel::open() {
+  Lock lock(mutex_);
+
   if (path_.empty()) {
     try {
       path_ = getAttr<std::string>(FileChannel::ATTR_PATH);
@@ -81,6 +85,10 @@ FileChannel::close() {}
 void
 FileChannel::log(const Message& msg) {
   open();
+  /* since mutex_ is not a recursive one, we wait that open()
+     ends before locking it */
+  Lock lock(mutex_);
+
   // FIXME: compressors are not flushable-friendly
   out_ << msg.getText() << std::endl;
 

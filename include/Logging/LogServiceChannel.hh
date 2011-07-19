@@ -1,6 +1,7 @@
 #ifndef _LOGSERVICECHANNEL_HH_
 #define _LOGSERVICECHANNEL_HH_
 
+#include <boost/thread/mutex.hpp>
 #include "Channel.hh"
 #include "LogComponentBase.hh"
 #include "LogORBMgr.hh"
@@ -24,10 +25,10 @@ public:
   void close();
   void log(const Message& msg);
 private:
+  // TODO: update LogComponentBase to be thread-safe ?
   LogComponentBase *lb;
+  boost::mutex mutex_;
 };
-
-
 
 } /* namespace dadi */
 
