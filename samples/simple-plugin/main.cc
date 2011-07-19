@@ -18,9 +18,12 @@ int main(int argc, char *argv[]){
   while(argv[i]) {
     reg.addPath(argv[i++]);
   }
-
-  reg.load();
-
+  try {
+    reg.load();
+  } catch (...) {
+    std::cerr << "Directory loading error\n";
+    return EXIT_FAILURE;
+  }
   IPerson *p = reg.getByInterface<IPerson>("IPerson");
   if (p) {
     p->init();
@@ -28,7 +31,6 @@ int main(int argc, char *argv[]){
   } else {
     std::cout << "Failed to load Plugin PersonA\n";
   }
-
 
   std::cout << "[LOADER]: stop\n";
   return EXIT_SUCCESS;
