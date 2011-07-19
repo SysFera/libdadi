@@ -13,5 +13,5 @@ else()
 endif()
 
 add_library(dadi ${SRCS})
-target_link_libraries(dadi ${DADI_LIBS} ${OMNIORB4_LIBRARIES} ${LOGCOMPONENT_BASE_LIBRARY})
+target_link_libraries(dadi ${DADI_LIBS})
 install(TARGETS dadi DESTINATION lib)
