@@ -7,7 +7,6 @@
 #include "Logging/FileChannel.hh"
 #include "Logging/FileStrategy.hh"
 #include "Logging/Logger.hh"
-#include "Logging/LogServiceChannel.hh"
 #include "Logging/Message.hh"
 #include "Logging/NullChannel.hh"
 
