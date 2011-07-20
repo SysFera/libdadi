@@ -114,10 +114,28 @@ Logger::createLogger(const std::string& name,
 }
 
 void
+Logger::destroyLogger(const std::string& name) {
+  Lock lock(mutex_);
+
+  lmap_.erase(name);
+}
+
+void
 Logger::shutdown() {
   Lock lock(mutex_);
 
   lmap_.clear();
+}
+
+void
+Logger::getActiveLoggers(std::vector<std::string>& names) {
+  Lock lock(mutex_);
+
+  LoggerMap::const_iterator it = lmap_.begin();
+  names.clear(); // ensure that our vector is empty
+  for (; lmap_.end() != it; ++it) {
+    names.push_back(it->first);
+  }
 }
 
 

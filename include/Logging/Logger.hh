@@ -3,6 +3,7 @@
 
 #include "Channel.hh"
 #include <map>
+#include <vector>
 #include <boost/thread/recursive_mutex.hpp>
 
 namespace dadi {
@@ -69,6 +70,8 @@ public:
   static LoggerPtr getLogger(const std::string& name);
   /**
    * @brief create a Logger with specified name, channel and level
+   * since it returns a boost::shared_ptr, you can test if it's valid or not
+   *
    * @param name Logger name
    * @param channel Channel attached to Logger
    * @param level threshold
@@ -78,11 +81,21 @@ public:
                                 ChannelPtr channel,
                                 int level);
   /**
+   * @brief destroy a logger and all its children
+   * @param name
+   */
+  static void destroyLogger(const std::string& name);
+  /**
    * @brief shutdown the logging hierarchy
    */
   static void shutdown();
-  static const std::string root_; /**< root logger name */
+  /**
+   * @brief get all active Logger names
+   * @param[out] names vector where Logger names will be stored
+   */
+  static void getActiveLoggers(std::vector<std::string>& names);
 
+  static const std::string root_; /**< root logger name */
 protected:
   /**
    * @brief construct Logger
