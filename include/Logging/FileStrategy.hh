@@ -6,15 +6,32 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
+namespace dadi {
+
 class RotateStrategy : public boost::noncopyable {
 public:
+  /**
+   * @brief constructor
+   */
   RotateStrategy();
+  /**
+   * @brief destructor
+   */
   virtual ~RotateStrategy();
+  /**
+   * @brief virtual pure to be reimplemented by implementors
+   * @param path path pointing file to be rotated
+   * @return boolean (true if file must be rotated)
+   */
   virtual bool mustRotate(const std::string& path) = 0;
 };
 
 class RotateBySizeStrategy : public RotateStrategy {
 public:
+  /**
+   * @brief constructor
+   * @param size file size threshold (bytes)
+   */
   RotateBySizeStrategy(long size);
   ~RotateBySizeStrategy();
   bool mustRotate(const std::string& path);
@@ -55,6 +72,6 @@ private:
   bool local_; /**< use local time or utc (utc by default) */
 };
 
-
+} /* namespace dadi */
 
 #endif /* _FILESTRATEGY_HH_ */

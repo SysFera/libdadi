@@ -7,6 +7,9 @@
 #include <boost/format.hpp>
 #include <boost/scoped_ptr.hpp>
 
+
+namespace dadi {
+
 RotateStrategy::RotateStrategy() {}
 
 RotateStrategy::~RotateStrategy() {}
@@ -113,4 +116,5 @@ ArchiveByTimestampStrategy::archive(const std::string& path) {
   boost::filesystem::rename(path, newPath);
 }
 
+} /* namespace dadi */
 
