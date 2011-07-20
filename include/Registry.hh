@@ -90,14 +90,16 @@ public:
     }
 
     SharedLibraryPtr sPtr = (*it)->sPtr;
-    std::list<std::string>& deps = (*it)->deps;
-    std::list<std::string>::iterator ita = deps.begin();
 
-    IPlugin *p = NULL;
-    for(; ita != deps.end(); ++ita) {
-      p = getByInterface<IPlugin>(*ita);
+    if (sPtr) {
+      std::list<std::string>& deps = (*it)->deps;
+      std::list<std::string>::iterator ita = deps.begin();
+
+      IPlugin *p = NULL;
+      for(; ita != deps.end(); ++ita) {
+        p = getByInterface<IPlugin>(*ita);
+      }
     }
-
 //    void *conn = sPtr->symbol("connect_IPerson_IWork");
 
     return static_cast <Plugin *>(instance);
@@ -123,14 +125,15 @@ public:
     }
     std::cout << (*it)->name << "\n";
     SharedLibraryPtr sPtr = (*it)->sPtr;
-    std::list<std::string>& deps = (*it)->deps;
-    std::list<std::string>::iterator ita = deps.begin();
+    if (sPtr) {
+      std::list<std::string>& deps = (*it)->deps;
+      std::list<std::string>::iterator ita = deps.begin();
 
-    for(; ita != deps.end(); ++ita) {
-      std::cout << *ita << "\n";
-      //IPlugin *p = get<IPlugin>(*ita);
+      for(; ita != deps.end(); ++ita) {
+        std::cout << *ita << "\n";
+        //IPlugin *p = get<IPlugin>(*ita);
+      }
     }
-
     return static_cast<Interface *>(instance);
   }
 
