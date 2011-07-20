@@ -21,17 +21,25 @@ public:
   const std::string& getName() const;
 
   /**
-   * @brief set channel
-   * @param channel channel to push our logs
+   * @brief set Logger Channel
+   * @param channel ChannelPtr
    */
   void setChannel(ChannelPtr channel);
   /**
-   * @brief get underlying channel
-   * @return underlying channel
+   * @brief get Logger Channel
+   * @return ChannelPtr
    */
   ChannelPtr getChannel() const;
 
+  /**
+   * @brief set threshold
+   * @param level minimum level of logging
+   */
   void setLevel(int level);
+  /**
+   * @brief get threshold
+   * @return minimum level of logging
+   */
   int getLevel() const;
 
   /**
@@ -48,8 +56,24 @@ public:
   bool error() const;
   bool fatal() const;
 
+  /**
+   * @brief get root Logger
+   * @return LoggerPtr to the root Logger
+   */
   static LoggerPtr getRootLogger();
+  /**
+   * @brief get Logger (or create if needed)
+   * @param name Logger name
+   * @return LoggerPtr
+   */
   static LoggerPtr getLogger(const std::string& name);
+  /**
+   * @brief create a Logger with specified name, channel and level
+   * @param name Logger name
+   * @param channel Channel attached to Logger
+   * @param level threshold
+   * @return LoggerPtr
+   */
   static LoggerPtr createLogger(const std::string& name,
                                 ChannelPtr channel,
                                 int level);
@@ -60,12 +84,37 @@ public:
   static const std::string root_; /**< root logger name */
 
 protected:
+  /**
+   * @brief construct Logger
+   * @param name Logger name
+   * @param channel Channel attached to Logger
+   * @param level threshold
+   */
   Logger(const std::string& name,
          ChannelPtr channel,
          int level);
+  /**
+   * @brief find a LoggerPtr in the hierarchy
+   * @param name Logger name
+   * @return LoggerPtr
+   */
   static LoggerPtr find(const std::string& name);
+  /**
+   * @brief get Logger
+   * @param name Logger name
+   * @return LoggerPtr
+   */
   static LoggerPtr get(const std::string& name);
+  /**
+   * @brief add Logger to hierarchy
+   * @param logger LoggerPtr
+   */
   static void add(LoggerPtr logger);
+  /**
+   * @brief return Logger parent
+   * @param name Logger name
+   * @return LoggerPtr
+   */
   static LoggerPtr getParent(const std::string& name);
 
 private:
