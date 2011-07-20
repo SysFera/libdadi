@@ -72,6 +72,13 @@ public:
     void *factory(NULL);
     Plugin *instance(NULL);
 
+    /* Boost::Multi-Index has a bug as it returns a valid index
+       even when container is empty
+    */
+    if (cache_.empty()) {
+      return static_cast<Plugin *>(instance);
+    }
+
     pinfo_set_by_name& index = cache_.get<name>();
     pinfo_set_by_name::iterator it = index.find(pName);
 
@@ -101,6 +108,10 @@ public:
     void *factory(NULL);
     Interface *instance(NULL);
 
+    if (cache_.empty()) {
+      return static_cast<Interface *>(instance);
+    }
+
     pinfo_set_by_interface& index = cache_.get<interface>();
     pinfo_set_by_interface::iterator it = index.find(pName);
 
@@ -110,7 +121,7 @@ public:
         ((int (*)(void **))(factory))((void**) &instance);
       }
     }
-
+    std::cout << (*it)->name << "\n";
     SharedLibraryPtr sPtr = (*it)->sPtr;
     std::list<std::string>& deps = (*it)->deps;
     std::list<std::string>::iterator ita = deps.begin();
@@ -120,7 +131,7 @@ public:
       //IPlugin *p = get<IPlugin>(*ita);
     }
 
-    return static_cast <Interface *>(instance);
+    return static_cast<Interface *>(instance);
   }
 
 private:
