@@ -10,6 +10,9 @@
 
 namespace dadi {
 
+namespace ptime = boost::posix_time;
+
+
 RotateStrategy::RotateStrategy() {}
 
 RotateStrategy::~RotateStrategy() {}
@@ -25,6 +28,26 @@ RotateBySizeStrategy::mustRotate(const std::string& path) {
     return (boost::filesystem::file_size(path) >= size_);
   } else {
     return false;
+  }
+}
+
+// always use UTC internally (and i mean it !)
+RotateByIntervalStrategy::RotateByIntervalStrategy(
+  const ptime::time_duration& td)
+  : td_(td), last_(ptime::second_clock::universal_time()) {}
+
+RotateByIntervalStrategy::~RotateByIntervalStrategy() {}
+
+bool
+RotateByIntervalStrategy::mustRotate(const std::string& path) {
+  ptime::ptime current(ptime::second_clock::universal_time());
+  ptime::time_duration elapsed = current - last_;
+
+  if (td_ > elapsed ) {
+    return false; // not yet
+  } else {
+    last_ = current; // register last rotation
+    return true;
   }
 }
 

@@ -1,5 +1,6 @@
 #include <Logging/FileChannel.hh>
 #include <boost/assign/list_of.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/iostreams/device/file.hpp>
 #include <boost/iostreams/filter/bzip2.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
@@ -19,6 +20,9 @@ const std::string FileChannel::ATTR_ARCHIVE = "archive";
 const std::string FileChannel::ATTR_ROTATE = "rotate";
 const std::string FileChannel::ATTR_ROTATE_SIZE = "rotate.size";
 const std::string FileChannel::ATTR_ROTATE_TIME = "rotate.time";
+const std::string FileChannel::ATTR_ROTATE_INTERVAL = "rotate.interval";
+const long DEFAULT_ROT_SIZE(1024*1024);
+const std::string DEFAULT_ROT_INTERVAL("24:00:00");
 
 std::map<std::string, int> FileChannel::attrMap =
   boost::assign::map_list_of("", 0)
@@ -32,6 +36,7 @@ std::map<std::string, int> FileChannel::attrMap =
   ("number", FileChannel::AR_NUMBER)
   ("timestamp", FileChannel::AR_TIMESTAMP)
   ("size", FileChannel::ROT_SIZE)
+  ("interval", FileChannel::ROT_INTERVAL)
   ("utc", 0)
   ("local", 1);
 
@@ -92,7 +97,8 @@ FileChannel::log(const Message& msg) {
   // FIXME: compressors are not flushable-friendly
   out_ << msg.getText() << std::endl;
 
-  if (pRotateStrategy_ && pArchiveStrategy_ && pRotateStrategy_->mustRotate(path_)) {
+  if (pRotateStrategy_ && pArchiveStrategy_ &&
+      pRotateStrategy_->mustRotate(path_)) {
     out_.pop();
     pArchiveStrategy_->archive(path_);
     out_.push(io::file_sink(path_));
@@ -140,11 +146,25 @@ FileChannel::setArchiveStrategy() {
 
 void
 FileChannel::setRotateStrategy() {
+  using boost::posix_time::time_duration;
+  using boost::posix_time::duration_from_string;
+
   if (!pRotateStrategy_) {
     rMode_ = attrMap[getAttr<std::string>(FileChannel::ATTR_ROTATE, "")];
     if (FileChannel::ROT_SIZE == rMode_) {
-      long sz = getAttr<long>(FileChannel::ATTR_ROTATE_SIZE, 1024);
+      // by default: 1Mo
+      long sz = getAttr<long>(FileChannel::ATTR_ROTATE_SIZE, DEFAULT_ROT_SIZE);
       pRotateStrategy_.reset(new RotateBySizeStrategy(sz));
+    }
+    if (FileChannel::ROT_INTERVAL == rMode_) {
+      // by default: 1 day
+      std::string s(getAttr<std::string>(FileChannel::ATTR_ROTATE_INTERVAL,
+                                  DEFAULT_ROT_INTERVAL));
+      // FIXME: we should catch an exception when user sets a badly formatted
+      // duration
+      time_duration td(duration_from_string(s));
+      pRotateStrategy_.reset(new RotateByIntervalStrategy(td));
+
     }
   }
 }

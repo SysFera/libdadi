@@ -16,7 +16,7 @@ namespace dadi {
  * compression type: none, bzip, gzip, zlib
  *   (currently an int, but we should think about enabling user to use strings)
  * archive: none, number, timestamp
- * rotate: none, size
+ * rotate: none, size, interval (format: HH:mm:ss)
  */
 class FileChannel : public Channel {
 public:
@@ -35,7 +35,8 @@ public:
 
   enum RotateMode {
     ROT_NONE=0,
-    ROT_SIZE
+    ROT_SIZE,
+    ROT_INTERVAL
   };
 
   FileChannel();
@@ -57,6 +58,7 @@ protected:
   static const std::string ATTR_ROTATE;
   static const std::string ATTR_ROTATE_SIZE;
   static const std::string ATTR_ROTATE_TIME;
+  static const std::string ATTR_ROTATE_INTERVAL;
   static std::map<std::string, int> attrMap;
 
   void setStream();

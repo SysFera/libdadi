@@ -3,6 +3,8 @@
 
 #include <locale>
 #include <string>
+#include <boost/date_time/posix_time/posix_time_duration.hpp>
+#include <boost/date_time/posix_time/ptime.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
@@ -38,6 +40,21 @@ public:
 private:
   long size_;
 };
+
+class RotateByIntervalStrategy : public RotateStrategy {
+public:
+  /**
+   * @brief constructor
+   * @param td time duration between two rotation
+   */
+  RotateByIntervalStrategy(const boost::posix_time::time_duration& td);
+  ~RotateByIntervalStrategy();
+  bool mustRotate(const std::string& path);
+private:
+  boost::posix_time::time_duration td_; /**< time interval between rotation */
+  boost::posix_time::ptime last_; /**< last rotation time */
+};
+
 
 class ArchiveStrategy : public boost::noncopyable {
 public:
