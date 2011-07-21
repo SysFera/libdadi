@@ -77,10 +77,12 @@ endif()
 add_subdirectory(src)
 add_subdirectory(samples)
 
-option(BUILD_TESTS "Provide tests execution" OFF)
-if(BUILD_TESTS)
-  add_subdirectory(test/src)
-endif(BUILD_TESTS)
+option(ENABLE_TESTING "Provide tests execution" OFF)
+if(ENABLE_TESTING)
+  include(dadiTestingMacros)
+  dadi_test_setup()
+  add_subdirectory(Testing)
+endif()
 
 # Installation
 #
