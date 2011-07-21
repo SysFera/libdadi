@@ -18,7 +18,9 @@ find_package(Boost 1.44 REQUIRED
   filesystem
   system
   thread
-  program_options)
+  program_options
+  unit_test_framework)
+
 find_package(Threads REQUIRED)
 # fix DSO linking issue due to thread library
 set(Boost_LIBRARIES ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
@@ -73,6 +75,11 @@ endif()
 
 add_subdirectory(src)
 add_subdirectory(samples)
+
+option(BUILD_TESTS "Provide tests execution" OFF)
+if(BUILD_TESTS)
+  add_subdirectory(test/src)
+endif(BUILD_TESTS)
 
 # Installation
 #
