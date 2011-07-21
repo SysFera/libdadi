@@ -23,10 +23,10 @@ static const string temporaryFilename = "crap4.log";
 
 BOOST_AUTO_TEST_SUITE (dadi_test)
 
-BOOST_AUTO_TEST_CASE( dadi_normal_call) {
+BOOST_AUTO_TEST_CASE( log_on_file_normal_call) {
 
-  BOOST_TEST_MESSAGE("Dadi Logger tests");
-  //The messagewhich will be logged
+  BOOST_TEST_MESSAGE("# Log on file test normal call#");
+  //The message which will be logged
   string msgToLog = "Dadi Logger tests: DEBUG";
   try {
     LoggerPtr mylogger1 = Logger::getLogger("test1");
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE( dadi_normal_call) {
     mylogger1->log(Message("", msgToLog, Message::PRIO_DEBUG));
     //To check that the file created is not empty
     BOOST_REQUIRE(((FileChannel* )cc1.get())->getSize() != 0);
-    bfs::path file (boost::filesystem3::current_path().string() +"/"+ temporaryFilename);
+    bfs::path file (temporaryFilename);
     //To check that the file with message logged is created
     BOOST_REQUIRE(bfs::exists(file));
     bfs::ifstream ifs (file);
@@ -56,6 +56,9 @@ BOOST_AUTO_TEST_CASE( dadi_normal_call) {
     BOOST_MESSAGE("FAILED\n");
   }
 }
+
+
+
 BOOST_AUTO_TEST_SUITE_END()
 
 // THE END
