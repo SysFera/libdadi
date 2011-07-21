@@ -1,8 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "config.hh"
-#include "options.hh"
+#include "Config.hh"
+#include "Options.hh"
 
 /* for testing purpose, you need a configuration file formatted like this:
 

@@ -13,7 +13,7 @@ if(USE_LOGSERVICE)
   set(logging_SRCS ${logging_SRCS} logging/LogServiceChannel.cc)
 endif()
 
-set(SRCS Attributes.cc options.cc Loader.cc Registry.cc PluginInfo.cc
+set(SRCS Attributes.cc Options.cc Loader.cc Registry.cc PluginInfo.cc
   SharedLibrary.cc SharedLibraryImpl_posix.cc ${logging_SRCS})
 
 if(WIN32)

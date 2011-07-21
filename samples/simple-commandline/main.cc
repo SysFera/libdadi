@@ -3,8 +3,8 @@
 // force debug traces in dadi::setProperty
 #define NDEBUG
 
-#include "config.hh"
-#include "options.hh"
+#include "Config.hh"
+#include "Options.hh"
 
 
 int main(int argc, char *argv[], char *envp[]) {
