@@ -208,8 +208,11 @@ FileChannel::setRotateStrategy() {
         bool utc = getAttr<bool>(FileChannel::ATTR_ROTATE_TIME, true);
         time_duration td(duration_from_string(res[2].str()));
         unsigned int day = Weekday()(res[1].str());
-
-        pRotateStrategy_.reset(new RotateByTimeStrategy(td, utc, day));
+        RotateByTimeStrategy *rPtr = new RotateByTimeStrategy(td, day);
+        if (!utc) {
+          rPtr->setLocal(true);
+        }
+        pRotateStrategy_.reset(rPtr);
       } else {
         pRotateStrategy_.reset(new RotateByTimeStrategy);
       }

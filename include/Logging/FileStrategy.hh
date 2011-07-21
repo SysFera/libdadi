@@ -21,8 +21,9 @@ public:
    */
   virtual ~RotateStrategy();
   /**
-   * @brief virtual pure to be reimplemented by implementors
-   * @param path path pointing file to be rotated
+   * @brief decide if file should be rotated
+   * @warning must be reimplemented by implementors
+   * @param path file (path) to be rotated
    * @return boolean (true if file must be rotated)
    */
   virtual bool mustRotate(const std::string& path) = 0;
@@ -58,16 +59,19 @@ private:
 class RotateByTimeStrategy : public RotateStrategy {
 public:
   /**
-   * @brief constructor
+   * @brief constructor (by default use utc)
    * @param td time of rotation
-   * @param utc utc or local time ? (default: true)
    * @param day weekday of rotation (default: everyday)
    */
   RotateByTimeStrategy(const boost::posix_time::time_duration& td = MIDNIGHT,
-                       bool utc = true,
                        unsigned int day = EVERYDAY);
   ~RotateByTimeStrategy();
   bool mustRotate(const std::string& path);
+  /**
+   * @brief use local time or utc
+   * @param utc
+   */
+  void setLocal(bool utc = true);
 private:
   static const unsigned int EVERYDAY;
   static const boost::posix_time::time_duration MIDNIGHT;
@@ -80,8 +84,19 @@ private:
 
 class ArchiveStrategy : public boost::noncopyable {
 public:
+  /**
+   * @brief constructor
+   */
   ArchiveStrategy();
+  /**
+   * @brief destructor
+   */
   virtual ~ArchiveStrategy();
+  /**
+   * @brief do the actual archiving
+   * @warning must be reimplemented by implementors
+   * @param path file to be archived
+   */
   virtual void archive(const std::string& path) = 0;
 };
 
@@ -97,12 +112,15 @@ protected:
 class ArchiveByTimestampStrategy : public ArchiveStrategy {
 public:
   /**
-   * @brief constructor
+   * @brief constructor (by default use utc)
    * @param tpl timestamp template (default: YYYYMMDDhhmmss)
    */
   ArchiveByTimestampStrategy(const std::string& tpl = "%Y%m%d%H%M%S");
   ~ArchiveByTimestampStrategy();
-
+  /**
+   * @brief use local time or utc
+   * @param local
+   */
   void setLocal(bool local);
   void archive(const std::string& path);
 private:

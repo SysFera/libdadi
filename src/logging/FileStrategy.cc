@@ -56,9 +56,8 @@ RotateByIntervalStrategy::mustRotate(const std::string& path) {
 }
 
 RotateByTimeStrategy::RotateByTimeStrategy(const ptime::time_duration& td,
-                                           bool utc,
                                            unsigned int day)
-  : td_(td), utc_(utc), day_(day) {
+  : td_(td), utc_(false), day_(day) {
   if ((0 > day_) && (6 < day_)) {
     day_ = EVERYDAY;
   }
@@ -87,6 +86,10 @@ RotateByTimeStrategy::mustRotate(const std::string& path) {
   }
 }
 
+void
+RotateByTimeStrategy::setLocal(bool utc) {
+  utc_ = utc;
+}
 
 const std::string ArchiveByNumberStrategy::pTpl_ = "%s.%i";
 
