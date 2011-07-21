@@ -21,11 +21,11 @@ using namespace dadi;
 namespace bfs=boost::filesystem; // an alias for boost filesystem namespace
 static const string temporaryFilename = "crap4.log";
 
-BOOST_AUTO_TEST_SUITE (dadi_test)
+BOOST_AUTO_TEST_SUITE (Dadi_test)
 
 BOOST_AUTO_TEST_CASE( log_on_file_normal_call) {
 
-  BOOST_TEST_MESSAGE("# Log on file test normal call#");
+  BOOST_TEST_MESSAGE("#FileChannel test normal call#");
   //The message which will be logged
   string msgToLog = "Dadi Logger tests: DEBUG";
   try {
