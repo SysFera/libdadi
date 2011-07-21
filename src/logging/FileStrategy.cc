@@ -11,6 +11,10 @@
 namespace dadi {
 
 namespace ptime = boost::posix_time;
+namespace gtime = boost::gregorian;
+
+const unsigned int RotateByTimeStrategy::EVERYDAY = 7;
+const ptime::time_duration RotateByTimeStrategy::MIDNIGHT(0, 0, 0);
 
 
 RotateStrategy::RotateStrategy() {}
@@ -50,6 +54,39 @@ RotateByIntervalStrategy::mustRotate(const std::string& path) {
     return true;
   }
 }
+
+RotateByTimeStrategy::RotateByTimeStrategy(const ptime::time_duration& td,
+                                           bool utc,
+                                           unsigned int day)
+  : td_(td), utc_(utc), day_(day) {
+  if ((0 > day_) && (6 < day_)) {
+    day_ = EVERYDAY;
+  }
+}
+
+RotateByTimeStrategy::~RotateByTimeStrategy() {}
+
+bool
+RotateByTimeStrategy::mustRotate(const std::string& path) {
+  int currentDay;
+  ptime::time_duration currentTime;
+  // TODO: fugly
+  if (utc_) {
+    currentDay = gtime::day_clock::universal_day().day_of_week().as_number();
+    currentTime = ptime::second_clock::universal_time().time_of_day();
+  } else {
+    currentDay = gtime::day_clock::local_day().day_of_week().as_number();
+    currentTime = ptime::second_clock::local_time().time_of_day();
+  }
+
+  if (((day_ == currentDay) || (day_ == EVERYDAY)) &&
+      (currentTime >= td_)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 const std::string ArchiveByNumberStrategy::pTpl_ = "%s.%i";
 

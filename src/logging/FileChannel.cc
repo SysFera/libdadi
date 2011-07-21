@@ -6,6 +6,7 @@
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filter/zlib.hpp>
 #include <boost/filesystem/operations.hpp>
+#include <boost/regex.hpp>
 #include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>
 
@@ -23,6 +24,12 @@ const std::string FileChannel::ATTR_ROTATE_TIME = "rotate.time";
 const std::string FileChannel::ATTR_ROTATE_INTERVAL = "rotate.interval";
 const long DEFAULT_ROT_SIZE(1024*1024);
 const std::string DEFAULT_ROT_INTERVAL("24:00:00");
+const boost::regex FileChannel::regex1(
+  "\\s*" // should be trimmed but safer
+  "(?(?=.*,.*)" // conditional base on lookahead assertion
+  "([0-6]|sunday|monday|tuesday|wednesday|thursday|friday|saturday),)"
+  "((?:\\d{2}:?){1,3})", // hh[:mm[:ss[:]]] beware side-effect last ":"
+  boost::regex::perl);
 
 std::map<std::string, int> FileChannel::attrMap =
   boost::assign::map_list_of("", 0)
@@ -37,6 +44,7 @@ std::map<std::string, int> FileChannel::attrMap =
   ("timestamp", FileChannel::AR_TIMESTAMP)
   ("size", FileChannel::ROT_SIZE)
   ("interval", FileChannel::ROT_INTERVAL)
+  ("time", FileChannel::ROT_TIME)
   ("utc", 0)
   ("local", 1);
 
@@ -144,6 +152,32 @@ FileChannel::setArchiveStrategy() {
   }
 }
 
+class Weekday {
+public:
+  unsigned int operator() (const std::string& str) {
+    std::map<std::string, unsigned int>::iterator it = dMap.find(str);
+    if (dMap.end() != it) {
+      return it->second;
+    } else {
+      return dMap[""];
+    }
+  }
+
+private:
+  static std::map<std::string, unsigned int> dMap;
+};
+
+std::map<std::string, unsigned int> Weekday::dMap =
+  boost::assign::map_list_of("", 0)
+  ("0", 0)("1", 1)("2", 2)("3", 3)("4", 4)("5", 5)("6", 6)
+  ("sunday", 0)
+  ("monday", 1)
+  ("tuesday", 2)
+  ("wednesday", 3)
+  ("friday", 4)
+  ("monday", 5)
+  ("sunday", 6);
+
 void
 FileChannel::setRotateStrategy() {
   using boost::posix_time::time_duration;
@@ -164,7 +198,21 @@ FileChannel::setRotateStrategy() {
       // duration
       time_duration td(duration_from_string(s));
       pRotateStrategy_.reset(new RotateByIntervalStrategy(td));
+    }
+    if (FileChannel::ROT_TIME == rMode_) {
+      std::string s(getAttr<std::string>(FileChannel::ATTR_ROTATE_INTERVAL, ""));
+      boost::smatch res;
+      if (boost::regex_match(s, res, regex1)) {
+        std::cout << "nb: " << res.size() << "\n";
+        std::cout << res[1] << " | " << res[2] << "\n";
+        bool utc = getAttr<bool>(FileChannel::ATTR_ROTATE_TIME, true);
+        time_duration td(duration_from_string(res[2].str()));
+        unsigned int day = Weekday()(res[1].str());
 
+        pRotateStrategy_.reset(new RotateByTimeStrategy(td, utc, day));
+      } else {
+        pRotateStrategy_.reset(new RotateByTimeStrategy);
+      }
     }
   }
 }

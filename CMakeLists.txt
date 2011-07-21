@@ -16,6 +16,7 @@ find_package(Boost 1.44 REQUIRED
   date_time
   iostreams
   filesystem
+  regex
   system
   thread
   program_options

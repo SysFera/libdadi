@@ -52,8 +52,30 @@ public:
   bool mustRotate(const std::string& path);
 private:
   boost::posix_time::time_duration td_; /**< time interval between rotation */
-  boost::posix_time::ptime last_; /**< last rotation time */
+  boost::posix_time::ptime last_; /**< last rotation time (UTC) */
 };
+
+class RotateByTimeStrategy : public RotateStrategy {
+public:
+  /**
+   * @brief constructor
+   * @param td time of rotation
+   * @param utc utc or local time ? (default: true)
+   * @param day weekday of rotation (default: everyday)
+   */
+  RotateByTimeStrategy(const boost::posix_time::time_duration& td = MIDNIGHT,
+                       bool utc = true,
+                       unsigned int day = EVERYDAY);
+  ~RotateByTimeStrategy();
+  bool mustRotate(const std::string& path);
+private:
+  static const unsigned int EVERYDAY;
+  static const boost::posix_time::time_duration MIDNIGHT;
+  boost::posix_time::time_duration td_;
+  unsigned int day_;
+  bool utc_;
+};
+
 
 
 class ArchiveStrategy : public boost::noncopyable {

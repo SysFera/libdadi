@@ -4,6 +4,7 @@
 #include "Channel.hh"
 #include <map>
 #include <boost/iostreams/filtering_stream.hpp>
+#include <boost/regex_fwd.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/thread/mutex.hpp>
 #include "FileStrategy.hh"
@@ -16,7 +17,7 @@ namespace dadi {
  * compression type: none, bzip, gzip, zlib
  *   (currently an int, but we should think about enabling user to use strings)
  * archive: none, number, timestamp
- * rotate: none, size, interval (format: HH:mm:ss)
+ * rotate: none, size, interval (format: HH:mm:ss), time (format: [day,]HH:mm:ss)
  */
 class FileChannel : public Channel {
 public:
@@ -36,7 +37,8 @@ public:
   enum RotateMode {
     ROT_NONE=0,
     ROT_SIZE,
-    ROT_INTERVAL
+    ROT_INTERVAL,
+    ROT_TIME
   };
 
   FileChannel();
@@ -59,6 +61,8 @@ protected:
   static const std::string ATTR_ROTATE_SIZE;
   static const std::string ATTR_ROTATE_TIME;
   static const std::string ATTR_ROTATE_INTERVAL;
+  // filter rotate.interval when using time rotate policy
+  static const boost::regex regex1;
   static std::map<std::string, int> attrMap;
 
   void setStream();
