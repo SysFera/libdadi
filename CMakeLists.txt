@@ -38,6 +38,14 @@ if (APPLE)
   set(BUILD_SHARED_LIBS ON CACHE BOOL "Build libraries as shared libraries." FORCE)
 endif()
 
+## code coverage stuff
+if(ENABLE_TESTING AND CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+  set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -lgcov")
+  set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -lgcov")
+endif()
+
 ## specific stuff for LogServiceChannel
 ## TODO: remove this or make it optional
 option(USE_LOGSERVICE "Build libdadi with logservice support" OFF)
