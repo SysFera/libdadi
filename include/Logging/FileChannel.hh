@@ -18,6 +18,7 @@ namespace dadi {
  *   (currently an int, but we should think about enabling user to use strings)
  * archive: none, number, timestamp
  * rotate: none, size, interval (format: HH:mm:ss), time (format: [day,]HH:mm:ss)
+ * purge: none, count, age
  */
 class FileChannel : public Channel {
 public:
@@ -41,6 +42,12 @@ public:
     ROT_TIME
   };
 
+  enum PurgeMode {
+    PURGE_NONE=0,
+    PURGE_COUNT,
+    PURGE_AGE
+  };
+
   FileChannel();
   FileChannel(const std::string& path);
   virtual ~FileChannel();
@@ -61,6 +68,8 @@ protected:
   static const std::string ATTR_ROTATE_SIZE;
   static const std::string ATTR_ROTATE_TIME;
   static const std::string ATTR_ROTATE_INTERVAL;
+  static const std::string ATTR_PURGE;
+  static const std::string ATTR_PURGE_COUNT;
   // filter rotate.interval when using time rotate policy
   static const boost::regex regex1;
   static std::map<std::string, int> attrMap;
@@ -68,11 +77,14 @@ protected:
   void setStream();
   void setArchiveStrategy();
   void setRotateStrategy();
+  void setPurgeStrategy();
+
   void purge();
 private:
   std::string path_;
   boost::scoped_ptr<RotateStrategy> pRotateStrategy_;
   boost::scoped_ptr<ArchiveStrategy> pArchiveStrategy_;
+  boost::scoped_ptr<PurgeStrategy> pPurgeStrategy_;
   boost::iostreams::filtering_ostream out_;
   boost::mutex mutex_;
 };

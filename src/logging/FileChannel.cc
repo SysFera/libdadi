@@ -22,8 +22,11 @@ const std::string FileChannel::ATTR_ROTATE = "rotate";
 const std::string FileChannel::ATTR_ROTATE_SIZE = "rotate.size";
 const std::string FileChannel::ATTR_ROTATE_TIME = "rotate.time";
 const std::string FileChannel::ATTR_ROTATE_INTERVAL = "rotate.interval";
+const std::string FileChannel::ATTR_PURGE = "purge";
+const std::string FileChannel::ATTR_PURGE_COUNT = "purge.count";
 const long DEFAULT_ROT_SIZE(1024*1024);
 const std::string DEFAULT_ROT_INTERVAL("24:00:00");
+const int DEFAULT_PURGE_COUNT(10);
 const boost::regex FileChannel::regex1(
   "\\s*" // should be trimmed but safer
   "(?(?=.*,.*)" // conditional base on lookahead assertion
@@ -45,6 +48,8 @@ std::map<std::string, int> FileChannel::attrMap =
   ("size", FileChannel::ROT_SIZE)
   ("interval", FileChannel::ROT_INTERVAL)
   ("time", FileChannel::ROT_TIME)
+  ("count", FileChannel::PURGE_COUNT)
+  ("age", FileChannel::PURGE_AGE)
   ("utc", 0)
   ("local", 1);
 
@@ -92,6 +97,7 @@ FileChannel::open() {
 
   setArchiveStrategy();
   setRotateStrategy();
+  setPurgeStrategy();
 }
 
 void
@@ -226,9 +232,28 @@ FileChannel::setRotateStrategy() {
   }
 }
 
+void
+FileChannel::setPurgeStrategy() {
+  if (pPurgeStrategy_) {
+    return;
+  }
+
+  int pMode_ = attrMap[getAttr<std::string>(FileChannel::ATTR_PURGE, "none")];
+  if (FileChannel::PURGE_COUNT == pMode_) {
+    int nb = getAttr<int>(FileChannel::ATTR_PURGE_COUNT, DEFAULT_PURGE_COUNT);
+    pPurgeStrategy_.reset(new PurgeByCountStrategy(nb));
+  }
+}
+
 
 // TODO: implement purgatory and cleanse logs from evil spirits
 void
-FileChannel::purge() {}
+FileChannel::purge() {
+  if (pPurgeStrategy_) {
+    pPurgeStrategy_->purge(path_);
+  }
+}
 
 }
+
+
