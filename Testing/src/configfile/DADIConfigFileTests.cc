@@ -10,8 +10,8 @@
 //#include <Logging/LogServiceChannel.hh>
 #include <Logging/Logger.hh>
 #include <Logging/Message.hh>
-#include "config.hh"
-#include "options.hh"
+#include "Config.hh"
+#include "Options.hh"
 #include "testconfig.h"
 
 // C++ Headers
