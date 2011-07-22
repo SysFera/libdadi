@@ -5,11 +5,6 @@
  */
 
 #include <iostream>
-#include <Logging/ConsoleChannel.hh>
-#include <Logging/FileChannel.hh>
-//#include <Logging/LogServiceChannel.hh>
-#include <Logging/Logger.hh>
-#include <Logging/Message.hh>
 #include "Config.hh"
 #include "Options.hh"
 #include "testconfig.h"
