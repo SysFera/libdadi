@@ -71,9 +71,6 @@ protected:
   void purge();
 private:
   std::string path_;
-  int cMode_;
-  int aMode_;
-  int rMode_;
   boost::scoped_ptr<RotateStrategy> pRotateStrategy_;
   boost::scoped_ptr<ArchiveStrategy> pArchiveStrategy_;
   boost::iostreams::filtering_ostream out_;

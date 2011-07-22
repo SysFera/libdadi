@@ -48,16 +48,20 @@ std::map<std::string, int> FileChannel::attrMap =
   ("utc", 0)
   ("local", 1);
 
-FileChannel::FileChannel() : cMode_(0), aMode_(0) {}
+FileChannel::FileChannel() {}
 
 FileChannel::FileChannel(const std::string& path)
-  : path_(path), cMode_(0), aMode_(0) {}
+  : path_(path) {}
 
 FileChannel::~FileChannel() {}
 
 void
 FileChannel::open() {
   Lock lock(mutex_);
+
+  if (out_) {
+    return;
+  }
 
   if (path_.empty()) {
     try {
@@ -67,26 +71,24 @@ FileChannel::open() {
     }
   }
 
-  if (!out_) {
-    cMode_ = attrMap[
-      getAttr<std::string>(FileChannel::ATTR_COMPRESSION_MODE, "")];
-    switch(cMode_) {
-    case FileChannel::COMP_ZLIB:
-      out_.push(io::zlib_compressor());
-      break;
-    case FileChannel::COMP_GZIP:
-      out_.push(io::gzip_compressor());
-      break;
-    case FileChannel::COMP_BZIP2:
-      out_.push(io::bzip2_compressor());
-      break;
-    case FileChannel::COMP_NONE:
-    default:
-      break;
-    }
-
-    out_.push(io::file_sink(path_));
+  int cMode_ =
+    attrMap[getAttr<std::string>(FileChannel::ATTR_COMPRESSION_MODE, "")];
+  switch(cMode_) {
+  case FileChannel::COMP_ZLIB:
+    out_.push(io::zlib_compressor());
+    break;
+  case FileChannel::COMP_GZIP:
+    out_.push(io::gzip_compressor());
+    break;
+  case FileChannel::COMP_BZIP2:
+    out_.push(io::bzip2_compressor());
+    break;
+  case FileChannel::COMP_NONE:
+  default:
+    break;
   }
+
+  out_.push(io::file_sink(path_));
 
   setArchiveStrategy();
   setRotateStrategy();
@@ -141,14 +143,16 @@ FileChannel::getPath() const {
 
 void
 FileChannel::setArchiveStrategy() {
-  if (!pArchiveStrategy_) {
-    aMode_ = attrMap[getAttr<std::string>(FileChannel::ATTR_ARCHIVE, "")];
-    if (FileChannel::AR_NUMBER == aMode_) {
-      pArchiveStrategy_.reset(new ArchiveByNumberStrategy);
-    }
-    if (FileChannel::AR_TIMESTAMP == aMode_) {
-      pArchiveStrategy_.reset(new ArchiveByTimestampStrategy);
-    }
+  if (pArchiveStrategy_) {
+    return;
+  }
+
+  int aMode_ = attrMap[getAttr<std::string>(FileChannel::ATTR_ARCHIVE, "")];
+  if (FileChannel::AR_NUMBER == aMode_) {
+    pArchiveStrategy_.reset(new ArchiveByNumberStrategy);
+  }
+  if (FileChannel::AR_TIMESTAMP == aMode_) {
+    pArchiveStrategy_.reset(new ArchiveByTimestampStrategy);
   }
 }
 
@@ -183,28 +187,31 @@ FileChannel::setRotateStrategy() {
   using boost::posix_time::time_duration;
   using boost::posix_time::duration_from_string;
 
-  if (!pRotateStrategy_) {
-    rMode_ = attrMap[getAttr<std::string>(FileChannel::ATTR_ROTATE, "")];
-    if (FileChannel::ROT_SIZE == rMode_) {
-      // by default: 1Mo
-      long sz = getAttr<long>(FileChannel::ATTR_ROTATE_SIZE, DEFAULT_ROT_SIZE);
-      pRotateStrategy_.reset(new RotateBySizeStrategy(sz));
-    }
-    if (FileChannel::ROT_INTERVAL == rMode_) {
-      // by default: 1 day
-      std::string s(getAttr<std::string>(FileChannel::ATTR_ROTATE_INTERVAL,
-                                  DEFAULT_ROT_INTERVAL));
-      // FIXME: we should catch an exception when user sets a badly formatted
-      // duration
-      time_duration td(duration_from_string(s));
-      pRotateStrategy_.reset(new RotateByIntervalStrategy(td));
-    }
-    if (FileChannel::ROT_TIME == rMode_) {
-      std::string s(getAttr<std::string>(FileChannel::ATTR_ROTATE_INTERVAL, ""));
-      boost::smatch res;
-      if (boost::regex_match(s, res, regex1)) {
-        std::cout << "nb: " << res.size() << "\n";
-        std::cout << res[1] << " | " << res[2] << "\n";
+  if (pRotateStrategy_) {
+    return;
+  }
+
+  int rMode_ = attrMap[getAttr<std::string>(FileChannel::ATTR_ROTATE, "")];
+  if (FileChannel::ROT_SIZE == rMode_) {
+    // by default: 1Mo
+    long sz = getAttr<long>(FileChannel::ATTR_ROTATE_SIZE, DEFAULT_ROT_SIZE);
+    pRotateStrategy_.reset(new RotateBySizeStrategy(sz));
+  }
+  if (FileChannel::ROT_INTERVAL == rMode_) {
+    // by default: 1 day
+    std::string s(getAttr<std::string>(FileChannel::ATTR_ROTATE_INTERVAL,
+                                       DEFAULT_ROT_INTERVAL));
+    // FIXME: we should catch an exception when user sets a badly formatted
+    // duration
+    time_duration td(duration_from_string(s));
+    pRotateStrategy_.reset(new RotateByIntervalStrategy(td));
+  }
+  if (FileChannel::ROT_TIME == rMode_) {
+    std::string s(getAttr<std::string>(FileChannel::ATTR_ROTATE_INTERVAL, ""));
+    boost::smatch res;
+    if (boost::regex_match(s, res, regex1)) {
+      std::cout << "nb: " << res.size() << "\n";
+      std::cout << res[1] << " | " << res[2] << "\n";
         bool utc = getAttr<bool>(FileChannel::ATTR_ROTATE_TIME, true);
         time_duration td(duration_from_string(res[2].str()));
         unsigned int day = Weekday()(res[1].str());
@@ -213,9 +220,8 @@ FileChannel::setRotateStrategy() {
           rPtr->setLocal(true);
         }
         pRotateStrategy_.reset(rPtr);
-      } else {
-        pRotateStrategy_.reset(new RotateByTimeStrategy);
-      }
+    } else {
+      pRotateStrategy_.reset(new RotateByTimeStrategy);
     }
   }
 }

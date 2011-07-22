@@ -10,6 +10,7 @@
 
 namespace dadi {
 
+namespace bfs = boost::filesystem;
 namespace ptime = boost::posix_time;
 namespace gtime = boost::gregorian;
 
@@ -28,8 +29,8 @@ RotateBySizeStrategy::~RotateBySizeStrategy() {}
 
 bool
 RotateBySizeStrategy::mustRotate(const std::string& path) {
-  if (boost::filesystem::exists(path)) {
-    return (boost::filesystem::file_size(path) >= size_);
+  if (bfs::exists(path)) {
+    return (bfs::file_size(path) >= size_);
   } else {
     return false;
   }
@@ -109,17 +110,17 @@ ArchiveByNumberStrategy::archive(const std::string& path) {
   do {
     fmtr % path % (++n);
     currentPath = fmtr.str();
-  } while (boost::filesystem::exists(currentPath));
+  } while (bfs::exists(currentPath));
 
   while (n > 0) {
     fmtr % path % (--n);
     const std::string& oldPath = fmtr.str();
-    boost::filesystem::rename(oldPath, currentPath);
+    bfs::rename(oldPath, currentPath);
     std::cout << "mv " << oldPath << " " << currentPath <<"\n";
     currentPath = oldPath;
   }
 
-  boost::filesystem::rename(path, currentPath);
+  bfs::rename(path, currentPath);
 }
 
 ArchiveByTimestampStrategy::ArchiveByTimestampStrategy(const std::string& tpl)
@@ -158,25 +159,25 @@ ArchiveByTimestampStrategy::archive(const std::string& path) {
 
   std::string newPath = fmtr.str();
 
-  if (boost::filesystem::exists(newPath)) {
+  if (bfs::exists(newPath)) {
     int n(-1);
     std::string currentPath;
     do {
       fmtr.parse("%s.%i");
       fmtr % newPath % (++n);
       currentPath = fmtr.str();
-    } while (boost::filesystem::exists(currentPath));
+    } while (bfs::exists(currentPath));
 
     while (n > 0) {
       fmtr % newPath % (--n);
       const std::string& oldPath = fmtr.str();
-      boost::filesystem::rename(oldPath, currentPath);
+      bfs::rename(oldPath, currentPath);
       std::cout << "mv " << oldPath << " " << currentPath <<"\n";
       currentPath = oldPath;
     }
   }
 
-  boost::filesystem::rename(path, newPath);
+  bfs::rename(path, newPath);
 }
 
 } /* namespace dadi */
