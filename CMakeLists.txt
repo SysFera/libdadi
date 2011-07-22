@@ -87,6 +87,7 @@ add_subdirectory(samples)
 
 option(ENABLE_TESTING "Provide tests execution" OFF)
 if(ENABLE_TESTING)
+  set(TEST_FILES_OUTPUT_PATH ${PROJECT_BINARY_DIR}/Testing/test_files)
   include(dadiTestingMacros)
   dadi_test_setup()
   add_subdirectory(Testing)

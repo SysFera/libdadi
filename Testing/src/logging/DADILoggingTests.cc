@@ -1,9 +1,17 @@
+/**
+ * @file DADILoggingTests.cc
+ * @brief This file implements the libdadi tests for logger
+ * @author Eugène PAMBA CAPO-CHICHI (eugene.capochichi@sysfera.com)
+ */
+
 #include <iostream>
 #include <Logging/ConsoleChannel.hh>
 #include <Logging/FileChannel.hh>
 //#include <Logging/LogServiceChannel.hh>
 #include <Logging/Logger.hh>
 #include <Logging/Message.hh>
+#include "config.hh"
+#include "options.hh"
 
 // C++ Headers
 #include <iostream>

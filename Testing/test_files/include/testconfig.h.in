@@ -1,0 +1,8 @@
+//testconfig.h.in
+
+#ifndef _TESTCONFIG_H_
+#define _TESTCONFIG_H_
+
+#define TESTFILESOUTPUTPATH "@TEST_FILES_OUTPUT_PATH@"
+
+#endif /* TESTCONFIG_H */
