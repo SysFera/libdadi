@@ -30,7 +30,6 @@ static const string temporaryFilename = "crap4.log";
 
 BOOST_AUTO_TEST_SUITE (Dadi_test)
 
-
 BOOST_AUTO_TEST_CASE( initialize_logger_normal_call) {
 
   BOOST_TEST_MESSAGE("#Initialize logger normal call#");
@@ -78,6 +77,126 @@ BOOST_AUTO_TEST_CASE( get_level_normal_call) {
   mylogger1->setLevel(Message::PRIO_FATAL);
   //To get the priority level
   BOOST_REQUIRE(mylogger1->getLevel() == Message::PRIO_FATAL);
+}
+
+BOOST_AUTO_TEST_CASE( is_normal_call) {
+
+  BOOST_TEST_MESSAGE("#function is normal call#");
+  LoggerPtr mylogger1 = Logger::getLogger("is_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To put the priority level
+  mylogger1->setLevel(Message::PRIO_DEBUG);
+  BOOST_REQUIRE(mylogger1->is(Message::PRIO_INFORMATION));
+  BOOST_REQUIRE(!mylogger1->is(Message::PRIO_TRACE));
+}
+
+BOOST_AUTO_TEST_CASE( is_bad_call) {
+
+  BOOST_TEST_MESSAGE("#function is bad call#");
+  LoggerPtr mylogger1 = Logger::getLogger("is_bad");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To put the priority level
+  mylogger1->setLevel(12);
+  BOOST_REQUIRE(!mylogger1->is(13));
+  BOOST_REQUIRE(mylogger1->is(11));
+}
+
+BOOST_AUTO_TEST_CASE( check_trace_function_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Check trace function normal call#");
+  LoggerPtr mylogger1 = Logger::getLogger("check_trace_function_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To put the priority level trace
+  mylogger1->setLevel(Message::PRIO_TRACE);
+  //To check the function
+  BOOST_REQUIRE(mylogger1->trace());
+  //To put another priority level
+  mylogger1->setLevel(Message::PRIO_WARNING);
+  //To check the function
+  BOOST_REQUIRE(!mylogger1->trace());
+}
+
+BOOST_AUTO_TEST_CASE( check_debug_function_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Check debug function normal call#");
+  LoggerPtr mylogger1 = Logger::getLogger("check_debug_function_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To put the priority level
+  mylogger1->setLevel(Message::PRIO_DEBUG);
+  //To check the function
+  BOOST_REQUIRE(mylogger1->debug());
+  //To put the another priority level
+  mylogger1->setLevel(Message::PRIO_TRACE);
+  //To check the function
+  BOOST_REQUIRE(!mylogger1->debug());
+}
+
+BOOST_AUTO_TEST_CASE( check_information_function_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Check information function normal call#");
+  LoggerPtr mylogger1 = Logger::getLogger("check_information_function_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To put the priority level
+  mylogger1->setLevel(Message::PRIO_INFORMATION);
+  //To check the function
+  BOOST_REQUIRE(mylogger1->information());
+  //To put another priority level
+  mylogger1->setLevel(Message::PRIO_TRACE);
+  //To check the function
+  BOOST_REQUIRE(!mylogger1->information());
+}
+
+BOOST_AUTO_TEST_CASE( check_warning_function_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Check warning function normal call#");
+  LoggerPtr mylogger1 = Logger::getLogger("check_warning_function_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To put the priority level
+  mylogger1->setLevel(Message::PRIO_WARNING);
+  //To check the function
+  BOOST_REQUIRE(mylogger1->warning());
+  //To put another priority level
+  mylogger1->setLevel(Message::PRIO_TRACE);
+  //To check the function
+  BOOST_REQUIRE(!mylogger1->warning());
+}
+
+BOOST_AUTO_TEST_CASE( check_error_function_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Check error function normal call#");
+  LoggerPtr mylogger1 = Logger::getLogger("check_error_function_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To put the priority level
+  mylogger1->setLevel(Message::PRIO_ERROR);
+  //To check the function
+  BOOST_REQUIRE(mylogger1->error());
+  //To put another priority level
+  mylogger1->setLevel(Message::PRIO_TRACE);
+  //To check the function
+  BOOST_REQUIRE(!mylogger1->error());
+}
+
+BOOST_AUTO_TEST_CASE( check_fatal_function_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Check fatal function normal call#");
+  LoggerPtr mylogger1 = Logger::getLogger("check_fatal_function_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To put the priority level
+  mylogger1->setLevel(Message::PRIO_FATAL);
+  //To check the function
+  BOOST_REQUIRE(mylogger1->fatal());
+  //To put another priority level
+  mylogger1->setLevel(Message::PRIO_TRACE);
+  //To check the function
+  BOOST_REQUIRE(!mylogger1->fatal());
 }
 
 BOOST_AUTO_TEST_CASE( get_level_bad_call) {
