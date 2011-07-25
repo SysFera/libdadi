@@ -113,6 +113,7 @@ set(PUBLIC_HEADERS
   include/Logging/Logger.hh
   include/Logging/LogServiceChannel.hh
   include/Logging/Message.hh
+  include/Logging/MultiChannel.hh
   include/Logging/NullChannel.hh
 )
 

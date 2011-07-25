@@ -7,6 +7,7 @@ set(logging_SRCS logging/Channel.cc
   logging/FileStrategy.cc
   logging/Logger.cc
   logging/Message.cc
+  logging/MultiChannel.cc
   logging/NullChannel.cc)
 
 if(USE_LOGSERVICE)
