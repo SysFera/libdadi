@@ -18,6 +18,8 @@ public:
   /**
    * @brief get logger name
    * @return this logger name
+   * @warning logger are recursively named following this pattern:
+   * <parent>.<logger>. Root logger is named "".
    */
   const std::string& getName() const;
 
@@ -49,12 +51,35 @@ public:
    */
   void log(const Message& msg);
 
+  /**
+   * @brief checks if logger will effectively log messages with
+   * priority >= level
+   * @param level level to be checked
+   */
   bool is(int level) const;
+  /**
+   * @brief alias to is(Message::PRIO_TRACE)
+   */
   bool trace() const;
+  /**
+   * @brief alias to is(Message::PRIO_DEBUG)
+   */
   bool debug() const;
+  /**
+   * @brief alias to is(Message::PRIO_INFORMATION)
+   */
   bool information() const;
+  /**
+   * @brief alias to is(Message::PRIO_WARNING)
+   */
   bool warning() const;
+  /**
+   * @brief alias to is(Message::PRIO_ERROR)
+   */
   bool error() const;
+  /**
+   * @brief alias to is(Message::PRIO_FATAL)
+   */
   bool fatal() const;
 
   /**
