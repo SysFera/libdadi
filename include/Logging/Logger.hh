@@ -35,8 +35,12 @@ public:
   ChannelPtr getChannel() const;
 
   /**
-   * @brief set threshold
+   * @brief set logger threshold
+   * Only message with a priority level superior or equal to level
+   * will be logged.
    * @param level minimum level of logging
+   * @warning level must be between [PRIO_TRACE, PRIO_FATAL] if not,
+   * it will be set by default at PRIO_INFORMATION
    */
   void setLevel(int level);
   /**

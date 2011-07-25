@@ -32,7 +32,11 @@ Logger::getChannel() const {
 
 void
 Logger::setLevel(int level) {
-  level_ = level;
+  if ((Message::PRIO_TRACE <= level) && (Message::PRIO_FATAL >= level)) {
+    level_ = level;
+  } else {
+    level_ = Message::PRIO_INFORMATION;
+  }
 }
 
 int
