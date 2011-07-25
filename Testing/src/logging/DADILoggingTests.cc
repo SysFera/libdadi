@@ -251,6 +251,38 @@ BOOST_AUTO_TEST_CASE( get_channel_bad_call) {
   BOOST_REQUIRE(!cc1);
 }
 
+BOOST_AUTO_TEST_CASE( get_root_logger_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Get root logger normal call#");
+  LoggerPtr mylogger1 = Logger::getRootLogger();
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To check that the name of the root logger is empty
+  BOOST_REQUIRE(mylogger1->getName().compare("") == 0);
+}
+
+BOOST_AUTO_TEST_CASE( create_logger_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Create logger test normal call#");
+  //The message which will be logged
+  string msgToLog = "Dadi Logger tests: DEBUG";
+  stringstream oss;
+  LoggerPtr mylogger1 = Logger::createLogger("createLogger_normal",
+                                             (ChannelPtr) new ConsoleChannel(oss),
+                                             Message::PRIO_DEBUG);
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To check the name of the logger created
+  BOOST_REQUIRE(mylogger1->getName().compare("createLogger_normal") == 0);
+  //To check the priority level
+  BOOST_REQUIRE(mylogger1->debug());
+  //To put the message to log
+  mylogger1->log(Message("", msgToLog, Message::PRIO_DEBUG));
+  //To check that the console content is the same that the message to log
+  BOOST_REQUIRE(oss.str().compare(msgToLog+"\n") == 0);
+}
+
+
 BOOST_AUTO_TEST_CASE( log_on_file_normal_call) {
 
   BOOST_TEST_MESSAGE("#FileChannel test normal call#");
