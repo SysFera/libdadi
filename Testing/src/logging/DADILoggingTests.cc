@@ -282,6 +282,34 @@ BOOST_AUTO_TEST_CASE( create_logger_normal_call) {
   BOOST_REQUIRE(oss.str().compare(msgToLog+"\n") == 0);
 }
 
+BOOST_AUTO_TEST_CASE( destroy_Logger_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Destroy Logger normal call#");
+  stringstream oss;
+  LoggerPtr mylogger1 = Logger::getLogger("destroy_logger_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  Logger::destroyLogger("destroy_logger_normal");
+  BOOST_REQUIRE(!mylogger1);
+}
+
+BOOST_AUTO_TEST_CASE( shutdown_normal_call) {
+
+  BOOST_TEST_MESSAGE("#Shutdown normal call#");
+  stringstream oss;
+  std::vector<std::string> names;
+
+  LoggerPtr mylogger1 = Logger::getLogger("shutdown_normal");
+  //To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  //To get the list of active Loggers
+  Logger::getActiveLoggers(names);
+  //To check that the list of Logger's names is not empty
+  BOOST_REQUIRE(names.size() != 0);
+  Logger::shutdown();
+  //To check that the list of Logger's names is empty after shutdown
+  BOOST_REQUIRE(names.size() == 0);
+}
 
 BOOST_AUTO_TEST_CASE( log_on_file_normal_call) {
 
