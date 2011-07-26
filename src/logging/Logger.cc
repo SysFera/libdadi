@@ -101,6 +101,15 @@ Logger::getLogger(const std::string& name) {
   return get(name);
 }
 
+bool
+Logger::hasLogger(const std::string& name) {
+  Lock lock(mutex_);
+
+  LoggerMap::const_iterator it = lmap_.find(name);
+
+  return (lmap_.end() != it) ? true : false;
+}
+
 LoggerPtr
 Logger::createLogger(const std::string& name,
                      ChannelPtr channel,

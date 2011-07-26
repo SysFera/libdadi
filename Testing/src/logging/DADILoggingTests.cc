@@ -290,7 +290,7 @@ BOOST_AUTO_TEST_CASE( destroy_Logger_normal_call) {
   //To check that mylogger1 is not NULL
   BOOST_REQUIRE(mylogger1);
   Logger::destroyLogger("destroy_logger_normal");
-  BOOST_REQUIRE(!mylogger1);
+  BOOST_REQUIRE(!Logger::hasLogger("destroy_logger_normal"));
 }
 
 BOOST_AUTO_TEST_CASE( shutdown_normal_call) {
