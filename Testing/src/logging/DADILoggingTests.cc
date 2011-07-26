@@ -307,6 +307,7 @@ BOOST_AUTO_TEST_CASE( shutdown_normal_call) {
   //To check that the list of Logger's names is not empty
   BOOST_REQUIRE(names.size() != 0);
   Logger::shutdown();
+  Logger::getActiveLoggers(names);
   //To check that the list of Logger's names is empty after shutdown
   BOOST_REQUIRE(names.size() == 0);
 }
