@@ -51,22 +51,44 @@ typedef boost::multi_index_container<
 typedef pinfo_set::index<name>::type pinfo_set_by_name;
 typedef pinfo_set::index<interface>::type pinfo_set_by_interface;
 
+/**
+ * @class Registry
+ * @brief hides (un)loading plugins and creation of instances from user
+ */
 class Registry : public boost::noncopyable {
 public:
+  /**
+   * @brief constructor
+   * @return
+   */
   Registry();
-
+  /**
+   * @brief register a plugin into registry
+   * @param pInfo
+   */
   void registerPlugin(PluginInfoPtr pInfo);
 
   // unregister(const std::string& pName);
-
+  /**
+   * @brief add new search path for plugin manifests
+   * @param path
+   */
   void addPath(const std::string& path);
 
   void load();
-
+  /**
+   * @brief get manifests search paths
+   * @return search paths
+   */
   std::list<std::string> paths() {
     return paths_;
   }
 
+  /**
+   * @brief get a plugin instance from its name
+   * @param pName plugin name
+   * @return instance (or NULL)
+   */
   template<typename Plugin>
   Plugin *getByName(const std::string& pName) {
     void *factory(NULL);
@@ -138,9 +160,9 @@ public:
   }
 
 private:
-  std::list<std::string> paths_;
-  boost::scoped_ptr<Loader> loader_;
-  pinfo_set cache_;
+  std::list<std::string> paths_; /**< search paths for plugins manifests */
+  boost::scoped_ptr<Loader> loader_; /**< loader */
+  pinfo_set cache_; /**< Registry cache */
 };
 
 } /* namespace dadi */

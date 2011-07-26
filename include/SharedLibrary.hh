@@ -2,9 +2,8 @@
 #ifndef _SHARED_LIBRARY_HH_
 #define _SHARED_LIBRARY_HH_
 /**
- * @file   SharedLibrary.h
- * @author hguemar <hguemar@sysfera.com>
- * @date   Fri Mar 25 09:38:40 2011
+ * @file   SharedLibrary.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  *
  * @brief  Abstract platform specific shared libraries loading
  *

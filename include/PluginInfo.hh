@@ -1,5 +1,10 @@
 #ifndef _PLUGIN_INFO_HH_
 #define _PLUGIN_INFO_HH_
+/**
+ * @file PluginInfo.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.fr>
+ *
+ */
 
 #include <list>
 #include <string>
@@ -8,6 +13,11 @@
 #include "SharedLibrary.hh"
 
 namespace dadi {
+
+/**
+ * @class PluginInfo
+ * @brief stores plugin metadata
+ */
 struct PluginInfo {
   /**
    * @brief default constructor

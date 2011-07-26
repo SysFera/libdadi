@@ -17,6 +17,7 @@ const int PLUGIN_OK = 0;
 #  define DADI_EXPORT
 #endif /* WIN32 */
 
+// plugin abstract base clase
 class DADI_EXPORT IPlugin {
 public:
   virtual ~IPlugin() {}
