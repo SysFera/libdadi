@@ -21,4 +21,20 @@
 #include "dadi/config.hh"
 #include "dadi/options.hh"
 
+
+/**
+ * @mainpage Libdadi
+ *
+ *
+ * @section intro_sec Introduction
+ *
+ * Libdadi is a C++ library providing basic application building blocks such as:
+ * - command-line parsing
+ * - configuration file parsing
+ * - attributes (aka metadata)
+ * - log4j style loggers
+ * - authentification framework
+ *
+ */
+
 #endif
