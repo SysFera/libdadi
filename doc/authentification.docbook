@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <info>
+    <author>
+      <personname>
+        <firstname>Eugène</firstname>
+        <surname>Pamba Capo-Chichi</surname>
+      </personname>
+    </author>
+    
+    <title> Description des besoins d'authentification pour DIET V3</title>
+          
+    <revhistory>
+	<revision>
+	  <revnumber>1</revnumber>
+	  <date>26/07/2011</date>
+	  <authorinitials>SysFera</authorinitials>
+	  <revdescription>
+	      
+	    <para> Description des besoins (d'après la première réunion du 26/07/2011).</para></revdescription>
+	</revision>
+      </revhistory>
+    
+  </info>
+  
+  <chapter>
+    <title>Introduction</title>
+   <section>
+     <title>Présentation</title>
+     
+     L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisement, nous allons mettre
+     l'accent sur deux principaux points:
+     
+     <itemizedlist>
+        <listitem>
+          <para> l'authenfication des utilisateurs</para>
+        </listitem>
+        <listitem>
+          <para> l'authentification de la hiérarchie DIET</para>
+        </listitem>
+      </itemizedlist>
+   </section>
+   
+   <section>
+     <title> Authenfication des utilisateurs </title>
+     L'authentification des utilisateurs va s'inspirer principalement du module <emphasis role = "italic">UMS (User Managment System) </emphasis>développer dans le cadre 
+       du projet VISHNU <footnote> <ulink url="http://www.sysfera.fr/vishnu/"> http://www.sysfera.fr/vishnu/ </ulink> </footnote>. UMS se base sur une authentification unique (<emphasis role = "italic">Single Sign-On) </emphasis> pour ses 
+     avantages:
+     
+     <itemizedlist>
+        <listitem>
+          <para> l'utilisateur ne s'authentifie qu'une seule par login et mot de passe pour accèder à l'infrastructure,</para>
+        </listitem>
+	<listitem>
+          <para> l'authentification est gérée de façon centralisée</para>
+        </listitem>
+	<listitem>
+          <para> la souplesse de l'utilisation de l'infrastructure (pas d'authentification systématique) </para>
+        </listitem>
+      </itemizedlist>
+      
+      Il faudra étendre les fonctionnalités de UMS à la prise en compte des groupes et il serait intéressant de défnir un temps de validité pour l'authentification unique.
+      La définition du format du jeton généré reste à définir.
+      
+   </section>
+   
+   <section>
+     <title> Authentification de la hiérarchie DIET </title>
+     Dans la version 3 de DIET, la notion de <emphasis role = "italic">master agent</emphasis> et <emphasis role = "italic">local agent</emphasis> fusionne en <emphasis role = "italic">agent</emphasis>. Il est donc
+     possible de pointer sur n'importe quel noeud de la hiérarchie, ce qui rend plus flexible l'infrastructure mais entraine des besoins en terme de sécurité.
+     Il est donc prévu de concevoir un modèle de sécurité utilisant des certificats pour contrôler l'ajout d'éléments à une hiérarchie DIET.
+   </section>
+   
+ </chapter>  
+  
+</book>
