@@ -68,9 +68,16 @@ if(USE_LOGSERVICE)
 endif()
 
 # setup documentation
+include(CMakeDependentOption)
 option(ENABLE_DOC "Build documentation" OFF)
-option(ENABLE_DOXYGEN "Build doxygen documentation" OFF)
-option(ENABLE_EXTRAS_DOC "Build extra documentation" OFF)
+# if ENABLE_DOC is enabled we build doxygen html and man pages documentation by default
+cmake_dependent_option(ENABLE_DOXYGEN "Build doxygen documentation" ON
+  "ENABLE_DOC" OFF)
+cmake_dependent_option(ENABLE_DOXYGEN_PDF "Build doxygen documentation (PDF)" OFF
+  "ENABLE_DOXYGEN" OFF)
+cmake_dependent_option(ENABLE_EXTRAS_DOC "Build extrasdocumentation" OFF
+  "ENABLE_DOC" OFF)
+
 if(ENABLE_DOC)
   add_subdirectory(doc)
 endif()
