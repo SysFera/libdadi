@@ -10,4 +10,10 @@
 #include "Logging/Message.hh"
 #include "Logging/NullChannel.hh"
 
+/**
+ * @example simple-logging/main.cc
+ * this is a simple example on how to use logging framework
+ *
+ */
+
 #endif /* _LOGGING_HH_ */

@@ -6,6 +6,15 @@
  * @brief This file defines a class to handle command line options.
  * @author Ibrahima Cisse (ibrahima.cisse@sysfera.com)
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ *
+ * @example simple-commandline/main.cc
+ * this is a simple example on how to use Options class to handle
+ * command-line options
+ *
+ * @example simple-configfile/main.cc
+ * this is a simple example on how to use Options class to handle
+ * configuration files
+ *
  */
 
 #include <iostream>
