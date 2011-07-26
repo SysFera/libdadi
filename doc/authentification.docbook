@@ -34,7 +34,7 @@
      
      <itemizedlist>
         <listitem>
-          <para> l'authenfication des utilisateurs</para>
+          <para> l'authentification des utilisateurs</para>
         </listitem>
         <listitem>
           <para> l'authentification de la hiérarchie DIET</para>
@@ -60,9 +60,67 @@
         </listitem>
       </itemizedlist>
       
-      Il faudra étendre les fonctionnalités de UMS à la prise en compte des groupes et il serait intéressant de défnir un temps de validité pour l'authentification unique.
-      La définition du format du jeton généré reste à définir.
+      <section>
+	<title> User Managment System (UMS)</title>
       
+      Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
+      supplémentaires).
+      
+      <itemizedlist>
+        <listitem>
+          <para> Le type (ou groupe) auquel appatient un utilisateur sera défini à sa création par un administrateur.</para>
+        </listitem>
+        
+	<!--<listitem>
+          <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs.</para>
+	</listitem> -->
+	
+	<listitem>
+          <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
+		 utilisateurs ou des administrateurs de l'intergiciel. Les fonctions de
+		 création et de modification de comptes prendront en paramètre
+		 l'information nécessaire. Seuls les
+		 administrateurs pourront utiliser ces fonctions.
+	  </para>
+        </listitem>
+	
+	<!--<listitem>
+          <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer des
+		 groupes d'utilisateurs de l'intergiciel. Lorsqu'un groupe sera supprimé, tous les utilisateurs du groupe concerné seront également supprimés. 
+		 Il ne sera pas possible de supprimer le groupe d'administrateurs.
+	  </para>
+	</listitem>-->
+	
+	<listitem>
+          <para> Les commandes d'un utilisateur pour chaque jeton seront stockées. Ce stockage sera borné par une limite définie par le système et une 
+	    rotation se lancera automatiquement lorsque cette limite sera atteinte (cf commande history sous Linux). 
+	  </para>
+        </listitem>
+	
+	<listitem>
+          <para> Un administrateur pourra interdire l'accès à certains services.
+	  </para>
+        </listitem>
+	
+	<listitem>
+          <para> 
+		<emphasis role = "bold">Authentification des utilisateurs</emphasis>: une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
+		pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
+		rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. Ce service fermera une session
+		soit à la demande de l'utilisateur à qui elle appartiendra, soit parce que
+		l'utilisateur aura fermé sa session locale sur la machine à laquelle la
+		session de l'intergiciel sera rattachée, soit à cause d'une période sans
+		aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces
+		comportements de fermeture de session VISHNU seront configurables par
+		les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session,
+		cette fonction permettra également aux utilisateurs de se replacer dans
+		une de leurs sessions déjà ouvertes.
+	  </para>
+        </listitem>
+	
+      </itemizedlist>
+   </section>
+   
    </section>
    
    <section>
