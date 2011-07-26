@@ -67,6 +67,14 @@ if(USE_LOGSERVICE)
   endif()
 endif()
 
+# setup documentation
+option(ENABLE_DOC "Build documentation" OFF)
+option(ENABLE_DOXYGEN "Build doxygen documentation" OFF)
+option(ENABLE_EXTRAS_DOC "Build extra documentation" OFF)
+if(ENABLE_DOC)
+  add_subdirectory(doc)
+endif()
+
 # set output path
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
