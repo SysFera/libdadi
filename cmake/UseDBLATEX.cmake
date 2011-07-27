@@ -12,10 +12,10 @@ macro(dblatex_generate)
   set(options "")
   set(oneValueArgs STYLE OUTPUT TOPLEVEL_TARGET)
   set(multiValueArgs "")
-  cmake_parse_arguments(dblatex_
+  cmake_parse_arguments(dblatex
     "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
   # we need at least that macros list docbook sources to be built
-  if(NOT dblatex__UNPARSED_ARGUMENTS)
+  if(NOT dblatex_UNPARSED_ARGUMENTS)
     message(FATAL_ERROR
       "dblatex_generate can't generate document without any sources")
   endif()
