@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<book
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="5.0"
+      xml:lang="fr">
   <info>
     <author>
       <personname>
@@ -10,28 +12,28 @@
     </author>
     
     <title> Description des besoins d'authentification pour DIET V3</title>
-          
+    
     <revhistory>
-	<revision>
-	  <revnumber>1</revnumber>
-	  <date>26/07/2011</date>
-	  <authorinitials>SysFera</authorinitials>
-	  <revdescription>
-	      
-	    <para> Description des besoins (d'après la première réunion du 26/07/2011).</para></revdescription>
-	</revision>
-      </revhistory>    
+      <revision>
+        <revnumber>1</revnumber>
+        <date>26/07/2011</date>
+        <authorinitials>SysFera</authorinitials>
+        <revdescription>
+          
+        <para> Description des besoins (d'après la première réunion du 26/07/2011).</para></revdescription>
+      </revision>
+    </revhistory>    
   </info>
   
   <chapter>
     <title>Introduction</title>
-   <section>
-     <title>Présentation</title>
-     
-     L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisement, nous allons mettre
-     l'accent sur trois principaux points:
-     
-     <itemizedlist>
+    <section>
+      <title>Présentation</title>
+      <para>     
+        L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisement, nous allons mettre
+        l'accent sur trois principaux points:
+      </para>
+      <itemizedlist>
         <listitem>
           <para> l'authentification des utilisateurs</para>
         </listitem>
@@ -42,15 +44,16 @@
           <para> le cryptage des données</para>
         </listitem>
       </itemizedlist>
-   </section>
-   
-   <section>
-     <title> Authenfication des utilisateurs </title>
-     L'authentification des utilisateurs va s'inspirer principalement du module <emphasis role = "italic"> UMS (User Managment System) </emphasis>développer dans le cadre 
-       du projet VISHNU <footnote> <ulink url="http://www.sysfera.fr/vishnu/"> http://www.sysfera.fr/vishnu/ </ulink> </footnote>. UMS se base sur une authentification unique <emphasis role = "italic"> (Single Sign-On) </emphasis> pour ses 
-     avantages:
-     
-     <itemizedlist>
+    </section>
+    
+    <section>
+      <title> Authenfication des utilisateurs </title>
+      <para>
+        L'authentification des utilisateurs va s'inspirer principalement du module <emphasis role = "italic"> UMS (User Managment System) </emphasis>développer dans le cadre 
+        du projet VISHNU <footnote><para><link xlink:href="http://www.sysfera.fr/vishnu/"> http://www.sysfera.fr/vishnu/ </link></para> </footnote>. UMS se base sur une authentification unique <emphasis role = "italic"> (Single Sign-On) </emphasis> pour ses 
+        avantages:
+      </para>
+      <itemizedlist>
         <listitem>
           <para> l'utilisateur ne s'authentifie qu'une seule fois via un login et un mot de passe pour accèder à l'infrastructure,</para>
         </listitem>
@@ -64,63 +67,64 @@
       
       <section>
 	<title> User Managment System (UMS)</title>
-      
-	Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
-	supplémentaires).
-	
+        <para>
+          
+          Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
+          supplémentaires).
+	</para>
 	<itemizedlist>
 	  <listitem>
 	    <para> Le type (ou groupe) auquel appatient un utilisateur sera défini à sa création par un administrateur.</para>
 	  </listitem>
 	  <listitem>
-	    <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs <emphasis role = "bold">*</emphasis><footnote><emphasis role = "italic"> * signifie que cette fonctionnalité ne sera pas disponible dans le coeur de DIET mais dans de futurs développements de modules externes</emphasis> </footnote>.
+	    <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs <emphasis role = "bold">*</emphasis><footnote><para><emphasis role = "italic"> * signifie que cette fonctionnalité ne sera pas disponible dans le coeur de DIET mais dans de futurs développements de modules externes</emphasis></para> </footnote>.
 	    </para>
 	  </listitem>
 	  <listitem>
-	    <para> Un administrateur pourra changer dynamiquement le type d'un utilisateur <emphasis role = "bold">*</emphasis></para>.
+	    <para> Un administrateur pourra changer dynamiquement le type d'un utilisateur <emphasis role = "bold">*</emphasis>.</para>
 	  </listitem>
 	  <listitem>
 	    <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
-		  utilisateurs ou des administrateurs de l'intergiciel. Les fonctions de
-		  création et de modification de comptes prendront en paramètre
-		  l'information nécessaire. Seuls les
-		  administrateurs pourront utiliser ces fonctions.
+            utilisateurs ou des administrateurs de l'intergiciel. Les fonctions de
+            création et de modification de comptes prendront en paramètre
+            l'information nécessaire. Seuls les
+            administrateurs pourront utiliser ces fonctions.
 	    </para>
 	  </listitem>
 	  <!--<listitem>
-	    <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer des
-		  groupes d'utilisateurs de l'intergiciel. Lorsqu'un groupe sera supprimé, tous les utilisateurs du groupe concerné seront également supprimés. 
-		  Il ne sera pas possible de supprimer le groupe d'administrateurs.
-	    </para>
-	  </listitem>-->
+              <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer des
+              groupes d'utilisateurs de l'intergiciel. Lorsqu'un groupe sera supprimé, tous les utilisateurs du groupe concerné seront également supprimés. 
+              Il ne sera pas possible de supprimer le groupe d'administrateurs.
+              </para>
+              </listitem>-->
 	  <!--<listitem>
-	    <para> Les commandes d'un utilisateur seront stockées. Ce stockage sera borné par une limite définie par le système et une 
+              <para> Les commandes d'un utilisateur seront stockées. Ce stockage sera borné par une limite définie par le système et une 
 	      rotation se lancera automatiquement lorsque cette limite sera atteinte (cf commande history sous Linux). 
-	    </para>
-	  </listitem>-->
+              </para>
+              </listitem>-->
 	  <listitem>
 	    <para> Un administrateur pourra interdire l'accès à certains services pour un type bien défini d'utilisateurs.
 	    </para>
 	  </listitem>
 	  <listitem>
 	    <para> 
-		  <emphasis role = "bold">Authentification des utilisateurs</emphasis>: une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
-		  pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
-		  rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. Ce service fermera une session
-		  soit à la demande de l'utilisateur à qui elle appartiendra, soit parce que
-		  l'utilisateur aura fermé sa session locale sur la machine à laquelle la
-		  session de l'intergiciel sera rattachée, soit à cause d'une période sans
-		  aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces
-		  comportements de fermeture de session seront configurables par
-		  les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session,
-		  cette fonction permettra également aux utilisateurs de se replacer dans
-		  une de leurs sessions déjà ouvertes. L'utilisation du modèle <emphasis role = "italic"> Single Sign-On </emphasis> nécessite une 
-		  traçabilité de la session authentifiée. 
+              <emphasis role = "bold">Authentification des utilisateurs</emphasis>: une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
+              pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
+              rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. Ce service fermera une session
+              soit à la demande de l'utilisateur à qui elle appartiendra, soit parce que
+              l'utilisateur aura fermé sa session locale sur la machine à laquelle la
+              session de l'intergiciel sera rattachée, soit à cause d'une période sans
+              aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces
+              comportements de fermeture de session seront configurables par
+              les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session,
+              cette fonction permettra également aux utilisateurs de se replacer dans
+              une de leurs sessions déjà ouvertes. L'utilisation du modèle <emphasis role = "italic"> Single Sign-On </emphasis> nécessite une 
+              traçabilité de la session authentifiée. 
 	    </para>
 	  </listitem>
 	  <listitem>
 	    <para> Les différents services que fournit notre infrastructure sont rattachées à des machines. Les administrateurs enregistrent les machines et
-	      spécifient pour chaque machine le type d'utilisateurs autorisés à y accéder.
+            spécifient pour chaque machine le type d'utilisateurs autorisés à y accéder.
 	    </para>
 	  </listitem>
 	  <listitem>
@@ -130,10 +134,11 @@
 	    </para>
 	  </listitem>
 	</itemizedlist>
-    </section>
-   
-    <section>
-	  <title> Les états d'une authentification</title>
+      </section>
+      
+      <section>
+        <title> Les états d'une authentification</title>
+        <para>
 	  <itemizedlist>
 	    <listitem>
 	      <para> <emphasis role = "bold"> Etat initial </emphasis>: un utilisateur préalablement enregistré dans le système d'information de l'intergiciel, non authentifié, n'a accès à aucun
@@ -142,7 +147,7 @@
 	    </listitem>
 	    <listitem>
 	      <para> <emphasis role = "bold"> Connexion </emphasis>: l'utilisateur sollicite un accès aux services de l'intergiciel en décrivant son identité à l'aide d'un login et d'un mot de passe.
-		L'intergiciel contrôle l'identité du demandeur. 
+              L'intergiciel contrôle l'identité du demandeur. 
 	      </para>
 	    </listitem>
 	    <listitem>
@@ -151,30 +156,34 @@
 	      </para>
 	    </listitem>
 	    <listitem>
-	      <para> <emphasis role = "bold"> Déconnexion </emphasis>: Retour à l'état initial.
+	      <para>
+                <emphasis role = "bold"> Déconnexion </emphasis>: Retour à l'état initial.
 	      </para>
 	    </listitem>
 	  </itemizedlist>
 	  Un cryptage des données circulant à travers le canal de communication pendant les phases précédentes peut ajouter un niveau de sécurité supplémentaire. Cependant, cette partie
 	  sera développée dans le module de transport de données.  
-    </section>
+        </para>
+      </section>
    </section>
    
    <section>
      <title> Authentification de la hiérarchie DIET </title>
+     <para>
      Dans la version 3 de DIET, la notion de <emphasis role = "italic">master agent</emphasis> et <emphasis role = "italic">local agent</emphasis> fusionne en <emphasis role = "italic">agent</emphasis>. Il est donc
      possible de pointer sur n'importe quel noeud de la hiérarchie, ce qui rend plus flexible l'infrastructure mais entraine des besoins en terme de sécurité.
-     Il est donc prévu de concevoir un modèle de sécurité utilisant des certificats pour contrôler l'ajout d'éléments à une hiérarchie DIET.
+     Il est donc prévu de concevoir un modèle de sécurité utilisant des certificats pour contrôler l'ajout d'éléments à une hiérarchie DIET.</para>
      
       <section>
 	<title> Modèle d'authentification des machines </title>
+        <para>
+          Tandis que le module de gestion des utilisateurs contrôle l'identité, les machines définissent les droits d'accès aux services et aux données.
+        </para>
       </section>
-      Tandis que le module de gestion des utilisateurs contrôle l'identité, les machines définissent les droits d'accès aux services et aux données.
    </section>
-   
    <section>
      <title> Le cryptage des données </title>
-    
+     <para></para>
    </section>
  </chapter>  
   
