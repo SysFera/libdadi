@@ -50,7 +50,7 @@
      
      <itemizedlist>
         <listitem>
-          <para> l'utilisateur ne s'authentifie qu'une seule par login et mot de passe pour accèder à l'infrastructure,</para>
+          <para> l'utilisateur ne s'authentifie qu'une seule fois via un login et un mot de passe pour accèder à l'infrastructure,</para>
         </listitem>
 	<listitem>
           <para> l'authentification est gérée de façon centralisée</para>
@@ -71,9 +71,9 @@
           <para> Le type (ou groupe) auquel appatient un utilisateur sera défini à sa création par un administrateur.</para>
         </listitem>
         
-	<!--<listitem>
+	<listitem>
           <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs.</para>
-	</listitem> -->
+	</listitem>
 	
 	<listitem>
           <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
@@ -91,14 +91,19 @@
 	  </para>
 	</listitem>-->
 	
-	<listitem>
-          <para> Les commandes d'un utilisateur pour chaque jeton seront stockées. Ce stockage sera borné par une limite définie par le système et une 
+	<!--<listitem>
+          <para> Les commandes d'un utilisateur seront stockées. Ce stockage sera borné par une limite définie par le système et une 
 	    rotation se lancera automatiquement lorsque cette limite sera atteinte (cf commande history sous Linux). 
+	  </para>
+        </listitem>-->
+	
+	<listitem>
+          <para> Un administrateur pourra interdire l'accès à certains services pour un type bien défini d'utilisateurs.
 	  </para>
         </listitem>
 	
 	<listitem>
-          <para> Un administrateur pourra interdire l'accès à certains services.
+          <para> Un administrateur pourra changer dynamiquement le type d'un utilisateur.
 	  </para>
         </listitem>
 	
@@ -111,7 +116,7 @@
 		l'utilisateur aura fermé sa session locale sur la machine à laquelle la
 		session de l'intergiciel sera rattachée, soit à cause d'une période sans
 		aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces
-		comportements de fermeture de session VISHNU seront configurables par
+		comportements de fermeture de session seront configurables par
 		les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session,
 		cette fonction permettra également aux utilisateurs de se replacer dans
 		une de leurs sessions déjà ouvertes.
