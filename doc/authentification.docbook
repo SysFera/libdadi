@@ -30,7 +30,7 @@
      <title>Présentation</title>
      
      L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisement, nous allons mettre
-     l'accent sur deux principaux points:
+     l'accent sur trois principaux points:
      
      <itemizedlist>
         <listitem>
@@ -39,13 +39,16 @@
         <listitem>
           <para> l'authentification de la hiérarchie DIET</para>
         </listitem>
+	<listitem>
+          <para> le cryptage des données</para>
+        </listitem>
       </itemizedlist>
    </section>
    
    <section>
      <title> Authenfication des utilisateurs </title>
-     L'authentification des utilisateurs va s'inspirer principalement du module <emphasis role = "italic">UMS (User Managment System) </emphasis>développer dans le cadre 
-       du projet VISHNU <footnote> <ulink url="http://www.sysfera.fr/vishnu/"> http://www.sysfera.fr/vishnu/ </ulink> </footnote>. UMS se base sur une authentification unique (<emphasis role = "italic">Single Sign-On) </emphasis> pour ses 
+     L'authentification des utilisateurs va s'inspirer principalement du module <emphasis role = "italic"> UMS (User Managment System) </emphasis>développer dans le cadre 
+       du projet VISHNU <footnote> <ulink url="http://www.sysfera.fr/vishnu/"> http://www.sysfera.fr/vishnu/ </ulink> </footnote>. UMS se base sur une authentification unique <emphasis role = "italic"> (Single Sign-On) </emphasis> pour ses 
      avantages:
      
      <itemizedlist>
@@ -72,8 +75,13 @@
         </listitem>
         
 	<listitem>
-          <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs.</para>
+	  <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs <emphasis role = "bold">*</emphasis><footnote><emphasis role = "italic"> * signifie que cette fonctionnalité ne sera pas disponible dans le coeur de DIET mais dans de futurs développements de modules externes</emphasis> </footnote>
+	  </para>
 	</listitem>
+	
+	<listitem>
+          <para> Un administrateur pourra changer dynamiquement le type d'un utilisateur <emphasis role = "bold">*</emphasis></para>.
+        </listitem>
 	
 	<listitem>
           <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
@@ -103,11 +111,6 @@
         </listitem>
 	
 	<listitem>
-          <para> Un administrateur pourra changer dynamiquement le type d'un utilisateur.
-	  </para>
-        </listitem>
-	
-	<listitem>
           <para> 
 		<emphasis role = "bold">Authentification des utilisateurs</emphasis>: une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
 		pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
@@ -119,11 +122,57 @@
 		comportements de fermeture de session seront configurables par
 		les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session,
 		cette fonction permettra également aux utilisateurs de se replacer dans
-		une de leurs sessions déjà ouvertes.
+		une de leurs sessions déjà ouvertes. L'utilisation du modèle <emphasis role = "italic"> Single Sign-On </emphasis> nécessite une 
+		traçabilité de la session authentifiée. 
 	  </para>
         </listitem>
 	
+	<listitem>
+          <para> Les différents services que fournit notre infrastructure sont rattachées à des machines. Les administrateurs enregistrent les machines et
+	    spécifient pour chaque machine le type d'utilisateurs autorisés à y accéder.
+	  </para>
+        </listitem>
+	
+	<listitem>
+          <para> 
+	    Le souci de flexibilité et de généricité de notre infrastructure nécessite que la table qui stocke les informations sur les utilisateurs (donc qui authentifie un utilisateur) 
+	    soit séparée du reste des tables pour faciliter le passage d'une base de données à un annuaire LDAP etc.
+	  </para>
+        </listitem>
       </itemizedlist>
+   </section>
+   
+   <section>
+	<title> Les états d'une authentification</title>
+	
+	<itemizedlist>
+	  <listitem>
+	    <para> <emphasis role = "bold"> Etat initial </emphasis>: un utilisateur préalablement enregistré dans le système d'information de l'intergiciel, non authentifié, n'a accès à aucun
+	     service.
+	     </para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para> <emphasis role = "bold"> Connexion </emphasis>: l'utilisateur sollicite un accès aux services de l'intergiciel en décrivant son identité à l'aide d'un login et d'un mot de passe.
+	      L'intergiciel contrôle l'identité du demandeur. 
+	     </para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para> <emphasis role = "bold"> Etat authentifié </emphasis>: l'identité de l'utilisateur est reconnu par le système. La session authentifiée a une durée de vie liée au mode de connexion choisi 
+	     par l'utilisateur et pendant cette période, il a accès aux services autorisés au groupe auquel il appartient.
+	     </para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para> <emphasis role = "bold"> Déconnexion </emphasis>: Retour à l'état initial.
+	     </para>
+	  </listitem>
+	</itemizedlist>
+	
+	Un cryptage des données circulant à travers le canal de communication pendant les phases précédentes peut ajouter un niveau de sécurité supplémentaire. Cependant, cette partie
+	sera développée dans le module de transport de données.
+	
    </section>
    
    </section>
@@ -133,8 +182,17 @@
      Dans la version 3 de DIET, la notion de <emphasis role = "italic">master agent</emphasis> et <emphasis role = "italic">local agent</emphasis> fusionne en <emphasis role = "italic">agent</emphasis>. Il est donc
      possible de pointer sur n'importe quel noeud de la hiérarchie, ce qui rend plus flexible l'infrastructure mais entraine des besoins en terme de sécurité.
      Il est donc prévu de concevoir un modèle de sécurité utilisant des certificats pour contrôler l'ajout d'éléments à une hiérarchie DIET.
+     
+      <section>
+	<title> Modèle d'authentification des machines </title>
+      </section>
+
    </section>
    
+   <section>
+     <title> Le cryptage des données </title>
+    
+   </section>
  </chapter>  
   
 </book>
