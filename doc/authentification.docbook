@@ -20,8 +20,7 @@
 	      
 	    <para> Description des besoins (d'après la première réunion du 26/07/2011).</para></revdescription>
 	</revision>
-      </revhistory>
-    
+      </revhistory>    
   </info>
   
   <chapter>
@@ -66,115 +65,99 @@
       <section>
 	<title> User Managment System (UMS)</title>
       
-      Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
-      supplémentaires).
-      
-      <itemizedlist>
-        <listitem>
-          <para> Le type (ou groupe) auquel appatient un utilisateur sera défini à sa création par un administrateur.</para>
-        </listitem>
-        
-	<listitem>
-	  <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs <emphasis role = "bold">*</emphasis><footnote><emphasis role = "italic"> * signifie que cette fonctionnalité ne sera pas disponible dans le coeur de DIET mais dans de futurs développements de modules externes</emphasis> </footnote>
-	  </para>
-	</listitem>
-	
-	<listitem>
-          <para> Un administrateur pourra changer dynamiquement le type d'un utilisateur <emphasis role = "bold">*</emphasis></para>.
-        </listitem>
-	
-	<listitem>
-          <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
-		 utilisateurs ou des administrateurs de l'intergiciel. Les fonctions de
-		 création et de modification de comptes prendront en paramètre
-		 l'information nécessaire. Seuls les
-		 administrateurs pourront utiliser ces fonctions.
-	  </para>
-        </listitem>
-	
-	<!--<listitem>
-          <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer des
-		 groupes d'utilisateurs de l'intergiciel. Lorsqu'un groupe sera supprimé, tous les utilisateurs du groupe concerné seront également supprimés. 
-		 Il ne sera pas possible de supprimer le groupe d'administrateurs.
-	  </para>
-	</listitem>-->
-	
-	<!--<listitem>
-          <para> Les commandes d'un utilisateur seront stockées. Ce stockage sera borné par une limite définie par le système et une 
-	    rotation se lancera automatiquement lorsque cette limite sera atteinte (cf commande history sous Linux). 
-	  </para>
-        </listitem>-->
-	
-	<listitem>
-          <para> Un administrateur pourra interdire l'accès à certains services pour un type bien défini d'utilisateurs.
-	  </para>
-        </listitem>
-	
-	<listitem>
-          <para> 
-		<emphasis role = "bold">Authentification des utilisateurs</emphasis>: une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
-		pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
-		rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. Ce service fermera une session
-		soit à la demande de l'utilisateur à qui elle appartiendra, soit parce que
-		l'utilisateur aura fermé sa session locale sur la machine à laquelle la
-		session de l'intergiciel sera rattachée, soit à cause d'une période sans
-		aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces
-		comportements de fermeture de session seront configurables par
-		les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session,
-		cette fonction permettra également aux utilisateurs de se replacer dans
-		une de leurs sessions déjà ouvertes. L'utilisation du modèle <emphasis role = "italic"> Single Sign-On </emphasis> nécessite une 
-		traçabilité de la session authentifiée. 
-	  </para>
-        </listitem>
-	
-	<listitem>
-          <para> Les différents services que fournit notre infrastructure sont rattachées à des machines. Les administrateurs enregistrent les machines et
-	    spécifient pour chaque machine le type d'utilisateurs autorisés à y accéder.
-	  </para>
-        </listitem>
-	
-	<listitem>
-          <para> 
-	    Le souci de flexibilité et de généricité de notre infrastructure nécessite que la table qui stocke les informations sur les utilisateurs (donc qui authentifie un utilisateur) 
-	    soit séparée du reste des tables pour faciliter le passage d'une base de données à un annuaire LDAP etc.
-	  </para>
-        </listitem>
-      </itemizedlist>
-   </section>
-   
-   <section>
-	<title> Les états d'une authentification</title>
+	Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
+	supplémentaires).
 	
 	<itemizedlist>
 	  <listitem>
-	    <para> <emphasis role = "bold"> Etat initial </emphasis>: un utilisateur préalablement enregistré dans le système d'information de l'intergiciel, non authentifié, n'a accès à aucun
-	     service.
-	     </para>
+	    <para> Le type (ou groupe) auquel appatient un utilisateur sera défini à sa création par un administrateur.</para>
 	  </listitem>
-	  
 	  <listitem>
-	    <para> <emphasis role = "bold"> Connexion </emphasis>: l'utilisateur sollicite un accès aux services de l'intergiciel en décrivant son identité à l'aide d'un login et d'un mot de passe.
-	      L'intergiciel contrôle l'identité du demandeur. 
-	     </para>
+	    <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs <emphasis role = "bold">*</emphasis><footnote><emphasis role = "italic"> * signifie que cette fonctionnalité ne sera pas disponible dans le coeur de DIET mais dans de futurs développements de modules externes</emphasis> </footnote>.
+	    </para>
 	  </listitem>
-	  
 	  <listitem>
-	    <para> <emphasis role = "bold"> Etat authentifié </emphasis>: l'identité de l'utilisateur est reconnu par le système. La session authentifiée a une durée de vie liée au mode de connexion choisi 
-	     par l'utilisateur et pendant cette période, il a accès aux services autorisés au groupe auquel il appartient.
-	     </para>
+	    <para> Un administrateur pourra changer dynamiquement le type d'un utilisateur <emphasis role = "bold">*</emphasis></para>.
 	  </listitem>
-	  
 	  <listitem>
-	    <para> <emphasis role = "bold"> Déconnexion </emphasis>: Retour à l'état initial.
-	     </para>
+	    <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
+		  utilisateurs ou des administrateurs de l'intergiciel. Les fonctions de
+		  création et de modification de comptes prendront en paramètre
+		  l'information nécessaire. Seuls les
+		  administrateurs pourront utiliser ces fonctions.
+	    </para>
+	  </listitem>
+	  <!--<listitem>
+	    <para> Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer des
+		  groupes d'utilisateurs de l'intergiciel. Lorsqu'un groupe sera supprimé, tous les utilisateurs du groupe concerné seront également supprimés. 
+		  Il ne sera pas possible de supprimer le groupe d'administrateurs.
+	    </para>
+	  </listitem>-->
+	  <!--<listitem>
+	    <para> Les commandes d'un utilisateur seront stockées. Ce stockage sera borné par une limite définie par le système et une 
+	      rotation se lancera automatiquement lorsque cette limite sera atteinte (cf commande history sous Linux). 
+	    </para>
+	  </listitem>-->
+	  <listitem>
+	    <para> Un administrateur pourra interdire l'accès à certains services pour un type bien défini d'utilisateurs.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para> 
+		  <emphasis role = "bold">Authentification des utilisateurs</emphasis>: une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
+		  pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
+		  rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. Ce service fermera une session
+		  soit à la demande de l'utilisateur à qui elle appartiendra, soit parce que
+		  l'utilisateur aura fermé sa session locale sur la machine à laquelle la
+		  session de l'intergiciel sera rattachée, soit à cause d'une période sans
+		  aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces
+		  comportements de fermeture de session seront configurables par
+		  les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session,
+		  cette fonction permettra également aux utilisateurs de se replacer dans
+		  une de leurs sessions déjà ouvertes. L'utilisation du modèle <emphasis role = "italic"> Single Sign-On </emphasis> nécessite une 
+		  traçabilité de la session authentifiée. 
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para> Les différents services que fournit notre infrastructure sont rattachées à des machines. Les administrateurs enregistrent les machines et
+	      spécifient pour chaque machine le type d'utilisateurs autorisés à y accéder.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para> 
+	      Le souci de flexibilité et de généricité de notre infrastructure nécessite que la table qui stocke les informations sur les utilisateurs (donc qui authentifie un utilisateur) 
+	      soit séparée du reste des tables pour faciliter le passage d'une base de données à un annuaire LDAP etc.
+	    </para>
 	  </listitem>
 	</itemizedlist>
-	
-	Un cryptage des données circulant à travers le canal de communication pendant les phases précédentes peut ajouter un niveau de sécurité supplémentaire. Cependant, cette partie
-	sera développée dans le module de transport de données.
-	
-   </section>
+    </section>
    
+    <section>
+	  <title> Les états d'une authentification</title>
+	  <itemizedlist>
+	    <listitem>
+	      <para> <emphasis role = "bold"> Etat initial </emphasis>: un utilisateur préalablement enregistré dans le système d'information de l'intergiciel, non authentifié, n'a accès à aucun
+	      service.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para> <emphasis role = "bold"> Connexion </emphasis>: l'utilisateur sollicite un accès aux services de l'intergiciel en décrivant son identité à l'aide d'un login et d'un mot de passe.
+		L'intergiciel contrôle l'identité du demandeur. 
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para> <emphasis role = "bold"> Etat authentifié </emphasis>: l'identité de l'utilisateur est reconnu par le système. La session authentifiée a une durée de vie liée au mode de connexion choisi 
+	      par l'utilisateur et pendant cette période, il a accès aux services autorisés au groupe auquel il appartient.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para> <emphasis role = "bold"> Déconnexion </emphasis>: Retour à l'état initial.
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	  Un cryptage des données circulant à travers le canal de communication pendant les phases précédentes peut ajouter un niveau de sécurité supplémentaire. Cependant, cette partie
+	  sera développée dans le module de transport de données.  
+    </section>
    </section>
    
    <section>
@@ -186,7 +169,7 @@
       <section>
 	<title> Modèle d'authentification des machines </title>
       </section>
-
+      Tandis que le module de gestion des utilisateurs contrôle l'identité, les machines définissent les droits d'accès aux services et aux données.
    </section>
    
    <section>
