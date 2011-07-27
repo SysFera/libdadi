@@ -12,7 +12,10 @@ class Logger;
 typedef boost::shared_ptr<Logger> LoggerPtr;
 typedef std::map<std::string, LoggerPtr> LoggerMap;
 
-
+/**
+ * @class Logger
+ * @brief Logger log4j style API
+ */
 class Logger : public Channel {
 public:
   /**

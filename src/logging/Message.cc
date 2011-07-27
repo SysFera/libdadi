@@ -59,8 +59,8 @@ Message::getTimestamp() const {
 }
 
 void
-Message::setFile(const std::string& file) {
-  file_ = file;
+Message::setFile(const std::string& filename) {
+  file_ = filename;
 }
 
 const std::string&

@@ -1,5 +1,11 @@
 #ifndef _CONFIG_HH_
 #define _CONFIG_HH_
+/**
+ * @file   Config.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines configuration store
+ *
+ */
 
 #include <map>
 #include <string>
@@ -22,20 +28,26 @@ namespace dadi {
     typedef std::map<std::string, boost::any> ConfigStore;
     friend class Singleton<Config>;
   public:
-    // writer subscript operator
+    /**
+     * @brief writer subscript operator
+     * @param key configuration key
+     */
     boost::any& operator[](const std::string& key) {
       boost::unique_lock<boost::shared_mutex> lock(mutex_);
       return store_[key];
     }
-    // reader subscript operator
+    /**
+     * @brief reader subscript operator
+     * @param key configuration key
+     */
     boost::any operator[](const std::string& key) const {
       boost::shared_lock<boost::shared_mutex> lock(mutex_);
       return store_[key];
     }
 
   private:
-    mutable boost::shared_mutex mutex_;
-    mutable ConfigStore store_;
+    mutable boost::shared_mutex mutex_; /**< mutex protecting concurrent access */
+    mutable ConfigStore store_; /**< actual configuration store */
   };
 }
 

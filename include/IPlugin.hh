@@ -1,6 +1,12 @@
 // -*- mode: c++ -*-
 #ifndef _IPLUGIN_HH_
 #define _IPLUGIN_HH_
+/**
+ * @file   IPlugin.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines plugin abstract base class
+ *
+ */
 
 #include "PluginInfo.hh"
 
@@ -17,16 +23,37 @@ const int PLUGIN_OK = 0;
 #  define DADI_EXPORT
 #endif /* WIN32 */
 
-// plugin abstract base clase
+/**
+ * @class IPlugin
+ * @brief plugin abstract base clase
+ */
 class DADI_EXPORT IPlugin {
 public:
+  /**
+   * @brief destructor
+   */
   virtual ~IPlugin() {}
+  /**
+   * @brief initialize plugin
+   */
   void init() { do_init(); }
+  /**
+   * @brief set PluginInfo
+   * @param piPtr PluginInfoPtr
+   */
   void plugin_info(dadi::PluginInfoPtr& piPtr) { piPtr_ = piPtr; }
+  /**
+   * @brief get PluginInfo
+   * @return PluginInfoPtr
+   */
   dadi::PluginInfoPtr& plugin_info() { return piPtr_; }
 protected:
-  virtual void do_init()=0;
-  dadi::PluginInfoPtr piPtr_;
+  /**
+   * @brief implementation of init
+   * @warning must be reimplemented
+   */
+  virtual void do_init() = 0;
+  dadi::PluginInfoPtr piPtr_; /**< PluginInfoPtr */
 };
 
 
@@ -38,6 +65,7 @@ extern "C" {
  * Plugin writers must implement this function
  * it should instantiate a new IPlugin instance and return true in case
  * of success, false otherwise.
+ * @param[out] instance
  */
   int DADI_EXPORT create_plugin_instance(void **instance);
 }

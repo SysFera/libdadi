@@ -1,5 +1,11 @@
 #ifndef _LOGSERVICECHANNEL_HH_
 #define _LOGSERVICECHANNEL_HH_
+/**
+ * @file   LogServiceChannel.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines LogService channel
+ *
+ */
 
 #include <boost/thread/mutex.hpp>
 #include "Channel.hh"
@@ -8,6 +14,10 @@
 
 namespace dadi {
 
+/**
+ * @class LogServiceChannel
+ * @brief channel to log messages in LogService
+ */
 class LogServiceChannel : public Channel {
 public:
 
@@ -19,6 +29,9 @@ public:
    * so we could have a sane default constructor
    */
   LogServiceChannel(int argc, char *argv[]);
+  /**
+   * @brief destructor
+   */
   ~LogServiceChannel();
 
   void open();
@@ -26,8 +39,8 @@ public:
   void log(const Message& msg);
 private:
   // TODO: update LogComponentBase to be thread-safe ?
-  LogComponentBase *lb;
-  boost::mutex mutex_;
+  LogComponentBase *lb; /**< LogComponentBase */
+  boost::mutex mutex_; /**< mutext to protect concurrent access */
 };
 
 } /* namespace dadi */

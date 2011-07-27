@@ -1,5 +1,12 @@
 #ifndef _MULTICHANNEL_HH_
 #define _MULTICHANNEL_HH_
+/**
+ * @file   MultiChannel.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines special channel that redirect log messages
+ * to multiple channels.
+ *
+ */
 
 #include "Channel.hh"
 #include <list>
@@ -11,6 +18,10 @@ class Message;
 
 typedef std::list<ChannelPtr> Channels;
 
+/**
+ * @class MultiChannel
+ * @brief redirects log messages to multiple channels
+ */
 class MultiChannel : public Channel {
 public:
   /**
@@ -42,8 +53,8 @@ public:
    */
   int getCount() const;
 private:
-  Channels channels_;
-  boost::mutex mutex_;
+  Channels channels_; /**< channels */
+  boost::mutex mutex_; /**< mutex that protects concurrent access */
 };
 
 

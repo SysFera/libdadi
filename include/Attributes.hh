@@ -1,5 +1,11 @@
 #ifndef _ATTRIBUTES_HH_
 #define _ATTRIBUTES_HH_
+/**
+ * @file   Attributes.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines attributes management
+ *
+ */
 
 #include <list>
 #include <string>
@@ -10,6 +16,9 @@
 namespace dadi {
 
 /**
+ * @class Attributes
+ * @brief base class with attributes
+ *
  * stupid class that wraps a boost::property_tree::ptree
  * and (de)serialize it in xml format (easy to parse)
  */
@@ -90,7 +99,7 @@ public:
   std::string saveAttr(int format = 0) const;
 
 private:
-  boost::property_tree::ptree pt;
+  boost::property_tree::ptree pt; /**< property tree holding attributes */
 };
 
 } /* namespace dadi */

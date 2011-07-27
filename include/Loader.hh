@@ -1,6 +1,12 @@
 // -*- mode: c++ -*-
 #ifndef _LOADER_HH_
 #define _LOADER_HH_
+/**
+ * @file   Loader.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines shared library loader
+ *
+ */
 
 #include <list>
 #include "PluginInfo.hh"
@@ -16,8 +22,18 @@ typedef std::list<SharedLibraryPtr> LibraryCache;
  */
 class Loader {
 public:
+  /**
+   * @brief default constructor
+   */
   Loader();
+  /**
+   * @brief constructor
+   * @param reg registry associated to the loader
+   */
   explicit Loader(Registry* reg);
+  /**
+   * @brief destructor
+   */
   ~Loader();
 
   /**
@@ -48,4 +64,5 @@ private:
 };
 
 } /* namespace dadi */
+
 #endif /* _LOADER_HH_ */
