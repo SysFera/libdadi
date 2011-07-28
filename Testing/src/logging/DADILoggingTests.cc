@@ -293,6 +293,51 @@ BOOST_AUTO_TEST_CASE(create_logger_normal_call) {
   BOOST_REQUIRE(oss.str().compare(msgToLog+"\n") == 0);
 }
 
+BOOST_AUTO_TEST_CASE(create_logger_normal_call_default_ConsoleChannel) {
+
+  BOOST_TEST_MESSAGE("#Create logger test normal call#");
+  // The message which will be logged
+  string msgToLog = "Dadi Logger tests: DEBUG";
+  LoggerPtr mylogger1 =
+    Logger::createLogger("createLogger_normal_default_ConsoleChannel",
+                         (ChannelPtr) new ConsoleChannel(),
+                         Message::PRIO_DEBUG);
+  // To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  // To check the name of the logger created
+  BOOST_REQUIRE(mylogger1->getName().compare("createLogger_normal_default_ConsoleChannel") == 0);
+  // To check the priority level
+  BOOST_REQUIRE(mylogger1->debug());
+  // To put the message to log
+  mylogger1->log(Message("", msgToLog, Message::PRIO_DEBUG));
+}
+
+
+
+// BOOST_AUTO_TEST_CASE(create_logger_already_exists_call) {
+
+//   BOOST_TEST_MESSAGE("#Create logger with a name that already exists test#");
+//   stringstream oss;
+//   // First logger
+//   LoggerPtr mylogger1 =
+//     Logger::createLogger("createLogger_normal",
+//                          (ChannelPtr) new ConsoleChannel(oss),
+//                          Message::PRIO_DEBUG);
+//   // To check that mylogger1 is not NULL
+//   BOOST_REQUIRE(mylogger1);
+//   // To check the name of the logger created
+//   BOOST_REQUIRE(mylogger1->getName().compare("createLogger_normal") == 0);
+//   // To check the priority level
+//   BOOST_REQUIRE(mylogger1->debug());
+  
+//   // Second logger
+//   BOOST_REQUIRE_THROW(Logger::createLogger("createLogger_normal",
+//                                            (ChannelPtr) new ConsoleChannel(oss),
+//                                            Message::PRIO_DEBUG),
+//                       (std::string("Already exists")));
+                     
+// }
+
 
 BOOST_AUTO_TEST_CASE(log_message_low_prio_call) {
 
