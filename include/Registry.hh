@@ -40,7 +40,9 @@ struct name_extractor {
 
 struct interface_extractor {
   typedef std::string result_type;
-  const result_type& operator()(PluginInfoPtr pi) const { return pi->interface; }
+  const result_type& operator()(PluginInfoPtr pi) const {
+    return pi->interface;
+  }
 };
 
 
@@ -125,7 +127,7 @@ public:
       std::list<std::string>::iterator ita = deps.begin();
 
       IPlugin *p = NULL;
-      for(; ita != deps.end(); ++ita) {
+      for (; ita != deps.end(); ++ita) {
         p = getByInterface<IPlugin>(*ita);
       }
     }
@@ -158,9 +160,9 @@ public:
       std::list<std::string>& deps = (*it)->deps;
       std::list<std::string>::iterator ita = deps.begin();
 
-      for(; ita != deps.end(); ++ita) {
+      for (; ita != deps.end(); ++ita) {
         std::cout << *ita << "\n";
-        //IPlugin *p = get<IPlugin>(*ita);
+        IPlugin *p = get<IPlugin>(*ita);
       }
     }
     return static_cast<Interface *>(instance);
