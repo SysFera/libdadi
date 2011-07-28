@@ -1,6 +1,6 @@
-//df -*- mode:c++ -*-
+// -*- mode:c++ -*-
 #ifndef _SHARED_LIBRARY_IMPL_POSIX_HH_
- #define _SHARED_LIBRARY_IMPL_POSIX_HH_
+#define _SHARED_LIBRARY_IMPL_POSIX_HH_
 /**
  * @file   SharedLibraryImpl_posix.hh
  * @author hguemar <hguemar@sysfera.com>
@@ -18,7 +18,7 @@ namespace dadi {
 class SharedLibraryImpl {
 public:
   SharedLibraryImpl();
-  SharedLibraryImpl(const std::string& path);
+  explicit SharedLibraryImpl(const std::string& path);
   ~SharedLibraryImpl();
 
   void loadImpl(const std::string& path);

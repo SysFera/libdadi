@@ -18,7 +18,7 @@ namespace dadi {
 class SharedLibraryImpl {
 public:
   SharedLibraryImpl();
-  SharedLibraryImpl(const std::string& path);
+  explicit SharedLibraryImpl(const std::string& path);
   ~SharedLibraryImpl()
 
   void loadImpl(const std::string& path);
@@ -30,7 +30,7 @@ public:
 
   const std::string& pathImpl() const;
 
-Private:
+private:
   std::string path_;
   void *handle_;
 };

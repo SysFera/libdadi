@@ -28,7 +28,7 @@ main(int argc, char *argv[]) {
   mylogger1->setChannel(cc1);
   mylogger2->setChannel(cc2);
   mylogger3->setChannel(cc3);
-  for(int i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++) {
     mylogger1->log(Message("", "test: DEBUG test test", Message::PRIO_DEBUG));
     mylogger1->log(Message("", "test: FATAL test test", Message::PRIO_FATAL));
     mylogger2->log(Message("", "test: DEBUG test test", Message::PRIO_DEBUG));

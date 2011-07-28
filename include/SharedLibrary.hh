@@ -32,7 +32,7 @@ public:
    * @brief load shared library
    * @param path path to shared library
    */
-  SharedLibrary(const std::string& path);
+  explicit SharedLibrary(const std::string& path);
   /**
    * @brief destructor
    */
@@ -86,7 +86,10 @@ public:
   static std::string suffix();
 
 private:
-  boost::scoped_ptr<SharedLibraryImpl> pimpl; /**< Platform-specific private implementation */
+  /**
+   *Platform-specific private implementation
+   */
+  boost::scoped_ptr<SharedLibraryImpl> pimpl;
 };
 
 typedef boost::shared_ptr<SharedLibrary> SharedLibraryPtr;

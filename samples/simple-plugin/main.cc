@@ -6,7 +6,7 @@
 #include "Registry.hh"
 
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
   if (argc < 2) {
     std::cout << "usage: loader <plugin_config>\n";
     return EXIT_FAILURE;
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
   std::cout << "[LOADER]: start\n";
   dadi::Registry reg;
   int i = 1;
-  while(argv[i]) {
+  while (argv[i]) {
     reg.addPath(argv[i++]);
   }
   try {
