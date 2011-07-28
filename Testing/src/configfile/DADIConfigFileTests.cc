@@ -4,7 +4,6 @@
  * @author Eugène PAMBA CAPO-CHICHI (eugene.capochichi@sysfera.com)
  */
 
-#include <iostream>
 #include "Config.hh"
 #include "Options.hh"
 #include "testconfig.h"
@@ -13,6 +12,7 @@
 #include <iostream>
 #include <sstream>
 #include <cmath>
+#include <cstring>
 
 // Boost Headers
 #include <boost/thread.hpp>
@@ -22,11 +22,11 @@
 
 using namespace std;
 using namespace dadi;
-namespace bfs=boost::filesystem; // an alias for boost filesystem namespace
+namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 
-BOOST_AUTO_TEST_SUITE (Dadi_test)
+BOOST_AUTO_TEST_SUITE(Dadi_test)
 
-BOOST_AUTO_TEST_CASE( read_config_file_normal_call) {
+BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
 
   BOOST_TEST_MESSAGE("#Read config file test normal call#");
 
@@ -34,9 +34,9 @@ BOOST_AUTO_TEST_CASE( read_config_file_normal_call) {
   char *argv[argc];
   dadi::Options opt;
   dadi::Config& config = dadi::Config::instance();
-  boost::filesystem::path configFilepath (TESTFILESOUTPUTPATH);
-  configFilepath/="cfg";
-  configFilepath/="configfile.cfg";
+  boost::filesystem::path configFilepath(TESTFILESOUTPUTPATH);
+  configFilepath /= "cfg";
+  configFilepath /= "configfile.cfg";
 
   opt.setName("simple-configfile");
   opt.setUsage("-c <config-file>");
@@ -58,9 +58,9 @@ BOOST_AUTO_TEST_CASE( read_config_file_normal_call) {
   opt.addOption("config-file,c", "configuration file", fFile)->required();
   opt.addGroup(fileGroup);
 
-  argv[0] = (char*)"./simple-configfile";
-  argv[1] = (char*)"-c";
-  argv[2] = (char*) configFilepath.string().c_str();
+  argv[0] = (char *)"./simple-configfile";
+  argv[1] = (char *)"-c";
+  argv[2] = (char *)configFilepath.c_str();
 
   opt.parseCommandLine(argc, argv);
   opt.notify();
@@ -73,7 +73,8 @@ BOOST_AUTO_TEST_CASE( read_config_file_normal_call) {
   opt.notify();
 
   BOOST_REQUIRE(!config["file.name"].empty());
-  BOOST_REQUIRE(boost::any_cast<std::string>(config["file.name"]).compare("<testConfigFile>")==0);
+  BOOST_REQUIRE(
+    boost::any_cast<std::string>(config["file.name"]) == "<testConfigFile>");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
