@@ -18,7 +18,7 @@ Attributes::loadAttr(const std::string& data, int format) {
   using boost::property_tree::ptree;
   std::istringstream ss(data);
 
-  switch(format) {
+  switch (format) {
   case FORMAT_JSON:
     read_json(ss, pt);
     break;
@@ -35,7 +35,7 @@ std::string
 Attributes::saveAttr(int format) const {
   std::ostringstream ss;
 
-  switch(format) {
+  switch (format) {
   case FORMAT_JSON:
     write_json(ss, pt);
     break;

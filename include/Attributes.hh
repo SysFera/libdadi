@@ -25,7 +25,7 @@ namespace dadi {
 class Attributes {
 public:
   enum Format {
-    FORMAT_XML=0,
+    FORMAT_XML = 0,
     FORMAT_INI,
     FORMAT_JSON
   };
@@ -56,8 +56,9 @@ public:
   getAttrList(const std::string& path) const {
     std::list<T> myList;
     BOOST_FOREACH(boost::property_tree::ptree::value_type& v,
-                  pt.get_child(path))
+                  pt.get_child(path)) {
       myList.push_back(v.second.get_value<T>());
+    }
     return myList;
   }
 
@@ -69,9 +70,9 @@ public:
    * @return expected value or default
    */
   template<typename T> T
-   getAttr(const std::string& path, T default_value) const {
-     return pt.get(path, default_value);
-   }
+  getAttr(const std::string& path, T default_value) const {
+    return pt.get(path, default_value);
+  }
 
   /* modifiers */
   /**
