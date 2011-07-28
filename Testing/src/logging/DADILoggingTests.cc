@@ -8,6 +8,7 @@
 #include <iostream>
 #include <Logging/ConsoleChannel.hh>
 #include <Logging/FileChannel.hh>
+#include <Logging/NullChannel.hh>
 #include <Logging/Logger.hh>
 #include <Logging/Message.hh>
 #include "Config.hh"
@@ -296,7 +297,7 @@ BOOST_AUTO_TEST_CASE(create_logger_normal_call) {
 
 BOOST_AUTO_TEST_CASE(create_logger_normal_call_default_ConsoleChannel) {
 
-  BOOST_TEST_MESSAGE("#Create logger test normal call#");
+  BOOST_TEST_MESSAGE("#Create logger test normal call on default ConsoleChannel#");
   // The message which will be logged
   string msgToLog = "Dadi Logger tests: DEBUG";
   LoggerPtr mylogger1 =
@@ -307,6 +308,25 @@ BOOST_AUTO_TEST_CASE(create_logger_normal_call_default_ConsoleChannel) {
   BOOST_REQUIRE(mylogger1);
   // To check the name of the logger created
   BOOST_REQUIRE(mylogger1->getName().compare("createLogger_normal_default_ConsoleChannel") == 0);
+  // To check the priority level
+  BOOST_REQUIRE(mylogger1->debug());
+  // To put the message to log
+  mylogger1->log(Message("", msgToLog, Message::PRIO_DEBUG));
+}
+
+BOOST_AUTO_TEST_CASE(create_logger_normal_call_NullChannel) {
+
+  BOOST_TEST_MESSAGE("#Create logger test normal call on NullChannel#");
+  // The message which will be logged
+  string msgToLog = "Dadi Logger tests: DEBUG";
+  LoggerPtr mylogger1 =
+    Logger::createLogger("createLogger_normal_NullChannel",
+                         (ChannelPtr) new NullChannel(),
+                         Message::PRIO_DEBUG);
+  // To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  // To check the name of the logger created
+  BOOST_REQUIRE(mylogger1->getName().compare("createLogger_normal_NullChannel") == 0);
   // To check the priority level
   BOOST_REQUIRE(mylogger1->debug());
   // To put the message to log
