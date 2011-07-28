@@ -67,7 +67,7 @@ Options::parseCommandLine(int& argc, char* argv[]) {
     store(po::command_line_parser(argc, argv)
           .options(*options).positional(pos_)
           .run(), vm_);
-  } catch(const std::exception& e)  {
+  } catch (const std::exception& e) {
     std::cerr << e.what() << "\n";
     boost::shared_ptr<po::options_description> opt = default_.get();
     const po::option_description *help = opt->find_nothrow("help", true);
@@ -107,7 +107,7 @@ Options::notify() {
 
   try {
     po::notify(vm_);
-  } catch(const po::required_option& e) {
+  } catch (const po::required_option& e) {
     /* this is quite hairy but safe
        instead of just printing help message, we execute our callback
        which allows user to customize the output */
@@ -152,7 +152,7 @@ Options::groups(OptionsGroup::GroupType type) {
   }
 
   std::vector<OptionsGroup>::iterator it = groups_.begin();
-  for(; it != groups_.end(); ++it) {
+  for (; it != groups_.end(); ++it) {
     if (type == it->type_) {
       options->add(*(it->get()));
     }

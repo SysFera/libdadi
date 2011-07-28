@@ -28,10 +28,10 @@ const long DEFAULT_ROT_SIZE(1024*1024);
 const std::string DEFAULT_ROT_INTERVAL("24:00:00");
 const int DEFAULT_PURGE_COUNT(10);
 const boost::regex FileChannel::regex1(
-  "\\s*" // should be trimmed but safer
-  "(?(?=.*,.*)" // conditional base on lookahead assertion
+  "\\s*"  // should be trimmed but safer
+  "(?(?=.*,.*)"  // conditional base on lookahead assertion
   "([0-6]|sunday|monday|tuesday|wednesday|thursday|friday|saturday),)"
-  "((?:\\d{2}:?){1,3})", // hh[:mm[:ss[:]]] beware side-effect last ":"
+  "((?:\\d{2}:?){1,3})",  // hh[:mm[:ss[:]]] beware side-effect last ":"
   boost::regex::perl);
 
 std::map<std::string, int> FileChannel::attrMap =
@@ -78,7 +78,7 @@ FileChannel::open() {
 
   int cMode_ =
     attrMap[getAttr<std::string>(FileChannel::ATTR_COMPRESSION_MODE, "")];
-  switch(cMode_) {
+  switch (cMode_) {
   case FileChannel::COMP_ZLIB:
     out_.push(io::zlib_compressor());
     break;
@@ -120,7 +120,6 @@ FileChannel::log(const Message& msg) {
     out_.push(io::file_sink(path_));
     purge();
   }
-
 }
 
 long

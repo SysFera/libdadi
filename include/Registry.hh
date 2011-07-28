@@ -162,7 +162,7 @@ public:
 
       for (; ita != deps.end(); ++ita) {
         std::cout << *ita << "\n";
-        IPlugin *p = get<IPlugin>(*ita);
+        //IPlugin *p = get<IPlugin>(*ita);
       }
     }
     return static_cast<Interface *>(instance);

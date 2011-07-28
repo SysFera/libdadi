@@ -50,10 +50,10 @@ RotateByIntervalStrategy::mustRotate(const std::string& path) {
   ptime::ptime current(ptime::second_clock::universal_time());
   ptime::time_duration elapsed = current - last_;
 
-  if (td_ > elapsed ) {
-    return false; // not yet
+  if (td_ > elapsed) {
+    return false;  // not yet
   } else {
-    last_ = current; // register last rotation
+    last_ = current;  // register last rotation
     return true;
   }
 }
@@ -233,7 +233,7 @@ void
 PurgeByCountStrategy::purge(const std::string& path) {
   std::vector<std::string> archives;
   list(path, archives);
-  //no archives to delete, return early
+  // no archives to delete, return early
   if (archives.size() < count_) {
     return;
   }

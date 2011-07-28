@@ -24,11 +24,13 @@ Loader::findLibrary(std::string lib) const {
   std::list<std::string> l = reg_->paths();
   std::list<std::string>::iterator it = l.begin();
 
-  for(;it != l.end(); ++it) {
+  for (;it != l.end(); ++it) {
     directory_iterator p(*it);
-    for(; p!= directory_iterator(); ++p)
-      if (lib == (p->path()).filename())
+    for (; p!= directory_iterator(); ++p) {
+      if (lib == (p->path()).filename()) {
         return p->path().string();
+      }
+    }
   }
 
   return "";
@@ -40,8 +42,9 @@ Loader::loadPlugin(const char *mFile) {
   PluginInfoPtr pInfo(new PluginInfo);
   parseConfig(mFile, pInfo);
 
-  BOOST_FOREACH(std::string& v, pInfo->paths)
+  BOOST_FOREACH(std::string& v, pInfo->paths) {
     reg_->addPath(v);
+  }
 
   std::string libname = SharedLibrary::prefix() +
     pInfo->name +
@@ -59,15 +62,17 @@ Loader::loadPlugin(const char *mFile) {
   // get factory
   pInfo->factory = sPtr->symbol("create_plugin_instance");
   if (!pInfo->factory) {
-    std::cerr << boost::format("ERROR: can't load symbol create_plugin_instance\n");
+    std::cerr <<
+      boost::format("ERROR: can't load symbol create_plugin_instance\n");
     return;
   }
 
-  BOOST_FOREACH(std::string& dep, pInfo->deps)
+  BOOST_FOREACH(std::string& dep, pInfo->deps) {
     std::cout << boost::format("dependency: %1%\n") % dep;
+  }
 
   pInfo->sPtr = sPtr;
-  reg_->registerPlugin(pInfo );
+  reg_->registerPlugin(pInfo);
 }
 
 void
@@ -92,9 +97,10 @@ Loader::parseConfig(const char *mFile, PluginInfoPtr pInfo) {
     pInfo->interface = pt.get<std::string>("plugindescriptor.interface");
 
     try {
-      BOOST_FOREACH( ptree::value_type& v,
-                     pt.get_child("plugindescriptor.paths") )
+      BOOST_FOREACH(ptree::value_type& v,
+                    pt.get_child("plugindescriptor.paths")) {
         pInfo->paths.push_back(v.second.data());
+      }
     } catch (const ptree_bad_path& e) {
     }
 

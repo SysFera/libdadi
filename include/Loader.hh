@@ -9,6 +9,7 @@
  */
 
 #include <list>
+#include <string>
 #include "PluginInfo.hh"
 #include "SharedLibrary.hh"
 

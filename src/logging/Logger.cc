@@ -145,7 +145,7 @@ Logger::getActiveLoggers(std::vector<std::string>& names) {
   Lock lock(mutex_);
 
   LoggerMap::const_iterator it = lmap_.begin();
-  names.clear(); // ensure that our vector is empty
+  names.clear();  // ensure that our vector is empty
   for (; lmap_.end() != it; ++it) {
     names.push_back(it->first);
   }

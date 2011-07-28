@@ -24,7 +24,9 @@ LogServiceChannel::LogServiceChannel(int argc, char *argv[]) {
       std::cerr << "LogComponentBase: initialization failure\n";
       return;
     }
-    open(); // TODO: needs to be moved in log (requires that LogComponentBase gets a shiny new method to test if connection is alive)
+    /* TODO: needs to be moved in log (requires that LogComponentBase gets
+       a shiny new method to test if connection is alive) */
+    open();
 }
 
 LogServiceChannel::~LogServiceChannel() {
