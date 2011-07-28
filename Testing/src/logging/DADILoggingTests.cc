@@ -2,6 +2,7 @@
  * @file DADILoggingTests.cc
  * @brief This file implements the libdadi tests for logger
  * @author Eugène PAMBA CAPO-CHICHI (eugene.capochichi@sysfera.com)
+ * @author Benjamin DEPARDON (benjamin.depardon@sysfera.com)
  */
 
 #include <iostream>
