@@ -8,6 +8,7 @@
  */
 
 #include "Channel.hh"
+#include <string>
 #include <map>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/regex_fwd.hpp>
@@ -33,27 +34,27 @@ namespace dadi {
 class FileChannel : public Channel {
 public:
   enum CompressionMode {
-    COMP_NONE=0,
+    COMP_NONE = 0,
     COMP_BZIP2,
     COMP_GZIP,
     COMP_ZLIB
   };
 
   enum ArchiveMode {
-    AR_NONE=0,
+    AR_NONE = 0,
     AR_NUMBER,
     AR_TIMESTAMP
   };
 
   enum RotateMode {
-    ROT_NONE=0,
+    ROT_NONE = 0,
     ROT_SIZE,
     ROT_INTERVAL,
     ROT_TIME
   };
 
   enum PurgeMode {
-    PURGE_NONE=0,
+    PURGE_NONE = 0,
     PURGE_COUNT,
     PURGE_AGE
   };
@@ -66,7 +67,7 @@ public:
    * @brief constructor
    * @param path log file path
    */
-  FileChannel(const std::string& path);
+  explicit FileChannel(const std::string& path);
   /**
    * @brief destructor
    * @return

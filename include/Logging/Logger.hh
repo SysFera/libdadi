@@ -3,6 +3,7 @@
 
 #include "Channel.hh"
 #include <map>
+#include <string>
 #include <vector>
 #include <boost/thread/recursive_mutex.hpp>
 

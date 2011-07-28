@@ -10,7 +10,6 @@
 #include <map>
 #include <string>
 
-
 namespace dadi {
 
 typedef std::map<std::string, std::string> StringMap;
@@ -22,7 +21,7 @@ typedef std::map<std::string, std::string> StringMap;
 class Message {
 public:
   enum Priority {
-    PRIO_TRACE=1,
+    PRIO_TRACE = 1,
     PRIO_DEBUG,
     PRIO_INFORMATION,
     PRIO_WARNING,

@@ -30,7 +30,7 @@ public:
    * @brief constructor
    * @param out C++ stream
    */
-  ConsoleChannel(std::ostream& out);
+  explicit ConsoleChannel(std::ostream& out);
   void log(const Message& msg);
 private:
   std::ostream& out_; /**< C++ stream */

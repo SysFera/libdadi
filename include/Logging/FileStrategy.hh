@@ -36,7 +36,7 @@ public:
    * @brief constructor
    * @param size file size threshold (bytes)
    */
-  RotateBySizeStrategy(long size);
+  explicit RotateBySizeStrategy(long size);
   ~RotateBySizeStrategy();
   bool mustRotate(const std::string& path);
 private:
@@ -49,7 +49,7 @@ public:
    * @brief constructor
    * @param td time duration between two rotation
    */
-  RotateByIntervalStrategy(const boost::posix_time::time_duration& td);
+  explicit RotateByIntervalStrategy(const boost::posix_time::time_duration& td);
   ~RotateByIntervalStrategy();
   bool mustRotate(const std::string& path);
 private:
@@ -116,7 +116,8 @@ public:
    * @brief constructor (by default use utc)
    * @param tpl timestamp template (default: YYYYMMDDhhmmss)
    */
-  ArchiveByTimestampStrategy(const std::string& tpl = "%Y%m%d%H%M%S");
+  explicit ArchiveByTimestampStrategy(const std::string& tpl =
+                                      "%Y%m%d%H%M%S");
   ~ArchiveByTimestampStrategy();
   /**
    * @brief use local time or utc
@@ -126,7 +127,7 @@ public:
   void archive(const std::string& path);
 private:
   const std::string tpl_;
-  boost::scoped_ptr<std::locale> locale_; /**< locale containing our time_facet */
+  boost::scoped_ptr<std::locale> locale_; /**< locale with custom time_facet */
   bool local_; /**< use local time or utc (utc by default) */
 };
 
@@ -170,8 +171,8 @@ public:
    * @brief constructor
    * @param count number of archives to keep
    */
-  PurgeByCountStrategy(int count);
-   ~PurgeByCountStrategy();
+  explicit PurgeByCountStrategy(int count);
+  ~PurgeByCountStrategy();
 
   void purge(const std::string& path);
 protected:
