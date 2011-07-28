@@ -25,8 +25,7 @@ PluginInfo::operator=(const PluginInfo& other) {
 }
 
 
-PluginInfo::operator bool()
-{
+PluginInfo::operator bool() {
   return (!name.empty() &&
           !interface.empty() &&
           !path.empty() &&

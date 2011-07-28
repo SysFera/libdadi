@@ -52,7 +52,7 @@ struct PluginInfo {
    * @brief test if plugin has been correctly loaded
    * @return
    */
-  operator bool ();
+  operator bool();
 
   boost::uuids::uuid uuid; /**< plugin uuid */
   std::string name; /**< plugin name */
