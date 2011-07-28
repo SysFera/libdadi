@@ -22,8 +22,6 @@
 
 using namespace std;
 using namespace dadi;
-namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
-static const string temporaryFilename("crap4.log");
 
 BOOST_AUTO_TEST_SUITE(Dadi_test)
 
