@@ -3,6 +3,7 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0"
       xml:lang="fr">
+
   <info>
     <author>
       <personname>
@@ -22,9 +23,30 @@
           
         <para> Description des besoins (d'après la première réunion du 26/07/2011).</para></revdescription>
       </revision>
-    </revhistory>    
+    </revhistory>  
   </info>
-  
+
+  <bibliography id="sec.bibliography">
+    <title>Documents de référence</title>
+    
+    <biblioentry id="bib.UMSDesign">
+      <abbrev>VISHNU_D2_1a-UMS-Design</abbrev>
+      <title>VISHNU User Management System Package Design</title>
+    </biblioentry>
+    <biblioentry id="bib.UMSUser">
+      <abbrev>VISHNU_D2_2c-UserManual</abbrev>
+      <title>VISHNU User Manual</title>
+    </biblioentry>
+    <biblioentry id="bib.UMSAdmin">
+      <abbrev>VISHNU_D2_2d-GuideAdmin</abbrev>
+      <title>VISHNU - Le guide de l'administrateur</title>
+    </biblioentry>
+    <biblioentry id="bib.Sogeti">
+      <abbrev>LST-LIP-DIET_Sec</abbrev>
+      <title>DIET ETUDE SECURITE LST - LIP</title>
+    </biblioentry>
+  </bibliography>
+
   <chapter>
     <title>Introduction</title>
     <section>
@@ -49,19 +71,19 @@
     <section>
       <title> Authenfication des utilisateurs </title>
       <para>
-        L'authentification des utilisateurs va s'inspirer principalement du module <emphasis role = "italic"> UMS (User Managment System) </emphasis>développer dans le cadre 
+        L'authentification des utilisateurs va s'inspirer principalement du module <emphasis role = "italic"> UMS (User Managment System) </emphasis>développé dans le cadre 
         du projet VISHNU <footnote><para><link xlink:href="http://www.sysfera.fr/vishnu/"> http://www.sysfera.fr/vishnu/ </link></para> </footnote>. UMS se base sur une authentification unique <emphasis role = "italic"> (Single Sign-On) </emphasis> pour ses 
-        avantages:
+        avantages :
       </para>
       <itemizedlist>
         <listitem>
           <para> l'utilisateur ne s'authentifie qu'une seule fois via un login et un mot de passe pour accèder à l'infrastructure,</para>
         </listitem>
 	<listitem>
-          <para> l'authentification est gérée de façon centralisée</para>
+          <para> l'authentification est gérée de façon centralisée,</para>
         </listitem>
 	<listitem>
-          <para> la souplesse de l'utilisation de l'infrastructure (pas d'authentification systématique) </para>
+          <para> la souplesse de l'utilisation de l'infrastructure (pas d'authentification systématique). </para>
         </listitem>
       </itemizedlist>
       
@@ -80,7 +102,7 @@
 	</para>
 	<itemizedlist>
 	  <listitem>
-	    <para> Le type (ou groupe) auquel appatient un utilisateur sera défini à sa création par un administrateur.</para>
+	    <para> Le type (ou groupe) auquel appartient un utilisateur sera défini à sa création par un administrateur.</para>
 	  </listitem>
 	  <listitem>
 	    <para> Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs <emphasis role = "bold">*</emphasis><footnote><para><emphasis role = "italic"> * signifie que cette fonctionnalité ne sera pas disponible dans le coeur de DIET mais dans de futurs développements de modules externes</emphasis></para> </footnote>.
@@ -114,7 +136,8 @@
 	  </listitem>
 	  <listitem>
 	    <para> 
-              <emphasis role = "bold">Authentification des utilisateurs</emphasis>: une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
+              <emphasis role = "bold">Authentification des
+              utilisateurs</emphasis> : une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
               pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
               rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. Ce service fermera une session
               soit à la demande de l'utilisateur à qui elle appartiendra, soit parce que
@@ -176,16 +199,35 @@
    <section>
      <title> Authentification de la hiérarchie DIET </title>
      <para>
-     Dans la version 3 de DIET, la notion de <emphasis role = "italic">master agent</emphasis> et <emphasis role = "italic">local agent</emphasis> fusionne en <emphasis role = "italic">agent</emphasis>. Il est donc
-     possible de pointer sur n'importe quel noeud de la hiérarchie, ce qui rend plus flexible l'infrastructure mais entraine des besoins en terme de sécurité.
-     Il est donc prévu de concevoir un modèle de sécurité utilisant des certificats pour contrôler l'ajout d'éléments à une hiérarchie DIET.</para>
-     
-      <section>
-	<title> Modèle d'authentification des machines </title>
-        <para>
-          Tandis que le module de gestion des utilisateurs contrôle l'identité, les machines définissent les droits d'accès aux services et aux données.
-        </para>
-      </section>
+       Dans la version 3 de DIET, les notions de <emphasis role =
+       "italic">master agent</emphasis> et <emphasis role =
+       "italic">local agent</emphasis> fusionnent en <emphasis role =
+       "italic">agent</emphasis>. Il est donc possible de pointer sur
+       n'importe quel noeud de la hiérarchie, ce qui rend plus
+       flexible l'infrastructure mais entraîne des besoins en terme de
+       sécurité.  Il est donc prévu de concevoir un modèle de sécurité
+       utilisant des certificats pour contrôler l'ajout d'éléments à
+       une hiérarchie DIET.</para>
+
+     <para>
+       Il faut notamment pouvoir se prémunir contre l'ajout d'agents
+       ou SeD <emphasis>pirates</emphasis> à une
+       hiérarchie déjà existante. L'ajout non contrôlé pourrait
+       permettre à une personne mal intentionnée de dévier tout ou
+       partie du flux des requêtes et données. Ce type
+       d'attaque <emphasis>man-in-the-middle</emphasis> doit être
+       empêché. Pour cela, il est nécessaire que chaque élément
+       voulant s'ajouter à une hiérarchie soit identifié par un
+       certificat lui donnant ou non les droits de connexion.
+     </para>
+
+      <!-- <section> -->
+      <!--   <title> Modèle d'authentification des machines </title> -->
+      <!--   <para> -->
+      <!--     Tandis que le module de gestion des utilisateurs contrôle l'identité, les machines définissent les droits d'accès aux services et aux données. -->
+      <!--   </para> -->
+      <!-- </section> -->
+
    </section>
    <section>
      <title> Le cryptage des données </title>
