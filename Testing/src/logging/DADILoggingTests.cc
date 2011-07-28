@@ -101,11 +101,12 @@ BOOST_AUTO_TEST_CASE(is_bad_call) {
   // put invalid low priority level
   mylogger1->setLevel(Message::PRIO_TRACE-1);
   // Level must be set to Message::PRIO_INFORMATION
-  BOOST_REQUIRE_EQUAL(mylogger1->getLevel(), Message::PRIO_INFORMATION);
+  BOOST_REQUIRE(mylogger1->is(Message::PRIO_INFORMATION));
 
   // put invalid high priority level
   mylogger1->setLevel(Message::PRIO_FATAL+1);
-  BOOST_REQUIRE_EQUAL(mylogger1->getLevel(), Message::PRIO_INFORMATION);
+  // Level must be set to Message::PRIO_INFORMATION
+  BOOST_REQUIRE(mylogger1->is(Message::PRIO_INFORMATION));
 }
 
 BOOST_AUTO_TEST_CASE(check_trace_function_normal_call) {
@@ -219,11 +220,15 @@ BOOST_AUTO_TEST_CASE(get_level_bad_call) {
   LoggerPtr mylogger1 = Logger::getLogger("get_level_bad");
   // To check that mylogger1 is not NULL
   BOOST_REQUIRE(mylogger1);
-  // To put a nonexistent level
-  mylogger1->setLevel(12);
-  // To get the priority level
-  BOOST_REQUIRE((mylogger1->getLevel() >= Message::PRIO_TRACE) &&
-                (mylogger1->getLevel() <= Message::PRIO_FATAL));
+  // put invalid low priority level
+  mylogger1->setLevel(Message::PRIO_TRACE-1);
+  // Level must be set to Message::PRIO_INFORMATION
+  BOOST_REQUIRE_EQUAL(mylogger1->getLevel(), Message::PRIO_INFORMATION);
+
+  // put invalid high priority level
+  mylogger1->setLevel(Message::PRIO_FATAL+1);
+  // Level must be set to Message::PRIO_INFORMATION
+  BOOST_REQUIRE_EQUAL(mylogger1->getLevel(), Message::PRIO_INFORMATION);
 }
 
 BOOST_AUTO_TEST_CASE(get_channel_normal_call) {
@@ -287,6 +292,43 @@ BOOST_AUTO_TEST_CASE(create_logger_normal_call) {
   // To check that the console content is the same that the message to log
   BOOST_REQUIRE(oss.str().compare(msgToLog+"\n") == 0);
 }
+
+BOOST_AUTO_TEST_CASE(log_message_low_prio_call) {
+
+  BOOST_TEST_MESSAGE("#Log message with low priority test call#");
+  // The message which will be logged
+  string msgToLog = "Dadi Logger tests: DEBUG";
+  stringstream oss;
+  LoggerPtr mylogger1 =
+    Logger::createLogger("createLogger_low_prio",
+                         (ChannelPtr) new ConsoleChannel(oss),
+                         Message::PRIO_FATAL);
+  // To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  // To check the name of the logger created
+  BOOST_REQUIRE(mylogger1->getName().compare("createLogger_low_prio") == 0);
+  // To check the priority level
+  BOOST_REQUIRE(mylogger1->fatal());
+  // To put the message to log
+  mylogger1->log(Message("", msgToLog, Message::PRIO_DEBUG));
+  // To check that the console content is different from the message
+  BOOST_REQUIRE(oss.str().compare(msgToLog+"\n") != 0);
+  // To check that the console content is empty
+  BOOST_REQUIRE(oss.str().compare("") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(log_message_bad_channel_call) {
+
+  BOOST_TEST_MESSAGE("#Log message with bad channel test#");
+  // The message which will be logged
+  string msgToLog = "Dadi Logger tests: DEBUG";
+  LoggerPtr mylogger1 = Logger::getLogger("get_channel_bad");
+  // To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  // To put the message to log
+  mylogger1->log(Message("", msgToLog, Message::PRIO_DEBUG));
+}
+
 
 BOOST_AUTO_TEST_CASE(destroy_Logger_normal_call) {
 
