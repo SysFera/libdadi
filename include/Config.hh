@@ -46,7 +46,10 @@ namespace dadi {
     }
 
   private:
-    mutable boost::shared_mutex mutex_; /**< mutex protecting concurrent access */
+    /**
+     *mutex protecting concurrent access
+     */
+    mutable boost::shared_mutex mutex_;
     mutable ConfigStore store_; /**< actual configuration store */
   };
 }
