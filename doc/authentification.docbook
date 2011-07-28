@@ -65,6 +65,12 @@
         </listitem>
       </itemizedlist>
       
+      <para>
+	En effet, le nombre conséquent de potentiels protagonistes dans une grille de calculs favorise le mécanisme <emphasis role = "italic"> Single Sign-On </emphasis> pour éviter à l'utilisateur de s'authentifier manuellement à chaque
+	connexion avec un noeud de la grille.
+      </para>
+      
+      
       <section>
 	<title> User Managment System (UMS)</title>
         <para>
