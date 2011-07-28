@@ -42,7 +42,7 @@ SharedLibrary::symbol(const std::string& symbol) {
 
 const std::string&
 SharedLibrary::path() const {
- return pimpl->pathImpl();
+  return pimpl->pathImpl();
 }
 
 std::string

@@ -3,7 +3,7 @@
 
 namespace dadi {
 
-SharedLibraryImpl::SharedLibraryImpl() : handle_(0) {};
+SharedLibraryImpl::SharedLibraryImpl() : handle_(0) {}
 
 SharedLibraryImpl::SharedLibraryImpl(const std::string& path) : handle_(0) {
   loadImpl(path);
