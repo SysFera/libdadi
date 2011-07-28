@@ -23,7 +23,7 @@
 using namespace std;
 using namespace dadi;
 
-BOOST_AUTO_TEST_SUITE(Dadi_test)
+BOOST_AUTO_TEST_SUITE(Dadi_Message_test)
 
 BOOST_AUTO_TEST_CASE(default_constructor_test) {
   BOOST_TEST_MESSAGE("#Test default constructor#");
