@@ -18,6 +18,7 @@
  */
 
 #include <iostream>
+#include <string>
 #include <vector>
 
 #include <boost/function.hpp>
@@ -49,7 +50,7 @@ public:
    * @brief define group visibility
    */
   typedef enum {
-    CMD=0,
+    CMD = 0,
     CFG,
     ENV,
   } GroupType;
@@ -102,10 +103,9 @@ public:
 
   /* wraps a boost::function0<void> as a boost::function1<void, bool>
      in order to fool boost::program_options */
-  class Wrapper
-  {
+  class Wrapper {
   public:
-    Wrapper(boost::function0<void>& f) : f_(f) {}
+    explicit Wrapper(boost::function0<void>& f) : f_(f) {}
 
     void
     operator()(const bool& res) {
@@ -149,7 +149,7 @@ public:
   addOption(const std::string& name,
             const std::string& desc,
             T& value,
-            bool required=false) {
+            bool required = false) {
     po::typed_value<T> *option = po::value(&value);
 
     if (required) {
@@ -175,7 +175,7 @@ public:
   addOption(const std::string& name,
             const std::string& desc,
             boost::function1<void, T>& userFunc,
-            bool required=false) {
+            bool required = false) {
     po::typed_value<T> *option = po::value<T>();
 
     if (required) {
@@ -276,7 +276,7 @@ public:
   po::typed_value<T>*
   addOption(const std::string& name,
             const std::string& desc,
-            T& value, bool required=false) {
+            T& value, bool required = false) {
     return default_.addOption(name, desc, required);
   }
 
@@ -294,7 +294,7 @@ public:
   addOption(const std::string& name,
             const std::string& desc,
             boost::function1<void, T>& userFunc,
-            bool required=false) {
+            bool required = false) {
     return default_.addOption(name, desc, userFunc, required);
   }
 
