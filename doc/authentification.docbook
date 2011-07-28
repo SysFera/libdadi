@@ -127,12 +127,12 @@
             spécifient pour chaque machine le type d'utilisateurs autorisés à y accéder.
 	    </para>
 	  </listitem>
-	  <listitem>
+	  <!--<listitem>
 	    <para> 
 	      Le souci de flexibilité et de généricité de notre infrastructure nécessite que la table qui stocke les informations sur les utilisateurs (donc qui authentifie un utilisateur) 
 	      soit séparée du reste des tables pour faciliter le passage d'une base de données à un annuaire LDAP etc.
 	    </para>
-	  </listitem>
+	  </listitem> -->
 	</itemizedlist>
       </section>
       
@@ -183,7 +183,10 @@
    </section>
    <section>
      <title> Le cryptage des données </title>
-     <para></para>
+     <para>
+       L'utilisation d'un modèle avec une authentification unique manipule un jeton. Le problème de cette technique est que l'interception du jeton permet une intrusion dans l'infrastructure et l'accès aux services de l'intergiciel. C'est pour 
+       cette raison qu'il est judicieux de limiter la durée de vie d'un jeton. Pour aller plus loin et rajouter un niveau de sécurité supplémentaire, il est possible de rendre le jeton inutilisable s'il est intercepté
+       en cryptant les données circulant via le canal de communication. </para>
    </section>
  </chapter>  
   
