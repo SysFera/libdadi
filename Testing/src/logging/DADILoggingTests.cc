@@ -97,10 +97,15 @@ BOOST_AUTO_TEST_CASE(is_bad_call) {
   LoggerPtr mylogger1 = Logger::getLogger("is_bad");
   // To check that mylogger1 is not NULL
   BOOST_REQUIRE(mylogger1);
-  // put invalid priority level
-  mylogger1->setLevel(12);
-  BOOST_REQUIRE(mylogger1->getLevel() >= Message::PRIO_TRACE);
-  BOOST_REQUIRE(mylogger1->getLevel() <= Message::PRIO_FATAL);
+
+  // put invalid low priority level
+  mylogger1->setLevel(Message::PRIO_TRACE-1);
+  // Level must be set to Message::PRIO_INFORMATION
+  BOOST_REQUIRE_EQUAL(mylogger1->getLevel(), Message::PRIO_INFORMATION);
+
+  // put invalid high priority level
+  mylogger1->setLevel(Message::PRIO_FATAL+1);
+  BOOST_REQUIRE_EQUAL(mylogger1->getLevel(), Message::PRIO_INFORMATION);
 }
 
 BOOST_AUTO_TEST_CASE(check_trace_function_normal_call) {
