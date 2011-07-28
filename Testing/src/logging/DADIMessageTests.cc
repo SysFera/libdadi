@@ -114,6 +114,19 @@ BOOST_AUTO_TEST_CASE(setters_getters_test) {
   BOOST_REQUIRE_EQUAL(myMsg.getTimestamp(), timestamp);
 }
 
+BOOST_AUTO_TEST_CASE(attributes_test) {
+  BOOST_TEST_MESSAGE("#Test message attributes#");
+  Message myMsg = Message();
+
+  string key = "Bridgekeeper";
+  string value = "What... is the air-speed velocity of an unladen swallow?";
+
+  // add an attribute
+  myMsg[key] = value;
+  // Check attribute
+  BOOST_REQUIRE_EQUAL(myMsg[key], value);
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
 
