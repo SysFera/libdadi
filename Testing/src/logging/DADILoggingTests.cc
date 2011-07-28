@@ -293,6 +293,7 @@ BOOST_AUTO_TEST_CASE(create_logger_normal_call) {
   BOOST_REQUIRE(oss.str().compare(msgToLog+"\n") == 0);
 }
 
+
 BOOST_AUTO_TEST_CASE(log_message_low_prio_call) {
 
   BOOST_TEST_MESSAGE("#Log message with low priority test call#");
@@ -325,8 +326,13 @@ BOOST_AUTO_TEST_CASE(log_message_bad_channel_call) {
   LoggerPtr mylogger1 = Logger::getLogger("get_channel_bad");
   // To check that mylogger1 is not NULL
   BOOST_REQUIRE(mylogger1);
-  // To put the message to log
-  mylogger1->log(Message("", msgToLog, Message::PRIO_DEBUG));
+  /* Try to log with an empty channel and a priority greater
+   * than the one of the logger (Message::PRIO_INFORMATION) */
+  mylogger1->log(Message("", msgToLog, Message::PRIO_FATAL));
+
+  /* Try to log with an empty channel and a priority lower
+   * than the one of the logger (Message::PRIO_INFORMATION) */
+  mylogger1->log(Message("", msgToLog, Message::PRIO_TRACE));  
 }
 
 
@@ -406,6 +412,22 @@ BOOST_AUTO_TEST_CASE(log_on_console_normal_call) {
   mylogger1->log(Message("", msgToLog, Message::PRIO_DEBUG));
   // To check that the console content is the same that the message to log
   BOOST_REQUIRE(oss.str().compare(msgToLog+"\n") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(get_with_parent_call) {
+
+  BOOST_TEST_MESSAGE("#get with parent test#");
+  stringstream oss;
+  LoggerPtr mylogger1 = Logger::getLogger("ConsoleChannel_normal");
+  // To check that mylogger1 is not NULL
+  BOOST_REQUIRE(mylogger1);
+  LoggerPtr mylogger2 = Logger::getLogger("ConsoleChannel_normal.second");
+  // To check that mylogger2 is not NULL
+  BOOST_REQUIRE(mylogger2);
+
+  LoggerPtr mylogger3 = Logger::getLogger("ConsoleChannel_absent.second");
+  // To check that mylogger3 is not NULL
+  BOOST_REQUIRE(mylogger3);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
