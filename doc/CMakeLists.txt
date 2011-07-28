@@ -7,6 +7,14 @@ if(ENABLE_DOXYGEN)
     message(WARNING "In order to generate doxygen documentation "
       "You need to install doxygen")
   endif()
+  if(DOXYGEN_DOT_FOUND)
+    set(DOXYGEN_HAVE_DOT "YES") # variable used in Doxyfile
+  else()
+    message(WARNING "Dot executable was not found, it is required "
+      "to build class diagrams in documentation. It is usually provided "
+      "as part of graphviz suite")
+    set(DOXYGEN_HAVE_DOT "NO")
+  endif()
   set(DOXYFILE_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/doxygen)
   file(MAKE_DIRECTORY ${DOXYFILE_OUTPUT_DIR})
   # configure our Doxyfile
