@@ -12,6 +12,7 @@
 #include <boost/any.hpp>
 #include <boost/foreach.hpp>
 #include <boost/property_tree/ptree.hpp>
+#include "Exception/Attributes.hh"
 
 namespace dadi {
 
@@ -50,21 +51,41 @@ public:
    * @brief get value associated to path
    * @param path path to attribute
    * @return expected value
-   * @throw boost::property_tree::ptree_bad_path
-   * @throw boost::property_tree::ptree_bad_data
+   * @throw dadi::UnknownAttributeError
+   * @throw dadi::InvalidAttributeError
    */
   template<typename T> T
   getAttr(const std::string& path) const {
-    return pt.get<T>(path);
+    try {
+      return pt.get<T>(path);
+    } catch (const boost::property_tree::ptree_bad_path& e) {
+      BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
+    } catch (const boost::property_tree::ptree_bad_data& e) {
+      BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
+    }
   }
 
+  /**
+   * @brief get value associated to path
+   * @param path path to attribute
+   * @return expected list of values
+   * @throw dadi::UnknownAttributeError
+   * @throw dadi::InvalidAttributeError
+   */
   template<typename T> std::list<T>
   getAttrList(const std::string& path) const {
     std::list<T> myList;
-    BOOST_FOREACH(boost::property_tree::ptree::value_type& v,
-                  pt.get_child(path)) {
-      myList.push_back(v.second.get_value<T>());
+    try {
+      BOOST_FOREACH(boost::property_tree::ptree::value_type& v,
+                    pt.get_child(path)) {
+        myList.push_back(v.second.get_value<T>());
+      }
+    } catch (const boost::property_tree::ptree_bad_path& e) {
+      BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
+    } catch (const boost::property_tree::ptree_bad_data& e) {
+      BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
     }
+
     return myList;
   }
 
