@@ -1,2 +1,3 @@
+add_subdirectory(attributes)
 add_subdirectory(logging)
 add_subdirectory(configfile)
