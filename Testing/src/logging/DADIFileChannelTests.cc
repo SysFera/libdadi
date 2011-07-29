@@ -90,8 +90,7 @@ BOOST_AUTO_TEST_CASE(constructor_file_exits_test) {
   FileChannel *myFileC = new FileChannel(tmpFile);
 
   // To check that the file with message logged is created
-  bfs::path file(tmpFile);
-  BOOST_REQUIRE(bfs::exists(file));
+  BOOST_REQUIRE(bfs::exists(tmpFile));
 
   // Check correct path
   BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
