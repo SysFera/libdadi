@@ -116,25 +116,21 @@ BOOST_AUTO_TEST_CASE(path_to_directory_test) {
   BOOST_TEST_MESSAGE("#Path to directory test#");
 
   // Create working directory
-  string tmpDir = bfs::unique_path(bfs::temp_directory_path().native()
-                                   +  "%%%%-%%%%-%%%%-%%%%").native();
+  bfs::path tmpDir = bfs::temp_directory_path();
+  tmpDir /= "%%%%-%%%%-%%%%-%%%%";
+  tmpDir = bfs::unique_path(tmpDir);
   bfs::create_directory(tmpDir);
-  BOOST_TEST_MESSAGE("tmp dir = " + tmpDir);
 
-  FileChannel *myFileC = new FileChannel(tmpDir);
+  BOOST_TEST_MESSAGE("tmp dir = " + tmpDir.native());
 
-  // Check correct path
-  BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpDir);
+  FileChannel *myFileC = new FileChannel(tmpDir.native());
 
-  // Check that size is 0
-  BOOST_REQUIRE_EQUAL(myFileC->getSize(), 0);
+  // FIXME: when FileChannel::open will throw an exception
+  // re-enable this test (with the proper exception type
+  // Check that open throws an exception
+  //BOOST_REQUIRE_THROW( myFileC->open(), std::exception)
 
-  // Check that last write time is -1
-  BOOST_REQUIRE_EQUAL(myFileC->getLastWriteTime(), -1);
-  
-  // Delete channel
   delete myFileC;
-
   // Delete working file
   bfs::remove_all(tmpDir);
 }
