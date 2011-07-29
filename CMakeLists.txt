@@ -130,6 +130,9 @@ set(PUBLIC_HEADERS
   include/Logging/Message.hh
   include/Logging/MultiChannel.hh
   include/Logging/NullChannel.hh
+  include/Exception/All.hh
+  include/Exception/Base.hh
+  include/Exception/Attributes.hh
 )
 
 install(FILES ${PUBLIC_HEADERS}
