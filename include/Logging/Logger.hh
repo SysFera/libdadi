@@ -16,6 +16,18 @@ typedef std::map<std::string, LoggerPtr> LoggerMap;
 /**
  * @class Logger
  * @brief Logger log4j style API
+ *
+ * Logger acts as the entry point of libdadi logging framework.
+ * Loggers are organized in a tree-fashionned hierarchy and are
+ * obtained through static methods (ie: getLogger).
+ * There is a special node called rootLogger (channel: null,
+ * priority: PRIO_INFORMATION)
+ * Logger instances inherit from their parent their Channel and priority.
+ *
+ * Application uses Logger instances to send log messages
+ * by the intermediate of the registered Channel instance.
+ * Each Logger has a minimum logging level so that only messages
+ * with priority equal or higher will be effectively reported.
  */
 class Logger : public Channel {
 public:

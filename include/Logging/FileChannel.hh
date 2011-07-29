@@ -20,43 +20,62 @@ namespace dadi {
 
 /**
  * @class FileChannel
- * @brief file channel
+ * @brief Channel that logs into a file
+ *
+ * This Channel allows log rotation, archiving and archives automatic purging
+ * By default, it logs messages followed by a newline.
+ * It is configured through properties.
  *
  * properties supported:
- * - path: log file path
- * - compression type: none, bzip, gzip, zlib
- *   (currently an int, but we should think about enabling user to use strings)
- * - archive: none, number, timestamp
- * - rotate: none, size, interval (format: HH:mm:ss),
- *   time (format: [day,]HH:mm:ss)
- * - purge: none, count, age
+ * - path: log file path **mandatory**
+ * - compression_mode: values allowed (none, bzip, gzip, zlib)
+ * - archive: values allowed (none, number, timestamp)
+ * - rotate: values allowed (none, size, interval (format: HH:mm:ss))
+ * - rotate.size: maximum file size (bytes)
+ * - rotate.time: values allowed (utc, time)
+ * - rotate.interval: (format: [day,]HH:mm:ss)
+ * - purge: values allowed (none, count, age)
+ * - purge.count: maximum number of archives
  */
 class FileChannel : public Channel {
 public:
+  /**
+   * @enum CompressionMode
+   */
   enum CompressionMode {
-    COMP_NONE = 0,
-    COMP_BZIP2,
-    COMP_GZIP,
-    COMP_ZLIB
+    COMP_NONE = 0, /**< no compression */
+    COMP_BZIP2, /**< bzip2 compression */
+    COMP_GZIP, /**< gzip compression */
+    COMP_ZLIB /**< zlib compression */
   };
 
+  /**
+   * @enum ArchiveMode
+   */
   enum ArchiveMode {
-    AR_NONE = 0,
-    AR_NUMBER,
-    AR_TIMESTAMP
+    AR_NONE = 0, /**< no archiving */
+    AR_NUMBER, /**< archive filename pattern: <filename>.<number++> */
+    AR_TIMESTAMP /**< archive filename pattern: <filename>.<timestamp> */
   };
 
+  /**
+   * @enum RotateMode
+   */
   enum RotateMode {
-    ROT_NONE = 0,
-    ROT_SIZE,
-    ROT_INTERVAL,
-    ROT_TIME
+    ROT_NONE = 0, /**< no rotation */
+    ROT_SIZE, /**< rotation based on file size */
+    ROT_INTERVAL, /**< rotation based on time interval */
+    ROT_TIME, /**< rotation based on fixed time */
+    ROT_LINE /**< rotation based on line number @todo unimplemented */
   };
 
+  /**
+   * @enum PurgeMode
+   */
   enum PurgeMode {
-    PURGE_NONE = 0,
-    PURGE_COUNT,
-    PURGE_AGE
+    PURGE_NONE = 0, /**< no purging bébé */
+    PURGE_COUNT, /**< purging based on archives number */
+    PURGE_AGE /**< purging based on file age */
   };
 
   /**
@@ -70,12 +89,21 @@ public:
   explicit FileChannel(const std::string& path);
   /**
    * @brief destructor
-   * @return
    */
   virtual ~FileChannel();
 
+  /**
+   * @brief open channel
+   */
   void open();
+  /**
+   * @brief close channel
+   */
   void close();
+  /**
+   * @brief log message
+   * @param msg message to be logged
+   */
   void log(const Message& msg);
 
   /**
@@ -104,7 +132,7 @@ protected:
   static const std::string ATTR_PURGE;
   static const std::string ATTR_PURGE_COUNT;
   // filter rotate.interval when using time rotate policy
-  static const boost::regex regex1; /**< regular expression */
+  static const boost::regex regex1; /**< regular expression @internal */
   static std::map<std::string, int> attrMap; /**< properties map */
 
   /**

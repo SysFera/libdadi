@@ -19,6 +19,7 @@ class Message;
  * @class ConsoleChannel
  * @brief channel that logs into console (std::cout, std::cerr)
  * or any C++ stream
+ * It only write message followed by a newline (unix)
  */
 class ConsoleChannel : public Channel {
 public:

@@ -22,7 +22,7 @@ main(int argc, char *argv[]) {
   cc1->putAttr<std::string>("path", "crap4.log");
   cc1->putAttr<std::string>("compression_mode", "none");
   cc1->putAttr<std::string>("archive", "timestamp");
-  cc1->putAttr<std::string>("rotation.time", "utc");
+  cc1->putAttr<std::string>("rotate.time", "utc");
   cc1->putAttr<std::string>("rotate", "size");
   cc1->putAttr<std::string>("rotate.size", "1");
   mylogger1->setChannel(cc1);
