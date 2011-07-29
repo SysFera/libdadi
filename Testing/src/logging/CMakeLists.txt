@@ -6,3 +6,4 @@
 dadi_test(DADILoggingTests)
 dadi_test(DADIMessageTests)
 dadi_test(DADIMultiChannelTests)
+dadi_test(DADIFileChannelTests)

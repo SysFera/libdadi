@@ -28,7 +28,6 @@
 using namespace std;
 using namespace dadi;
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
-static const string temporaryFilename("crap4.log");
 
 BOOST_AUTO_TEST_SUITE(Dadi_Logging_test)
 
@@ -443,6 +442,9 @@ BOOST_AUTO_TEST_CASE(log_on_file_normal_call) {
   // To put the priority level
   mylogger1->setLevel(Message::PRIO_DEBUG);
   ChannelPtr cc1(new FileChannel);
+  // Create working file
+  string temporaryFilename = bfs::unique_path(bfs::temp_directory_path().native()
+                                              +  "%%%%-%%%%-%%%%-%%%%").native();
   cc1->putAttr<std::string>("path", temporaryFilename);
   mylogger1->setChannel(cc1);
   // To put the message to log
