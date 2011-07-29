@@ -79,9 +79,9 @@ BOOST_AUTO_TEST_CASE(constructor_file_exits_test) {
   Message myMsg = Message(source, msgToLog, Message::PRIO_DEBUG);
 
   // Create working file
-  bfs::path tmpFile = bfs::temp_directory_path().native();
+  bfs::path tmpFile = bfs::temp_directory_path();
   tmpFile /= "%%%%-%%%%-%%%%-%%%%";
-  tmpFile = bfs::unique_path(tmpFile).native();
+  tmpFile = bfs::unique_path(tmpFile);
   BOOST_TEST_MESSAGE("tmp file = " + tmpFile.native());
 
   // Create file
