@@ -38,6 +38,12 @@ public:
    * @brief copy constructor
    */
   Attributes(const Attributes& other);
+  /**
+   * @brief constructor from serialized data
+   * @param data serialized data
+   * @param format XML by default
+   */
+  Attributes(const std::string& data, int format = FORMAT_XML);
 
   /* accessors */
   /**
@@ -90,7 +96,7 @@ public:
    * @param[in] data serialized attributes
    * @param format XML by default
    */
-  void loadAttr(const std::string& data, int format = 0);
+  void loadAttr(const std::string& data, int format = FORMAT_XML);
 
   /**
    * @brief serialize attributes

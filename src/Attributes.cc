@@ -13,6 +13,10 @@ Attributes::Attributes() {}
 
 Attributes::Attributes(const Attributes& other) : pt(other.pt) {}
 
+Attributes::Attributes(const std::string& data, int format) {
+  loadAttr(data, format);
+}
+
 void
 Attributes::loadAttr(const std::string& data, int format) {
   using boost::property_tree::ptree;
