@@ -25,6 +25,7 @@ namespace dadi {
  * This Channel allows log rotation, archiving and archives automatic purging
  * By default, it logs messages followed by a newline.
  * It is configured through properties.
+ * Properties could be set by using the putAttr method.
  *
  * properties supported:
  * - path: log file path **mandatory**
@@ -80,6 +81,8 @@ public:
 
   /**
    * @brief default constructor
+   * @warning you need to set log file path either by using the appropriate
+   * constructor or by setting in the attributes (key: "path")
    */
   FileChannel();
   /**
@@ -108,7 +111,7 @@ public:
 
   /**
    * @brief get last modification time
-   * @return timestamp
+   * @return timestamp or -1 if log file does not exist
    */
   long getLastWriteTime() const;
   /**

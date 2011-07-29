@@ -75,7 +75,8 @@ FileChannel::open() {
       throw std::string("missing path name");
     }
   }
-
+  // FIXME: check that path_ does not point to a directory or
+  // throw an exception
   int cMode_ =
     attrMap[getAttr<std::string>(FileChannel::ATTR_COMPRESSION_MODE, "")];
   switch (cMode_) {
