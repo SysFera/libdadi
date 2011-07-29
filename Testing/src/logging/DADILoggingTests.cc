@@ -350,13 +350,13 @@ BOOST_AUTO_TEST_CASE(create_logger_normal_call_NullChannel) {
 //   BOOST_REQUIRE(mylogger1->getName().compare("createLogger_normal") == 0);
 //   // To check the priority level
 //   BOOST_REQUIRE(mylogger1->debug());
-  
+
 //   // Second logger
 //   BOOST_REQUIRE_THROW(Logger::createLogger("createLogger_normal",
 //                                            (ChannelPtr) new ConsoleChannel(oss),
 //                                            Message::PRIO_DEBUG),
 //                       (std::string("Already exists")));
-                     
+
 // }
 
 
@@ -398,7 +398,7 @@ BOOST_AUTO_TEST_CASE(log_message_bad_channel_call) {
 
   /* Try to log with an empty channel and a priority lower
    * than the one of the logger (Message::PRIO_INFORMATION) */
-  mylogger1->log(Message("", msgToLog, Message::PRIO_TRACE));  
+  mylogger1->log(Message("", msgToLog, Message::PRIO_TRACE));
 }
 
 
@@ -425,11 +425,11 @@ BOOST_AUTO_TEST_CASE(shutdown_normal_call) {
   // To get the list of active Loggers
   Logger::getActiveLoggers(names);
   // To check that the list of Logger's names is not empty
-  BOOST_REQUIRE(names.size() != 0);
+  BOOST_REQUIRE(!names.empty());
   Logger::shutdown();
   Logger::getActiveLoggers(names);
   // To check that the list of Logger's names is empty after shutdown
-  BOOST_REQUIRE(names.size() == 0);
+  BOOST_REQUIRE(names.empty());
 }
 
 BOOST_AUTO_TEST_CASE(log_on_file_normal_call) {

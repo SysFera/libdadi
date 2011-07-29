@@ -41,16 +41,17 @@ LogServiceChannel::open() {
 
   short ret;
   ret = lb->connect("channel connected");
-  // switch(ret) {
-  // case LS_COMPONENT_CONNECT_BADNAME:
-  // case LS_COMPONENT_CONNECT_ALREADYEXISTS:
-  // case LS_COMPONENT_CONNECT_BADCOMPONENTCONFIGURATOR:
-  // case LS_COMPONENT_CONNECT_INTERNALERROR:
-  //   std::cerr << "ERROR: Component connection\n";
-  //   return;
-  // default:
-  //   break;
-  // }
+  // TODO: fix this
+  switch(ret) {
+  case LS_COMPONENT_CONNECT_BADNAME:
+  case LS_COMPONENT_CONNECT_ALREADYEXISTS:
+  case LS_COMPONENT_CONNECT_BADCOMPONENTCONFIGURATOR:
+  case LS_COMPONENT_CONNECT_INTERNALERROR:
+    std::cerr << "ERROR: Component connection\n";
+    return;
+  default:
+    break;
+  }
 }
 
 void
