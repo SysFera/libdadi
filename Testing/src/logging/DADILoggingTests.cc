@@ -443,8 +443,12 @@ BOOST_AUTO_TEST_CASE(log_on_file_normal_call) {
   mylogger1->setLevel(Message::PRIO_DEBUG);
   ChannelPtr cc1(new FileChannel);
   // Create working file
-  string temporaryFilename = bfs::unique_path(bfs::temp_directory_path().native()
-                                              +  "%%%%-%%%%-%%%%-%%%%").native();
+  bfs::path tmpFile = bfs::temp_directory_path().native();
+  tmpFile /= "%%%%-%%%%-%%%%-%%%%";
+  tmpFile = bfs::unique_path(tmpFile).native();
+  BOOST_TEST_MESSAGE("tmp file = " + tmpFile.native());
+
+  string temporaryFilename = tmpFile.native();
   cc1->putAttr<std::string>("path", temporaryFilename);
   mylogger1->setChannel(cc1);
   // To put the message to log

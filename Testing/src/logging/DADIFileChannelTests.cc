@@ -47,14 +47,15 @@ BOOST_AUTO_TEST_CASE(constructor_file_does_not_exist_test) {
   BOOST_TEST_MESSAGE("#Constructor test where file does not exist#");
 
   // Create working file
-  string tmpFile = bfs::unique_path(bfs::temp_directory_path().native()
-                                    +  "%%%%-%%%%-%%%%-%%%%").native();
-  BOOST_TEST_MESSAGE("tmp file = " + tmpFile);
+  bfs::path tmpFile = bfs::temp_directory_path().native();
+  tmpFile /= "%%%%-%%%%-%%%%-%%%%";
+  tmpFile = bfs::unique_path(tmpFile).native();
+  BOOST_TEST_MESSAGE("tmp file = " + tmpFile.native());
 
-  FileChannel *myFileC = new FileChannel(tmpFile);
+  FileChannel *myFileC = new FileChannel(tmpFile.native());
 
   // Check correct path
-  BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+  BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile.native());
 
   // Check that size is 0
   BOOST_REQUIRE_EQUAL(myFileC->getSize(), 0);
@@ -78,16 +79,17 @@ BOOST_AUTO_TEST_CASE(constructor_file_exits_test) {
   Message myMsg = Message(source, msgToLog, Message::PRIO_DEBUG);
 
   // Create working file
-  string tmpFile = bfs::unique_path(bfs::temp_directory_path().native()
-                                    +  "%%%%-%%%%-%%%%-%%%%").native();
-  BOOST_TEST_MESSAGE("tmp file = " + tmpFile);
+  bfs::path tmpFile = bfs::temp_directory_path().native();
+  tmpFile /= "%%%%-%%%%-%%%%-%%%%";
+  tmpFile = bfs::unique_path(tmpFile).native();
+  BOOST_TEST_MESSAGE("tmp file = " + tmpFile.native());
 
   // Create file
   bfs::fstream ofs(tmpFile, std::ios_base::out);
   ofs << msgToLog;
   ofs.close();
 
-  FileChannel *myFileC = new FileChannel(tmpFile);
+  FileChannel *myFileC = new FileChannel(tmpFile.native());
 
   // To check that the file with message logged is created
   BOOST_REQUIRE(bfs::exists(tmpFile));
