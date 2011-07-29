@@ -126,6 +126,11 @@ public:
    */
   std::string saveAttr(int format = 0) const;
 
+  /* operators */
+  Attributes& operator=(const Attributes& other);
+  bool operator==(const Attributes& other);
+  bool operator!=(const Attributes& other);
+
 private:
   boost::property_tree::ptree pt; /**< property tree holding attributes */
 };

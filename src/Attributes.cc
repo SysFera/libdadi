@@ -54,4 +54,21 @@ Attributes::saveAttr(int format) const {
   return ss.str();
 }
 
+Attributes&
+Attributes::operator=(const Attributes& other) {
+  Attributes tmp(other);
+  (this->pt).swap(tmp.pt);
+}
+
+bool
+Attributes::operator==(const Attributes& other) {
+  return ((this->pt) == (other.pt));
+}
+
+bool
+Attributes::operator!=(const Attributes& other) {
+  return ((this->pt) != (other.pt));
+}
+
+
 } /* namespace dadi */
