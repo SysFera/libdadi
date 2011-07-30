@@ -19,7 +19,7 @@ class SharedLibraryImpl {
 public:
   SharedLibraryImpl();
   explicit SharedLibraryImpl(const std::string& path);
-  ~SharedLibraryImpl()
+  ~SharedLibraryImpl();
 
   void loadImpl(const std::string& path);
   void unloadImpl();
