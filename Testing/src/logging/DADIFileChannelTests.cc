@@ -136,6 +136,96 @@ BOOST_AUTO_TEST_CASE(path_to_directory_test) {
 }
 
 
+BOOST_AUTO_TEST_CASE(open_file_exits_test) {
+
+  BOOST_TEST_MESSAGE("#Open file exists test#");
+
+  string source = "Bridgekeeper";
+  string msgToLog = "What... is the air-speed velocity of an unladen swallow?";
+  Message myMsg = Message(source, msgToLog, Message::PRIO_DEBUG);
+
+  // Create working directory
+  bfs::path tmpDir = bfs::temp_directory_path();
+  tmpDir /= "%%%%-%%%%-%%%%-%%%%";
+  tmpDir = bfs::unique_path(tmpDir);
+  bfs::create_directory(tmpDir);
+  BOOST_TEST_MESSAGE("tmp directory = " + tmpDir.native());
+
+  // Create file
+  bfs::path tmpFile = tmpDir;
+  tmpFile /= "tmpFile.log";
+  BOOST_TEST_MESSAGE("tmp file = " + tmpFile.native());
+
+  // Create Channel
+  FileChannel *myFileC = new FileChannel(tmpFile.native());
+
+  // Check correct path
+  BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+
+  /* We test open for every combination of:
+   *  - CompressionMode 
+   *  - ArchiveMode
+   *  - RotateMode
+   *  - PurgeMode
+   */
+  unsigned int rotateSize = 1024 * 1024; // 1Mo
+  string rotateTime = "1:00:00"; // 1h
+  string rotateInterval = "1,12:00:00"; // 1 1/2 day
+  unsigned int purgeCount = 3; // 3 files
+
+  myFileC->putAttr("rotate.size", rotateSize);
+  myFileC->putAttr("rotate.time", rotateTime);
+  myFileC->putAttr("rotate.interval", rotateInterval);
+  myFileC->putAttr("purge.count", purgeCount);
+
+  for (unsigned int cm = FileChannel::COMP_NONE;
+       cm < FileChannel::COMP_ZLIB; ++ cm) {
+    // set Compression Mode
+    myFileC->putAttr("compression_mode", cm);
+
+    for (unsigned int am = FileChannel::AR_NONE;
+         am < FileChannel::AR_TIMESTAMP; ++ am) {
+      // set Archive Mode
+      myFileC->putAttr("archive", am);
+
+      for (unsigned int rm = FileChannel:: ROT_NONE;
+           rm < FileChannel::ROT_LINE; ++ rm) {
+        // set Rotate Mode
+        myFileC->putAttr("rotate", rm);
+
+        for (unsigned int pm = FileChannel::PURGE_NONE;
+             pm < FileChannel::PURGE_AGE; ++ pm) {
+          // set Purge Mode
+          myFileC->putAttr("purge", pm);
+          
+          // Log a message
+          BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+          // To check that the file with message logged is created
+          BOOST_REQUIRE(bfs::exists(tmpFile));
+          
+          // Close Channel
+          BOOST_REQUIRE_NO_THROW(myFileC->close());
+        }
+      }
+    }
+  }
+
+  // Delete channel
+  delete myFileC;
+
+  // Delete working file
+  bfs::remove_all(tmpDir);
+}
+
+
+// // List directory
+// for (bfs::directory_iterator dirIt = bfs::directory_iterator(tmpDir);
+//      dirIt != bfs::directory_iterator(); ++ dirIt) {
+//   BOOST_TEST_MESSAGE("File: " + dirIt->path().native());
+//  }
+
 BOOST_AUTO_TEST_SUITE_END()
 
 // THE END
