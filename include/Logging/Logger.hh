@@ -121,7 +121,8 @@ public:
   static bool hasLogger(const std::string& name);
   /**
    * @brief create a Logger with specified name, channel and level
-   * since it returns a boost::shared_ptr, you can test if it's valid or not
+   * since it returns a boost::shared_ptr, you can test if it is
+   * valid or not
    *
    * @param name Logger name
    * @param channel Channel attached to Logger
@@ -135,7 +136,7 @@ public:
    * @brief destroy a logger and all its children
    * @param name
    * @warning this method unregister the logger from the map
-   * but as long as you hold a pointer on the longer, it won't
+   * but as long as you hold a pointer on the logger, it won't
    * be deleted
    */
   static void destroyLogger(const std::string& name);
