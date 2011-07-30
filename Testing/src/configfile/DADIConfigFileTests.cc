@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
 
   opt.addSwitch("help,h", "display help message", fHelp);
   // configuration file is a MANDATORY option
-  opt.addOption("config-file,c", "configuration file", fFile)->required();
+  opt.addOption("config-file,c", "configuration file", fFile, true);
   opt.addGroup(fileGroup);
 
   argv[0] = (char *)"./simple-configfile";
