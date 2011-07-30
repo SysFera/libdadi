@@ -102,7 +102,7 @@ public:
 
   /**
    * @brief set source code filename
-   * @param file source code filename
+   * @param filename source code filename
    */
   void setFile(const std::string& filename);
   /**
