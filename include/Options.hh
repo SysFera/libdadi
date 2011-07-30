@@ -2,7 +2,7 @@
 #define _OPTIONS_HH_
 
 /**
- * @file Option.hh
+ * @file Options.hh
  * @brief defines a class to handle command line options.
  * @author Ibrahima Cisse (ibrahima.cisse@sysfera.com)
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
