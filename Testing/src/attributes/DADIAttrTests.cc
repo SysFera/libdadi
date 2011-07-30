@@ -24,7 +24,7 @@ using namespace std;
 using namespace dadi;
 namespace bfs = boost::filesystem;
 
-BOOST_AUTO_TEST_SUITE(Dadi_test_attr)
+BOOST_AUTO_TEST_SUITE(Dadi_Attributes_test)
 
 BOOST_AUTO_TEST_CASE(getAttr_ok) {
   BOOST_TEST_MESSAGE("# Get attribute normal call");

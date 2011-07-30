@@ -24,7 +24,7 @@ using namespace std;
 using namespace dadi;
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 
-BOOST_AUTO_TEST_SUITE(Dadi_test)
+BOOST_AUTO_TEST_SUITE(Dadi_ConfigFile_test)
 
 BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
 
