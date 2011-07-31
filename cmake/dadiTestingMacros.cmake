@@ -50,17 +50,23 @@ macro(dadi_test NAME)
 
     # test executable installation has not been tested yet -sic-
     # install(TARGETS ${NAME} DESTINATION bin)
-
     string(REGEX REPLACE "DADI(.*)" "\\1" TEST_NAME ${NAME})
 
     file(READ "${NAME}.cc" content)
     # TODO: fix this crazyness as soon as CMake to provides a proper way to
     # extract data with regex
-    ## first get test suite name
+    ## first get test suite name (should be the same as ${TEST_NAME} !!)
     string(REGEX MATCHALL "BOOST_AUTO_TEST_SUITE\\([a-zA-Z0-9_]*\\)"
       res_int ${content})
     string(REGEX REPLACE "BOOST_AUTO_TEST_SUITE\\(([a-zA-Z0-9_]*)\\)" "\\1/"
       testsuite ${res_int})
+    ## removed commented case tests
+    # TODO: fix this if test case is not commented out as coding standards
+    # request, this will fail
+    # CMake regex engine seems to have some failures ...
+    string(REGEX REPLACE
+      "(//|/*) BOOST_AUTO_TEST_CASE\\([a-zA-Z0-9_]*\\)" "\\1"
+      content ${content})
     ## then test case names
     string(REGEX MATCHALL "BOOST_AUTO_TEST_CASE\\([a-zA-Z0-9_]*\\)"
       res_int ${content})
