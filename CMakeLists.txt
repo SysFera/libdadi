@@ -73,8 +73,9 @@ option(ENABLE_DOC "Build documentation" OFF)
 # if ENABLE_DOC is enabled we build doxygen html and man pages documentation by default
 cmake_dependent_option(ENABLE_DOXYGEN "Build doxygen documentation" ON
   "ENABLE_DOC" OFF)
-cmake_dependent_option(ENABLE_DOXYGEN_PDF "Build doxygen documentation (PDF)" OFF
-  "ENABLE_DOXYGEN" OFF)
+set(DOXYGEN_FORMATS  "html;man"
+  CACHE STRING "Doxygen output formats (allowed: html;man;pdf;rtf)")
+mark_as_advanced(DOXYGEN_FORMATS)
 cmake_dependent_option(ENABLE_EXTRAS_DOC "Build extrasdocumentation" OFF
   "ENABLE_DOC" OFF)
 

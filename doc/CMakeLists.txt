@@ -1,48 +1,7 @@
 add_custom_target(doc ALL)
 if(ENABLE_DOXYGEN)
-  # TODO: we should put this snippet inside a cmake module
-  # do not use UseDoxygen.cmake - too limited -
-  find_package(Doxygen)
-  if(NOT DOXYGEN_FOUND)
-    message(WARNING "In order to generate doxygen documentation "
-      "You need to install doxygen")
-  endif()
-  if(DOXYGEN_DOT_FOUND)
-    set(DOXYGEN_HAVE_DOT "YES") # variable used in Doxyfile
-  else()
-    message(WARNING "Dot executable was not found, it is required "
-      "to build class diagrams in documentation. It is usually provided "
-      "as part of graphviz suite")
-    set(DOXYGEN_HAVE_DOT "NO")
-  endif()
-  set(DOXYFILE_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/doxygen)
-  file(MAKE_DIRECTORY ${DOXYFILE_OUTPUT_DIR})
-  # configure our Doxyfile
-  configure_file(Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-  # add new doxygen target
-  add_custom_target(doxygen
-    COMMAND ${DOXYGEN_EXECUTABLE} Doxyfile
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "generate doxygen documentation")
-    # we might want doxygen pdf build
-  if(ENABLE_DOXYGEN_PDF)
-    find_package(LATEX)
-    if(LATEX_COMPILER AND MAKEINDEX_COMPILER)
-      add_custom_command(TARGET doxygen
-        POST_BUILD
-        COMMAND "${CMAKE_BUILD_TOOL}"
-        WORKING_DIRECTORY ${DOXYFILE_OUTPUT_DIR}/latex
-        COMMENT "Building pdf documentation in ${DOXYFILE_OUTPUT_DIR}/latex")
-    else()
-      message(WARNING "You need a latex and a makeindex compiler to build "
-        "PDF documentation")
-    endif()
-  endif()
-  # add dependency to doc target
-  add_dependencies(doc doxygen)
-  # ensure that we clean up generated files at clean target
-  set_property(DIRECTORY APPEND PROPERTY
-    ADDITIONAL_MAKE_CLEAN_FILES ${DOXYFILE_OUTPUT_DIR})
+  include(UseDoxygen)
+  generate_doxygen(FORMATS ${DOXYGEN_FORMATS})
 endif()
 
 # put extras documentation here
