@@ -26,7 +26,7 @@ using namespace std;
 using namespace dadi;
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 
-BOOST_AUTO_TEST_SUITE(Dadi_FileChannel_test)
+BOOST_AUTO_TEST_SUITE(FileChannelTests)
 
 BOOST_AUTO_TEST_CASE(default_constructor_test) {
 
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(constructor_file_does_not_exist_test) {
 
   // Check that last write time is -1 (file does not exist)
   BOOST_REQUIRE_EQUAL(myFileC->getLastWriteTime(), -1);
-  
+
   // Delete channel
   delete myFileC;
 
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(constructor_file_exits_test) {
 
   // Check that last write time is different from -1 (file exists)
   BOOST_REQUIRE(myFileC->getLastWriteTime() != -1);
-  
+
   // Delete channel
   delete myFileC;
 
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE(open_file_exits_test) {
 
 
   /* We test open for every combination of:
-   *  - CompressionMode 
+   *  - CompressionMode
    *  - ArchiveMode
    *  - RotateMode
    *  - PurgeMode
@@ -198,13 +198,13 @@ BOOST_AUTO_TEST_CASE(open_file_exits_test) {
              pm < FileChannel::PURGE_AGE; ++ pm) {
           // set Purge Mode
           myFileC->putAttr("purge", pm);
-          
+
           // Log a message
           BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
 
           // To check that the file with message logged is created
           BOOST_REQUIRE(bfs::exists(tmpFile));
-          
+
           // Close Channel
           BOOST_REQUIRE_NO_THROW(myFileC->close());
         }

@@ -29,7 +29,7 @@ using namespace std;
 using namespace dadi;
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 
-BOOST_AUTO_TEST_SUITE(Dadi_Logging_test)
+BOOST_AUTO_TEST_SUITE(Logging)
 
 BOOST_AUTO_TEST_CASE(initialize_logger_normal_call) {
 

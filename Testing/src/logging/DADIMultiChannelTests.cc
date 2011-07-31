@@ -30,7 +30,7 @@ using namespace dadi;
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 static const string temporaryFilename("crap4.log");
 
-BOOST_AUTO_TEST_SUITE(Dadi_MultiChannel_test)
+BOOST_AUTO_TEST_SUITE(MultiChannelTests)
 
 BOOST_AUTO_TEST_CASE(add_remove_channels_test) {
 
