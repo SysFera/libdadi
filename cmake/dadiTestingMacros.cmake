@@ -53,15 +53,32 @@ macro(dadi_test NAME)
 
     string(REGEX REPLACE "DADI(.*)" "\\1" TEST_NAME ${NAME})
 
-    add_test(${TEST_NAME} ${EXECUTABLE_OUTPUT_PATH}/${NAME})
+    file(READ "${NAME}.cc" content)
+    # TODO: fix this crazyness as soon as CMake to provides a proper way to
+    # extract data with regex
+    ## first get test suite name
+    string(REGEX MATCHALL "BOOST_AUTO_TEST_SUITE\\([a-zA-Z0-9_]*\\)"
+      res_int ${content})
+    string(REGEX REPLACE "BOOST_AUTO_TEST_SUITE\\(([a-zA-Z0-9_]*)\\)" "\\1/"
+      testsuite ${res_int})
+    ## then test case names
+    string(REGEX MATCHALL "BOOST_AUTO_TEST_CASE\\([a-zA-Z0-9_]*\\)"
+      res_int ${content})
+    # tricks: i add a ";" at the end, so that i can get a proper list
+    string(REGEX REPLACE "BOOST_AUTO_TEST_CASE\\(([a-zA-Z0-9_]*)\\)" "\\1;"
+      tests ${res_int})
 
-    # prevent Boost.Test to catch unrelated exceptions
-    set_property(TEST ${TEST_NAME}
-      PROPERTY ENVIRONMENT "BOOST_TEST_CATCH_SYSTEM_ERRORS=no;")
-    # just make sure that our test are run in a serial fashion
-    set_property(TEST ${TEST_NAME} PROPERTY RUN_SERIAL ON)
+    foreach(loop_var ${tests})
+      add_test("${testsuite}${loop_var}" "${EXECUTABLE_OUTPUT_PATH}/${NAME}"
+        "--run_test=${testsuite}${loop_var}")
+      # prevent Boost.Test to catch unrelated exceptions
+      set_property(TEST "${testsuite}${loop_var}"
+        PROPERTY ENVIRONMENT "BOOST_TEST_CATCH_SYSTEM_ERRORS=no;")
+      # just make sure that our test are run in a serial fashion
+      set_property(TEST "${testsuite}${loop_var}" PROPERTY RUN_SERIAL ON)
+    endforeach()
 
-    #
+    # generate XML reports
     if(ENABLE_REPORTS)
       add_custom_target(${TEST_NAME}-xml
       COMMAND ${CMAKE_COMMAND}
