@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION "2.8.2")
+cmake_minimum_required(VERSION "2.8.4")
 
 project(libdadi)
 
@@ -12,7 +12,7 @@ endif()
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 # setup Boost
-find_package(Boost 1.44 REQUIRED
+find_package(Boost 1.46.1 REQUIRED
   date_time
   iostreams
   filesystem
