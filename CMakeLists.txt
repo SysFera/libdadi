@@ -111,34 +111,7 @@ endif()
 
 # Installation
 #
-set(PUBLIC_HEADERS
-  include/IPlugin.hh
-  include/Loader.hh
-  include/PluginInfo.hh
-  include/Registry.hh
-  include/SharedLibrary.hh
-  include/config.hh
-  include/options.hh
-  include/singleton.hh
-  include/Attributes.hh
-  include/Logging.hh
-  include/Logging/Channel.hh
-  include/Logging/ConsoleChannel.hh
-  include/Logging/FileChannel.hh
-  include/Logging/FileStrategy.hh
-  include/Logging/Logger.hh
-  include/Logging/LogServiceChannel.hh
-  include/Logging/Message.hh
-  include/Logging/MultiChannel.hh
-  include/Logging/NullChannel.hh
-  include/Exception/All.hh
-  include/Exception/Base.hh
-  include/Exception/Attributes.hh
-)
-
-install(FILES ${PUBLIC_HEADERS}
+install(DIRECTORY include/
   DESTINATION include/dadi
-)
-install(FILES include/dadi.hh
-  DESTINATION include/
-)
+  FILES_MATCHING PATTERN "*.hh")
+
