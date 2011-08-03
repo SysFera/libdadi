@@ -285,11 +285,11 @@
 	    </para>
 	    
 	    <para>
-	      
 	      C'est pour répondre à ces questions qu'en 1976, les bases des systèmes cryptographiques à clé publique ont été introduites par Diffie et Hellman. Le principe
 	      de base de ces systèmes est de publier une clé publique pour le chiffrement et seulement le détenteur de la clé privée correspondante est capable
 	      de déchiffrer le message. 
 	    </para>
+	    
 	    <para>
 	      Ce fonctionnement introduit une nouvelle question:
 	      <itemizedlist>
@@ -303,6 +303,59 @@
 	      rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
 	      ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc).
 	    </para>
+	    
+	    <section>
+	    <title> Les fonctions d'une architecture PKI </title>
+	    <para>
+	      <itemizedlist>
+		<listitem>
+		  <para>  
+		    <emphasis role = "bold"> Enregistrement : </emphasis> C'est un procédé par lequel le propriétaire qui sera le sujet du certificat se fera connaître auprès d'une AC.
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    <emphasis role = "bold"> Certification : </emphasis> C'est un processus par lequel une autorité de certification (AC) délivre un certificat pour un propriétaire de clé publique et adresse ce certificat au propriétaire ou le publie dans un dépôt de stockage. 
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    <emphasis role = "bold"> Génération de clé : </emphasis> Dans certains cas, le propriétaire peut générer des paires de clés depuis un environnement local et transmettre la requête d'enregistrement vers l'Autorité de Certification. 
+		    Dans d'autres cas, les paires de clés peuvent être générées par une AC ou une AE via un générateur de clés. 
+		    Le processus de distribution de la clé privée et du certificat vers le propriétaire sera dans ce cas réalisé de manière sécurisée. 
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    <emphasis role = "bold"> Recouvrement de clé : </emphasis> Les clés utilisées pour chiffrer des données, pour le transport ou les échanges peuvent avoir besoin d'être archivées pour satisfaire à des exigences de politique de sécurité. 
+		    L'opération d'archivage nécessite par ailleurs une étape de récupération en cas de perte. Le recouvrement est un processus qui autorise la récupération de clés quand une clé est perdue et que des informations précédemment chiffrées ont besoin d'être utilisées. 
+		    Les opérations d'archivage et de recouvrement peuvent être réalisées soit par une AC soit par un système de recouvrement de clés séparé de l'AC. 
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    <emphasis role = "bold"> Mise à jour des clé : </emphasis> Toutes les clés doivent pouvoir être remplacées sur une base régulière, quand une clé expire ou qu'elle est compromise. 
+		    Si la mise à jour des clés se produit en réponse à une expiration de sa date de péremption, la transition vers la nouvelle clé doit se produire avec facilité, cela exige néanmoins des mécanismes de support de notification de mise à jour. 
+		    Dans le cas d'une compromission de clé, le certificat doit être déclaré invalide, et la nouvelle validité du certificat et sa disponibilité doivent être annoncées.  
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    <emphasis role = "bold"> Revocation : </emphasis> Dans la plupart des cas, un certificat reste valide jusqu'à ce que sa période de validité expire. Il y a, cependant, un certain nombre de scénarios qui rendent nécessaire la révocation avant la fin de la période de validité d'un certificat. 
+		    Ceux-ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire et compromise etc.
+		  </para>
+		</listitem>
+		
+	      </itemizedlist>
+	    </para>
+	  </section>
+	  
+	    
 	    <para>
 	      Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
 	    </para>
@@ -313,9 +366,16 @@
 	    <para>
 	      
 	      <itemizedlist>
+		
 		<listitem>
 		  <para>  
 		    Comment gréffer une architecture PKI sur l'architecture de DIET existante?
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    Quel acteur génère le couple clé privée/ clé publique? Le propriétaire? ou le CA?
 		  </para>
 		</listitem>
 		
@@ -363,7 +423,47 @@
 	      
 	    </para> 
 	  </section>  
+	  
+	  <section>
+	    <title> Retours de la réunion du 3/07/2011 avec Gael (Mise en place d'une PKI dans DIET) </title>
+	    <itemizedlist>
+	      
+	      <listitem>	  
+		<para>
+		  Librairie à utiliser pour l'implémentation: OpenSSL (version à préciser)
+		</para>
+	      </listitem>
+	      
+	      <listitem>	  
+		<para>
+		  Le CA est une machine distincte qui n'est pas connecté à internet.
+		</para>
+	      </listitem>
+	      
+	      <listitem>	  
+		<para>
+		  Le certificat de l'autorité de certification est disponible pour tous les utilisateurs à l'installation de DIET. 
+		</para>
+	      </listitem>
+	      
+	      <listitem>	  
+		<para>
+		  Les utilisateurs envoient une requête à un administrateur qui valide l'identité de l'utilisateur et fait la signature (le CA contrôle l'identité de l'utilisateur et signe le certificat).
+		</para>
+	      </listitem>
+	      
+	      <listitem>	  
+		<para>
+		  Pour la génération de la clé: l'utilisateur crée son couple clé privée/clé publique.
+		</para>
+	      </listitem>
+	      
+	    </itemizedlist>
+	  </section>
+
     </para>
+    
+        
   </section> <!--Proposition n°2: Gestion des certificats -->
     
    <section>
