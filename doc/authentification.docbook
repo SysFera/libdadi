@@ -120,7 +120,7 @@
 	<title> Authenfication des utilisateurs </title>
 	
 	<para>
-	  <emphasis role = "bold"> Pré-requis:</emphasis> l'environnement de déploiement doit avoir un politique de chiffrement des données circulant via le canal de communication.
+	  <emphasis role = "bold"> Pré-requis:</emphasis> l'environnement de déploiement doit avoir une politique de chiffrement des données circulant via le canal de communication.
 	</para>
 	<para>
 	  L'authentification des utilisateurs va s'inspirer principalement du module <emphasis role = "italic"> UMS (User Managment System) </emphasis>  <link linkend="UMSDesign"> [VISHNU_D2_1a-UMS-Design] </link> développé dans le cadre 
@@ -252,13 +252,117 @@
    
    <section>
       <title> Proposition n°2: Gestion des certificats </title>
+      
+      <para>
+	  <emphasis role = "bold"> Pré-requis:</emphasis> l'autorité de certification doit être dans un environnement sûr.
+      </para>
+      
       <para>
 	Cette deuxième proposition est inspirée du module GSI <footnote><para> Grid Security Infrastructure </para></footnote> de Globus basé sur les mécanismes de PKI <footnote><para> Public Key Infrastructure </para></footnote> <link linkend="Dumas07"> [DUMAS07]</link> avec des
 	certificats X509. Le module GSI s'appuie sur une implémentation de la GSS-API<footnote><para> Generic Security Services API </para></footnote>. <!--  supportant le système d'authentification à tierce personne, Kerberos <link linkend="Dumas07"> [DUMAS07]</link>,
 	  développé par le Massashusettes Institute of Technology.-->
+	Dans ce modèle, chaque utilisateur et chaque service sont identifiés par des certificats.  
 	  <section>
-	    <title> Les Infrastructures à clés publiques (PKI en anglais) </title>
+	    <title> Les infrastructures à clés publiques (PKI en anglais) </title>
+	    <para>
+	      Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)? 
+	    </para>
+	    
+	    <para>  
+	      Pour répondre à cette question, il est important de se demander <link linkend="Dumas07"> [DUMAS07]</link>  : 
+	      <itemizedlist>
+		<listitem>
+		  <para>  
+		    Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>  
+		    Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?
+		  </para>
+		</listitem>
+	      </itemizedlist> 
+	    </para>
+	    
+	    <para>
+	      
+	      C'est pour répondre à ces questions qu'en 1976, les bases des systèmes cryptographiques à clé publique ont été introduites par Diffie et Hellman. Le principe
+	      de base de ces systèmes est de publier une clé publique pour le chiffrement et seulement le détenteur de la clé privée correspondante est capable
+	      de déchiffrer le message. 
+	    </para>
+	    <para>
+	      Ce fonctionnement introduit une nouvelle question:
+	      <itemizedlist>
+		<listitem>
+		  <para>  
+		    Comment garantir l'appartenance d'une clé publique à son propriétaire?
+		  </para>
+		</listitem>
+	      </itemizedlist>
+	      La réponse à cette question définit la notion d'infrastructures à clés publiques dans laquelle un tiers de confiance appelée CA<footnote><para> Certification Authority (autorité de certification en français)</para></footnote> 
+	      rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
+	      ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc).
+	    </para>
+	    <para>
+	      Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
+	    </para>
 	  </section>
+	  
+	  <section>
+	    <title> Une infrastructures à clé publique pour DIET V3 </title>
+	    <para>
+	      
+	      <itemizedlist>
+		<listitem>
+		  <para>  
+		    Comment gréffer une architecture PKI sur l'architecture de DIET existante?
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    A quel niveau de notre architecture sera placé l'autorité de certification?
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    A quel moment seront signés les certificats?
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    Quel type d'annuaire sera utilisé pour stocker les clés publiques?
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    Quel scénario d'obtention d'un certificat signé pour un nouvel utilisateur?
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    L'annuaire contenant les clés publiques sera partagé par tous les éléments de l'architecture 
+		    ou chaque élément stockera les clés publiques de chaque utilisateur via un annuaire perso comme ssh (ce qui complexifiera les mises à jour telle 
+		    que la revocation d'un certificat)?
+		  </para>
+		</listitem>
+		
+		<listitem>
+		  <para>  
+		    un daemon DIET servira-t-il de proxy utilisateur avec les autres éléments de la hiérarchie? Ce qui nécessitera que chaque élément de la hiérarchie
+		    ne devra connaitre que la clé publique du daemon DIET correspondant mais c'est limite en terme de sécurité car l'obtention de la clé privée
+		    de DIET donnera accès à tous les éléments de l'architecture.
+		  </para>
+		</listitem>
+		
+	      </itemizedlist>
+	      
+	    </para> 
+	  </section>  
     </para>
   </section> <!--Proposition n°2: Gestion des certificats -->
     
