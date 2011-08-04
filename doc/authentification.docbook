@@ -65,6 +65,12 @@
 		Collection Sciences Sup  Dunod publishing, Mars 2007. 
 	      </para></entry>
 	    </row> 
+	    <row>
+	      <entry><para xml:id="Securix"> Securix </para></entry>
+	      <entry><para> Securix: Documentation sur les PKI et PKIX. Disponible: http://frpki.org/index.php?/intro_PKI.html. </para></entry>
+	    </row>
+	    
+	    
 	  </tbody>
 	  </tgroup>
 	  </informaltable>
@@ -299,13 +305,17 @@
 		  </para>
 		</listitem>
 	      </itemizedlist>
-	      La réponse à cette question définit la notion d'infrastructures à clés publiques dans laquelle un tiers de confiance appelée CA<footnote><para> Certification Authority (autorité de certification en français)</para></footnote> 
-	      rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
-	      ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc).
+	      
+	      <para>
+		La réponse à cette question définit la notion d'infrastructures à clés publiques dans laquelle un tiers de confiance appelée CA<footnote><para> Certification Authority (autorité de certification en français)</para></footnote> 
+		rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
+		ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc).
+	      </para>
+	      
 	    </para>
 	    
 	    <section>
-	    <title> Les fonctions d'une architecture PKI </title>
+	    <title> Les fonctions d'une architecture PKI <link linkend="Securix"> [Securix]</link> </title>
 	    <para>
 	      <itemizedlist>
 		<listitem>
@@ -356,16 +366,102 @@
 	  </section>
 	  
 	    
-	    <para>
-	      Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
-	    </para>
+	<para>
+	  Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
+	</para>
 	  </section>
 	  
 	  <section>
 	    <title> Une infrastructures à clé publique pour DIET V3 </title>
 	    <para>
 	      
-	      <itemizedlist>
+	    <section>
+	      <title> Politique et definition du scénario de création des certificats </title>
+		<para>
+		  <itemizedlist>
+		    
+		    <listitem>
+		      <para>  
+			Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisée.
+		      </para>
+		    </listitem>
+		    
+		    <listitem>
+		      <para>  
+			Le certificat de l'autorité de certification est disponible par tous les utilisateurs à l'installation de DIET. 
+		      </para>
+		    </listitem>
+		    
+		    <listitem>
+		      <para>  
+			Chaque futur utilisateur génère un couple clé publique/clé privée et effectue une demande d'ajout dans le système à un administrateur
+			en lui envoyant les informations nécessaires à son identification et sa clé publique.
+		      </para>
+		    </listitem>
+		    
+		    <listitem>
+		      <para>  
+			Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
+			à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc <emphasis role = "italic"> et éventuellement la clé publique de l'utilisateur</emphasis>.
+		      </para>
+		    </listitem>
+		    
+		    <listitem>
+		      <para>  
+			Chaque utilisateur génère un certificat signé à partir du certificat du CA disponible sur la plateforme.
+		      </para>
+		    </listitem>
+		  </itemizedlist>
+		</para>
+	    </section>
+	    
+	    <section>
+	      <title> Scénario d'une requête utilisateur via DIET</title>
+		<para>
+		  <itemizedlist>
+		    
+		    <listitem>
+		      <para>  
+			Un utilisateur fait une requête via DIET.
+		      </para>
+		    </listitem>
+		    
+		    <listitem>
+		      <para>  
+			L'utilisateur chiffre son message via sa clé privée et joint son certificat avec une information mentionnant l'heure de soumission.
+		      </para>
+		    </listitem>
+		    
+		     <listitem>
+		      <para>  
+			L'élement de la hiérarchie DIET qui recoit la requête envoie le certificat au CA pour vérification.
+		      </para>
+		    </listitem>
+		    
+		    <listitem>
+		      <para>  
+			Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
+		      </para>
+		    </listitem>
+		    
+		    <listitem>
+		      <para>  
+			Le CA confirme ou refute le certificat.
+		      </para>
+		    </listitem>
+		    
+		    <listitem>
+		      <para>  
+			Si le certificat est valide, l'élement de la hiérarchie DIET correspondant déchiffre le message via la clé 
+			publique de l'utilisateur et chiffre sa réponse via la même clé publique que seul le destinataire, donc détenteur de la clé privée correspondante,
+			pourra déchiffrer.
+		      </para>
+		    </listitem>
+		    
+		  </itemizedlist>
+		</para>
+	    </section>
+	      <!--<itemizedlist>
 		
 		<listitem>
 		  <para>  
@@ -448,6 +544,12 @@
 	      
 	      <listitem>	  
 		<para>
+		  L'utilisateur fait une demande au CA avec sa clé publique.
+		</para>
+	      </listitem>
+	      
+	      <listitem>	  
+		<para>
 		  Les utilisateurs envoient une requête à un administrateur qui valide l'identité de l'utilisateur et fait la signature (le CA contrôle l'identité de l'utilisateur et signe le certificat).
 		</para>
 	      </listitem>
@@ -460,10 +562,10 @@
 	      
 	    </itemizedlist>
 	  </section>
-
-    </para>
-    
-        
+	  -->
+	  </para> 
+	</section>  
+    </para>   
   </section> <!--Proposition n°2: Gestion des certificats -->
     
    <section>
