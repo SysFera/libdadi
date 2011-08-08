@@ -1,0 +1,387 @@
+%%%% OPTION
+%% Change class according to your needs
+%%  - article (no chapter)
+%%  - report
+%%  - etc.
+\documentclass{report}
+
+
+\IfFileExists{ifxetex.sty}{%
+  \usepackage{ifxetex}%
+}{%
+  \newif\ifxetex
+  \xetexfalse
+}
+  \ifxetex
+
+\usepackage{fontspec}
+\usepackage{xltxtra}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\else
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\fi
+\usepackage{fancybox}
+\usepackage{makeidx}
+\usepackage{cmap}
+\usepackage{url}
+\usepackage{eurosym}
+
+\usepackage[hyperlink]{sysfera}
+
+
+
+%%%%
+%% TODO:
+%%  - ajouter une macro pour mettre l'objet du document
+%%  - faire les footers avec l'adresse et tels de SysFera
+%%  - enlever un max de paquets docbook
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            CONFIGURATION                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Use the following macros to configure your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% OPTION
+%% Change language: fr/en
+%%  - for French: use french in babel, and fr in \setupsysferalocale
+%%  - for English: use english in babel, and en in \setupsysferalocale
+
+\usepackage[french]{babel}
+\setupsysferalocale{fr}
+\frenchbsetup{CompactItemize=false} % Fix itemize clash 
+\usepackage{enumitem}
+%%%% OPTION
+%% Title and author of the document
+\title{Description des besoins d'authentification pour DIET V3}
+\author{Eugène PAMBA CAPO-CHICHI}
+
+%%%% OPTION
+%% Document reference
+%% Use command \SFdocumentreference to set the document reference.
+%% Latter on, you can use the \SFthisdocument macro to retrieve
+%% this reference.
+\SFdocumentreference{20110801\_techDocument}
+%\SFprojectname{Holy Grail}
+%\SFprojectleader{King Arthur}
+%\SFclient{God}
+
+
+%%%% OPTION
+%% Release information. If the argument is not empty, then a box with
+%% the content of the argument will be visible at the top of the document
+%\SFreleaseinfo{Travail en cours} % will show "Travail en cours" at the
+                                 % top of the page
+%\SFreleaseinfo{} % won't show anything
+
+%%%% OPTION
+%% Draft watermark. You can also show a grey watermak on all pages of
+%% your document using the following command.
+%\showwatermark{DRAFT}
+
+%%%% OPTION
+%% Collaborators:
+%% You can redefine the Indexation of the document using the following command:
+% \renewcommand{\SFindexation}{
+%   \begin{SFindtable}
+%     \SFinditem{\writtenby}{Author 1}{06/06/2011}
+%     \SFinditem{\correctedby}{Author 2}{22/07/2011}
+%     \SFinditem{\validatedby}{Anonymous guy}{\date}
+%   \end{SFindtable}
+% }
+% \renewcommand{\SFindexation}{} % disable this table
+
+
+%%%% OPTION
+%% Revision History Table:
+%% Add a new \SFrevitem entry for adding a new entry in the revision
+%% history table. Revision versions are added automatically.
+\renewcommand{\SFrevhistory}{
+\begin{SFrevtable}
+  \SFrevitem{26/07/2011}{Description des besoins (d'après la première réunion du 26/07/2011)}{Eugène PAMBA CAPO-CHICHI}
+  %\SFrevitem{01/08/2011}{Deuxieme version de ce template}{B. Depardon}
+\end{SFrevtable}
+}
+% \renewcommand{\SFrevhistory}{} % disable this table
+
+
+%%%% OPTION
+%% References Table
+%% Add a new \SFrefitem entry for adding a new entry in the list of
+%% reference documents.
+\renewcommand{\SFreferenceTable}{
+\begin{SFreftable}
+  \SFrefitem{VISHNU\_D2\_1a-UMS-Design}{VISHNU User Management System Package Design \hyperlabel{UMSDesign}}
+  \SFrefitem{VISHNU\_D2\_2c-UserManual}{VISHNU User Manual \hyperlabel{UMSUser}}
+  \SFrefitem{VISHNU\_D2\_2d-GuideAdmin}{VISHNU - Le guide de l'administrateur \hyperlabel{UMSAdmin}}
+  \SFrefitem{LST-LIP-DIET\_Sec}{DIET ETUDE SECURITE LST - LIP \hyperlabel{Sogeti}}
+  \SFrefitem{DUMAS07}{ J.-G. Dumas, J.-L. Roch, E. Tannier and S. Varrette. Théorie des Codes : Compression, Cryptage et Correction. 
+		Collection Sciences Sup  Dunod publishing, Mars 2007. \hyperlabel{Dumas07}} 
+  \SFrefitem{Securix}{Securix: Documentation sur les PKI et PKIX. Disponible: http://frpki.org/index.php?/intro\_PKI.html. \hyperlabel{Securix}}
+\end{SFreftable}
+}
+% \renewcommand{\SFreferenceTable}{} % disable this table
+
+%%%% OPTION
+%% Authorization Table
+%% Add a new \SFauthviewitem entry for adding a new entry in the list of
+%% authorized users.
+\renewcommand{\SFauthview}{
+\begin{SFauthviewtable}
+  \SFauthviewitem{SysFera}{Tous les membres de SysFera}
+\end{SFauthviewtable}
+}
+% \renewcommand{\SFauthview}{} % disable this table
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           /CONFIGURATION                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\makeindex
+\makeglossary
+
+
+\begin{document}
+
+\frontmatter % do not disable, this is used for page numbering
+\maketitle % do not disable, otherwise you won't have any title
+%%%% OPTION
+\tableofcontents % comment to disable the table of contents
+\mainmatter % do not disable, this is used for page numbering
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%              Write your document below this comment                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Introduction}
+
+\section{Présentation}
+
+L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisement, nous allons mettre
+l'accent sur trois principaux points:
+
+\begin{itemize}
+\item l'authentification des utilisateurs
+\item l'authentification de la hiérarchie DIET
+\item le cryptage des données
+\end{itemize}
+
+Il important de noter que la politique de sécurité présentée dans ce document devra être la plus générique possible pour pouvoir
+s'adapter aux différentes infrastructures dans lesquelles le \textit{middleware DIET} sera déployé.
+
+\section{ Proposition n\textdegree{}1: Utilisation de UMS }
+     
+\subsection{ Authenfication des utilisateurs }
+     
+\textbf{ Pré-{}requis:} l'environnement de déploiement doit avoir une politique de chiffrement des données circulant via le canal de communication.
+ 
+L'authentification des utilisateurs va s'inspirer principalement du module \textit{ UMS (User Managment System) } \hyperlink{UMSDesign}{[VISHNU\_D2\_1a-UMS-Design]} développé dans le cadre 
+du projet VISHNU \footnote{\url{http://www.sysfera.fr/vishnu/}}. UMS se base sur une authentification unique \textit{(Single Sign-{}On) } pour ses 
+avantages :
+
+\begin{itemize}
+
+\item l'utilisateur ne s'authentifie qu'une seule fois via un login et un mot de passe pour accèder à l'infrastructure,
+\item l'authentification est gérée de façon centralisée,
+\item la souplesse de l'utilisation de l'infrastructure (pas d'authentification systématique). 
+\end{itemize}
+  
+En effet, le nombre conséquent de potentiels protagonistes dans une grille de calculs favorise le mécanisme \textit{Single Sign-On } 
+pour éviter à l'utilisateur de s'authentifier manuellement à chaque connexion avec un noeud de la grille.
+
+\subsubsection{ User Managment System (UMS)}
+
+Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
+supplémentaires).
+ 
+\begin{itemize}
+\item Le type (ou groupe) auquel appartient un utilisateur sera défini à sa création par un administrateur.
+\item Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs \textbf{*}\footnote{
+\textit{ * signifie que cette fonctionnalité ne sera pas disponible dans le coeur de DIET mais dans de futurs développements de modules externes}
+ }.
+\item Un administrateur pourra changer dynamiquement le type d'un utilisateur \textbf{*}.
+\item Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
+utilisateurs ou des administrateurs de l'intergiciel. Les fonctions de création et de modification de comptes prendront en paramètre
+l'information nécessaire. Seuls les administrateurs pourront utiliser ces fonctions.
+\item Un administrateur pourra interdire l'accès à certains services pour un type bien défini d'utilisateurs.
+\item \textbf{Authentification des utilisateurs} : une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
+pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
+rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. Ce service fermera une session soit à la demande de l'utilisateur à qui elle appartiendra, soit parce que
+l'utilisateur aura fermé sa session locale sur la machine à laquelle la session de l'intergiciel sera rattachée, soit à cause d'une période sans
+aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces comportements de fermeture de session seront configurables par
+les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session, cette fonction permettra également aux utilisateurs de se replacer dans
+une de leurs sessions déjà ouvertes. L'utilisation du modèle \textit{ Single Sign-{}On } nécessite une  traçabilité de la session authentifiée. 
+
+\item Les différents services que fournit notre infrastructure sont rattachées à des machines. 
+Les administrateurs enregistrent les machines et spécifient pour chaque machine le type d'utilisateurs autorisés à y accéder.
+ 
+\end{itemize}
+      
+\subsubsection{ Les états d'une authentification}
+    
+\begin{itemize}
+\item \textbf{ Etat initial }: un utilisateur préalablement enregistré dans le système d'information de l'intergiciel, non authentifié, n'a accès à aucun
+		service.
+\item \textbf{ Connexion }: l'utilisateur sollicite un accès aux services de l'intergiciel en décrivant son identité à l'aide d'un login et d'un mot de passe.
+		L'intergiciel contrôle l'identité du demandeur. 
+\item \textbf{ Etat authentifié }: l'identité de l'utilisateur est reconnu par le système. La session authentifiée a une durée de vie liée au mode de connexion choisi 
+		par l'utilisateur et pendant cette période, il a accès aux services autorisés au groupe auquel il appartient.
+\item \textbf{ Déconnexion }: Retour à l'état initial.
+\end{itemize}
+ 	    Un cryptage des données circulant à travers le canal de communication pendant les phases précédentes peut ajouter un niveau de sécurité supplémentaire. Cependant, cette partie
+	    sera développée dans le module de transport de données.  
+ 
+          
+\section{ Proposition n\textdegree{}2: Gestion des certificats }
+     
+\textbf{ Pré-{}requis:} l'autorité de certification doit être dans un environnement sûr.
+    
+Cette deuxième proposition est inspirée du module GSI \footnote{Grid Security Infrastructure} de Globus basé sur les mécanismes de PKI \footnote{
+Public Key Infrastructure} \hyperlink{Dumas07}{[DUMAS07]} avec des certificats X509. Le module GSI s'appuie sur une implémentation de la GSS-{}API\footnote{
+Generic Security Services API 
+}. Dans ce modèle, chaque utilisateur et chaque service sont identifiés par des certificats.  
+ 
+\subsection{ Les infrastructures à clés publiques (PKI en anglais) }
+    
+Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
+Pour répondre à cette question, il est important de se demander \hyperlink{Dumas07}{[DUMAS07]}  : 
+\begin{itemize}
+\item{} Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?
+\item{} Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?
+\end{itemize}
+   
+C'est pour répondre à ces questions qu'en 1976, les bases des systèmes cryptographiques à clé publique ont été introduites par Diffie et Hellman. Le principe
+de base de ces systèmes est de publier une clé publique pour le chiffrement et seulement le détenteur de la clé privée correspondante est capable
+de déchiffrer le message. 
+   
+Ce fonctionnement introduit une nouvelle question:
+
+\begin{itemize}
+\item Comment garantir l'appartenance d'une clé publique à son propriétaire?
+\end{itemize}
+   
+La réponse à cette question définit la notion d'infrastructures à clés publiques dans laquelle un tiers de confiance appelée CA\footnote{
+ Certification Authority (autorité de certification en français)} 
+rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
+ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-{}mail pour une personne, adresse IP etc).
+ 
+      
+\subsubsection[{ Les fonctions d'une architecture PKI [Securix] }]{ Les fonctions d'une architecture PKI \hyperlink{Securix}{[Securix]} }
+    
+\begin{itemize}
+\item \textbf{ Enregistrement : } C'est un procédé par lequel le propriétaire qui sera le sujet du certificat se fera connaître auprès d'une AC.
+\item \textbf{ Certification : } C'est un processus par lequel une autorité de certification (AC) délivre un certificat pour un propriétaire de clé publique et adresse ce certificat au propriétaire ou le publie dans un dépôt de stockage. 
+\item \textbf{ Génération de clé : } Dans certains cas, le propriétaire peut générer des paires de clés depuis un environnement local et transmettre la requête d'enregistrement vers l'Autorité de Certification. 
+Dans d'autres cas, les paires de clés peuvent être générées par une AC ou une AE via un générateur de clés. 
+Le processus de distribution de la clé privée et du certificat vers le propriétaire sera dans ce cas réalisé de manière sécurisée. 
+\item \textbf{ Recouvrement de clé : } Les clés utilisées pour chiffrer des données, pour le transport ou les échanges peuvent avoir besoin d'être archivées pour satisfaire à des exigences de politique de sécurité. 
+L'opération d'archivage nécessite par ailleurs une étape de récupération en cas de perte. Le recouvrement est un processus qui autorise la récupération de clés quand une clé est perdue et que des informations précédemment chiffrées ont besoin d'être utilisées. 
+Les opérations d'archivage et de recouvrement peuvent être réalisées soit par une AC soit par un système de recouvrement de clés séparé de l'AC. 
+\item \textbf{ Mise à jour des clé : } Toutes les clés doivent pouvoir être remplacées sur une base régulière, quand une clé expire ou qu'elle est compromise. 
+Si la mise à jour des clés se produit en réponse à une expiration de sa date de péremption, la transition vers la nouvelle clé doit se produire avec facilité, cela exige néanmoins des mécanismes de support de notification de mise à jour. 
+Dans le cas d'une compromission de clé, le certificat doit être déclaré invalide, et la nouvelle validité du certificat et sa disponibilité doivent être annoncées.  
+\item \textbf{ Revocation : } Dans la plupart des cas, un certificat reste valide jusqu'à ce que sa période de validité expire. Il y a, cependant, un certain nombre de scénarios qui rendent nécessaire la révocation avant la fin de la période de validité d'un certificat. 
+Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire et compromise etc.
+\end{itemize}
+  
+Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
+ 
+     
+\subsection{ Une infrastructures à clé publique pour DIET V3 }
+    
+   
+\subsubsection{ Politique et definition du scénario de création des certificats }
+    
+\begin{itemize}
+\item Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisée. 
+\item Le certificat de l'autorité de certification est disponible par tous les utilisateurs à l'installation de DIET.  
+\item Chaque futur utilisateur génère un couple clé publique/clé privée et effectue une demande d'ajout dans le système à un administrateur
+en lui envoyant les informations nécessaires à son identification et sa clé publique.
+\item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
+à la génération d'un certificat:  état civil, adresse, e-{}mail pour une personne etc \textit{ et éventuellement la clé publique de l'utilisateur}.
+\item Chaque utilisateur génère un certificat signé à partir du certificat du CA disponible sur la plateforme.
+\end{itemize}
+  
+     
+\subsubsection{ Scénario d'une requête utilisateur via DIET}
+ 
+Ancien scénario (pas valide):
+\textcolor{red} {
+  \textit{ 
+    \begin{itemize}
+    \item Un utilisateur fait une requête via DIET.
+    \item L'utilisateur chiffre son message via sa clé privée et joint son certificat avec une information mentionnant l'heure de soumission.
+    \item L'élement de la hiérarchie DIET qui recoit la requête envoie le certificat au CA pour vérification.
+    \item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
+    \item Le CA confirme ou refute le certificat.
+    \item Si le certificat est valide, l'élement de la hiérarchie DIET correspondant déchiffre le message via la clé 
+    publique de l'utilisateur et chiffre sa réponse via la même clé publique que seul le destinataire, donc détenteur de la clé privée correspondante,
+    pourra déchiffrer.
+    \end{itemize}
+  }
+}  
+
+Nouveau scénario:
+\begin{itemize}
+\item Un utilisateur fait une requête via DIET.
+\item L'utilisateur chiffre son message via la clé publique du CA disponible à partir du certificat du CA publique dans notre infrastructure et joint son certificat avec une information mentionnant l'heure de soumission.
+\item L'élement de la hiérarchie DIET qui recoit la requête envoie le certificat de l'utilisateur au CA pour vérification.
+\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
+\item Le CA confirme ou refute le certificat.
+\item Le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
+hiérarchie DIET correspondant.
+\item Si le certificat est valide, l'élement de la hiérarchie DIET correspondant déchiffre le message via sa clé 
+privée et chiffre sa réponse via la même clé publique de l'utilisateur.
+\end{itemize}
+      
+\section{ Authentification de la hiérarchie DIET }
+    
+Dans la version 3 de DIET, les notions de \textit{master agent} et \textit{local agent} fusionnent en \textit{agent}. 
+Il est donc possible de pointer sur n'importe quel noeud de la hiérarchie, ce qui rend plus flexible l'infrastructure 
+mais entraîne des besoins en terme de sécurité. Il est donc prévu de concevoir un modèle de sécurité utilisant des certificats pour contrôler l'ajout d'éléments à
+une hiérarchie DIET.
+   
+Il faut notamment pouvoir se prémunir contre l'ajout d'agents ou SeD \textit{pirates} à une hiérarchie déjà existante. 
+L'ajout non contrôlé pourrait permettre à une personne mal intentionnée de dévier tout ou partie du flux des requêtes et données. Ce type
+d'attaque \textit{man-{}in-{}the-{}middle} doit être empêché. Pour cela, il est nécessaire que chaque élément
+voulant s'ajouter à une hiérarchie soit identifié par un certificat lui donnant ou non les droits de connexion. Voir
+l'étude réalisée par Sogeti \hyperlink{Sogeti}{[LST-{}LIP-{}DIET\_Sec]}.
+
+                  
+\section{ Le cryptage des données }
+    
+L'utilisation d'un modèle avec une authentification unique manipule un jeton. Le problème de cette technique est que l'interception du jeton permet une intrusion dans l'infrastructure et l'accès aux services de l'intergiciel. C'est pour 
+cette raison qu'il est judicieux de limiter la durée de vie d'un jeton. Pour aller plus loin et rajouter un niveau de sécurité supplémentaire, il est possible de rendre le jeton inutilisable s'il est intercepté
+en cryptant les données circulant via le canal de communication. 
+
+
+
+
+%\subsection{Bibliography}
+
+
+%\section{Conversion vers un format XML}
+
+%TeX4ht~\cite{tex4ht:sj2011}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            BIBLIOGRAPHY                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% OPTION
+%% You can deactivate bibliography by commenting the following 3
+%% lines.
+%% If you wish to add a bibliography, you need to update the
+%% \biblography command. Its argument is the name of .bib file.
+%\clearpage
+%\bibliographystyle{plain}
+%\bibliography{techDocument}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           /BIBLIOGRAPHY                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+\end{document}
