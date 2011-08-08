@@ -171,10 +171,13 @@ l'accent sur trois principaux points:
 \item le cryptage des données
 \end{itemize}
 
-Il important de noter que la politique de sécurité présentée dans ce document devra être la plus générique possible pour pouvoir
-s'adapter aux différentes infrastructures dans lesquelles le \textit{middleware DIET} sera déployé.
+\textcolor{red}{Problématique: Les politiques de sécurité diffèrent selon les besoins des entreprises et à contrario il faut définir un modèle
+de sécurité utilisable quelque soit l'environnement dans lequel le \textit{middleware DIET} sera déployé.}
+ 
+Il est donc important de noter que la politique de sécurité présentée dans ce document devra être la plus générique possible pour pouvoir
+s'adapter aux différentes infrastructures dans lesquelles \textit{DIET} sera intégré.
 
-\section{ Proposition n\textdegree{}1: Utilisation de UMS }
+\section{ Proposition n°1: Utilisation de UMS }
      
 \subsection{ Authenfication des utilisateurs }
      
@@ -215,7 +218,7 @@ rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. C
 l'utilisateur aura fermé sa session locale sur la machine à laquelle la session de l'intergiciel sera rattachée, soit à cause d'une période sans
 aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces comportements de fermeture de session seront configurables par
 les utilisateurs pour leurs propres comptes. Au lieu d'ouvrir une session, cette fonction permettra également aux utilisateurs de se replacer dans
-une de leurs sessions déjà ouvertes. L'utilisation du modèle \textit{ Single Sign-{}On } nécessite une  traçabilité de la session authentifiée. 
+une de leurs sessions déjà ouvertes. L'utilisation du modèle \textit{ Single Sign-On} nécessite une  traçabilité de la session authentifiée. 
 
 \item Les différents services que fournit notre infrastructure sont rattachées à des machines. 
 Les administrateurs enregistrent les machines et spécifient pour chaque machine le type d'utilisateurs autorisés à y accéder.
@@ -237,7 +240,7 @@ Les administrateurs enregistrent les machines et spécifient pour chaque machine 
 	    sera développée dans le module de transport de données.  
  
           
-\section{ Proposition n\textdegree{}2: Gestion des certificats }
+\section{ Proposition n°2: Gestion des certificats }
      
 \textbf{ Pré-{}requis:} l'autorité de certification doit être dans un environnement sûr.
     
@@ -277,7 +280,7 @@ ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-{}mail pou
 \item \textbf{ Enregistrement : } C'est un procédé par lequel le propriétaire qui sera le sujet du certificat se fera connaître auprès d'une AC.
 \item \textbf{ Certification : } C'est un processus par lequel une autorité de certification (AC) délivre un certificat pour un propriétaire de clé publique et adresse ce certificat au propriétaire ou le publie dans un dépôt de stockage. 
 \item \textbf{ Génération de clé : } Dans certains cas, le propriétaire peut générer des paires de clés depuis un environnement local et transmettre la requête d'enregistrement vers l'Autorité de Certification. 
-Dans d'autres cas, les paires de clés peuvent être générées par une AC ou une AE via un générateur de clés. 
+Dans d'autres cas, les paires de clés peuvent être générées par une AC ou une AE (autorité d'enregistrement) via un générateur de clés. 
 Le processus de distribution de la clé privée et du certificat vers le propriétaire sera dans ce cas réalisé de manière sécurisée. 
 \item \textbf{ Recouvrement de clé : } Les clés utilisées pour chiffrer des données, pour le transport ou les échanges peuvent avoir besoin d'être archivées pour satisfaire à des exigences de politique de sécurité. 
 L'opération d'archivage nécessite par ailleurs une étape de récupération en cas de perte. Le recouvrement est un processus qui autorise la récupération de clés quand une clé est perdue et que des informations précédemment chiffrées ont besoin d'être utilisées. 
@@ -291,7 +294,6 @@ Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société 
   
 Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
  
-     
 \subsection{ Une infrastructures à clé publique pour DIET V3 }
     
    
@@ -333,13 +335,42 @@ Nouveau scénario:
 \item L'élement de la hiérarchie DIET qui recoit la requête envoie le certificat de l'utilisateur au CA pour vérification.
 \item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
 \item Le CA confirme ou refute le certificat.
-\item Le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
+\item Si le certificat est valide, le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
 hiérarchie DIET correspondant.
-\item Si le certificat est valide, l'élement de la hiérarchie DIET correspondant déchiffre le message via sa clé 
-privée et chiffre sa réponse via la même clé publique de l'utilisateur.
+\item L'élement de la hiérarchie DIET déchiffre le message via sa clé 
+privée et chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
+
+\section{Grille de comparaison des propositions}
+
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \hline
+  \textbf{Proposition} & \textbf{Avantages} & \textbf{Inconvénients} \\
+  \hline
+  Utilisation de UMS & 
+    \begin{itemize} 
+    \item Souplesse d'implémentation,
+    \item Authentification unique (\textit{Single Sign-On})
+    \end{itemize}   
+  & Interception de la clé de session \\
+  \hline
+  Gestion des certificats & 
+  \begin{itemize} 
+    \item garantie forte de confidentialité, d'authentification, d'intégrité et de non répudiation
+  \end{itemize}
+  & 
+  %Complexité d'implémentation\\%, lourdeur de la gestion des certificats,
+  %ajout d'une entité sensible: l'autorité de certification (CA)\\
+  \begin{itemize}
+  \item Complexité d'implémentation,
+  \item Lourdeur de la gestion des certificats, 
+  \item Ajout d'une entité sensible: l'autorité de certification (CA)
+  \end{itemize}
+  \\
+  \hline
+\end{tabular}
       
-\section{ Authentification de la hiérarchie DIET }
+\section{Authentification de la hiérarchie DIET}
     
 Dans la version 3 de DIET, les notions de \textit{master agent} et \textit{local agent} fusionnent en \textit{agent}. 
 Il est donc possible de pointer sur n'importe quel noeud de la hiérarchie, ce qui rend plus flexible l'infrastructure 
@@ -353,7 +384,7 @@ voulant s'ajouter à une hiérarchie soit identifié par un certificat lui donnant 
 l'étude réalisée par Sogeti \hyperlink{Sogeti}{[LST-{}LIP-{}DIET\_Sec]}.
 
                   
-\section{ Le cryptage des données }
+\section{Le cryptage des données}
     
 L'utilisation d'un modèle avec une authentification unique manipule un jeton. Le problème de cette technique est que l'interception du jeton permet une intrusion dans l'infrastructure et l'accès aux services de l'intergiciel. C'est pour 
 cette raison qu'il est judicieux de limiter la durée de vie d'un jeton. Pour aller plus loin et rajouter un niveau de sécurité supplémentaire, il est possible de rendre le jeton inutilisable s'il est intercepté
