@@ -177,9 +177,10 @@ de sécurité utilisable quelque soit l'environnement dans lequel le \textit{middl
 Il est donc important de noter que la politique de sécurité présentée dans ce document devra être la plus générique possible pour pouvoir
 s'adapter aux différentes infrastructures dans lesquelles \textit{DIET} sera intégré.
 
-\section{ Proposition n°1: Utilisation de UMS }
+\section{ Authenfication des utilisateurs }
+
+\subsection{ Proposition n°1: Utilisation de UMS }
      
-\subsection{ Authenfication des utilisateurs }
      
 \textbf{ Pré-{}requis:} l'environnement de déploiement doit avoir une politique de chiffrement des données circulant via le canal de communication.
  
@@ -240,7 +241,7 @@ Les administrateurs enregistrent les machines et spécifient pour chaque machine 
 	    sera développée dans le module de transport de données.  
  
           
-\section{ Proposition n°2: Gestion des certificats }
+\subsection{ Proposition n°2: Gestion des certificats }
      
 \textbf{ Pré-{}requis:} l'autorité de certification doit être dans un environnement sûr.
     
@@ -249,7 +250,7 @@ Public Key Infrastructure} \hyperlink{Dumas07}{[DUMAS07]} avec des certificats X
 Generic Security Services API 
 }. Dans ce modèle, chaque utilisateur et chaque service sont identifiés par des certificats.  
  
-\subsection{ Les infrastructures à clés publiques (PKI en anglais) }
+\subsubsection{ Les infrastructures à clés publiques (PKI en anglais) }
     
 Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
 Pour répondre à cette question, il est important de se demander \hyperlink{Dumas07}{[DUMAS07]}  : 
@@ -274,7 +275,7 @@ rattache à une clé publique son propriétaire à l'aide d'un certificat numérique.
 ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-{}mail pour une personne, adresse IP etc).
  
       
-\subsubsection[{ Les fonctions d'une architecture PKI [Securix] }]{ Les fonctions d'une architecture PKI \hyperlink{Securix}{[Securix]} }
+\subsubsection*{ Les fonctions d'une architecture PKI \hyperlink{Securix}{[Securix]} }
     
 \begin{itemize}
 \item \textbf{ Enregistrement : } C'est un procédé par lequel le propriétaire qui sera le sujet du certificat se fera connaître auprès d'une AC.
@@ -294,10 +295,10 @@ Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société 
   
 Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
  
-\subsection{ Une infrastructures à clé publique pour DIET V3 }
+\subsubsection{ Une infrastructures à clé publique pour DIET V3 }
     
    
-\subsubsection{ Politique et definition du scénario de création des certificats }
+\subsubsection*{ Politique et definition du scénario de création des certificats }
     
 \begin{itemize}
 \item Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisée. 
@@ -310,7 +311,7 @@ en lui envoyant les informations nécessaires à son identification et sa clé publ
 \end{itemize}
   
      
-\subsubsection{ Scénario d'une requête utilisateur via DIET}
+\subsubsection*{ Scénario d'une requête utilisateur via DIET}
  
 Ancien scénario (pas valide):
 \textcolor{red} {
@@ -341,7 +342,7 @@ hiérarchie DIET correspondant.
 privée et chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
 
-\section{Grille de comparaison des propositions}
+\subsection{Grille de comparaison des propositions}
 
 \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
   \hline
