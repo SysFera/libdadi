@@ -344,7 +344,8 @@ privée et chiffre sa réponse avec la clé publique de l'utilisateur.
 
 \subsection{Grille de comparaison des propositions}
 
-\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+\begin{center}
+\begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
   \hline
   \textbf{Proposition} & \textbf{Avantages} & \textbf{Inconvénients} \\
   \hline
@@ -370,6 +371,54 @@ privée et chiffre sa réponse avec la clé publique de l'utilisateur.
   \\
   \hline
 \end{tabular}
+\end{center}
+
+\subsection{Outils logiciels}
+
+Les environnements \textit{opensource} supportant le protocole \textit{Secure Sockets Layer (SSL)} et \textit{Transport Layer Security (TLS)} susceptibles de nous accompagner au cours de notre implémentation sont:
+Openssl (\url{http://www.openssl.org/}) et Botan (\url{http://botan.randombit.net/}).
+
+Le tableau ci-dessous résume les avantages et les inconvenients de ces deux outils par rapport à nos exigences.
+
+\begin{center}
+\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+  \hline
+  \textbf{Outils} & \textbf{Avantages} & \textbf{Inconvénients} \\
+  \hline
+  Openssl & 
+    \begin{itemize} 
+    \item notoriété,
+    \item implémentation robuste de SSL et TLS
+    \end{itemize}   
+  & 
+  \begin{itemize} 
+    \item code pas assez structuré,
+    \item pas assez de documentation,
+    \item difficile à prendre en main,
+    \item développé en C.
+  \end{itemize}
+  \\
+  \hline
+  Botan & 
+  \begin{itemize} 
+    \item code structuré,
+    \item facile à prendre en main,
+    \item bien documenté,
+    \item plusieurs examples d'utilisation,
+    \item basé sur le modèle objet (développé en C++).
+  \end{itemize}
+  & 
+  %Complexité d'implémentation\\%, lourdeur de la gestion des certificats,
+  %ajout d'une entité sensible: l'autorité de certification (CA)\\
+  \begin{itemize}
+  \item certains CPUs non supporté,
+  \item implémentation du protocole SSL/TLS pas assez testé.
+  \end{itemize}
+  \\
+  \hline
+\end{tabular}
+\end{center}
+
       
 \section{Authentification de la hiérarchie DIET}
     
