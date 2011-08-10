@@ -102,7 +102,7 @@
 \renewcommand{\SFrevhistory}{
 \begin{SFrevtable}
   \SFrevitem{26/07/2011}{Description des besoins (d'après la première réunion du 26/07/2011)}{Eugène PAMBA CAPO-CHICHI}
-  %\SFrevitem{01/08/2011}{Deuxieme version de ce template}{B. Depardon}
+  \SFrevitem{10/08/2011}{Correction de quelques typos}{Benjamin DEPARDON}
 \end{SFrevtable}
 }
 % \renewcommand{\SFrevhistory}{} % disable this table
@@ -233,8 +233,8 @@ Les administrateurs enregistrent les machines et spécifient pour chaque machine 
 		service.
 \item \textbf{ Connexion }: l'utilisateur sollicite un accès aux services de l'intergiciel en décrivant son identité à l'aide d'un login et d'un mot de passe.
 		L'intergiciel contrôle l'identité du demandeur. 
-\item \textbf{ Etat authentifié }: l'identité de l'utilisateur est reconnu par le système. La session authentifiée a une durée de vie liée au mode de connexion choisi 
-		par l'utilisateur et pendant cette période, il a accès aux services autorisés au groupe auquel il appartient.
+\item \textbf{ \'Etat authentifié }: l'identité de l'utilisateur est reconnue par le système. La session authentifiée a une durée de vie liée au mode de connexion choisi 
+		par l'utilisateur et pendant cette période, il a accès aux services autorisés aux groupes auxquels il appartient.
 \item \textbf{ Déconnexion }: Retour à l'état initial.
 \end{itemize}
  	    Un cryptage des données circulant à travers le canal de communication pendant les phases précédentes peut ajouter un niveau de sécurité supplémentaire. Cependant, cette partie
@@ -272,7 +272,7 @@ Ce fonctionnement introduit une nouvelle question:
 La réponse à cette question définit la notion d'infrastructures à clés publiques dans laquelle un tiers de confiance appelée CA\footnote{
  Certification Authority (autorité de certification en français)} 
 rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
-ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-{}mail pour une personne, adresse IP etc).
+ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-{}mail pour une personne, adresse IP, etc.).
  
       
 \subsubsection*{ Les fonctions d'une architecture PKI \hyperlink{Securix}{[Securix]} }
@@ -290,7 +290,7 @@ Les opérations d'archivage et de recouvrement peuvent être réalisées soit par un
 Si la mise à jour des clés se produit en réponse à une expiration de sa date de péremption, la transition vers la nouvelle clé doit se produire avec facilité, cela exige néanmoins des mécanismes de support de notification de mise à jour. 
 Dans le cas d'une compromission de clé, le certificat doit être déclaré invalide, et la nouvelle validité du certificat et sa disponibilité doivent être annoncées.  
 \item \textbf{ Revocation : } Dans la plupart des cas, un certificat reste valide jusqu'à ce que sa période de validité expire. Il y a, cependant, un certain nombre de scénarios qui rendent nécessaire la révocation avant la fin de la période de validité d'un certificat. 
-Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire et compromise etc.
+Ceux-{}ci incluent: le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire et compromise, etc.
 \end{itemize}
   
 Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
@@ -306,7 +306,7 @@ Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une 
 \item Chaque futur utilisateur génère un couple clé publique/clé privée et effectue une demande d'ajout dans le système à un administrateur
 en lui envoyant les informations nécessaires à son identification et sa clé publique.
 \item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
-à la génération d'un certificat:  état civil, adresse, e-{}mail pour une personne etc \textit{ et éventuellement la clé publique de l'utilisateur}.
+à la génération d'un certificat:  état civil, adresse, e-{}mail pour une personne, etc. \textit{ et éventuellement la clé publique de l'utilisateur}.
 \item Chaque utilisateur génère un certificat signé à partir du certificat du CA disponible sur la plateforme.
 \end{itemize}
   
@@ -404,7 +404,7 @@ Le tableau ci-dessous résume les avantages et les inconvenients de ces deux outi
     \item code structuré,
     \item facile à prendre en main,
     \item bien documenté,
-    \item plusieurs examples d'utilisation,
+    \item plusieurs exemples d'utilisation,
     \item basé sur le modèle objet (développé en C++).
   \end{itemize}
   & 
@@ -423,7 +423,7 @@ Le tableau ci-dessous résume les avantages et les inconvenients de ces deux outi
 \section{Authentification de la hiérarchie DIET}
     
 Dans la version 3 de DIET, les notions de \textit{master agent} et \textit{local agent} fusionnent en \textit{agent}. 
-Il est donc possible de pointer sur n'importe quel noeud de la hiérarchie, ce qui rend plus flexible l'infrastructure 
+Il est donc possible de pointer sur n'importe quel n{\oe}ud de la hiérarchie, ce qui rend plus flexible l'infrastructure 
 mais entraîne des besoins en terme de sécurité. Il est donc prévu de concevoir un modèle de sécurité utilisant des certificats pour contrôler l'ajout d'éléments à
 une hiérarchie DIET.
    
