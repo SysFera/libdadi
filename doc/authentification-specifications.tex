@@ -307,7 +307,8 @@ Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une 
 en lui envoyant les informations nécessaires à son identification et sa clé publique.
 \item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
 à la génération d'un certificat:  état civil, adresse, e-{}mail pour une personne etc \textit{ et éventuellement la clé publique de l'utilisateur}.
-\item Chaque utilisateur génère un certificat signé à partir du certificat du CA disponible sur la plateforme.
+\item Chaque utilisateur fait une demande de certificat en générant un \textit{request certificate} envoyé au CA. 
+\item Le CA contrôle le \textit{request certificate} et génère un certificat signé pour l'utilisateur.
 \end{itemize}
   
      
@@ -344,34 +345,50 @@ privée et chiffre sa réponse avec la clé publique de l'utilisateur.
 
 \subsection{Grille de comparaison des propositions}
 
+
 \begin{center}
-\begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
+\begin{tabular}{|p{2.5cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
   \hline
-  \textbf{Proposition} & \textbf{Avantages} & \textbf{Inconvénients} \\
+  \textbf{Proposition} & \textbf{Souplesse d'implémentation} & \textbf{Authenfication unique} & \textbf{Chiffrement des données sur le réseau} & \textbf{vulnérabilité} \\
   \hline
-  Utilisation de UMS & 
-    \begin{itemize} 
-    \item Souplesse d'implémentation,
-    \item Authentification unique (\textit{Single Sign-On})
-    \end{itemize}   
-  & Interception de la clé de session \\
+  Utilisation de UMS & \textcolor{red}{x} & \textcolor{red}{x} &  & \textcolor{red}{xx}  \\
   \hline
-  Gestion des certificats & 
-  \begin{itemize} 
-    \item garantie forte de confidentialité, d'authentification, d'intégrité et de non répudiation
-  \end{itemize}
-  & 
-  %Complexité d'implémentation\\%, lourdeur de la gestion des certificats,
-  %ajout d'une entité sensible: l'autorité de certification (CA)\\
-  \begin{itemize}
-  \item Complexité d'implémentation,
-  \item Lourdeur de la gestion des certificats, 
-  \item Ajout d'une entité sensible: l'autorité de certification (CA)
-  \end{itemize}
-  \\
+  Gestion des certificats &  & \textcolor{red}{x} & \textcolor{red}{x} & \textcolor{red}{x} \\
   \hline
 \end{tabular}
 \end{center}
+
+En terme de vunérabilité, la principale faiblesse de l'utilisation de UMS est l'interception du jeton, tandis que pour la 
+gestion de certificats c'est l'utilisation d'une entité sensible: l'autorité de certification (CA).
+
+%\begin{center}
+%\begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
+%  \hline
+%  \textbf{Proposition} & \textbf{Avantages} & \textbf{Inconvénients} \\
+%  \hline
+%  Utilisation de UMS & 
+%    \begin{itemize} 
+%    \item Souplesse d'implémentation,
+%    \item Authentification unique (\textit{Single Sign-On})
+%    \end{itemize}   
+%  & Interception de la clé de session \\
+%  \hline
+%  Gestion des certificats & 
+%  \begin{itemize} 
+%    \item garantie forte de confidentialité, d'authentification, d'intégrité et de non répudiation
+%  \end{itemize}
+%  & 
+  %Complexité d'implémentation\\%, lourdeur de la gestion des certificats,
+  %ajout d'une entité sensible: l'autorité de certification (CA)\\
+%  \begin{itemize}
+%  \item Complexité d'implémentation,
+%  \item Lourdeur de la gestion des certificats, 
+%  \item Ajout d'une entité sensible: l'autorité de certification (CA)
+%  \end{itemize}
+%  \\
+%  \hline
+%\end{tabular}
+%\end{center}
 
 \subsection{Outils logiciels}
 
@@ -381,43 +398,60 @@ Openssl (\url{http://www.openssl.org/}) et Botan (\url{http://botan.randombit.ne
 Le tableau ci-dessous résume les avantages et les inconvenients de ces deux outils par rapport à nos exigences.
 
 \begin{center}
-\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+\begin{tabular}{|p{1.5cm}|p{1.5cm}|p{2.5cm}|p{1.8cm}|p{2.5cm}|p{1.6cm}|p{2cm}|p{1.5cm}|}
   \hline
-  \textbf{Outils} & \textbf{Avantages} & \textbf{Inconvénients} \\
+  \textbf{Outils} & \textbf{notoriété} & \textbf{implémentation SSL et TLS} & \textbf{Code structuré} & \textbf{Documentation} & \textbf{API C++}& \textbf{Chiffrement matériel} & \textbf{Licence pour une version libre} \\
   \hline
-  Openssl & 
-    \begin{itemize} 
-    \item notoriété,
-    \item implémentation robuste de SSL et TLS
-    \end{itemize}   
-  & 
-  \begin{itemize} 
-    \item code pas assez structuré,
-    \item pas assez de documentation,
-    \item difficile à prendre en main,
-    \item développé en C.
-  \end{itemize}
-  \\
+  Openssl & \textcolor{red}{xx} & \textcolor{red}{xx} &  & & & \textcolor{red}{xx}& \textcolor{red}{x}\\
   \hline
-  Botan & 
-  \begin{itemize} 
-    \item code structuré,
-    \item facile à prendre en main,
-    \item bien documenté,
-    \item plusieurs examples d'utilisation,
-    \item basé sur le modèle objet (développé en C++).
-  \end{itemize}
-  & 
-  %Complexité d'implémentation\\%, lourdeur de la gestion des certificats,
-  %ajout d'une entité sensible: l'autorité de certification (CA)\\
-  \begin{itemize}
-  \item certains CPUs non supporté,
-  \item implémentation du protocole SSL/TLS pas assez testé.
-  \end{itemize}
-  \\
+  Botan & \textcolor{red}{x} & \textcolor{red}{x} & \textcolor{red}{x} & \textcolor{red}{x} & \textcolor{red}{x}& \textcolor{red}{x} & \textcolor{red}{xx} \\
   \hline
 \end{tabular}
 \end{center}
+
+Il faut noter que Botan utilise une licence BSD deux clauses qui est très permissive tandis que la licence openssl avec sa clause 
+publicité est incompatible avec une licence GPL.
+
+%\begin{center}
+%\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+%  \hline
+%  \textbf{Outils} & \textbf{Avantages} & \textbf{Inconvénients} \\
+%  \hline
+%  Openssl & 
+%    \begin{itemize} 
+%    \item notoriété,
+%    \item implémentation robuste de SSL et TLS
+%    \item license Openssl (clause de publicité)
+%    \end{itemize}   
+% & 
+%  \begin{itemize} 
+%    \item code pas assez structuré,
+%    \item pas assez de documentation,
+%    \item difficile à prendre en main,
+%    \item développé en C.
+%  \end{itemize}
+%  \\
+%  \hline
+%  Botan & 
+%  \begin{itemize} 
+%    \item license BSD,
+%    \item code structuré,
+%    \item facile à prendre en main,
+%    \item bien documenté,
+%    \item plusieurs examples d'utilisation,
+%    \item basé sur le modèle objet (développé en C++).
+%  \end{itemize}
+%  & 
+  %Complexité d'implémentation\\%, lourdeur de la gestion des certificats,
+  %ajout d'une entité sensible: l'autorité de certification (CA)\\
+%  \begin{itemize}
+%  \item certains CPUs non supporté,
+%  \item implémentation du protocole SSL/TLS pas assez testé.
+%  \end{itemize}
+%  \\
+%  \hline
+%\end{tabular}
+%\end{center}
 
       
 \section{Authentification de la hiérarchie DIET}
@@ -440,7 +474,17 @@ L'utilisation d'un modèle avec une authentification unique manipule un jeton. Le
 cette raison qu'il est judicieux de limiter la durée de vie d'un jeton. Pour aller plus loin et rajouter un niveau de sécurité supplémentaire, il est possible de rendre le jeton inutilisable s'il est intercepté
 en cryptant les données circulant via le canal de communication. 
 
-
+voici les couches com avec quelques liens\\
+* CORBA:
+- Mico: http://www.mico.org (la version qui implémente les services
+de sécurité s'appelle micosec)\\
+- TAO:
+http://www.dre.vanderbilt.edu/~schmidt/DOC\_ROOT/TAO/docs/Security/index.html
+* ICE (un CORBA-like): http://doc.zeroc.com/display/Ice/Using+IceSSL\\
+* amqp:
+- QPid:
+http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html\\
+- RabbitMQ: http://www.rabbitmq.com/ssl.html 
 
 
 %\subsection{Bibliography}
