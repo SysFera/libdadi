@@ -150,6 +150,7 @@
 \maketitle % do not disable, otherwise you won't have any title
 %%%% OPTION
 \tableofcontents % comment to disable the table of contents
+%\listoffigures
 \mainmatter % do not disable, this is used for page numbering
 
 
@@ -306,12 +307,34 @@ Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une 
 \item Chaque futur utilisateur génère un couple clé publique/clé privée et effectue une demande d'ajout dans le système à un administrateur
 en lui envoyant les informations nécessaires à son identification et sa clé publique.
 \item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
-à la génération d'un certificat:  état civil, adresse, e-{}mail pour une personne etc \textit{ et éventuellement la clé publique de l'utilisateur}.
-\item Chaque utilisateur fait une demande de certificat en générant un \textit{request certificate} envoyé au CA. 
-\item Le CA contrôle le \textit{request certificate} et génère un certificat signé pour l'utilisateur.
+à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc \textit{ et éventuellement la clé publique de l'utilisateur}.
 \end{itemize}
-  
+
+%Pour la création de certificats, il y a deux possibilités:
+%\begin{enumerate}
+%\item l'ajout d'un utilisateur dans le système nécessite les informations concernant son identité et un \textit{request certificate}
+%généré à partir de sa clé privée qui sera directement signé par le CA et stocké dans un annuaire lors de la requête d'un administrateur pour ajouter un utilisateur.
+%\item Les utilisateurs enregistrés dans le système font une demande de certificat en générant un \textit{request certificate} envoyé au CA. Le CA contrôle 
+%le \textit{request certificate} et génère un certificat signé pour l'utilisateur.
+%\end{enumerate}  
+
+%La deuxième proposition nécessite comme support un système d'identification comme UMS au préalable pour pouvoir
+%faire une requête sans certificat sinon la première proposition semble plus facile à considérer car le certificat est généré, signé
+%et stocké dans un annuaire à l'ajout d'un utilisateur.
      
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.51]{images/requestCertificate.png}
+\centering
+\caption{Mécanisme de création des certificats }\label{fig:reqCertif}
+\end{figure}
+
+Le mot \textit{utilisateur} désigne le détenteur d'un certificat qui est enregistré dans le système mais 
+il existe aussi \textit{l'utilisateur du certificat} qui est celui qui veut effectuer une transaction avec un détenteur lors d'une
+requête; ce dernier récupère donc le certificat correspondant dans un annuaire et utilise la clé publique que contient le certificat dans sa transaction avec 
+le détenteur.
+
+
 \subsubsection*{ Scénario d'une requête utilisateur via DIET}
  
 Ancien scénario (pas valide):
@@ -347,7 +370,7 @@ privée et chiffre sa réponse avec la clé publique de l'utilisateur.
 
 
 \begin{center}
-\begin{tabular}{|p{2.5cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{2.5cm}|}
   \hline
   \textbf{Proposition} & \textbf{Souplesse d'implémentation} & \textbf{Authenfication unique} & \textbf{Chiffrement des données sur le réseau} & \textbf{vulnérabilité} \\
   \hline
@@ -463,9 +486,9 @@ une hiérarchie DIET.
    
 Il faut notamment pouvoir se prémunir contre l'ajout d'agents ou SeD \textit{pirates} à une hiérarchie déjà existante. 
 L'ajout non contrôlé pourrait permettre à une personne mal intentionnée de dévier tout ou partie du flux des requêtes et données. Ce type
-d'attaque \textit{man-{}in-{}the-{}middle} doit être empêché. Pour cela, il est nécessaire que chaque élément
+d'attaque \textit{man-in-the-middle} doit être empêché. Pour cela, il est nécessaire que chaque élément
 voulant s'ajouter à une hiérarchie soit identifié par un certificat lui donnant ou non les droits de connexion. Voir
-l'étude réalisée par Sogeti \hyperlink{Sogeti}{[LST-{}LIP-{}DIET\_Sec]}.
+l'étude réalisée par Sogeti \hyperlink{Sogeti}{[LST-LIP-DIET\_Sec]}.
 
                   
 \section{Le cryptage des données}
@@ -474,12 +497,17 @@ L'utilisation d'un modèle avec une authentification unique manipule un jeton. Le
 cette raison qu'il est judicieux de limiter la durée de vie d'un jeton. Pour aller plus loin et rajouter un niveau de sécurité supplémentaire, il est possible de rendre le jeton inutilisable s'il est intercepté
 en cryptant les données circulant via le canal de communication. 
 
-voici les couches com avec quelques liens\\
-* CORBA:
-- Mico: http://www.mico.org (la version qui implémente les services
-de sécurité s'appelle micosec)\\
-- TAO:
-http://www.dre.vanderbilt.edu/~schmidt/DOC\_ROOT/TAO/docs/Security/index.html
+Le cryptage de données se fera en utilisant le protocole SSL/TLS et la politique de création de certificats décrite plus haut.
+Le chiffrement des données sera donc transparent pour les utilisateurs du système, seuls la création et
+la distribution des certificats sera gérer par les administrateur de l'infrastructure.
+
+Voici quelques couches de communication qui utilisent SSL:
+
+* CORBA:\\ 
+- Omniorb: \url{http://omniorb.sourceforge.net/omni40/omniORB/omniORB008.html}\\
+- Mico: \url{http://www.objectsecurity.com/en-products-mico-sec.html} %(la version qui implémente les services de sécurité s'appelle micosec)\\
+- TAO: \url{http://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/TAO/docs/Security/index.html}
+
 * ICE (un CORBA-like): http://doc.zeroc.com/display/Ice/Using+IceSSL\\
 * amqp:
 - QPid:
