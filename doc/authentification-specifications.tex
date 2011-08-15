@@ -307,7 +307,8 @@ Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une 
 \item Chaque futur utilisateur génère un couple clé publique/clé privée et effectue une demande d'ajout dans le système à un administrateur
 en lui envoyant les informations nécessaires à son identification et sa clé publique.
 \item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
-à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc \textit{ et éventuellement la clé publique de l'utilisateur}.
+à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc \textit{et éventuellement une demande de certification faite 
+par l'utilisateur (fig. \ref{fig:reqCertif})}.
 \end{itemize}
 
 %Pour la création de certificats, il y a deux possibilités:
@@ -338,7 +339,7 @@ le détenteur.
 \subsubsection*{ Scénario d'une requête utilisateur via DIET}
  
 Ancien scénario (pas valide):
-\textcolor{red} {
+\textcolor{gray} {
   \textit{ 
     \begin{itemize}
     \item Un utilisateur fait une requête via DIET.
@@ -365,6 +366,11 @@ hiérarchie DIET correspondant.
 \item L'élement de la hiérarchie DIET déchiffre le message via sa clé 
 privée et chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
+
+\textit{Pour le scénario concernant l'envoi d'une requête, il est important de noter qu'il sera fortement liée à la couche de
+transport utilisée. En considérant l'exemple d'utilisation de ssl avec omniorb (omniORB-4.1.4/src/examples/ssl\_echo), les informations
+nécessaires pour la couche ssl encapsulée par omniorb sont: le certificat de l'autorité de certification et le certificat du noeud 
+impliqué dans la transaction avec sa clé privée (éventuellement une passphrase associée à la clé privée).}
 
 \subsection{Grille de comparaison des propositions}
 
@@ -503,16 +509,35 @@ la distribution des certificats sera gérer par les administrateur de l'infrastru
 
 Voici quelques couches de communication qui utilisent SSL:
 
-* CORBA:\\ 
-- Omniorb: \url{http://omniorb.sourceforge.net/omni40/omniORB/omniORB008.html}\\
-- Mico: \url{http://www.objectsecurity.com/en-products-mico-sec.html} %(la version qui implémente les services de sécurité s'appelle micosec)\\
-- TAO: \url{http://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/TAO/docs/Security/index.html}
 
-* ICE (un CORBA-like): http://doc.zeroc.com/display/Ice/Using+IceSSL\\
-* amqp:
-- QPid:
-http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html\\
-- RabbitMQ: http://www.rabbitmq.com/ssl.html 
+\begin{enumerate}
+ \item \textbf{CORBA:}
+    \begin{itemize}
+      \item Omniorb : \url{http://omniorb.sourceforge.net/omni40/omniORB/omniORB008.html}
+      \item Mico : \url{http://www.objectsecurity.com/en-products-mico-sec.html}
+      \item TAO : \url{http://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/TAO/docs/Security/index.html}
+    \end{itemize}
+
+ \item \textbf{ICE (un CORBA-like)}: \url{http://doc.zeroc.com/display/Ice/Using+IceSSL}
+  
+ \item \textbf{Advanced Message Queuing Protocol (AMQP):} 
+    \begin{itemize}
+      \item QPid : \url{http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html}
+      \item RabbitMQ : \url{http://www.rabbitmq.com/ssl.html}
+    \end{itemize}
+
+\end{enumerate}
+
+%* CORBA:\\ 
+%- Omniorb: \url{http://omniorb.sourceforge.net/omni40/omniORB/omniORB008.html}\\
+%- Mico: \url{http://www.objectsecurity.com/en-products-mico-sec.html} %(la version qui implémente les services de sécurité s'appelle micosec)\\
+%- TAO: \url{http://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/TAO/docs/Security/index.html}
+
+%* ICE (un CORBA-like): http://doc.zeroc.com/display/Ice/Using+IceSSL\\
+%* amqp:
+%- QPid:
+%http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html\\
+%- RabbitMQ: http://www.rabbitmq.com/ssl.html 
 
 
 %\subsection{Bibliography}
