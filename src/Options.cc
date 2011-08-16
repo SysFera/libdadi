@@ -7,11 +7,13 @@
 #include <map>
 #include <sstream>
 #include <string>
+#include <typeinfo>
 
 #include <boost/format.hpp>
-
+#include <boost/foreach.hpp>
 namespace dadi {
 
+#define foreach BOOST_FOREACH
 template<>
 po::typed_value<std::vector<std::string> >*
 set_multitoken(po::typed_value<std::vector<std::string> > *option) {
@@ -84,7 +86,32 @@ Options::parseConfigFile(const std::string& file, bool unregistered) {
 
   std::ifstream ifs(file.c_str());
 
-  store(parse_config_file(ifs, *options, unregistered), vm_);
+  po::parsed_options parsed_file(parse_config_file(ifs,*options,unregistered));
+
+  //store the registred options 
+  store(parsed_file, vm_);
+
+  dadi::Config& store_ = dadi::Config::instance();
+  //store the unregistred options 
+  foreach(po::option unregoption, parsed_file.options){
+
+    if (unregoption.unregistered) {
+
+      if (unregoption.value.size()==1){ //
+
+        dadi::setProperty( unregoption.string_key,unregoption.value.back());
+      }else{
+
+        dadi::setProperty( unregoption.string_key, unregoption.value );
+
+
+      }
+
+    }
+
+  }
+
+  //store(parse_config_file(ifs, *options, unregistered), vm_);
 }
 
 void
@@ -180,6 +207,9 @@ help(const dadi::Options& opt) {
   exit(EXIT_SUCCESS);
 }
 
+
+// TO Be removed
+/*
 template<>
 void
 setProperty(std::string key, const std::vector<std::string>& value) {
@@ -187,10 +217,12 @@ setProperty(std::string key, const std::vector<std::string>& value) {
   store_[key] = value;
 #ifdef NDEBUG
   std::cerr << key << ": ";
-  std::ostream_iterator<std::string> it(std::cout, ", ");
+  std::ostream_iterator<std::string> it(std::cerr, ", ");
   std::copy(value.begin(), value.end(), it);
   std::cerr << "\n";
 #endif
 }
+*/
+
 
 } /* namespace dadi */

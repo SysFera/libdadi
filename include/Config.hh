@@ -26,6 +26,7 @@ namespace dadi {
      * @brief configuration is actually stored in a std::map
      */
     typedef std::map<std::string, boost::any> ConfigStore;
+    typedef ConfigStore::size_type size_type;
     friend class Singleton<Config>;
   public:
     /**
@@ -45,6 +46,15 @@ namespace dadi {
       return store_[key];
     }
 
+    /**
+     * @brief count element with a specific key
+     * @param key configuration key
+     * @return the number of element (0 or 1) having this specific key
+     */
+    size_type count(const std::string& key) const {
+      boost::shared_lock<boost::shared_mutex> lock(mutex_);
+      return store_.count(key);
+    }
   private:
     /**
      *mutex protecting concurrent access
