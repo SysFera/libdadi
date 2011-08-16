@@ -393,9 +393,6 @@ private:
 };
 
 
-
-
-
 /**
  * @brief default help handler
  * @param opt Options object
@@ -415,33 +412,16 @@ setProperty(std::string key, const T& value) {
 #endif
 }
 
-/*
- * \brief A helper function to simplify the display of vector
- * \param os: an ostream to write data in
- * \param v: a vector to print
+/**
+ * @brief A helper function to simplify the display of vector
+ * @param os: an ostream to write data in
+ * @param v: a vector to print
  */
-
-
 template<class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& v){
-      std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, " "));
-
-    return os;
+  std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, " "));
+  return os;
 }
-
-
-
-/*
-template<typename T, template<typename E > class Container>   
-std::ostream& operator<<(std::ostream& os, const Container<T>& v){
-      std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, " "));
-                                                              
-    return os;
-}
-*/
-
-
-
 
 
 } /* namespace dadi */

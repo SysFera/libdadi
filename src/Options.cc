@@ -88,11 +88,11 @@ Options::parseConfigFile(const std::string& file, bool unregistered) {
 
   po::parsed_options parsed_file(parse_config_file(ifs,*options,unregistered));
 
-  //store the registred options 
+  //store the registred options
   store(parsed_file, vm_);
 
   dadi::Config& store_ = dadi::Config::instance();
-  //store the unregistred options 
+  //store the unregistred options
   foreach(po::option unregoption, parsed_file.options){
 
     if (unregoption.unregistered) {
@@ -206,23 +206,6 @@ help(const dadi::Options& opt) {
   std::cout << opt;
   exit(EXIT_SUCCESS);
 }
-
-
-// TO Be removed
-/*
-template<>
-void
-setProperty(std::string key, const std::vector<std::string>& value) {
-  dadi::Config& store_ = dadi::Config::instance();
-  store_[key] = value;
-#ifdef NDEBUG
-  std::cerr << key << ": ";
-  std::ostream_iterator<std::string> it(std::cerr, ", ");
-  std::copy(value.begin(), value.end(), it);
-  std::cerr << "\n";
-#endif
-}
-*/
 
 
 } /* namespace dadi */
