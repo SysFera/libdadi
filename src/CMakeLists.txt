@@ -8,7 +8,8 @@ set(logging_SRCS logging/Channel.cc
   logging/Logger.cc
   logging/Message.cc
   logging/MultiChannel.cc
-  logging/NullChannel.cc)
+  logging/NullChannel.cc
+  logging/SyslogChannel.cc)
 
 if(USE_LOGSERVICE)
   set(logging_SRCS ${logging_SRCS} logging/LogServiceChannel.cc)

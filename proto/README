@@ -1,0 +1,7 @@
+- Download Botan-1.10.1 available at : http://botan.randombit.net/
+- If the proto's directory is created on the local Botan-1.10.1 directory: 
+g++ -O2 -ansi -W -Wall -I../build/include -L../ -lbotan-1.10 proto.cpp -o proto
+
+GoodLuck,
+My 2cts,
+Eugène.

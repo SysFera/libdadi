@@ -167,9 +167,9 @@ L'objectif de ce document est de décrire les besoins en terme de sécurité pour l
 l'accent sur trois principaux points:
 
 \begin{itemize}
-\item l'authentification des utilisateurs
-\item l'authentification de la hiérarchie DIET
-\item le cryptage des données
+\item l'authentification des utilisateurs,
+\item l'authentification de la hiérarchie DIET,
+\item le cryptage des données.
 \end{itemize}
 
 \textcolor{red}{Problématique: Les politiques de sécurité diffèrent selon les besoins des entreprises et à contrario il faut définir un modèle
@@ -287,11 +287,11 @@ Le processus de distribution de la clé privée et du certificat vers le propriéta
 \item \textbf{ Recouvrement de clé : } Les clés utilisées pour chiffrer des données, pour le transport ou les échanges peuvent avoir besoin d'être archivées pour satisfaire à des exigences de politique de sécurité. 
 L'opération d'archivage nécessite par ailleurs une étape de récupération en cas de perte. Le recouvrement est un processus qui autorise la récupération de clés quand une clé est perdue et que des informations précédemment chiffrées ont besoin d'être utilisées. 
 Les opérations d'archivage et de recouvrement peuvent être réalisées soit par une AC soit par un système de recouvrement de clés séparé de l'AC. 
-\item \textbf{ Mise à jour des clé : } Toutes les clés doivent pouvoir être remplacées sur une base régulière, quand une clé expire ou qu'elle est compromise. 
+\item \textbf{ Mise à jour des clés : } Toutes les clés doivent pouvoir être remplacées sur une base régulière, quand une clé expire ou qu'elle est compromise. 
 Si la mise à jour des clés se produit en réponse à une expiration de sa date de péremption, la transition vers la nouvelle clé doit se produire avec facilité, cela exige néanmoins des mécanismes de support de notification de mise à jour. 
 Dans le cas d'une compromission de clé, le certificat doit être déclaré invalide, et la nouvelle validité du certificat et sa disponibilité doivent être annoncées.  
 \item \textbf{ Revocation : } Dans la plupart des cas, un certificat reste valide jusqu'à ce que sa période de validité expire. Il y a, cependant, un certain nombre de scénarios qui rendent nécessaire la révocation avant la fin de la période de validité d'un certificat. 
-Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire et compromise etc.
+Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire est compromise etc.
 \end{itemize}
   
 Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
@@ -302,12 +302,13 @@ Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une 
 \subsubsection*{ Politique et definition du scénario de création des certificats }
     
 \begin{itemize}
-\item Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisée. 
+\item Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisé. 
 \item Le certificat de l'autorité de certification est disponible par tous les utilisateurs à l'installation de DIET.  
 \item Chaque futur utilisateur génère un couple clé publique/clé privée et effectue une demande d'ajout dans le système à un administrateur
 en lui envoyant les informations nécessaires à son identification et sa clé publique.
 \item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
-à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc \textit{ et éventuellement la clé publique de l'utilisateur}.
+à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc \textit{et éventuellement une demande de certification faite 
+par l'utilisateur (cf fig. \ref{fig:reqCertif})}.
 \end{itemize}
 
 %Pour la création de certificats, il y a deux possibilités:
@@ -338,7 +339,7 @@ le détenteur.
 \subsubsection*{ Scénario d'une requête utilisateur via DIET}
  
 Ancien scénario (pas valide):
-\textcolor{red} {
+\textcolor{gray} {
   \textit{ 
     \begin{itemize}
     \item Un utilisateur fait une requête via DIET.
@@ -365,6 +366,11 @@ hiérarchie DIET correspondant.
 \item L'élement de la hiérarchie DIET déchiffre le message via sa clé 
 privée et chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
+
+\textit{Pour le scénario concernant l'envoi d'une requête, il est important de noter qu'il sera fortement liée à la couche de
+transport utilisée. En considérant l'exemple d'utilisation de ssl avec omniorb (omniORB-4.1.4/src/examples/ssl\_echo), les informations
+nécessaires pour la couche ssl encapsulée par omniorb sont: le certificat de l'autorité de certification et le certificat du noeud 
+impliqué dans la transaction avec sa clé privée (éventuellement une passphrase associée à la clé privée).}
 
 \subsection{Grille de comparaison des propositions}
 
@@ -503,16 +509,35 @@ la distribution des certificats sera gérer par les administrateur de l'infrastru
 
 Voici quelques couches de communication qui utilisent SSL:
 
-* CORBA:\\ 
-- Omniorb: \url{http://omniorb.sourceforge.net/omni40/omniORB/omniORB008.html}\\
-- Mico: \url{http://www.objectsecurity.com/en-products-mico-sec.html} %(la version qui implémente les services de sécurité s'appelle micosec)\\
-- TAO: \url{http://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/TAO/docs/Security/index.html}
 
-* ICE (un CORBA-like): http://doc.zeroc.com/display/Ice/Using+IceSSL\\
-* amqp:
-- QPid:
-http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html\\
-- RabbitMQ: http://www.rabbitmq.com/ssl.html 
+\begin{enumerate}
+ \item \textbf{CORBA:}
+    \begin{itemize}
+      \item Omniorb : \url{http://omniorb.sourceforge.net/omni40/omniORB/omniORB008.html}
+      \item Mico : \url{http://www.objectsecurity.com/en-products-mico-sec.html}
+      \item TAO : \url{http://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/TAO/docs/Security/index.html}
+    \end{itemize}
+
+ \item \textbf{ICE (un CORBA-like)}: \url{http://doc.zeroc.com/display/Ice/Using+IceSSL}
+  
+ \item \textbf{Advanced Message Queuing Protocol (AMQP):} 
+    \begin{itemize}
+      \item QPid : \url{http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html}
+      \item RabbitMQ : \url{http://www.rabbitmq.com/ssl.html}
+    \end{itemize}
+
+\end{enumerate}
+
+%* CORBA:\\ 
+%- Omniorb: \url{http://omniorb.sourceforge.net/omni40/omniORB/omniORB008.html}\\
+%- Mico: \url{http://www.objectsecurity.com/en-products-mico-sec.html} %(la version qui implémente les services de sécurité s'appelle micosec)\\
+%- TAO: \url{http://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/TAO/docs/Security/index.html}
+
+%* ICE (un CORBA-like): http://doc.zeroc.com/display/Ice/Using+IceSSL\\
+%* amqp:
+%- QPid:
+%http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html\\
+%- RabbitMQ: http://www.rabbitmq.com/ssl.html 
 
 
 %\subsection{Bibliography}
