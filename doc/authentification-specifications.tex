@@ -167,9 +167,9 @@ L'objectif de ce document est de décrire les besoins en terme de sécurité pour l
 l'accent sur trois principaux points:
 
 \begin{itemize}
-\item l'authentification des utilisateurs
-\item l'authentification de la hiérarchie DIET
-\item le cryptage des données
+\item l'authentification des utilisateurs,
+\item l'authentification de la hiérarchie DIET,
+\item le cryptage des données.
 \end{itemize}
 
 \textcolor{red}{Problématique: Les politiques de sécurité diffèrent selon les besoins des entreprises et à contrario il faut définir un modèle
@@ -287,11 +287,11 @@ Le processus de distribution de la clé privée et du certificat vers le propriéta
 \item \textbf{ Recouvrement de clé : } Les clés utilisées pour chiffrer des données, pour le transport ou les échanges peuvent avoir besoin d'être archivées pour satisfaire à des exigences de politique de sécurité. 
 L'opération d'archivage nécessite par ailleurs une étape de récupération en cas de perte. Le recouvrement est un processus qui autorise la récupération de clés quand une clé est perdue et que des informations précédemment chiffrées ont besoin d'être utilisées. 
 Les opérations d'archivage et de recouvrement peuvent être réalisées soit par une AC soit par un système de recouvrement de clés séparé de l'AC. 
-\item \textbf{ Mise à jour des clé : } Toutes les clés doivent pouvoir être remplacées sur une base régulière, quand une clé expire ou qu'elle est compromise. 
+\item \textbf{ Mise à jour des clés : } Toutes les clés doivent pouvoir être remplacées sur une base régulière, quand une clé expire ou qu'elle est compromise. 
 Si la mise à jour des clés se produit en réponse à une expiration de sa date de péremption, la transition vers la nouvelle clé doit se produire avec facilité, cela exige néanmoins des mécanismes de support de notification de mise à jour. 
 Dans le cas d'une compromission de clé, le certificat doit être déclaré invalide, et la nouvelle validité du certificat et sa disponibilité doivent être annoncées.  
 \item \textbf{ Revocation : } Dans la plupart des cas, un certificat reste valide jusqu'à ce que sa période de validité expire. Il y a, cependant, un certain nombre de scénarios qui rendent nécessaire la révocation avant la fin de la période de validité d'un certificat. 
-Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire et compromise etc.
+Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire est compromise etc.
 \end{itemize}
   
 Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
@@ -302,13 +302,13 @@ Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une 
 \subsubsection*{ Politique et definition du scénario de création des certificats }
     
 \begin{itemize}
-\item Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisée. 
+\item Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisé. 
 \item Le certificat de l'autorité de certification est disponible par tous les utilisateurs à l'installation de DIET.  
 \item Chaque futur utilisateur génère un couple clé publique/clé privée et effectue une demande d'ajout dans le système à un administrateur
 en lui envoyant les informations nécessaires à son identification et sa clé publique.
 \item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
 à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc \textit{et éventuellement une demande de certification faite 
-par l'utilisateur (fig. \ref{fig:reqCertif})}.
+par l'utilisateur (cf fig. \ref{fig:reqCertif})}.
 \end{itemize}
 
 %Pour la création de certificats, il y a deux possibilités:
