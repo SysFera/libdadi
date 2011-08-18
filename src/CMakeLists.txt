@@ -4,7 +4,9 @@ add_definitions(-DMODULE_SUFFIX="${CMAKE_SHARED_MODULE_SUFFIX}")
 set(logging_SRCS logging/Channel.cc
   logging/ConsoleChannel.cc
   logging/FileChannel.cc
-  logging/FileStrategy.cc
+  logging/RotateStrategy.cc
+  logging/ArchiveStrategy.cc
+  logging/PurgeStrategy.cc
   logging/Logger.cc
   logging/Message.cc
   logging/MultiChannel.cc
