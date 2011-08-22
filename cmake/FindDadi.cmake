@@ -8,7 +8,7 @@
 # DADI_LIBRARIES	- Files to link against to use dadi
 
 find_path(DADI_INCLUDE_DIR
-  NAMES dadi.hh
+  NAMES dadi/dadi.hh
   PATHS /usr/local/include
         /usr/include
         ${DADI_INSTALL_DIR}/include
