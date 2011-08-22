@@ -83,6 +83,11 @@ Logger::error() const {
 }
 
 bool
+Logger::critical() const {
+  return is(Message::PRIO_CRITICAL);
+}
+
+bool
 Logger::fatal() const {
   return is(Message::PRIO_FATAL);
 }

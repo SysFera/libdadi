@@ -20,12 +20,17 @@ typedef std::map<std::string, std::string> StringMap;
  */
 class Message {
 public:
+  /**
+   * @enum Priority
+   * @brief logging priorities
+   */
   enum Priority {
     PRIO_TRACE = 1,
     PRIO_DEBUG,
     PRIO_INFORMATION,
     PRIO_WARNING,
     PRIO_ERROR,
+    PRIO_CRITICAL,
     PRIO_FATAL
   };
 

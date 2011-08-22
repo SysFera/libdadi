@@ -98,6 +98,10 @@ public:
    */
   bool error() const;
   /**
+   * @brief alias to is(Message::PRIO_CRITICAL)
+   */
+  bool critical() const;
+  /**
    * @brief alias to is(Message::PRIO_FATAL)
    */
   bool fatal() const;

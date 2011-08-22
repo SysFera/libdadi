@@ -70,12 +70,12 @@ SyslogChannel::getPrio(const Message& msg) {
     return LOG_DEBUG;
   case Message::PRIO_INFORMATION:
     return LOG_INFO;
-  // lacks LOG_NOTICE
   case Message::PRIO_WARNING:
     return LOG_WARNING;
   case Message::PRIO_ERROR:
     return LOG_ERR;
-    // loacks LOG_CRIT
+  case Message::PRIO_CRITICAL:
+    return LOG_CRIT;
   case Message::PRIO_FATAL:
     return LOG_ALERT;
   default:
