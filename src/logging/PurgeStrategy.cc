@@ -15,8 +15,8 @@ PurgeStrategy::~PurgeStrategy() {}
 void
 PurgeStrategy::list(const std::string& basename,
                     std::vector<std::string>& paths) {
-  const bfs::path logFile(bfs::absolute(basename));
-  const bfs::path logDir(logFile.parent_path());
+  const bfs::path& logFile = bfs::absolute(basename);
+  const bfs::path& logDir = logFile.parent_path();
   const bfs::directory_iterator dir(logDir);
   bfs::directory_iterator it(logDir), end;
 
@@ -35,6 +35,8 @@ PurgeStrategy::list(const std::string& basename,
 
 void
 PurgeStrategy::sort(std::vector<std::string>& paths) {}
+
+/*****************************************************************************/
 
 PurgeByCountStrategy::PurgeByCountStrategy(int count) : count_(count) {}
 

@@ -13,6 +13,8 @@ ArchiveStrategy::ArchiveStrategy() {}
 
 ArchiveStrategy::~ArchiveStrategy() {}
 
+/*****************************************************************************/
+
 ArchiveByNumberStrategy::ArchiveByNumberStrategy() {}
 
 ArchiveByNumberStrategy::~ArchiveByNumberStrategy() {}
@@ -31,12 +33,13 @@ ArchiveByNumberStrategy::archive(const std::string& path) {
     fmtr % path % (--n);
     const std::string& oldPath = fmtr.str();
     bfs::rename(oldPath, currentPath);
-    std::cout << "mv " << oldPath << " " << currentPath <<"\n";
     currentPath = oldPath;
   }
 
   bfs::rename(path, currentPath);
 }
+
+/*****************************************************************************/
 
 ArchiveByTimestampStrategy::ArchiveByTimestampStrategy(const std::string& tpl)
   : tpl_(tpl), local_(false) {
@@ -87,7 +90,6 @@ ArchiveByTimestampStrategy::archive(const std::string& path) {
       fmtr % newPath % (--n);
       const std::string& oldPath = fmtr.str();
       bfs::rename(oldPath, currentPath);
-      std::cout << "mv " << oldPath << " " << currentPath <<"\n";
       currentPath = oldPath;
     }
   }

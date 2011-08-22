@@ -32,7 +32,7 @@ public:
    * @brief constructor
    * @param size file size threshold (bytes)
    */
-  explicit RotateBySizeStrategy(long size);
+  explicit RotateBySizeStrategy(const std::string& size);
   /**
    * @brief destructor
    */

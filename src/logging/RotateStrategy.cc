@@ -2,6 +2,8 @@
 #include <boost/filesystem.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/regex.hpp>
 
 namespace dadi {
 
@@ -11,13 +13,33 @@ namespace gtime = boost::gregorian;
 
 const unsigned int RotateByTimeStrategy::EVERYDAY = 7;
 const ptime::time_duration RotateByTimeStrategy::MIDNIGHT(0, 0, 0);
+// case insensitive
+const boost::regex regSz("(?i)(?<nb>\\d+)(?<mul>k|m)?", boost::regex::perl);
+
+/*****************************************************************************/
 
 RotateStrategy::RotateStrategy() {}
 
 RotateStrategy::~RotateStrategy() {}
 
+/*****************************************************************************/
 
-RotateBySizeStrategy::RotateBySizeStrategy(long size) : size_(size) {}
+RotateBySizeStrategy::RotateBySizeStrategy(const std::string& size) {
+  boost::smatch res;
+  boost::regex_match(size, res, regSz);
+
+  size_ = boost::lexical_cast<long>(res["nb"]);
+
+  if (res["mul"].matched) {
+    char mul = res["mul"].str()[0];
+    if ('k' == mul) {
+      size_ *= 1024;
+    } else if ('m' == mul) {
+      size_ *= 1024*1024;
+    }
+  }
+}
+
 
 RotateBySizeStrategy::~RotateBySizeStrategy() {}
 
@@ -29,6 +51,8 @@ RotateBySizeStrategy::mustRotate(const std::string& path) {
     return false;
   }
 }
+
+/*****************************************************************************/
 
 // always use UTC internally (and i mean it !)
 RotateByIntervalStrategy::RotateByIntervalStrategy(
@@ -49,6 +73,8 @@ RotateByIntervalStrategy::mustRotate(const std::string& path) {
     return true;
   }
 }
+
+/*****************************************************************************/
 
 RotateByTimeStrategy::RotateByTimeStrategy(const ptime::time_duration& td,
                                            unsigned int day)

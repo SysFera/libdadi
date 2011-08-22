@@ -25,6 +25,8 @@ public:
   virtual void archive(const std::string& path) = 0;
 };
 
+/*****************************************************************************/
+
 class ArchiveByNumberStrategy : public ArchiveStrategy {
 public:
   ArchiveByNumberStrategy();
@@ -33,6 +35,8 @@ public:
 protected:
   static const std::string pTpl_;
 };
+
+/*****************************************************************************/
 
 class ArchiveByTimestampStrategy : public ArchiveStrategy {
 public:

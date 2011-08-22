@@ -5,10 +5,15 @@
 #include <vector>
 #include <boost/format.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace dadi {
 
+/**
+ * @class PurgeStrategy
+ * @brief Base class to purge strategies
+ */
 class PurgeStrategy : boost::noncopyable {
 public:
   /**
@@ -20,7 +25,7 @@ public:
    */
   virtual ~PurgeStrategy();
   /**
-   * @brief purge archived file
+   * @brief purge archived files
    * @warning must be reimplemented by implementors
    * @param path file (path) to be purged
    */
@@ -42,7 +47,12 @@ protected:
   static boost::format regexTpl; /**< regex template to filter archives */
 };
 
-// ensure a maximum number of archives and delete oldest
+/*****************************************************************************/
+
+/**
+ * @class PurgeByCountStrategy
+ * @brief ensure a maximum number of archives and delete oldest
+ */
 class PurgeByCountStrategy : public PurgeStrategy {
 public:
   /**
@@ -50,13 +60,21 @@ public:
    * @param count number of archives to keep
    */
   explicit PurgeByCountStrategy(int count);
+  /**
+   * @brief destructor
+   */
   ~PurgeByCountStrategy();
 
+  /**
+   * @brief purge archived files
+   * @warning must be reimplemented by implementors
+   * @param path file (path) to be purged
+   */
   void purge(const std::string& path);
 protected:
   void sort(std::vector<std::string>& paths);
 private:
-  int count_;
+  int count_; /**< number of archiches to keep */
 };
 
 } /* namespace dadi */

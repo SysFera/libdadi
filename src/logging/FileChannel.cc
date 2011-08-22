@@ -24,7 +24,7 @@ const std::string FileChannel::ATTR_ROTATE_TIME = "rotate.time";
 const std::string FileChannel::ATTR_ROTATE_INTERVAL = "rotate.interval";
 const std::string FileChannel::ATTR_PURGE = "purge";
 const std::string FileChannel::ATTR_PURGE_COUNT = "purge.count";
-const long DEFAULT_ROT_SIZE(1024*1024);
+const std::string DEFAULT_ROT_SIZE("1M");
 const std::string DEFAULT_ROT_INTERVAL("24:00:00");
 const int DEFAULT_PURGE_COUNT(10);
 const boost::regex FileChannel::regex1(
@@ -200,7 +200,7 @@ FileChannel::setRotateStrategy() {
   int rMode_ = attrMap[getAttr<std::string>(FileChannel::ATTR_ROTATE, "")];
   if (FileChannel::ROT_SIZE == rMode_) {
     // by default: 1Mo
-    long sz = getAttr<long>(FileChannel::ATTR_ROTATE_SIZE, DEFAULT_ROT_SIZE);
+    const std::string& sz = getAttr<std::string>(FileChannel::ATTR_ROTATE_SIZE, DEFAULT_ROT_SIZE);
     pRotateStrategy_.reset(new RotateBySizeStrategy(sz));
   }
   if (FileChannel::ROT_INTERVAL == rMode_) {

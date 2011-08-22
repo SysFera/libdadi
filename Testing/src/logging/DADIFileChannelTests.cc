@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE(open_file_exits_test) {
    *  - RotateMode
    *  - PurgeMode
    */
-  unsigned int rotateSize = 1024 * 1024; // 1Mo
+  std::string rotateSize("2M"); // 2Mo
   string rotateTime = "1:00:00"; // 1h
   string rotateInterval = "1,12:00:00"; // 1 1/2 day
   unsigned int purgeCount = 3; // 3 files
