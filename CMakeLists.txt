@@ -67,6 +67,8 @@ if(USE_LOGSERVICE)
   endif()
 endif()
 
+## options
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 # setup documentation
 include(CMakeDependentOption)
 option(ENABLE_DOC "Build documentation" OFF)
