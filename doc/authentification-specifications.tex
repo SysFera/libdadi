@@ -121,6 +121,7 @@
   \SFrefitem{DUMAS07}{ J.-G. Dumas, J.-L. Roch, E. Tannier and S. Varrette. Théorie des Codes : Compression, Cryptage et Correction. 
 		Collection Sciences Sup  Dunod publishing, Mars 2007. \hyperlabel{Dumas07}} 
   \SFrefitem{Securix}{Securix: Documentation sur les PKI et PKIX. Disponible: http://frpki.org/index.php?/intro\_PKI.html. \hyperlabel{Securix}}
+  \SFrefitem{VARETTE07}{Sécurité des Architectures de Calcul Distribué : Authentification et Certification des résultats. Sébastien Varrette - INP Grenoble et Université du Luxembourg. \hyperlabel{Varette07}}
 \end{SFreftable}
 }
 % \renewcommand{\SFreferenceTable}{} % disable this table
@@ -163,7 +164,9 @@
 
 \section{Présentation}
 
-L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisement, nous allons mettre
+L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET\footnote{
+DIET (\textit{Distributed Interactive Engineering Toolbox}) est un middleware con\c{c}u pour le calcul à haute performance
+dans des environnements hétérogènes et distribués (workstations, clusters, grids, clouds etc). Disponible à: http://graal.ens-lyon.fr/DIET/}. Plus précisement, nous allons mettre
 l'accent sur trois principaux points:
 
 \begin{itemize}
@@ -178,7 +181,7 @@ de sécurité utilisable quelque soit l'environnement dans lequel le \textit{middl
 Il est donc important de noter que la politique de sécurité présentée dans ce document devra être la plus générique possible pour pouvoir
 s'adapter aux différentes infrastructures dans lesquelles \textit{DIET} sera intégré.
 
-\section{ Authenfication des utilisateurs }
+\section{ Authentification des utilisateurs }
 
 \subsection{ Proposition n°1: Utilisation de UMS }
      
@@ -249,8 +252,32 @@ Les administrateurs enregistrent les machines et spécifient pour chaque machine 
 Cette deuxième proposition est inspirée du module GSI \footnote{Grid Security Infrastructure} de Globus basé sur les mécanismes de PKI \footnote{
 Public Key Infrastructure} \hyperlink{Dumas07}{[DUMAS07]} avec des certificats X509. Le module GSI s'appuie sur une implémentation de la GSS-{}API\footnote{
 Generic Security Services API 
-}. Dans ce modèle, chaque utilisateur et chaque service sont identifiés par des certificats.  
- 
+}. Dans ce modèle, chaque utilisateur et chaque service sont identifiés par des certificats. 
+
+Une spécificité de Globus est sa capacité à faire collaborer des ressources qui appartiennent à des institutions ayant des politiques de sécurité disjointes et parfois incompatibles. 
+Ceci est possible grâce à des mécanismes de délégation. La délégation dans le module GSI est obtenu par la délivrance de certificats délégués et temporaires valident de 12 à 24 heures. Il existe donc
+des proxys du certificat utilisateur qui sont générés et signés créant ainsi un chemin de confiance entre toutes les entités de 
+la grille (fig. \ref{fig:globus1}) \hyperlink{Varette07}{[VARETTE07]}. L'authentification entre deux entités et la protection des communications
+s'appuient sur les standards utilisants des certificats: TLS ou WS-Security et WS-SecureConversation qui se basent sur des messages SOAP \hyperlink{Varette07}{[VARETTE07]}.
+
+%Les fig. \ref{fig:globus1} et \ref{fig:globus2}, décrites dans \hyperlink{Varette07}{[VARETTE07]}, illustrent les mécanismes de fonctionnement 
+%de Globus.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.51]{images/globus1.png}
+\centering
+\caption{Chemin de confiance dans GSI entre les entités de la grille}\label{fig:globus1}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.58]{images/globus2.png}
+\centering
+\caption{Le modèle GSI pour l'interaction avec une architecture de calcul distribué}\label{fig:globus2}
+\end{figure}
+
+
 \subsubsection{ Les infrastructures à clés publiques (PKI en anglais) }
     
 Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
@@ -322,6 +349,12 @@ par l'utilisateur (cf fig. \ref{fig:reqCertif})}.
 %La deuxième proposition nécessite comme support un système d'identification comme UMS au préalable pour pouvoir
 %faire une requête sans certificat sinon la première proposition semble plus facile à considérer car le certificat est généré, signé
 %et stocké dans un annuaire à l'ajout d'un utilisateur.
+
+Le mot \textit{utilisateur} désigne le détenteur d'un certificat qui est enregistré dans le système mais 
+il existe aussi \textit{l'utilisateur du certificat} qui est celui qui veut effectuer une transaction avec un détenteur lors d'une
+requête; ce dernier récupère donc le certificat correspondant dans un annuaire et utilise la clé publique que contient le certificat dans sa transaction avec 
+le détenteur.
+
      
 \begin{figure}[!h]
 \centering
@@ -330,41 +363,61 @@ par l'utilisateur (cf fig. \ref{fig:reqCertif})}.
 \caption{Mécanisme de création des certificats }\label{fig:reqCertif}
 \end{figure}
 
-Le mot \textit{utilisateur} désigne le détenteur d'un certificat qui est enregistré dans le système mais 
-il existe aussi \textit{l'utilisateur du certificat} qui est celui qui veut effectuer une transaction avec un détenteur lors d'une
-requête; ce dernier récupère donc le certificat correspondant dans un annuaire et utilise la clé publique que contient le certificat dans sa transaction avec 
-le détenteur.
+L'inconvenient de l'architecture décrite sur la fig. \ref{fig:reqCertif} est qu'elle repose sur DIET. En effet, les requêtes s'effectuent
+en passant par DIET. C'est pour cette raison que nous allons proposer une autre architecture o\`u les échanges se feront via 
+un site internet et seulement une base de données sera partagée en lecture avec le site internet (fig. \ref{fig:reqCertif2}).
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.51]{images/requestCertificate2.png}
+\centering
+\caption{Mécanisme de création des certificats via un site internet}\label{fig:reqCertif2}
+\end{figure}
 
+Ce deuxième mécanisme procure une souplesse d'utilisation et détache DIET de cette gestion.\\
+
+Avant de définir les différents scénarios possibles au cours d'une requête circulant à travers notre intergiciel, il est important
+de définir des notions importantes utilisées en sécurité s'articulant autour du sigle \textit{CAIN (Confidentialité, Authenticitification, Intégrité, Non-répudiation)}.
+En effet, l'architecture proposée s'articulant autour d'une PKI permet de couvrir ces notions:
+\begin{itemize}
+ \item Confidentialité: seul le destinataire est capable de lire un message qui lui est destiné grâce au mécanisme de chiffrement asymétrique,
+ \item Authentification: l'identité des entités mises en relation est assuré grâce au mécanisme de certification,
+ \item intégrité: %(le message reste intact pendant le transfert)
+ \item Non-répudiation: \\%(recommandé électronique)
+\end{itemize}
+
+\textcolor{red}{A checker --- Le chiffrement d'une information pour la confidentialité peut éventuellement causer des pbs pour une donnée de plus d'un giga par 
+exemple à chiffrer avec RSA il faudrait deux ans.}
 
 \subsubsection*{ Scénario d'une requête utilisateur via DIET}
  
-Ancien scénario (pas valide):
-\textcolor{gray} {
-  \textit{ 
-    \begin{itemize}
-    \item Un utilisateur fait une requête via DIET.
-    \item L'utilisateur chiffre son message via sa clé privée et joint son certificat avec une information mentionnant l'heure de soumission.
-    \item L'élement de la hiérarchie DIET qui recoit la requête envoie le certificat au CA pour vérification.
-    \item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
-    \item Le CA confirme ou refute le certificat.
-    \item Si le certificat est valide, l'élement de la hiérarchie DIET correspondant déchiffre le message via la clé 
-    publique de l'utilisateur et chiffre sa réponse via la même clé publique que seul le destinataire, donc détenteur de la clé privée correspondante,
-    pourra déchiffrer.
-    \end{itemize}
-  }
-}  
+%Ancien scénario (pas valide):
+%\textcolor{gray} {
+%  \textit{ 
+%    \begin{itemize}
+%    \item Un utilisateur fait une requête via DIET.
+%    \item L'utilisateur chiffre son message via sa clé privée et joint son certificat avec une information mentionnant l'heure de soumission.
+    %\item L'élement de la hiérarchie DIET qui recoit la requête envoie le certificat au CA pour vérification.
+    %\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
+    %\item Le CA confirme ou refute le certificat.
+    %\item Si le certificat est valide, l'élement de la hiérarchie DIET correspondant déchiffre le message via la clé 
+    %publique de l'utilisateur et chiffre sa réponse via la même clé publique que seul le destinataire, donc détenteur de la clé privée correspondante,
+    %pourra déchiffrer.
+ %   \end{itemize}
+ % }
+%}  
 
-Nouveau scénario:
+%Nouveau scénario:
 \begin{itemize}
 \item Un utilisateur fait une requête via DIET.
-\item L'utilisateur chiffre son message via la clé publique du CA disponible à partir du certificat du CA publique dans notre infrastructure et joint son certificat avec une information mentionnant l'heure de soumission.
-\item L'élement de la hiérarchie DIET qui recoit la requête envoie le certificat de l'utilisateur au CA pour vérification.
-\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
-\item Le CA confirme ou refute le certificat.
-\item Si le certificat est valide, le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
-hiérarchie DIET correspondant.
-\item L'élement de la hiérarchie DIET déchiffre le message via sa clé 
-privée et chiffre sa réponse avec la clé publique de l'utilisateur.
+\item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) qui répondra à sa requête.
+\item L'utilisateur chiffre son message via la clé publique du SeD qui répondra à sa requête.
+\item L'élement de la hiérarchie DIET qui recoit la requête déchiffre le message via sa clé privée et vérifie que le certificat
+de l'utilisateur a bien été signé par l'autorité de certification du système et qu'il n'a pas été revoqué.
+%\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
+%\item Le CA confirme ou refute le certificat.
+%\item Si le certificat est valide, le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
+%hiérarchie DIET correspondant.
+\item L'élement de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
 
 \textit{Pour le scénario concernant l'envoi d'une requête, il est important de noter qu'il sera fortement liée à la couche de
