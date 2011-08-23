@@ -162,11 +162,41 @@
 
 \chapter{Introduction}
 
+\section{Contexte}
+
+La suite Logicielle \textit{SysFera-DS} a été con\c{c}ue pour répondre le mieux possible aux besoins des applications.
+Elle se base sur le middleware \textit{DIET}\footnote{DIET (\textit{Distributed Interactive Engineering Toolbox}) est un middleware con\c{c}u pour le calcul à haute performance
+dans des environnements hétérogènes et distribués (workstations, clusters, grids, clouds etc). Disponible à: http://graal.ens-lyon.fr/DIET/.} 
+et utilise le \textit{paradigme ASP (Application Service Provider)} ou \textit{SaaS (Software as a Service)} qui simplifie l'utilisation 
+d'un ensemble de ressources (calcul, stockage, réseau, etc) gr\^ace à des services pré-installés. 
+
+Nous pouvons définir cette suite comme une bo\^ite à outils qui fait coopérer des clients et des serveurs en permettant, pour chaque 
+requête de clients, de trouver le meilleur serveur capable de répondre à la requête en terme de performance, de capacité ou de co\^ut (cette résolution pouvant être séquentielle ou parallèle).
+La fig. \ref{fig:archiGlobale} illustre l'architecture globale d'une plate-forme distribuée gérée par SysFera-DS.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.51]{images/archiGlobale.pdf}
+\centering
+\caption{Architecture globale}\label{fig:archiGlobale}
+\end{figure}
+
+L'intérêt de cette étude est de définir les besoins lorsque cette suite logicielle s'intégre dans l'écosystème d'une entreprise ou de n'importe
+quel environnement privé. En effet, la particularité d'un système distribué est la mise en commun de plusieurs entités, ce qui introduit donc des problématiques
+de sécurité lorsque qu'un noeud malveillant s'introduit dans le réseau ou encore lorsqu'un utilisateur à accès à des
+informations ou à des services incompatibles avec ses privilèges. Il faut donc définir une politique de sécurité qui répond aux 
+besoins des entreprises en terme de sécurité. D'ou les interrogations suivantes: 
+
+\begin{itemize}
+ \item Quels sont les politiques et les outils de sécurité répandus dans les entreprises?
+  \item Notre suite logicielle doit-elle être interopérable? Doit-elle s'adapter aux politiques de sécurité en vigueur dans les entreprises? Ou 
+ tout simplement des primitives de sécurité doivent être accessible via notre middleware? 
+ \item Comment garantissons-nous une étancheïté entre les domaines d'exécution des tâches?
+\end{itemize}
+
 \section{Présentation}
 
-L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET\footnote{
-DIET (\textit{Distributed Interactive Engineering Toolbox}) est un middleware con\c{c}u pour le calcul à haute performance
-dans des environnements hétérogènes et distribués (workstations, clusters, grids, clouds etc). Disponible à: http://graal.ens-lyon.fr/DIET/}. Plus précisement, nous allons mettre
+L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisement, nous allons mettre
 l'accent sur trois principaux points:
 
 \begin{itemize}
@@ -186,7 +216,7 @@ s'adapter aux différentes infrastructures dans lesquelles \textit{DIET} sera int
 \subsection{ Proposition n°1: Utilisation de UMS }
      
      
-\textbf{ Pré-{}requis:} l'environnement de déploiement doit avoir une politique de chiffrement des données circulant via le canal de communication.
+\textbf{ Pré-requis:} l'environnement de déploiement doit avoir une politique de chiffrement des données circulant via le canal de communication.
  
 L'authentification des utilisateurs va s'inspirer principalement du module \textit{ UMS (User Managment System) } \hyperlink{UMSDesign}{[VISHNU\_D2\_1a-UMS-Design]} développé dans le cadre 
 du projet VISHNU \footnote{\url{http://www.sysfera.fr/vishnu/}}. UMS se base sur une authentification unique \textit{(Single Sign-{}On) } pour ses 
@@ -281,10 +311,10 @@ s'appuient sur les standards utilisants des certificats: TLS ou WS-Security et W
 \subsubsection{ Les infrastructures à clés publiques (PKI en anglais) }
     
 Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
-Pour répondre à cette question, il est important de se demander \hyperlink{Dumas07}{[DUMAS07]}  : 
+Pour répondre à cette question, il est important de se demander \hyperlink{Dumas07}{[DUMAS07]}: 
 \begin{itemize}
-\item{} Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?
-\item{} Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?
+\item Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?
+\item Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?
 \end{itemize}
    
 C'est pour répondre à ces questions qu'en 1976, les bases des systèmes cryptographiques à clé publique ont été introduites par Diffie et Hellman. Le principe
