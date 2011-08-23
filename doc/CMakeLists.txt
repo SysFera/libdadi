@@ -6,12 +6,14 @@ endif()
 
 # put extras documentation here
 if(ENABLE_EXTRAS_DOC)
-  find_package(DBLATEX)
-  if(DBLATEX_FOUND)
-    include(UseDBLATEX)
-    dblatex_generate(OUTPUT "authentication-specifications.pdf"
-      STYLE "docbook-sysfera.sty"
-      TOPLEVEL_TARGET doc
-      authentification.docbook)
+  find_package(LATEX)
+  if(PDFLATEX_COMPILER)
+    include(UseLATEX)
+    add_latex_document("authentification-specifications.tex"
+      IMAGE_DIRS fig images
+      MANGLE_TARGET_NAMES
+      DEFAULT_PDF)
+    add_custom_target(pdf)
+    add_dependencies(pdf authentification-specifications_pdf)
   endif()
 endif()
