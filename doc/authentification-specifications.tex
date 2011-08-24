@@ -211,6 +211,54 @@ de sécurité utilisable quelque soit l'environnement dans lequel le \textit{middl
 Il est donc important de noter que la politique de sécurité présentée dans ce document devra être la plus générique possible pour pouvoir
 s'adapter aux différentes infrastructures dans lesquelles \textit{DIET} sera intégré.
 
+\section{Analyse de l'existant}
+
+
+\subsection{PGP}
+
+Il existe deux principaux types de chiffrement: sysmtrique et asymétrique. L'inconvénient du chiffrement sysmétrique est l'existance 
+au préalable d'un canal confidentiel pour échanger la clé et la clé symétrique ne garantit pas la non-répudiation puisque l'expéditeur
+et le destinataire utilise la même clé. Aussi, les systèmes sysmétriques restent plus lents. C'est pour cette raison qu'il est intéressant
+d'utiliser des systèmes hybrides qui combinent les avantages des systèmes symétriques et asymétriques en minimisant les inconvénients de
+chacun d'ou l'apparition de protocoles hybrides comme PGP\footnote{Pretty Good Privacy}. 
+
+PGP chiffre un message avec le protocole suivant \hyperlink{Dumas07}{[DUMAS07]}:
+
+\begin{enumerate}
+ \item Le texte source est chiffré avec une clé K de type 3-DES.
+ \item La clé K est chiffré selon le principe RSA avec la clé publique du destinataire.
+ \item Envoi du message composé de la clé K chiffré par RSA et d'un texte chiffré selon un algorithme de type 3-DES
+\end{enumerate}
+
+Le destinataire effectuera les opérations de déchiffrement suivante:
+\begin{enumerate}
+ \item Déchiffrement de la clé grâce à la clé privée du destinataire en utilisant RSA.
+ \item Déchiffrement du texte en utilisant DES avec la clé K.
+\end{enumerate}
+
+Pour l'authenfication du message (validation) et de l'identité de l'expéditeur:
+\begin{enumerate}
+ \item Génération d'un code qui identifie, par un nombre de taille fixe, le texte, par exemple une fonction d'une hachage. 
+ \item Chiffrement de ce code en utilisant RSA avec la clé privée de l'émetteur du message.
+\end{enumerate}
+
+Une application de PGP est le programme SSH.
+
+\subsection{SSH}
+
+SSH est protocole sécurisé de connexion à distance qui se compose de trois principale parties:
+
+\begin{enumerate}
+ \item une couche transport qui permet l'authenfication du serveur, la confidentialité et l'intégrité,
+ \item une couche authentification de l'utilisateur,
+ \item un protocole de connexion qui permet le passage de plusieurs canaux logiques.
+\end{enumerate}
+
+\subsection{Kerberos}
+
+\section{Analyse des besoins}
+Confidentialité, authentification, intégrité, non-répudiation ou tout?
+
 \section{ Authentification des utilisateurs }
 
 \subsection{ Proposition n°1: Utilisation de UMS }
@@ -436,7 +484,7 @@ exemple à chiffrer avec RSA il faudrait deux ans.}
  % }
 %}  
 
-%Nouveau scénario:
+scénario 1:
 \begin{itemize}
 \item Un utilisateur fait une requête via DIET.
 \item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) qui répondra à sa requête.
@@ -578,6 +626,20 @@ L'ajout non contrôlé pourrait permettre à une personne mal intentionnée de dévie
 d'attaque \textit{man-in-the-middle} doit être empêché. Pour cela, il est nécessaire que chaque élément
 voulant s'ajouter à une hiérarchie soit identifié par un certificat lui donnant ou non les droits de connexion. Voir
 l'étude réalisée par Sogeti \hyperlink{Sogeti}{[LST-LIP-DIET\_Sec]}.
+
+Le scénario d'envoi d'une requête décrit ci-dessous garantit non seulement l'identification des utilisateurs mais aussi des éléments de la hiérarchie:
+\begin{itemize}
+\item Un utilisateur fait une requête via DIET.
+\item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) qui répondra à sa requête.
+\item L'utilisateur chiffre son message via la clé publique du SeD qui répondra à sa requête.
+\item L'élement de la hiérarchie DIET qui recoit la requête déchiffre le message via sa clé privée et vérifie que le certificat
+de l'utilisateur a bien été signé par l'autorité de certification du système et qu'il n'a pas été revoqué.
+%\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
+%\item Le CA confirme ou refute le certificat.
+%\item Si le certificat est valide, le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
+%hiérarchie DIET correspondant.
+\item L'élement de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.
+\end{itemize}
 
                   
 \section{Le cryptage des données}
