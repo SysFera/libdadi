@@ -86,32 +86,26 @@ Options::parseConfigFile(const std::string& file, bool unregistered) {
 
   std::ifstream ifs(file.c_str());
 
-  po::parsed_options parsed_file(parse_config_file(ifs,*options,unregistered));
+  po::parsed_options parsed_file(parse_config_file(ifs,
+                                                   *options,
+                                                   unregistered));
 
-  //store the registred options
+  // store the registred options
   store(parsed_file, vm_);
 
   dadi::Config& store_ = dadi::Config::instance();
-  //store the unregistred options
-  foreach(po::option unregoption, parsed_file.options){
-
+  // store the unregistred options
+  foreach(po::option unregoption, parsed_file.options) {
     if (unregoption.unregistered) {
-
-      if (unregoption.value.size()==1){ //
-
-        dadi::setProperty( unregoption.string_key,unregoption.value.back());
-      }else{
-
-        dadi::setProperty( unregoption.string_key, unregoption.value );
-
-
+      if (unregoption.value.size() == 1) {
+        dadi::setProperty(unregoption.string_key, unregoption.value.back());
+      } else {
+        dadi::setProperty(unregoption.string_key, unregoption.value);
       }
-
     }
-
   }
 
-  //store(parse_config_file(ifs, *options, unregistered), vm_);
+  // store(parse_config_file(ifs, *options, unregistered), vm_);
 }
 
 void

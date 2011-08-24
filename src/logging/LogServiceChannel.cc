@@ -42,7 +42,7 @@ LogServiceChannel::open() {
   short ret;
   ret = lb->connect("channel connected");
   // TODO: fix this
-  switch(ret) {
+  switch (ret) {
   case LS_COMPONENT_CONNECT_BADNAME:
   case LS_COMPONENT_CONNECT_ALREADYEXISTS:
   case LS_COMPONENT_CONNECT_BADCOMPONENTCONFIGURATOR:

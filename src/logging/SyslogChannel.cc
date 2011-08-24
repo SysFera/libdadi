@@ -58,7 +58,6 @@ SyslogChannel::log(const Message& msg) {
     open();
   }
   syslog(getPrio(msg), "%s", msg.getText().c_str());
-
 }
 
 
