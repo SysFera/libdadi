@@ -1,10 +1,11 @@
-// -*- mode: c++ -*-
 #ifndef _LOADER_HH_
 #define _LOADER_HH_
 /**
  * @file   Loader.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines shared library loader
+ * @section
+ *   <licence>
  *
  */
 

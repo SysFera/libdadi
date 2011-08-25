@@ -2,6 +2,8 @@
  * @file   Options.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  options parsing implementation
+ * @section
+ *   <licence>
  *
  */
 

@@ -1,7 +1,9 @@
 /**
- * @file   LogServiceChannel.hh
+ * @file   LogServiceChannel.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  LogServiceChannel implementation
+ * @section
+ *   <licence>
  *
  */
 

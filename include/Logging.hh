@@ -4,6 +4,8 @@
  * @file   Logging.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  logging framework convenience header
+ * @section
+ *   <licence>
  *
  */
 

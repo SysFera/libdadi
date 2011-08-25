@@ -1,3 +1,12 @@
+/**
+ * @file   FileChannel.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines a file channel
+ * @section
+ *   <licence>
+ *
+ */
+
 #include <Logging/FileChannel.hh>
 #include <boost/assign/list_of.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>

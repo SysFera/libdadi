@@ -1,17 +1,19 @@
 #ifndef DADI_HH
 #define DADI_HH
 
-#define DADI_VERSION_MAJOR 0
-#define DADI_VERSION_MINOR 9
-#define DADI_VERSION_PATCH 0
-
 /**
  * @file dadi.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.fr>
  * @author Gael Le Mahec <gael.le.mahec@u-picardie.fr>
  * @brief convenience header
+ * @section
+ *   <licence>
  *
  */
+
+#define DADI_VERSION_MAJOR 0
+#define DADI_VERSION_MINOR 9
+#define DADI_VERSION_PATCH 0
 
 /* The Plugin interface definition (dynamic module loading). */
 #include "dadi/IPlugin.hh"

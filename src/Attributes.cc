@@ -2,6 +2,8 @@
  * @file   Attributes.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  dadi attributes implementation
+ * @section
+ *   <licence>
  *
  */
 

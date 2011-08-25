@@ -2,8 +2,10 @@
 #define _CHANNEL_HH_
 /**
  * @file Channel.hh
- * @brief defines an abstract base class for channels
  * @author: Haikel Guémar <haikel.guemar@sysfera.com>
+ * @brief defines an abstract base class for channels
+ * @section
+ *   <licence>
  *
  */
 #include <boost/noncopyable.hpp>

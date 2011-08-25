@@ -1,3 +1,12 @@
+/**
+ * @file   ArchiveStrategy.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines log files archive strategies
+ * @section
+ *   <licence>
+ *
+ */
+
 #include <Logging/ArchiveStrategy.hh>
 #include <boost/filesystem.hpp>
 #include <boost/format.hpp>

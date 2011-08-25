@@ -1,3 +1,12 @@
+/**
+ * @file   RotateStrategy.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines log files rotate strategies
+ * @section
+ *   <licence>
+ *
+ */
+
 #include <Logging/RotateStrategy.hh>
 #include <boost/filesystem.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>

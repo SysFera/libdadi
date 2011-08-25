@@ -6,6 +6,8 @@
  * @brief defines a class to handle command line options.
  * @author Ibrahima Cisse (ibrahima.cisse@sysfera.com)
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @section
+ *   <licence>
  *
  * @example simple-commandline/main.cc
  * this is a simple example on how to use Options class to handle

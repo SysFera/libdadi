@@ -4,6 +4,8 @@
  * @file   ArchiveStrategy.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines log files archive strategies
+ * @section
+ *   <licence>
  *
  */
 

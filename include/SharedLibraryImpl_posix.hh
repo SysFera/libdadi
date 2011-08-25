@@ -1,13 +1,12 @@
-// -*- mode:c++ -*-
 #ifndef _SHARED_LIBRARY_IMPL_POSIX_HH_
 #define _SHARED_LIBRARY_IMPL_POSIX_HH_
 /**
  * @file   SharedLibraryImpl_posix.hh
  * @author hguemar <hguemar@sysfera.com>
- * @date   Fri Mar 25 09:39:24 2011
- *
  * @brief  Posix implementation of class SharedLibrary
  * based on dlopen/dlclose/dlsym calls
+ * @section
+ *   <licence>
  *
  */
 

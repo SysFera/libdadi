@@ -1,7 +1,9 @@
 /**
- * @file   ConsoleChannel.hh
+ * @file   ConsoleChannel.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  ConsoleChannel implementation
+ * @section
+ *   <licence>
  *
  */
 

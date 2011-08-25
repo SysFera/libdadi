@@ -1,3 +1,12 @@
+/**
+ * @file   Logger.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  main logger class
+ * @section
+ *   <licence>
+ *
+ */
+
 #include <Logging/Logger.hh>
 #include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>

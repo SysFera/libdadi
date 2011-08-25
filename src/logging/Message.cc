@@ -1,3 +1,12 @@
+/**
+ * @file   Message.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines log message
+ * @section
+ *   <licence>
+ *
+ */
+
 #include <Logging/Message.hh>
 
 namespace dadi {

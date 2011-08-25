@@ -1,10 +1,11 @@
-// -*- mode: c++ -*-
 #ifndef _IPLUGIN_HH_
 #define _IPLUGIN_HH_
 /**
  * @file   IPlugin.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines plugin abstract base class
+ * @section
+ *   <licence>
  *
  */
 

@@ -1,10 +1,11 @@
-// -*- mode: c++ -*-
 #ifndef _REGISTRY_HH_
 #define _REGISTRY_HH_
 /**
  * @file   Registry.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief defines Registry containing plugins
+ * @section
+ *   <licence>
  *
  */
 
@@ -120,7 +121,7 @@ public:
           dadi::PluginError()
           << dadi::errinfo_msg("can not find: "+ pName));
     }
-    
+
     factory = (*it)->factory;
     if (factory) {
       ((bool (*)(void **))(factory))((void**) &instance);
@@ -153,19 +154,19 @@ public:
 
     pinfo_set_by_interface& index = cache_.get<interface>();
     pinfo_set_by_interface::iterator it = index.find(pName);
-    
+
     if (index.end() == it){
-      
+
       BOOST_THROW_EXCEPTION(
            dadi::PluginError()
                  << dadi::errinfo_msg("can not find: "+ pName));
     }
-   
+
     factory = (*it)->factory;
     if (factory) {
       ((int (*)(void **))(factory))((void**) &instance);
     }
-    
+
     std::cout << (*it)->name << "\n";
     SharedLibraryPtr sPtr = (*it)->sPtr;
     if (sPtr) {

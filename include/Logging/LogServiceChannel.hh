@@ -4,6 +4,8 @@
  * @file   LogServiceChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines LogService channel
+ * @section
+ *   <licence>
  *
  */
 

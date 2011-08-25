@@ -1,3 +1,13 @@
+/**
+ * @file   MultiChannel.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines special channel that redirect log messages
+ * to multiple channels.
+ * @section
+ *   <licence>
+ *
+ */
+
 #include <Logging/MultiChannel.hh>
 #include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>

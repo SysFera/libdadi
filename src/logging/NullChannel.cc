@@ -1,3 +1,12 @@
+/**
+ * @file   NullChannel.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines channel that discards log messages
+ * @section
+ *   <licence>
+ *
+ */
+
 #include <Logging/NullChannel.hh>
 
 namespace dadi {

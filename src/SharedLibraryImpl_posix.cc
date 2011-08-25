@@ -1,7 +1,9 @@
 /**
- * @file   SharedLibrary.cc
+ * @file   SharedLibraryImpl_posix.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  SharedLibrary posix implementation
+ * @section
+ *   <licence>
  *
  */
 

@@ -3,10 +3,10 @@
 /**
  * @file   SharedLibraryImpl_win32.hh
  * @author hguemar <hguemar@sysfera.com>
- * @date   Tue Mar 29 15:11:35 2011
- *
  * @brief  Win32 implementation of class SharedLibrary
  * based on LoadLibrary calls
+ * @section
+ *   <licence>
  *
  */
 

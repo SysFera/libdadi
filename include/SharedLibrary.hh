@@ -1,11 +1,11 @@
-// -*- mode:c++ -*-
 #ifndef _SHARED_LIBRARY_HH_
 #define _SHARED_LIBRARY_HH_
 /**
  * @file   SharedLibrary.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
- *
  * @brief  Abstract platform specific shared libraries loading
+ * @section
+ *   <licence>
  *
  */
 

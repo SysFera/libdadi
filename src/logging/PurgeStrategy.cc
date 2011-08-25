@@ -1,3 +1,12 @@
+/**
+ * @file   PurgeStrategy.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines log files purge strategies
+ * @section
+ *   <licence>
+ *
+ */
+
 #include <Logging/PurgeStrategy.hh>
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
