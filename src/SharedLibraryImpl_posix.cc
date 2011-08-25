@@ -1,3 +1,10 @@
+/**
+ * @file   SharedLibrary.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  SharedLibrary posix implementation
+ *
+ */
+
 #include "SharedLibraryImpl_posix.hh"
 #include <dlfcn.h>
 

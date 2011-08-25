@@ -1,5 +1,11 @@
 #ifndef _SYSLOGCHANNEL_HH_
 #define _SYSLOGCHANNEL_HH_
+/**
+ * @file   SyslogChannel.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines syslog channel
+ *
+ */
 
 #include <string>
 #include "Channel.hh"

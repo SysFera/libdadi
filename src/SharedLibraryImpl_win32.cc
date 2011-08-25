@@ -1,3 +1,10 @@
+/**
+ * @file   SharedLibrary.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  SharedLibrary win32 implementation
+ *
+ */
+
 #include "SharedLibraryImpl_win32.hh"
 
 namespace dadi {

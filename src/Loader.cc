@@ -1,3 +1,10 @@
+/**
+ * @file   Loader.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  plugin loader
+ *
+ */
+
 #include "Loader.hh"
 
 #include <iostream>
@@ -20,7 +27,7 @@ Loader::~Loader() {}
 
 std::string
 Loader::findLibrary(std::string lib) const {
-  using namespace boost::filesystem;
+  using boost::filesystem::directory_iterator;
 
   std::list<std::string> l = reg_->paths();
   std::list<std::string>::iterator it = l.begin();
@@ -107,8 +114,10 @@ Loader::parseConfig(const char *mFile, PluginInfoPtr pInfo) {
 
 
     // try {
-    //   BOOST_FOREACH( ptree::value_type& v, pt.get_child("plugindescriptor.dependencies"))
-    //     pInfo->deps.push_back(v.second.get<std::string>("<xmlattr>.interface"));
+    //   BOOST_FOREACH( ptree::value_type& v
+    //                  pt.get_child("plugindescriptor.dependencies"))
+    //     pInfo->deps.push_back(
+    //       v.second.get<std::string>("<xmlattr>.interface"));
     // } catch (const ptree_bad_path& e) {
     // }
   } catch (const xml_parser_error& e) {

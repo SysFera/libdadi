@@ -1,3 +1,10 @@
+/**
+ * @file   LogServiceChannel.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  LogServiceChannel implementation
+ *
+ */
+
 #include <Logging/LogServiceChannel.hh>
 #include <iostream>
 #include <boost/thread/locks.hpp>

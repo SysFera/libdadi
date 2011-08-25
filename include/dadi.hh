@@ -7,9 +7,9 @@
 
 /**
  * @file dadi.hh
- * @brief convenience header
  * @author Haïkel Guémar <haikel.guemar@sysfera.fr>
  * @author Gael Le Mahec <gael.le.mahec@u-picardie.fr>
+ * @brief convenience header
  *
  */
 

@@ -1,4 +1,10 @@
 #include "PluginInfo.hh"
+/**
+ * @file   PluginInfo.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  PluginInfo implementation
+ *
+ */
 
 namespace dadi {
 

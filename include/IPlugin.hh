@@ -15,9 +15,9 @@ const int PLUGIN_OK = 0;
 // win32 peculiarity required to export symbols in shared libraries
 #if defined(WIN32)
 #  if defined(DADI_EXPORTS)
-#    define DADI_EXPORT __declspec( dllexport )
+#    define DADI_EXPORT __declspec(dllexport)
 #  else /* DADI_EXPORTS */
-#    define DADI_EXPORT __declspec( dllimport )
+#    define DADI_EXPORT __declspec(dllimport)
 #  endif /* DADI_EXPORTS */
 #else /* WIN32 */
 #  define DADI_EXPORT

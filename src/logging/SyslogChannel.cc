@@ -1,3 +1,10 @@
+/**
+ * @file   SyslogChannel.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  SyslogChannel implementation
+ *
+ */
+
 #include <Logging/SyslogChannel.hh>
 #include <syslog.h>
 #include <Logging/Message.hh>
@@ -8,8 +15,8 @@ const std::string SyslogChannel::ATTR_NAME = "name";
 const std::string SyslogChannel::ATTR_OPTION = "option";
 const std::string SyslogChannel::ATTR_FACILITY = "facility";
 
-SyslogChannel::SyslogChannel() :
-  option_(SYSLOG_CONS), facility_(SYSLOG_USER), open_(false) {}
+SyslogChannel::SyslogChannel()
+ : option_(SYSLOG_CONS), facility_(SYSLOG_USER), open_(false) {}
 
 SyslogChannel::SyslogChannel(const std::string& name,
                              unsigned int option,

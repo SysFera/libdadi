@@ -1,5 +1,11 @@
 #ifndef _FILESTRATEGY_HH_
 #define _FILESTRATEGY_HH_
+/**
+ * @file   FileStrategy.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  log files strategies convenience header
+ *
+ */
 
 #include "RotateStrategy.hh"
 #include "ArchiveStrategy.hh"

@@ -3,6 +3,7 @@
 /**
  * @file PluginInfo.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.fr>
+ * @brief plugin metadata holder class
  *
  */
 

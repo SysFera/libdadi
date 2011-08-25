@@ -1,7 +1,12 @@
 #ifndef _LOGGING_HH_
 #define _LOGGING_HH_
+/**
+ * @file   Logging.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  logging framework convenience header
+ *
+ */
 
-// convenience header
 #include "Logging/Channel.hh"
 #include "Logging/Consolechannel.hh"
 #include "Logging/FileChannel.hh"

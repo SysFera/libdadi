@@ -1,3 +1,10 @@
+/**
+ * @file   Attributes.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  dadi attributes implementation
+ *
+ */
+
 #include "Attributes.hh"
 #include <list>
 #include <sstream>

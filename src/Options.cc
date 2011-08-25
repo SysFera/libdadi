@@ -1,3 +1,10 @@
+/**
+ * @file   Options.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  options parsing implementation
+ *
+ */
+
 #include "Options.hh"
 
 #include <algorithm>

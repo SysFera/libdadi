@@ -17,6 +17,7 @@
  *
  */
 
+#include <alogorithm>
 #include <iostream>
 #include <string>
 #include <vector>

@@ -1,3 +1,10 @@
+/**
+ * @file   SharedLibrary.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  SharedLibrary generic implementation
+ *
+ */
+
 #include "SharedLibrary.hh"
 #if defined(WIN32)
 #include "SharedLibraryImpl_win32.hh"

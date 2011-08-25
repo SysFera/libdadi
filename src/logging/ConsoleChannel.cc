@@ -1,3 +1,10 @@
+/**
+ * @file   ConsoleChannel.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  ConsoleChannel implementation
+ *
+ */
+
 #include <Logging/ConsoleChannel.hh>
 #include <iostream>
 #include <boost/thread/locks.hpp>

@@ -1,5 +1,11 @@
 #ifndef _PURGESTRATEGY_HH_
 #define _PURGESTRATEGY_HH_
+/**
+ * @file   PurgeStrategy.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  defines log files purge strategies
+ *
+ */
 
 #include <string>
 #include <vector>
