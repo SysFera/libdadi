@@ -2,8 +2,8 @@
  * @file   PurgeStrategy.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines log files purge strategies
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

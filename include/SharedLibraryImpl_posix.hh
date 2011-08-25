@@ -5,8 +5,8 @@
  * @author hguemar <hguemar@sysfera.com>
  * @brief  Posix implementation of class SharedLibrary
  * based on dlopen/dlclose/dlsym calls
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

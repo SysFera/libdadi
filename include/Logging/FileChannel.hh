@@ -4,8 +4,8 @@
  * @file   FileChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines a file channel
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

@@ -4,8 +4,8 @@
  * @file   Singleton.hh
  * @author hguemar <hguemar@sysfera.com>
  * @brief  defines thread-safe singleton
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

@@ -2,8 +2,8 @@
  * @file   SharedLibrary.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  SharedLibrary generic implementation
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

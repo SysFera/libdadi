@@ -4,8 +4,8 @@
  * @file   ConsoleChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines channel that logs into console
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

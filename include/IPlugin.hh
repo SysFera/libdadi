@@ -1,13 +1,14 @@
-#ifndef _IPLUGIN_HH_
-#define _IPLUGIN_HH_
 /**
  * @file   IPlugin.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines plugin abstract base class
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
+
+#ifndef _IPLUGIN_HH_
+#define _IPLUGIN_HH_
 
 #include "PluginInfo.hh"
 

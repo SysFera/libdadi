@@ -2,8 +2,8 @@
  * @file   Registry.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  dadi registry implementation
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

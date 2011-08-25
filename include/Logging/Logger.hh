@@ -4,8 +4,8 @@
  * @file   Logger.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  main logger class
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

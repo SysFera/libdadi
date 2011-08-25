@@ -2,8 +2,8 @@
  * @file   PluginInfo.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  PluginInfo implementation
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

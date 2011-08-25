@@ -4,8 +4,8 @@
  * @file   Attributes.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines attributes management
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

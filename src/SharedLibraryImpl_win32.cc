@@ -2,8 +2,8 @@
  * @file   SharedLibraryImpl_win32.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  SharedLibrary win32 implementation
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

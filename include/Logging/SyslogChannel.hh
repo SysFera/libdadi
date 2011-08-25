@@ -4,8 +4,8 @@
  * @file   SyslogChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines syslog channel
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

@@ -4,8 +4,8 @@
  * @file   Config.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines configuration store
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

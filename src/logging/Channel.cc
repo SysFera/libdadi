@@ -2,8 +2,8 @@
  * @file   Channel.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines an abstract base class for channels
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

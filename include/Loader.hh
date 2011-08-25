@@ -4,8 +4,8 @@
  * @file   Loader.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines shared library loader
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

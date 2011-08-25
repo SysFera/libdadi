@@ -4,8 +4,8 @@
  * @file   Message.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines log message
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

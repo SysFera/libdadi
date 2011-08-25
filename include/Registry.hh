@@ -4,8 +4,8 @@
  * @file   Registry.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief defines Registry containing plugins
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 

@@ -4,8 +4,8 @@
  * @file   FileStrategy.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  log files strategies convenience header
- * @section
- *   <licence>
+ * @section Licence
+ *   |LICENCE|
  *
  */
 
