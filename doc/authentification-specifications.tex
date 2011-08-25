@@ -255,8 +255,8 @@ Pour définir le chiffrement asymétrique (ou chiffrement à clé publique), il est 
 Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
 Pour répondre à cette question, il est important de se demander \hyperlink{Dumas07}{[DUMAS07]}: 
 \begin{itemize}
-\item Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?
-\item Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?
+\item \textbf{Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?}
+\item \textbf{Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?}
 \end{itemize}
    
 C'est pour répondre à ces questions qu'en 1976, les bases des systèmes cryptographiques à clé publique ont été introduites par Diffie et Hellman. Le principe
@@ -278,7 +278,12 @@ Nous pouvons utiliser \textit{l'analogie avec une boite aux lettres} donc seul l
 L'algorithme le plus répandu et le plus utilisé basé sur le chiffrement à clé publique est \textit{RSA} du nom de ces concepteurs: \textit{Rivest Shamir et
 Adleman}.
 
-Une problématique n'est pas sans reste, c'est celle présentée plus haut et associée à la question suivante: Comment garantir l'appartenance d'une clé publique à son propriétaire?\\   
+Une problématique n'est pas sans reste, c'est celle présentée plus haut et associée à la question suivante: 
+
+\begin{itemize}
+ \item \textbf{Comment garantir l'appartenance d'une clé publique à son propriétaire?}   
+\end{itemize}
+
 La réponse à cette question définit la notion d'infrastructures à clés publiques (\textit{PKI}\footnote{Public Key Infrastructure} en anglais) dans laquelle un tiers de confiance appelée \textbf{\textit{CA}}\footnote{
  Certification Authority (autorité de certification en français)} 
 rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
@@ -291,13 +296,14 @@ La particularité des fonctions de hachage cryptographiques est qu'elles vérifien
 la reconstitution du message en évitant les cas de collision, c'est à dire que deux entrées différentes aient le même résultat par la même
 fonction de hachage. Elles ne permettent donc pas de reconstituer le message mais de l'identifier; il est ainsi possible 
 de vérifier l'intégrité d'un message en comparant une empreinte générée avant un transfert avec l'empreinte du message re\c{c}u par la même
-fonction de hachage.  
+fonction de hachage. L'idée sous-jacente étant que la modification d'un message orginal aussi simple soit-elle entraine automatiquement des modifications du haché
+qui peuvent être importante, ce qui participe donc à la détection d'erreurs.
 
-Les fonctions de hachage sont particulièrement utiles en cryptographiques car elles permettent de réduite la quantité d'information à crypter: au lieu de crypter une grande quantité d'information, seulement l'empreinte
+Les fonctions de hachage sont particulièrement utiles en cryptographiques car elles permettent de réduire la quantité d'information à crypter: au lieu de crypter une grande quantité d'information, seulement l'empreinte
 qui est de taille fixe, est crytpée. 
 
 Nous pouvons utiliser \textit{l'analogie de empreinte digitale} qui permet non pas de définir d'autres caractéristiques d'une personne mais plut\^ot
-de l'identifier. Il existe plusieurs fonctions de hachage pratique bien repandues telles que: \textit{MD5, SHA-1, SHA-256, SHA-512, Whirpool}. Il
+de l'identifier. Il existe plusieurs fonctions de hachage en pratique bien repandues telles que: \textit{MD5, SHA-1, SHA-256, SHA-512, Whirpool}. Il
 faut néanmoins noter que \textit{MD5 et SHA-1} ne sont plus réputées s\^ur aujourd'hui \hyperlink{Dumas07}{[DUMAS07]}.
 
 \subsection{PGP}
@@ -342,13 +348,19 @@ Une application de PGP est le programme SSH.
 
 \subsection{Kerberos}
 
+Inconvénients: géré de fa\c{c}on centralisée.
+
 \section{Analyse des besoins}
 Confidentialité, authentification, intégrité, non-répudiation ou tout?
 Phase de génération de certificat à décrire. 
 Utilisation de certificat?
 Identification des utilisateurs, des éléments DIET (machines) .
 Souplesse de stratégie de sécurité.
-
+Définir un mecanisme de tests garatissant que le système est bien sécurisé.
+Quels sont les propriétés de sécurité à garantir?
+Interopérabilité.
+Le système mis en place doit pouvoir s'interfacer le plus facilement possible avec les politiques de sécurité en vigueur dans les 
+entreprises.
 
 \section{ Authentification des utilisateurs }
 
