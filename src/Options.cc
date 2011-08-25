@@ -7,7 +7,6 @@
 
 #include "Options.hh"
 
-#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <list>
