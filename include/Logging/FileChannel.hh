@@ -9,13 +9,13 @@
  *
  */
 
-#include "Channel.hh"
 #include <string>
 #include <map>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/regex_fwd.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/thread/mutex.hpp>
+#include "Channel.hh"
 #include "FileStrategy.hh"
 
 namespace dadi {

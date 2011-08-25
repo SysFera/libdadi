@@ -10,9 +10,9 @@
  *
  */
 
-#include "Channel.hh"
 #include <list>
 #include <boost/thread/mutex.hpp>
+#include "Channel.hh"
 
 namespace dadi {
 

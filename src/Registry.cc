@@ -37,7 +37,7 @@ Registry::load() {
   // loop over all registred directories
   BOOST_FOREACH(std::string d, paths_) {
     // Jump to the next if the current directory does not exist
-    if(exists(path(d)) ){
+    if (exists(path(d))) {
       directory_iterator p(d);
       for (; p != directory_iterator(); ++p) {
         if (((p->path()).extension()) == ".xml") {

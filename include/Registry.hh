@@ -116,7 +116,6 @@ public:
     pinfo_set_by_name::iterator it = index.find(pName);
 
     if (index.end() == it) {
-
       BOOST_THROW_EXCEPTION(
           dadi::PluginError()
           << dadi::errinfo_msg("can not find: "+ pName));
@@ -155,8 +154,7 @@ public:
     pinfo_set_by_interface& index = cache_.get<interface>();
     pinfo_set_by_interface::iterator it = index.find(pName);
 
-    if (index.end() == it){
-
+    if (index.end() == it) {
       BOOST_THROW_EXCEPTION(
            dadi::PluginError()
                  << dadi::errinfo_msg("can not find: "+ pName));
