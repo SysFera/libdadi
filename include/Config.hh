@@ -19,7 +19,7 @@ namespace dadi {
 
   /**
    * @class Config
-   * @brief thread-safe singleton configuration store
+   * @brief thread-safe singleton configuration store using the CRTP idiom
    */
   class Config : public Singleton<Config> {
     /**

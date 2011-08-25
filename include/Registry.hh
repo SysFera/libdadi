@@ -26,6 +26,7 @@
 #include "IPlugin.hh"
 #include "Loader.hh"
 #include "PluginInfo.hh"
+#include "Exception/Plugins.hh"
 
 namespace dadi {
 // plugin info lookup structure
@@ -113,11 +114,16 @@ public:
     pinfo_set_by_name& index = cache_.get<name>();
     pinfo_set_by_name::iterator it = index.find(pName);
 
-    if (index.end() != it) {
-      factory = (*it)->factory;
-      if (factory) {
-        ((bool (*)(void **))(factory))((void**) &instance);
-      }
+    if (index.end() == it) {
+
+      BOOST_THROW_EXCEPTION(
+          dadi::PluginError()
+          << dadi::errinfo_msg("can not find: "+ pName));
+    }
+    
+    factory = (*it)->factory;
+    if (factory) {
+      ((bool (*)(void **))(factory))((void**) &instance);
     }
 
     SharedLibraryPtr sPtr = (*it)->sPtr;
@@ -147,13 +153,19 @@ public:
 
     pinfo_set_by_interface& index = cache_.get<interface>();
     pinfo_set_by_interface::iterator it = index.find(pName);
-
-    if (index.end() != it) {
-      factory = (*it)->factory;
-      if (factory) {
-        ((int (*)(void **))(factory))((void**) &instance);
-      }
+    
+    if (index.end() == it){
+      
+      BOOST_THROW_EXCEPTION(
+           dadi::PluginError()
+                 << dadi::errinfo_msg("can not find: "+ pName));
     }
+   
+    factory = (*it)->factory;
+    if (factory) {
+      ((int (*)(void **))(factory))((void**) &instance);
+    }
+    
     std::cout << (*it)->name << "\n";
     SharedLibraryPtr sPtr = (*it)->sPtr;
     if (sPtr) {

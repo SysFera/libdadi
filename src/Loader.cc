@@ -8,6 +8,7 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include "IPlugin.hh"
 #include "Registry.hh"
+#include "Exception/Plugins.hh"
 
 namespace dadi {
 

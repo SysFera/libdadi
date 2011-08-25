@@ -6,3 +6,4 @@ include_directories(
 add_subdirectory(attributes)
 add_subdirectory(logging)
 add_subdirectory(configfile)
+add_subdirectory(plugin)

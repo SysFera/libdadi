@@ -24,12 +24,16 @@ Registry::addPath(const std::string& path) {
 
 void
 Registry::load() {
-  using boost::filesystem::directory_iterator;
+  using namespace boost::filesystem;
+  // loop over all registred directories
   BOOST_FOREACH(std::string d, paths_) {
-    directory_iterator p(d);
-    for (; p != directory_iterator(); ++p) {
-      if (((p->path()).extension()) == ".xml") {
-        loader_->loadPlugin(p->path().c_str());
+    // Jump to the next if the current directory does not exist
+    if(exists(path(d)) ){
+      directory_iterator p(d);
+      for (; p != directory_iterator(); ++p) {
+        if (((p->path()).extension()) == ".xml") {
+          loader_->loadPlugin(p->path().c_str());
+        }
       }
     }
   }
