@@ -200,7 +200,8 @@ FileChannel::setRotateStrategy() {
   int rMode_ = attrMap[getAttr<std::string>(FileChannel::ATTR_ROTATE, "")];
   if (FileChannel::ROT_SIZE == rMode_) {
     // by default: 1Mo
-    const std::string& sz = getAttr<std::string>(FileChannel::ATTR_ROTATE_SIZE, DEFAULT_ROT_SIZE);
+    const std::string& sz = getAttr<std::string>(FileChannel::ATTR_ROTATE_SIZE,
+                                                 DEFAULT_ROT_SIZE);
     pRotateStrategy_.reset(new RotateBySizeStrategy(sz));
   }
   if (FileChannel::ROT_INTERVAL == rMode_) {
@@ -254,6 +255,6 @@ FileChannel::purge() {
   }
 }
 
-}
+}  /* namespace dadi */
 
 

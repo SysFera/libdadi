@@ -111,7 +111,6 @@ Loader::parseConfig(const char *mFile, PluginInfoPtr pInfo) {
     //     pInfo->deps.push_back(v.second.get<std::string>("<xmlattr>.interface"));
     // } catch (const ptree_bad_path& e) {
     // }
-
   } catch (const xml_parser_error& e) {
     std::cerr << e.what();
   }

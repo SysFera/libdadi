@@ -418,7 +418,7 @@ setProperty(std::string key, const T& value) {
  * @param v: a vector to print
  */
 template<class T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v){
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
   std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, " "));
   return os;
 }
