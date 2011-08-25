@@ -183,7 +183,7 @@ La fig. \ref{fig:archiGlobale} illustre l'architecture globale d'une plate-forme
 
 L'intérêt de cette étude est de définir les besoins lorsque cette suite logicielle s'intégre dans l'écosystème d'une entreprise ou de n'importe
 quel environnement privé. En effet, la particularité d'un système distribué est la mise en commun de plusieurs entités, ce qui introduit donc des problématiques
-de sécurité lorsque qu'un noeud malveillant s'introduit dans le réseau ou encore lorsqu'un utilisateur à accès à des
+de sécurité lorsque qu'un noeud malveillant s'introduit dans le réseau ou encore lorsqu'un utilisateur a accès à des
 informations ou à des services incompatibles avec ses privilèges. Il faut donc définir une politique de sécurité qui répond aux 
 besoins des entreprises en terme de sécurité. D'ou les interrogations suivantes: 
 
@@ -214,11 +214,97 @@ s'adapter aux différentes infrastructures dans lesquelles \textit{DIET} sera int
 \section{Analyse de l'existant}
 
 
+\subsection{Les systèmes cryptographiques}
+
+La question qui nous préoccupe en ce moment est de savoir: quel est l'interêt des systèmes cryptographiques?\\ 
+La réponse est simple en ce sens que les systèmes cryptographiques ont pour principal objectif de lutter contre les différentes menaces
+qui peuvent survenir lors d'un échange entre des protagonistes via un canal de communication. Cette lutte se traduit par différentes 
+fonctionnalité qui peuvent se résumer dans le sigle \textbf{CAIN}: 
+
+\begin{itemize}
+ \item \textbf{Confidentialité:} mécanisme de chiffrement empêchant l'accès aux informations transitant via un canal à ceux qui n'en sont pas destinataires. Les
+ messages cryptés peuvent être lus mais pas déchiffrés.
+ \item \textbf{Authentification:} détection d'une usurpation d'identité en mettant en place des mécanismes garantissant l'identité des proganistes mise en relation.
+ \item \textbf{Intégrité:} vérification que le message n'a pas été altéré au cours de son tranfert. Cette vérification peut se faire à l'aide 
+ de fonction de hachage qui génère une empreinte de taille fixe à partir du message original et le destinaire vérifie que le hachage 
+ du message avec la même fonction de hachage donne la même empreinte.  
+ \item \textbf{Non-répudiation:} C'est une protection des protagonistes non plus contre un tiers mais entre entre eux en garatissant que celui 
+qui a envoyé un message reconnaise bien qu'il l'a fait.\\%(recommandé électronique)
+\end{itemize}
+
+
+
+\subsubsection{Chiffrement symétrique}
+
+L'idée du chiffrement symétrique (ou chiffrement à clé secrète) est de définir une clé qui sert pour le chiffrement et le déchiffrement. 
+
+\begin{itemize}
+ \item \textbf{Avantage:} efficacité en temps de calcul pour le chiffrement et le déchiffrement.
+ \item \textbf{Faiblesse:} Secret absolu de la clé privée. En effet, l'obtention de la clé privée donne accès au contenu de message.
+\end{itemize}
+
+Nous pouvons utiliser \textit{l'analogie au coffre fort} pour caractériser les systèmes de chiffrement à clé secrète: Celui qui possède
+la clé peut ouvrir le coffre fort.
+
+Les principaux algorithmes utilisant la technique de chiffrement symétrique sont: \textit{DES (Data Encryption Standard), AES (Advanced Encryption Standard) ou
+3-DES (triple-DES)}.  
+
+\subsubsection{Chiffrement asymétrique}
+
+Pour définir le chiffrement asymétrique (ou chiffrement à clé publique), il est important de comprendre l'évolution des interrogations gravitant autour du chiffrement plus ancien à clé secrète:
+Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
+Pour répondre à cette question, il est important de se demander \hyperlink{Dumas07}{[DUMAS07]}: 
+\begin{itemize}
+\item Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?
+\item Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?
+\end{itemize}
+   
+C'est pour répondre à ces questions qu'en 1976, les bases des systèmes cryptographiques à clé publique ont été introduites par Diffie et Hellman. Le principe
+de base de ces systèmes est de publier une clé publique pour le chiffrement et seulement le détenteur de la clé privée correspondante est capable
+de déchiffrer le message. 
+
+\begin{itemize}
+ \item \textbf{Avantages:} ce chiffrement assure l'authentification et introduit des difficultés intrinsèques de retrouver à partir de la clé publique et du message, la clé privée qui sert au déchiffrement. La clé publique
+ peut donc circuler librement sur le réseau. 
+ \item \textbf{Faiblesses:} ce chiffrement est inefficace pour les grandes quantités d'information et plus lent que le chiffrement à clé secrète. Autre problématique: Comment garantir l'appartenance d'une clé publique à son propriétaire? 
+\end{itemize}
+
+Nous pouvons utiliser \textit{l'analogie avec une boite aux lettres} donc seul le destinataire a la clé:
+\begin{itemize}
+ \item tout le monde peut envoyer du courrier au destinataire.
+ \item seul le destinataire peut lire le courrier déposé dans sa boite aux lettres.
+\end{itemize}  
+
+L'algorithme le plus répandu et le plus utilisé basé sur le chiffrement à clé publique est \textit{RSA} du nom de ces concepteurs: \textit{Rivest Shamir et
+Adleman}.
+
+Une problématique n'est pas sans reste, c'est celle présentée plus haut et associée à la question suivante: Comment garantir l'appartenance d'une clé publique à son propriétaire?\\   
+La réponse à cette question définit la notion d'infrastructures à clés publiques (\textit{PKI}\footnote{Public Key Infrastructure} en anglais) dans laquelle un tiers de confiance appelée \textbf{\textit{CA}}\footnote{
+ Certification Authority (autorité de certification en français)} 
+rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
+ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc).
+
+\subsubsection{Fonctions de hachage cryptographiques}
+
+Une fonction de hachage peut se définir comme une application qui transforme une chaine de taille quelconque en une cha\^ine de taille fixe appelée empreinte. 
+La particularité des fonctions de hachage cryptographiques est qu'elles vérifient des propriétés particulières qui rendent difficiles 
+la reconstitution du message en évitant les cas de collision, c'est à dire que deux entrées différentes aient le même résultat par la même
+fonction de hachage. Elles ne permettent donc pas de reconstituer le message mais de l'identifier; il est ainsi possible 
+de vérifier l'intégrité d'un message en comparant une empreinte générée avant un transfert avec l'empreinte du message re\c{c}u par la même
+fonction de hachage.  
+
+Les fonctions de hachage sont particulièrement utiles en cryptographiques car elles permettent de réduite la quantité d'information à crypter: au lieu de crypter une grande quantité d'information, seulement l'empreinte
+qui est de taille fixe, est crytpée. 
+
+Nous pouvons utiliser \textit{l'analogie de empreinte digitale} qui permet non pas de définir d'autres caractéristiques d'une personne mais plut\^ot
+de l'identifier. Il existe plusieurs fonctions de hachage pratique bien repandues telles que: \textit{MD5, SHA-1, SHA-256, SHA-512, Whirpool}. Il
+faut néanmoins noter que \textit{MD5 et SHA-1} ne sont plus réputées s\^ur aujourd'hui \hyperlink{Dumas07}{[DUMAS07]}.
+
 \subsection{PGP}
 
-Il existe deux principaux types de chiffrement: sysmtrique et asymétrique. L'inconvénient du chiffrement sysmétrique est l'existance 
+Il existe deux principaux types de chiffrement: symétrique et asymétrique. L'inconvénient du chiffrement symétrique est l'existance 
 au préalable d'un canal confidentiel pour échanger la clé et la clé symétrique ne garantit pas la non-répudiation puisque l'expéditeur
-et le destinataire utilise la même clé. Aussi, les systèmes sysmétriques restent plus lents. C'est pour cette raison qu'il est intéressant
+et le destinataire utilise la même clé. Aussi, les systèmes asymétriques restent plus lents et inefficace pour les pour les grandes quantités d'information. C'est pour cette raison qu'il est intéressant
 d'utiliser des systèmes hybrides qui combinent les avantages des systèmes symétriques et asymétriques en minimisant les inconvénients de
 chacun d'ou l'apparition de protocoles hybrides comme PGP\footnote{Pretty Good Privacy}. 
 
@@ -244,20 +330,25 @@ Pour l'authenfication du message (validation) et de l'identité de l'expéditeur:
 
 Une application de PGP est le programme SSH.
 
-\subsection{SSH}
+%\subsection{SSH}
 
-SSH est protocole sécurisé de connexion à distance qui se compose de trois principale parties:
+%SSH est protocole sécurisé de connexion à distance qui se compose de trois principale parties:
 
-\begin{enumerate}
- \item une couche transport qui permet l'authenfication du serveur, la confidentialité et l'intégrité,
- \item une couche authentification de l'utilisateur,
- \item un protocole de connexion qui permet le passage de plusieurs canaux logiques.
-\end{enumerate}
+%\begin{enumerate}
+% \item une couche transport qui permet l'authenfication du serveur, la confidentialité et l'intégrité,
+% \item une couche authentification de l'utilisateur,
+% \item un protocole de connexion qui permet le passage de plusieurs canaux logiques.
+%\end{enumerate}
 
 \subsection{Kerberos}
 
 \section{Analyse des besoins}
 Confidentialité, authentification, intégrité, non-répudiation ou tout?
+Phase de génération de certificat à décrire. 
+Utilisation de certificat?
+Identification des utilisateurs, des éléments DIET (machines) .
+Souplesse de stratégie de sécurité.
+
 
 \section{ Authentification des utilisateurs }
 
@@ -327,8 +418,7 @@ Les administrateurs enregistrent les machines et spécifient pour chaque machine 
      
 \textbf{ Pré-{}requis:} l'autorité de certification doit être dans un environnement sûr.
     
-Cette deuxième proposition est inspirée du module GSI \footnote{Grid Security Infrastructure} de Globus basé sur les mécanismes de PKI \footnote{
-Public Key Infrastructure} \hyperlink{Dumas07}{[DUMAS07]} avec des certificats X509. Le module GSI s'appuie sur une implémentation de la GSS-{}API\footnote{
+Cette deuxième proposition est inspirée du module GSI \footnote{Grid Security Infrastructure} de Globus basé sur les mécanismes de PKI avec des certificats X509. Le module GSI s'appuie sur une implémentation de la GSS-{}API\footnote{
 Generic Security Services API 
 }. Dans ce modèle, chaque utilisateur et chaque service sont identifiés par des certificats. 
 
@@ -356,50 +446,50 @@ s'appuient sur les standards utilisants des certificats: TLS ou WS-Security et W
 \end{figure}
 
 
-\subsubsection{ Les infrastructures à clés publiques (PKI en anglais) }
+%\subsubsection{ Les infrastructures à clés publiques (PKI en anglais) }
     
-Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
-Pour répondre à cette question, il est important de se demander \hyperlink{Dumas07}{[DUMAS07]}: 
-\begin{itemize}
-\item Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?
-\item Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?
-\end{itemize}
+%Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
+%Pour répondre à cette question, il est important de se demander \hyperlink{Dumas07}{[DUMAS07]}: 
+%\begin{itemize}
+%\item Avant d'utiliser un chiffrement à clé secrète (chiffrement symétrique), comment convenir d'une clé?
+%\item Comment établir une communication sécurisée entre deux entités sans aucun échange préalable de clé?
+%\end{itemize}
    
-C'est pour répondre à ces questions qu'en 1976, les bases des systèmes cryptographiques à clé publique ont été introduites par Diffie et Hellman. Le principe
-de base de ces systèmes est de publier une clé publique pour le chiffrement et seulement le détenteur de la clé privée correspondante est capable
-de déchiffrer le message. 
+%C'est pour répondre à ces questions qu'en 1976, les bases des systèmes cryptographiques à clé publique ont été introduites par Diffie et Hellman. Le principe
+%de base de ces systèmes est de publier une clé publique pour le chiffrement et seulement le détenteur de la clé privée correspondante est capable
+%de déchiffrer le message. 
    
-Ce fonctionnement introduit une nouvelle question:
+%Ce fonctionnement introduit une nouvelle question:
 
-\begin{itemize}
-\item Comment garantir l'appartenance d'une clé publique à son propriétaire?
-\end{itemize}
+%\begin{itemize}
+%\item Comment garantir l'appartenance d'une clé publique à son propriétaire?
+%\end{itemize}
    
-La réponse à cette question définit la notion d'infrastructures à clés publiques dans laquelle un tiers de confiance appelée CA\footnote{
- Certification Authority (autorité de certification en français)} 
-rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
-ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-{}mail pour une personne, adresse IP etc).
+%La réponse à cette question définit la notion d'infrastructures à clés publiques dans laquelle un tiers de confiance appelée CA\footnote{
+% Certification Authority (autorité de certification en français)} 
+%rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
+%ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc).
  
       
-\subsubsection*{ Les fonctions d'une architecture PKI \hyperlink{Securix}{[Securix]} }
+%\subsubsection*{ Les fonctions d'une architecture PKI \hyperlink{Securix}{[Securix]} }
     
-\begin{itemize}
-\item \textbf{ Enregistrement : } C'est un procédé par lequel le propriétaire qui sera le sujet du certificat se fera connaître auprès d'une AC.
-\item \textbf{ Certification : } C'est un processus par lequel une autorité de certification (AC) délivre un certificat pour un propriétaire de clé publique et adresse ce certificat au propriétaire ou le publie dans un dépôt de stockage. 
-\item \textbf{ Génération de clé : } Dans certains cas, le propriétaire peut générer des paires de clés depuis un environnement local et transmettre la requête d'enregistrement vers l'Autorité de Certification. 
-Dans d'autres cas, les paires de clés peuvent être générées par une AC ou une AE (autorité d'enregistrement) via un générateur de clés. 
-Le processus de distribution de la clé privée et du certificat vers le propriétaire sera dans ce cas réalisé de manière sécurisée. 
-\item \textbf{ Recouvrement de clé : } Les clés utilisées pour chiffrer des données, pour le transport ou les échanges peuvent avoir besoin d'être archivées pour satisfaire à des exigences de politique de sécurité. 
-L'opération d'archivage nécessite par ailleurs une étape de récupération en cas de perte. Le recouvrement est un processus qui autorise la récupération de clés quand une clé est perdue et que des informations précédemment chiffrées ont besoin d'être utilisées. 
-Les opérations d'archivage et de recouvrement peuvent être réalisées soit par une AC soit par un système de recouvrement de clés séparé de l'AC. 
-\item \textbf{ Mise à jour des clés : } Toutes les clés doivent pouvoir être remplacées sur une base régulière, quand une clé expire ou qu'elle est compromise. 
-Si la mise à jour des clés se produit en réponse à une expiration de sa date de péremption, la transition vers la nouvelle clé doit se produire avec facilité, cela exige néanmoins des mécanismes de support de notification de mise à jour. 
-Dans le cas d'une compromission de clé, le certificat doit être déclaré invalide, et la nouvelle validité du certificat et sa disponibilité doivent être annoncées.  
-\item \textbf{ Revocation : } Dans la plupart des cas, un certificat reste valide jusqu'à ce que sa période de validité expire. Il y a, cependant, un certain nombre de scénarios qui rendent nécessaire la révocation avant la fin de la période de validité d'un certificat. 
-Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire est compromise etc.
-\end{itemize}
+%\begin{itemize}
+%\item \textbf{ Enregistrement : } C'est un procédé par lequel le propriétaire qui sera le sujet du certificat se fera connaître auprès d'une AC.
+%\item \textbf{ Certification : } C'est un processus par lequel une autorité de certification (AC) délivre un certificat pour un propriétaire de clé publique et adresse ce certificat au propriétaire ou le publie dans un dépôt de stockage. 
+%\item \textbf{ Génération de clé : } Dans certains cas, le propriétaire peut générer des paires de clés depuis un environnement local et transmettre la requête d'enregistrement vers l'Autorité de Certification. 
+%Dans d'autres cas, les paires de clés peuvent être générées par une AC ou une AE (autorité d'enregistrement) via un générateur de clés. 
+%Le processus de distribution de la clé privée et du certificat vers le propriétaire sera dans ce cas réalisé de manière sécurisée. 
+%\item \textbf{ Recouvrement de clé : } Les clés utilisées pour chiffrer des données, pour le transport ou les échanges peuvent avoir besoin d'être archivées pour satisfaire à des exigences de politique de sécurité. 
+%L'opération d'archivage nécessite par ailleurs une étape de récupération en cas de perte. Le recouvrement est un processus qui autorise la récupération de clés quand une clé est perdue et que des informations précédemment chiffrées ont besoin d'être utilisées. 
+%Les opérations d'archivage et de recouvrement peuvent être réalisées soit par une AC soit par un système de recouvrement de clés séparé de l'AC. 
+%\item \textbf{ Mise à jour des clés : } Toutes les clés doivent pouvoir être remplacées sur une base régulière, quand une clé expire ou qu'elle est compromise. 
+%Si la mise à jour des clés se produit en réponse à une expiration de sa date de péremption, la transition vers la nouvelle clé doit se produire avec facilité, cela exige néanmoins des mécanismes de support de notification de mise à jour. 
+%Dans le cas d'une compromission de clé, le certificat doit être déclaré invalide, et la nouvelle validité du certificat et sa disponibilité doivent être annoncées.  
+%\item \textbf{ Revocation : } Dans la plupart des cas, un certificat reste valide jusqu'à ce que sa période de validité expire. Il y a, cependant, un certain nombre de scénarios qui rendent nécessaire la révocation avant la fin de la période de validité d'un certificat. 
+%Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire est compromise etc.
+%\end{itemize}
   
-Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
+%Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
  
 \subsubsection{ Une infrastructures à clé publique pour DIET V3 }
     
@@ -509,7 +599,7 @@ impliqué dans la transaction avec sa clé privée (éventuellement une passphrase a
 \begin{center}
 \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{2.5cm}|}
   \hline
-  \textbf{Proposition} & \textbf{Souplesse d'implémentation} & \textbf{Authenfication unique} & \textbf{Chiffrement des données sur le réseau} & \textbf{vulnérabilité} \\
+  \textbf{Proposition} & \textbf{Souplesse d'implémentation} & \textbf{Authentification unique} & \textbf{Chiffrement des données sur le réseau} & \textbf{vulnérabilité} \\
   \hline
   Utilisation de UMS & \textcolor{red}{x} & \textcolor{red}{x} &  & \textcolor{red}{xx}  \\
   \hline
