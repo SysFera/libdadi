@@ -306,11 +306,12 @@ Nous pouvons utiliser \textit{l'analogie de empreinte digitale} qui permet non p
 de l'identifier. Il existe plusieurs fonctions de hachage en pratique bien repandues telles que: \textit{MD5, SHA-1, SHA-256, SHA-512, Whirpool}. Il
 faut néanmoins noter que \textit{MD5 et SHA-1} ne sont plus réputées s\^ur aujourd'hui \hyperlink{Dumas07}{[DUMAS07]}.
 
-\subsection{PGP}
+\subsection{Quelques protocoles et environnements sécurisés}
+\subsubsection{PGP}
 
 Il existe deux principaux types de chiffrement: symétrique et asymétrique. L'inconvénient du chiffrement symétrique est l'existance 
 au préalable d'un canal confidentiel pour échanger la clé et la clé symétrique ne garantit pas la non-répudiation puisque l'expéditeur
-et le destinataire utilise la même clé. Aussi, les systèmes asymétriques restent plus lents et inefficace pour les pour les grandes quantités d'information. C'est pour cette raison qu'il est intéressant
+et le destinataire utilise la même clé. Aussi, les systèmes asymétriques restent plus lents et inefficaces pour les grandes quantités d'information. C'est pour cette raison qu'il est intéressant
 d'utiliser des systèmes hybrides qui combinent les avantages des systèmes symétriques et asymétriques en minimisant les inconvénients de
 chacun d'ou l'apparition de protocoles hybrides comme PGP\footnote{Pretty Good Privacy}. 
 
@@ -328,7 +329,7 @@ Le destinataire effectuera les opérations de déchiffrement suivante:
  \item Déchiffrement du texte en utilisant DES avec la clé K.
 \end{enumerate}
 
-Pour l'authenfication du message (validation) et de l'identité de l'expéditeur:
+Pour l'authentification du message (validation) et de l'identité de l'expéditeur:
 \begin{enumerate}
  \item Génération d'un code qui identifie, par un nombre de taille fixe, le texte, par exemple une fonction d'une hachage. 
  \item Chiffrement de ce code en utilisant RSA avec la clé privée de l'émetteur du message.
@@ -341,12 +342,12 @@ Une application de PGP est le programme SSH.
 %SSH est protocole sécurisé de connexion à distance qui se compose de trois principale parties:
 
 %\begin{enumerate}
-% \item une couche transport qui permet l'authenfication du serveur, la confidentialité et l'intégrité,
+% \item une couche transport qui permet l'authentification du serveur, la confidentialité et l'intégrité,
 % \item une couche authentification de l'utilisateur,
 % \item un protocole de connexion qui permet le passage de plusieurs canaux logiques.
 %\end{enumerate}
 
-\subsection{Kerberos}
+\subsubsection{Kerberos}
 
 Inconvénients: géré de fa\c{c}on centralisée.
 
@@ -361,6 +362,8 @@ Quels sont les propriétés de sécurité à garantir?
 Interopérabilité.
 Le système mis en place doit pouvoir s'interfacer le plus facilement possible avec les politiques de sécurité en vigueur dans les 
 entreprises.
+Préférable authentification distribuée et non centralisée.
+
 
 \section{ Authentification des utilisateurs }
 
@@ -562,14 +565,12 @@ En effet, l'architecture proposée s'articulant autour d'une PKI permet de couvri
  \item Confidentialité: seul le destinataire est capable de lire un message qui lui est destiné grâce au mécanisme de chiffrement asymétrique,
  \item Authentification: l'identité des entités mises en relation est assuré grâce au mécanisme de certification,
  \item intégrité: %(le message reste intact pendant le transfert)
- \item Non-répudiation: \\%(recommandé électronique)
+ \item Non-répudiation:%(recommandé électronique)
 \end{itemize}
-
-\textcolor{red}{A checker --- Le chiffrement d'une information pour la confidentialité peut éventuellement causer des pbs pour une donnée de plus d'un giga par 
-exemple à chiffrer avec RSA il faudrait deux ans.}
 
 \subsubsection*{ Scénario d'une requête utilisateur via DIET}
  
+\textcolor{red}{Il faudra uniformiser le nom des acteurs utilisé dans les scénario: soit destinateur/destinataire ou utilisateur/SeD}
 %Ancien scénario (pas valide):
 %\textcolor{gray} {
 %  \textit{ 
@@ -586,7 +587,48 @@ exemple à chiffrer avec RSA il faudrait deux ans.}
  % }
 %}  
 
-scénario 1:
+Les différents scénarios présentés ici utilisent des mécanismes basés sur des certificats X509.
+
+\textbf{scénario 1: couche transport sécurisée}
+\begin{itemize}
+\item Définir un mécanisme de gestion de certificats (création et révocation de certificats).
+\item Laisser la couche transport qui encapsule SSL gérer le chiffrement des données. Pour cela, rendre disponible le certificat 
+de l'autorité de certification sur la plateforme et chaque utilisateur doit \^etre détenteur d'un certificat signé par l'autorité.
+\item Pour chaque communication, le certificat du protagoniste et celui de l'autorité sont fournis aux primitives de SSL.\\
+\end{itemize}
+
+\textbf{scénario 2: intégrité des données}\\
+Le principe général de ce scénario est de valider l'intégrité des données.
+\begin{itemize}
+\item Générer un haché de la donnée à envoyer par une fonction de hachage cryptographique.
+%\item Chiffrer le haché obtenu par une méthode de chiffrement (clé secrète ou clé publique)
+\item Transmettre la donnée et le haché au destinataire.
+\item Le destinataire vérifie que l'empreinte de la donnée re\c{c}ue par 
+la m\^eme fonction de hachage est identique au haché. \\
+\end{itemize}
+
+\textbf{scénario 3: confidentialité et authentification pour vérifier l'intégrité des données}\\
+Le principe général de ce scénario est de valider l'intégrité des données.
+\begin{itemize}
+\item Générer un haché de la donnée à envoyer par une fonction de hachage cryptographique.
+\item Chiffrer le haché obtenu avec la clé publique du destinataire
+\item Transmettre la donnée et le haché crypté au destinataire.
+\item Le destinataire déchiffre le haché avec sa clé privée et vérifier que l'empreinte de la donnée re\c{c}ue par 
+la m\^eme fonction de hachage est identique au haché déchiffré. \\
+\end{itemize}
+
+
+\textbf{scénario 4: confidentialité, authentification et non-répudiation}
+\begin{itemize}
+\item Chiffrer la donnée à envoyer en utilisant la clé publique du destinataire
+\item Envoyer le message au destinaire et son certificat.
+\item Le destinataire déchiffre le message re\c{c}u avec sa clé privée et chiffre sa réponse avec la clé publique disponible
+via le certificat re\c{c}u.
+\end{itemize}
+La faiblesse de ce scénario survient lorsque la quantité d'information à chiffrer est considérable.\\
+
+\textbf{scénario 5: confidentialité, authentification, non-répudiation et efficacité en terme de calcul}\\
+Ce scénario va combler les lacunes du scénario précédent en proposant un chiffrement hybride du type PGP. 
 \begin{itemize}
 \item Un utilisateur fait une requête via DIET.
 \item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) qui répondra à sa requête.
@@ -600,10 +642,39 @@ de l'utilisateur a bien été signé par l'autorité de certification du système et 
 \item L'élement de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
 
-\textit{Pour le scénario concernant l'envoi d'une requête, il est important de noter qu'il sera fortement liée à la couche de
-transport utilisée. En considérant l'exemple d'utilisation de ssl avec omniorb (omniORB-4.1.4/src/examples/ssl\_echo), les informations
-nécessaires pour la couche ssl encapsulée par omniorb sont: le certificat de l'autorité de certification et le certificat du noeud 
-impliqué dans la transaction avec sa clé privée (éventuellement une passphrase associée à la clé privée).}
+
+\textbf{Dans la plupart des scénarios précédent, l'utilisateur de la plateforme a besoin du certificat du SeDs capable de répondre à sa requête et
+il faudra donc prévoir un mécanisme permettant d'avoir ce certificat permettant ainsi de chiffrer les données à transmettre.}
+
+\textbf{scénario 6: chiffrement communication avec le SeD (\textit{Server Daemon})}\\
+Ce scénario est très riche en ce sens qui permet non seulement d'authentifier l'utilisateur mais aussi le SeD en garantissant une communication
+chiffré avec confidentialité, authentification et non répudiation.
+\begin{itemize}
+\item Un utilisateur fait une requête via DIET pour avoir le certificat d'un SeD disponible pour répondre à une requête.
+\item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) le moins occupé à un instant donné et qui répondra à sa requête.
+\item L'utilisateur chiffre son message avec la clé publique du SeD qui répondra à sa requête.
+\item L'élement de la hiérarchie DIET qui recoit la requête déchiffre le message via sa clé privée et vérifie que le certificat
+de l'utilisateur a bien été signé par l'autorité de certification du système et qu'il n'a pas été revoqué.
+%\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
+%\item Le CA confirme ou refute le certificat.
+%\item Si le certificat est valide, le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
+%hiérarchie DIET correspondant.
+\item L'élement de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.\\
+\end{itemize}
+
+\textbf{scénario 7: chiffrement de la réponse du SeD}\\
+\begin{itemize}
+\item Un utilisateur fait une requête via DIET en envoyant son certificat.
+\item L'élement de la hiérarchie DIET qui recoit la requête chiffre sa réponse avec la clé publique de l'utilisateur.
+\end{itemize}
+
+Dans ce scénario, seul les résultats sont chiffrés et pas les requête ce qui peut être dangereux car elles peuvent être modifiées par un
+\textit{man in the middle}.
+
+%\textit{Pour le scénario concernant l'envoi d'une requête, il est important de noter qu'il sera fortement liée à la couche de
+%transport utilisée. En considérant l'exemple d'utilisation de SSL avec omniorb (omniORB-4.1.4/src/examples/SSL\_echo), les informations
+%nécessaires pour la couche SSL encapsulée par omniorb sont: le certificat de l'autorité de certification et le certificat du noeud 
+%impliqué dans la transaction avec sa clé privée (éventuellement une passphrase associée à la clé privée).}
 
 \subsection{Grille de comparaison des propositions}
 
@@ -655,7 +726,7 @@ gestion de certificats c'est l'utilisation d'une entité sensible: l'autorité de 
 \subsection{Outils logiciels}
 
 Les environnements \textit{opensource} supportant le protocole \textit{Secure Sockets Layer (SSL)} et \textit{Transport Layer Security (TLS)} susceptibles de nous accompagner au cours de notre implémentation sont:
-Openssl (\url{http://www.openssl.org/}) et Botan (\url{http://botan.randombit.net/}).
+OpenSSL (\url{http://www.openSSL.org/}) et Botan (\url{http://botan.randombit.net/}).
 
 Le tableau ci-dessous résume les avantages et les inconvenients de ces deux outils par rapport à nos exigences.
 
@@ -664,14 +735,14 @@ Le tableau ci-dessous résume les avantages et les inconvenients de ces deux outi
   \hline
   \textbf{Outils} & \textbf{notoriété} & \textbf{implémentation SSL et TLS} & \textbf{Code structuré} & \textbf{Documentation} & \textbf{API C++}& \textbf{Chiffrement matériel} & \textbf{Licence pour une version libre} \\
   \hline
-  Openssl & \textcolor{red}{xx} & \textcolor{red}{xx} &  & & & \textcolor{red}{xx}& \textcolor{red}{x}\\
+  OpenSSL & \textcolor{red}{xx} & \textcolor{red}{xx} &  & & & \textcolor{red}{xx}& \textcolor{red}{x}\\
   \hline
   Botan & \textcolor{red}{x} & \textcolor{red}{x} & \textcolor{red}{x} & \textcolor{red}{x} & \textcolor{red}{x}& \textcolor{red}{x} & \textcolor{red}{xx} \\
   \hline
 \end{tabular}
 \end{center}
 
-Il faut noter que Botan utilise une licence BSD deux clauses qui est très permissive tandis que la licence openssl avec sa clause 
+Il faut noter que Botan utilise une licence BSD deux clauses qui est très permissive tandis que la licence openSSL avec sa clause 
 publicité est incompatible avec une licence GPL.
 
 %\begin{center}
@@ -679,11 +750,11 @@ publicité est incompatible avec une licence GPL.
 %  \hline
 %  \textbf{Outils} & \textbf{Avantages} & \textbf{Inconvénients} \\
 %  \hline
-%  Openssl & 
+%  OpenSSL & 
 %    \begin{itemize} 
 %    \item notoriété,
 %    \item implémentation robuste de SSL et TLS
-%    \item license Openssl (clause de publicité)
+%    \item license OpenSSL (clause de publicité)
 %    \end{itemize}   
 % & 
 %  \begin{itemize} 
@@ -770,7 +841,7 @@ Voici quelques couches de communication qui utilisent SSL:
  \item \textbf{Advanced Message Queuing Protocol (AMQP):} 
     \begin{itemize}
       \item QPid : \url{http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html}
-      \item RabbitMQ : \url{http://www.rabbitmq.com/ssl.html}
+      \item RabbitMQ : \url{http://www.rabbitmq.com/SSL.html}
     \end{itemize}
 
 \end{enumerate}
@@ -784,7 +855,7 @@ Voici quelques couches de communication qui utilisent SSL:
 %* amqp:
 %- QPid:
 %http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html\\
-%- RabbitMQ: http://www.rabbitmq.com/ssl.html 
+%- RabbitMQ: http://www.rabbitmq.com/SSL.html 
 
 
 %\subsection{Bibliography}
