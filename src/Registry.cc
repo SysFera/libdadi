@@ -33,7 +33,10 @@ Registry::addPath(const std::string& path) {
 
 void
 Registry::load() {
-  using namespace boost::filesystem;
+  using boost::filesystem::directory_iterator;
+  using boost::filesystem::exists;
+  using boost::filesystem::path;
+
   // loop over all registred directories
   BOOST_FOREACH(std::string d, paths_) {
     // Jump to the next if the current directory does not exist

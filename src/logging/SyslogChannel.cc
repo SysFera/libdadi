@@ -18,7 +18,7 @@ const std::string SyslogChannel::ATTR_OPTION = "option";
 const std::string SyslogChannel::ATTR_FACILITY = "facility";
 
 SyslogChannel::SyslogChannel()
- : option_(SYSLOG_CONS), facility_(SYSLOG_USER), open_(false) {}
+  : option_(SYSLOG_CONS), facility_(SYSLOG_USER), open_(false) {}
 
 SyslogChannel::SyslogChannel(const std::string& name,
                              unsigned int option,
