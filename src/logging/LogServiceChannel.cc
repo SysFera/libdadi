@@ -7,7 +7,7 @@
  *
  */
 
-#include <Logging/LogServiceChannel.hh>
+#include "Logging/LogServiceChannel.hh"
 #include <iostream>
 #include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>

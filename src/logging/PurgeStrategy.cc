@@ -7,7 +7,7 @@
  *
  */
 
-#include <Logging/PurgeStrategy.hh>
+#include "Logging/PurgeStrategy.hh"
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
 

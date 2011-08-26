@@ -7,7 +7,7 @@
  *
  */
 
-#include <Logging/Logger.hh>
+#include "Logging/Logger.hh"
 #include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>
 

@@ -7,7 +7,7 @@
  *
  */
 
-#include <Logging/SyslogChannel.hh>
+#include "Logging/SyslogChannel.hh"
 #include <syslog.h>
 #include <Logging/Message.hh>
 

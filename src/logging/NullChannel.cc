@@ -7,7 +7,7 @@
  *
  */
 
-#include <Logging/NullChannel.hh>
+#include "Logging/NullChannel.hh"
 
 namespace dadi {
 

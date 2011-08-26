@@ -8,7 +8,7 @@
  *
  */
 
-#include <Logging/MultiChannel.hh>
+#include "Logging/MultiChannel.hh"
 #include <boost/thread/locks.hpp>
 #include <Logging/Message.hh>
 
