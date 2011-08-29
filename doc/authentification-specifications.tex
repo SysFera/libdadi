@@ -171,7 +171,7 @@ et utilise le \textit{paradigme ASP (Application Service Provider)} ou \textit{S
 d'un ensemble de ressources (calcul, stockage, réseau, etc) gr\^ace à des services pré-installés. 
 
 Nous pouvons définir cette suite comme une bo\^ite à outils qui fait coopérer des clients et des serveurs en permettant, pour chaque 
-requête de clients, de trouver le meilleur serveur capable de répondre à la requête en terme de performance, de capacité ou de co\^ut (cette résolution pouvant être séquentielle ou parallèle).
+requête cliente, de trouver le meilleur serveur capable de répondre à la requête en terme de performance, de capacité ou de co\^ut (cette résolution pouvant être séquentielle ou parallèle).
 La fig. \ref{fig:archiGlobale} illustre l'architecture globale d'une plate-forme distribuée gérée par SysFera-DS.
 
 \begin{figure}[!h]
@@ -219,20 +219,20 @@ s'adapter aux différentes infrastructures dans lesquelles \textit{DIET} sera int
 La question qui nous préoccupe en ce moment est de savoir: quel est l'interêt des systèmes cryptographiques?\\ 
 La réponse est simple en ce sens que les systèmes cryptographiques ont pour principal objectif de lutter contre les différentes menaces
 qui peuvent survenir lors d'un échange entre des protagonistes via un canal de communication. Cette lutte se traduit par différentes 
-fonctionnalité qui peuvent se résumer dans le sigle \textbf{CAIN}: 
+fonctionnalités qui peuvent se résumer dans le sigle \textbf{CAIN}: 
 
 \begin{itemize}
  \item \textbf{Confidentialité:} mécanisme de chiffrement empêchant l'accès aux informations transitant via un canal à ceux qui n'en sont pas destinataires. Les
  messages cryptés peuvent être lus mais pas déchiffrés.
- \item \textbf{Authentification:} détection d'une usurpation d'identité en mettant en place des mécanismes garantissant l'identité des proganistes mise en relation.
- \item \textbf{Intégrité:} vérification que le message n'a pas été altéré au cours de son tranfert. Cette vérification peut se faire à l'aide 
- de fonction de hachage qui génère une empreinte de taille fixe à partir du message original et le destinaire vérifie que le hachage 
- du message avec la même fonction de hachage donne la même empreinte.  
- \item \textbf{Non-répudiation:} C'est une protection des protagonistes non plus contre un tiers mais entre entre eux en garatissant que celui 
-qui a envoyé un message reconnaise bien qu'il l'a fait.\\%(recommandé électronique)
-\end{itemize}
+ \item \textbf{Authentification:} détection d'une usurpation d'identité en mettant en place des mécanismes garantissant l'identité des proganistes mises en relation.
+ \item \textbf{Intégrité:} vérification que le message n'a pas été altéré au cours de son tranfert.% Cette vérification peut se faire à l'aide 
+ %d'une fonction de hachage cryptographique qui génère une empreinte de taille fixe à partir du message original et le destinaire vérifie que le hachage 
+ %du message avec la même fonction de hachage donne la même empreinte.  
+ \item \textbf{Non-répudiation:} C'est une protection des protagonistes, non plus contre un tiers mais, entre eux en garatissant que celui 
+qui a envoyé un message reconnaisse bien qu'il l'a fait.%(recommandé électronique)
+\end{itemize} 
 
-
+Il existe deux principales catégories de chiffrement: symétrique et asymétrique. 
 
 \subsubsection{Chiffrement symétrique}
 
@@ -264,7 +264,7 @@ de base de ces systèmes est de publier une clé publique pour le chiffrement et s
 de déchiffrer le message. 
 
 \begin{itemize}
- \item \textbf{Avantages:} ce chiffrement assure l'authentification et introduit des difficultés intrinsèques de retrouver à partir de la clé publique et du message, la clé privée qui sert au déchiffrement. La clé publique
+ \item \textbf{Avantages:} ce chiffrement assure l'authentification et introduit des difficultés intrinsèques pour retrouver à partir de la clé publique et du message, la clé privée qui sert au déchiffrement. La clé publique
  peut donc circuler librement sur le réseau. 
  \item \textbf{Faiblesses:} ce chiffrement est inefficace pour les grandes quantités d'information et plus lent que le chiffrement à clé secrète. Autre problématique: Comment garantir l'appartenance d'une clé publique à son propriétaire? 
 \end{itemize}
@@ -286,8 +286,8 @@ Une problématique n'est pas sans reste, c'est celle présentée plus haut et assoc
 
 La réponse à cette question définit la notion d'infrastructures à clés publiques (\textit{PKI}\footnote{Public Key Infrastructure} en anglais) dans laquelle un tiers de confiance appelée \textbf{\textit{CA}}\footnote{
  Certification Authority (autorité de certification en français)} 
-rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
-ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc).
+rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée d'une PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
+ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc). La format le plus utilisé pour les certificats d'une PKI est celui de la norme X509.
 
 \subsubsection{Fonctions de hachage cryptographiques}
 
@@ -296,7 +296,7 @@ La particularité des fonctions de hachage cryptographiques est qu'elles vérifien
 la reconstitution du message en évitant les cas de collision, c'est à dire que deux entrées différentes aient le même résultat par la même
 fonction de hachage. Elles ne permettent donc pas de reconstituer le message mais de l'identifier; il est ainsi possible 
 de vérifier l'intégrité d'un message en comparant une empreinte générée avant un transfert avec l'empreinte du message re\c{c}u par la même
-fonction de hachage. L'idée sous-jacente étant que la modification d'un message orginal aussi simple soit-elle entraine automatiquement des modifications du haché
+fonction de hachage. L'idée sous-jacente étant que la modification d'un message orginal aussi simple soit-elle entraine automatiquement des modifications du hash
 qui peuvent être importante, ce qui participe donc à la détection d'erreurs.
 
 Les fonctions de hachage sont particulièrement utiles en cryptographiques car elles permettent de réduire la quantité d'information à crypter: au lieu de crypter une grande quantité d'information, seulement l'empreinte
@@ -331,11 +331,11 @@ Le destinataire effectuera les opérations de déchiffrement suivante:
 
 Pour l'authentification du message (validation) et de l'identité de l'expéditeur:
 \begin{enumerate}
- \item Génération d'un code qui identifie, par un nombre de taille fixe, le texte, par exemple une fonction d'une hachage. 
+ \item Génération d'un code qui identifie, par un nombre de taille fixe, le texte, par exemple une fonction de hachage. 
  \item Chiffrement de ce code en utilisant RSA avec la clé privée de l'émetteur du message.
 \end{enumerate}
 
-Une application de PGP est le programme SSH.
+Dans ce cas, un protocole à clé publique est utilisée pour échanger des clés privée. Une application de PGP est le programme SSH.
 
 %\subsection{SSH}
 
@@ -350,6 +350,7 @@ Une application de PGP est le programme SSH.
 \subsubsection{Kerberos}
 
 Inconvénients: géré de fa\c{c}on centralisée.
+\textcolor{red}{TODO}
 
 \section{Analyse des besoins}
 Confidentialité, authentification, intégrité, non-répudiation ou tout?
@@ -363,7 +364,7 @@ Interopérabilité.
 Le système mis en place doit pouvoir s'interfacer le plus facilement possible avec les politiques de sécurité en vigueur dans les 
 entreprises.
 Préférable authentification distribuée et non centralisée.
-
+Niveau de sécurité capable d'être flexible ajouter et retirer selon son désir. Niveau de sécurité définit à la demande.
 
 \section{ Authentification des utilisateurs }
 
@@ -441,7 +442,8 @@ Une spécificité de Globus est sa capacité à faire collaborer des ressources qui 
 Ceci est possible grâce à des mécanismes de délégation. La délégation dans le module GSI est obtenu par la délivrance de certificats délégués et temporaires valident de 12 à 24 heures. Il existe donc
 des proxys du certificat utilisateur qui sont générés et signés créant ainsi un chemin de confiance entre toutes les entités de 
 la grille (fig. \ref{fig:globus1}) \hyperlink{Varette07}{[VARETTE07]}. L'authentification entre deux entités et la protection des communications
-s'appuient sur les standards utilisants des certificats: TLS ou WS-Security et WS-SecureConversation qui se basent sur des messages SOAP \hyperlink{Varette07}{[VARETTE07]}.
+s'appuient sur les standards utilisant des certificats: TLS ou WS-Security et WS-SecureConversation; ces deux derniers assurent la protection des messages SOAP\footnote{SOAP est un acronyme de \textit{Simple Object Access Protocol}. 
+C'est un protocole de message basé sur XML.} \hyperlink{Varette07}{[VARETTE07]}.
 
 %Les fig. \ref{fig:globus1} et \ref{fig:globus2}, décrites dans \hyperlink{Varette07}{[VARETTE07]}, illustrent les mécanismes de fonctionnement 
 %de Globus.
@@ -453,6 +455,23 @@ s'appuient sur les standards utilisants des certificats: TLS ou WS-Security et W
 \caption{Chemin de confiance dans GSI entre les entités de la grille}\label{fig:globus1}
 \end{figure}
 
+La fig. \ref{fig:globus2} décrit l'interaction du modèle GSI avec une architecture de calcul distribuée \hyperlink{Varette07}{[VARETTE07]}. 
+Pour qu'un tel système fonctionne, il est important qu'il y ait une table de correspondance (appelée \textit{grid-mapfile}) entre 
+l'identité globale et l'identité locale. La première étape consiste donc à définir un mécanisme de translation entre l'identité locale
+et l'identité globale de l'utilisateur dans chaque institution pour que le \textit{Proxy Utilisateur (PU)}, ensuite crée, puisse agir au nom d'un utilisateur
+pour assurer le \textit{Single Sign On}.
+
+Le \textit{Proxy Ressource (PR)} quand à lui est responsable du contr\^ole d'accès et de
+l'ordonnancement des t\^aches sur la ressource correspondante. Il interagit principalement avec des \textit{PU} après une authentification
+mutuelle basé sur leurs certificats respectifs et un protocole standard comme TLS. L'allocation de ressources et l'exécution de la tâche associée 
+ne sont possibles que si les droits de l'utilisateur concerné en fonction de la politique locale de l'institution le permettent; ces dernières
+sont identifiés par le m\^eme certificat avec l'identité de l'utilisateur, de la ressource et du processus, ce qui limite le nombre de certificat
+et facilite le passage à l'échelle. 
+
+La description précédente montre bien le niveau de complexité du module de sécurité ambitieux du middleware Globus qui fait coopérer des institutions
+avec des politiques de sécurité différentes.
+
+
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.58]{images/globus2.png}
@@ -461,6 +480,7 @@ s'appuient sur les standards utilisants des certificats: TLS ou WS-Security et W
 \end{figure}
 
 
+Dans le prochain paragraphe, nous allons décrire la couche sécurité envisagée pour la version 3 de DIET.
 %\subsubsection{ Les infrastructures à clés publiques (PKI en anglais) }
     
 %Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
@@ -505,7 +525,7 @@ s'appuient sur les standards utilisants des certificats: TLS ou WS-Security et W
 %\end{itemize}
   
 %Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
- 
+
 \subsubsection{ Une infrastructures à clé publique pour DIET V3 }
     
    
@@ -556,7 +576,9 @@ un site internet et seulement une base de données sera partagée en lecture avec 
 \caption{Mécanisme de création des certificats via un site internet}\label{fig:reqCertif2}
 \end{figure}
 
-Ce deuxième mécanisme procure une souplesse d'utilisation et détache DIET de cette gestion.\\
+Ce deuxième mécanisme procure une souplesse d'utilisation et détache DIET de cette gestion. \textcolor{red}{problème de la fig. \ref{fig:reqCertif2}
+Si le serveur est hacké toutes les clés sont disponibles donc vaut mieux que l'utilisateur génère ses propres clés.
+}\\
 
 Avant de définir les différents scénarios possibles au cours d'une requête circulant à travers notre intergiciel, il est important
 de définir des notions importantes utilisées en sécurité s'articulant autour du sigle \textit{CAIN (Confidentialité, Authenticitification, Intégrité, Non-répudiation)}.
@@ -570,7 +592,7 @@ En effet, l'architecture proposée s'articulant autour d'une PKI permet de couvri
 
 \subsubsection*{ Scénario d'une requête utilisateur via DIET}
  
-\textcolor{red}{Il faudra uniformiser le nom des acteurs utilisé dans les scénario: soit destinateur/destinataire ou utilisateur/SeD}
+\textcolor{red}{Il faudra uniformiser le nom des acteurs utilisés dans les scénarios: soit destinateur/destinataire ou utilisateur/SeD}
 %Ancien scénario (pas valide):
 %\textcolor{gray} {
 %  \textit{ 
@@ -587,7 +609,7 @@ En effet, l'architecture proposée s'articulant autour d'une PKI permet de couvri
  % }
 %}  
 
-Les différents scénarios présentés ici utilisent des mécanismes basés sur des certificats X509.
+%Les différents scénarios présentés ici utilisent des mécanismes basés sur des certificats X509.
 
 \textbf{scénario 1: couche transport sécurisée}
 \begin{itemize}
@@ -600,23 +622,40 @@ de l'autorité de certification sur la plateforme et chaque utilisateur doit \^et
 \textbf{scénario 2: intégrité des données}\\
 Le principe général de ce scénario est de valider l'intégrité des données.
 \begin{itemize}
-\item Générer un haché de la donnée à envoyer par une fonction de hachage cryptographique.
-%\item Chiffrer le haché obtenu par une méthode de chiffrement (clé secrète ou clé publique)
-\item Transmettre la donnée et le haché au destinataire.
-\item Le destinataire vérifie que l'empreinte de la donnée re\c{c}ue par 
-la m\^eme fonction de hachage est identique au haché. \\
+\item L'utilisateur génère un hash de la donnée à envoyer par une fonction de hachage cryptographique.
+%\item Chiffrer le hash obtenu par une méthode de chiffrement (clé secrète ou clé publique)
+\item L'utilisateur transmet la donnée et le hash au SeD.
+\item Le SeD vérifie que l'empreinte de la donnée re\c{c}ue par 
+la m\^eme fonction de hachage est identique au hash. \\
 \end{itemize}
 
 \textbf{scénario 3: confidentialité et authentification pour vérifier l'intégrité des données}\\
 Le principe général de ce scénario est de valider l'intégrité des données.
 \begin{itemize}
-\item Générer un haché de la donnée à envoyer par une fonction de hachage cryptographique.
-\item Chiffrer le haché obtenu avec la clé publique du destinataire
-\item Transmettre la donnée et le haché crypté au destinataire.
-\item Le destinataire déchiffre le haché avec sa clé privée et vérifier que l'empreinte de la donnée re\c{c}ue par 
-la m\^eme fonction de hachage est identique au haché déchiffré. \\
+\item L'utilisateur génère un hash de la donnée à envoyer par une fonction de hachage cryptographique.
+\item L'utilisateur chiffre le hash obtenu avec la clé publique du SeD
+\item L'utilisateur transmet la donnée et le hash crypté au destinataire.
+\item Le SeD déchiffre le hash avec sa clé privée et vérifier que l'empreinte de la donnée re\c{c}ue par 
+la m\^eme fonction de hachage est identique au hash déchiffré. \\
 \end{itemize}
+L'inconvénient du scénario précédent est qu'il nécessite au préalable pour l'utilisateur d'avoir le certificat du SeD qui répondra
+à cette requête. Il y a donc tout d'abord un échange avec DIET pour connaitre le SeD qui répondra à la requ\^ete et avoir son certificat.
 
+
+\textbf{scénario 3 (bis): authentification et intégrité des données}\\
+Le principe général de ce scénario est de valider l'intégrité des données.
+\begin{itemize}
+\item L'utilisateur génère un hash de la donnée à envoyer par une fonction de hachage cryptographique.
+\item L'utilisateur chiffre (signe) le hash obtenu avec sa clé privée
+\item L'utilisateur transmet la donnée et le hash crypté (signé) à un SeD via DIET.
+\item Le SeD déchiffre le hash avec la clé publique de l'utilisateur et vérifie que l'empreinte de la donnée re\c{c}ue par 
+la m\^eme fonction de hachage est identique au hash déchiffré. \\
+\end{itemize}
+Cette proposition comble les lacunes de la proposition précédente en évitant un échange préalable pour obtenir le certificat
+du SeD qui répondra à sa requ\^ete mais il introduit un autre problème: le certificat d'un utilisateur pouvant être publique, il
+suffit qu'un \textit{man in the middle} intercepte le certificat de l'utilisateur pour avoir accès au contenu du message. Cependant, le message
+reste authentifié car il ne peut être déchiffré que par la clé publique de l'utilisateur corerspondant. Nous évitons un co\^ut en terme d'échange mais
+nous perdons en confidentialité.  
 
 \textbf{scénario 4: confidentialité, authentification et non-répudiation}
 \begin{itemize}
@@ -644,7 +683,8 @@ de l'utilisateur a bien été signé par l'autorité de certification du système et 
 
 
 \textbf{Dans la plupart des scénarios précédent, l'utilisateur de la plateforme a besoin du certificat du SeDs capable de répondre à sa requête et
-il faudra donc prévoir un mécanisme permettant d'avoir ce certificat permettant ainsi de chiffrer les données à transmettre.}
+il faudra donc prévoir un mécanisme permettant d'avoir ce certificat permettant ainsi de chiffrer les données à transmettre. Autre solution, L'utilisateur signe 
+les infos qu'il envoie avec sa clé privée et le SeD déchiffre avec la clé publique correspondante}
 
 \textbf{scénario 6: chiffrement communication avec le SeD (\textit{Server Daemon})}\\
 Ce scénario est très riche en ce sens qui permet non seulement d'authentifier l'utilisateur mais aussi le SeD en garantissant une communication
