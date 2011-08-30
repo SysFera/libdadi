@@ -353,6 +353,33 @@ Inconvénients: géré de fa\c{c}on centralisée.
 \textcolor{red}{TODO}
 
 \section{Analyse des besoins}
+
+L'objectif de ce document est de décrire les besoins en terme de sécurité pour la version 3 de DIET. 
+La sécurité reste un axe important dans la mise en place d'une architecture distribuée mais nécessite la prise en compte 
+de contraintes logicielles et réseaux. Il est important de noter qu'il est assez difficile d'imposer la politique de sécurité d'un intergiciel dans l'environnement 
+ou il sera déployé mais il est préférable de prévoir un système de sécurité flexible qui s'intégrera facilement aux différents environnements de déploiement. 
+
+Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
+supplémentaires). Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
+utilisateurs de l'intergiciel. Les privilèges n'étant pas les mêmes et l'accès aux ressources limités aux utilisateurs de l'intergiciel, l'authentification des 
+utilisateurs est un point important. La confidentialité, l'intégrité des données et la certification des résultats sont des axes importants à considérer dans
+la solution envisagée.
+
+Les protocoles SSL/TLS se sont bien imposés dans le monde de la sécurité informatique dans les réseaux. Ces protocoles offrent les différentes fonctionnalités citées
+plus haut et se basent sur des certificats X509. 
+
+Il serait donc intéressant de se baser sur ce type de protocoles utilisant des certificats X509.
+Ce mode de communication avec l'utilisation de certificat X509 est très répandu et s'intégrera facilement avec plusieurs autres systèmes.
+
+L'implementation d'une couche de sécurité reduira les performances au niveau réseau de notre plateforme.
+L'authentification des utilisateurs, la confidentialité et l'intégrité des données restent des points importants à prendre en compte dans la 
+définition de la couche sécurité. 
+
+Les privilèges des utilisateurs seront d
+
+imbrication des niveaux de sécurité
+Opposition en terme de performance.
+
 Confidentialité, authentification, intégrité, non-répudiation ou tout?
 Phase de génération de certificat à décrire. 
 Utilisation de certificat?
@@ -365,7 +392,7 @@ Le système mis en place doit pouvoir s'interfacer le plus facilement possible av
 entreprises.
 Préférable authentification distribuée et non centralisée.
 Niveau de sécurité capable d'être flexible ajouter et retirer selon son désir. Niveau de sécurité définit à la demande.
-
+Ergonomie et facilité de création des certificats.
 \section{ Authentification des utilisateurs }
 
 \subsection{ Proposition n°1: Utilisation de UMS }
@@ -469,7 +496,9 @@ sont identifiés par le m\^eme certificat avec l'identité de l'utilisateur, de la
 et facilite le passage à l'échelle. 
 
 La description précédente montre bien le niveau de complexité du module de sécurité ambitieux du middleware Globus qui fait coopérer des institutions
-avec des politiques de sécurité différentes.
+avec des politiques de sécurité différentes. Nous allons plut\^ot nous intéresser dans ce travail à des grilles de grappes d'après la 
+catégorisation définie dans \hyperlink{Varette07}{[VARETTE07]}. Ce type de grille est moins dense en terme d'utilisateur que des grilles 
+au sens Globus et donc utilisera une politique de sécurité un peu moins complexe. 
 
 
 \begin{figure}[!h]
@@ -526,11 +555,14 @@ Dans le prochain paragraphe, nous allons décrire la couche sécurité envisagée po
   
 %Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
 
-\subsubsection{ Une infrastructures à clé publique pour DIET V3 }
-    
-   
-\subsubsection*{ Politique et definition du scénario de création des certificats }
-    
+\subsubsection{ Une infrastructure à clé publique pour DIET V3 }
+
+Dans cette section, nous proposons une infrastructure à clé publique pour DIET V3. Nous présenterons les différents modèles qui ont été proposés et l'architecture 
+définitive choisie.
+
+%Nous préciserons le mécanisme de certification
+%et la place de son autorité dans notre architecture. 
+
 \begin{itemize}
 \item Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisé. 
 \item Le certificat de l'autorité de certification est disponible par tous les utilisateurs à l'installation de DIET.  
@@ -538,8 +570,57 @@ Dans le prochain paragraphe, nous allons décrire la couche sécurité envisagée po
 en lui envoyant les informations nécessaires à son identification et sa clé publique.
 \item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
 à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc \textit{et éventuellement une demande de certification faite 
-par l'utilisateur (cf fig. \ref{fig:reqCertif})}.
+par l'utilisateur}.% (cf fig. \ref{fig:reqCertif})}.
 \end{itemize}
+    
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.45]{images/requestCertificate.png}
+\centering
+\caption{Mécanisme de création des certificats }\label{fig:reqCertif}
+\end{figure}
+    
+
+Pour la création de certificats, il y a deux possibilités:
+\begin{enumerate}
+\item l'ajout d'un utilisateur dans le système nécessite les informations concernant son identité et un \textit{request certificate}
+généré à partir de sa clé privée qui sera directement signé par le CA et stocké dans un annuaire lors de la requête d'un administrateur pour ajouter un utilisateur.
+\item Les utilisateurs enregistrés dans le système font une demande de certificat en générant un \textit{request certificate} envoyé au CA. Le CA contrôle 
+le \textit{request certificate} et génère un certificat signé pour l'utilisateur.
+\end{enumerate}  
+
+L'inconvenient de l'architecture décrite sur la fig. \ref{fig:reqCertif} est qu'elle repose sur DIET. En effet, les requêtes s'effectuent
+en passant par DIET. C'est pour cette raison que nous allons proposer une autre architecture o\`u les échanges se feront via 
+un site internet et seulement une base de données sera partagée en lecture avec le site internet (cf fig. \ref{fig:reqCertif2}).
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.45]{images/requestCertificate2.png}
+\centering
+\caption{Mécanisme de création des certificats via un site internet}\label{fig:reqCertif2}
+\end{figure}
+
+Ce deuxième mécanisme procure une souplesse d'utilisation et détache DIET de cette gestion. La création de certificat se fera via un site internet en utilisant un protocole de communication sécurisé. Une option serait que la
+génération du couple clé privée/clé publique se face via le site internet en précisant la taille de la clé à générer (fig. \ref{fig:reqCertif2}). Le principal inconvenient de
+cette option est qu'un serveur menacé donnera accès à toutes les clés du système; même si elles ne sont pas stockées, pendant le génération
+elles peuvent être récupérées.
+
+Il serait donc judicieux que chaque utilisateur crée son couple clé privée/clé publique, génère sa demande de certification et s'authentifie via le site internet en transmettant sa demande. Le
+site retournera alors le certificat signé à l'utilisateur.
+
+%\textcolor{red}{problème de la fig. \ref{fig:reqCertif2}
+%Si le serveur est hacké toutes les clés sont disponibles donc vaut mieux que l'utilisateur génère ses propres clés.}
+
+%\subsubsection*{ Politique et definition du scénario de création des certificats }
+
+%\begin{figure}[!h]
+%\centering
+%\includegraphics[scale=0.51]{images/requestCertificate.png}
+%\centering
+%\caption{Mécanisme de création des certificats }\label{fig:reqCertif}
+%\end{figure}
+    
 
 %Pour la création de certificats, il y a deux possibilités:
 %\begin{enumerate}
@@ -553,46 +634,41 @@ par l'utilisateur (cf fig. \ref{fig:reqCertif})}.
 %faire une requête sans certificat sinon la première proposition semble plus facile à considérer car le certificat est généré, signé
 %et stocké dans un annuaire à l'ajout d'un utilisateur.
 
-Le mot \textit{utilisateur} désigne le détenteur d'un certificat qui est enregistré dans le système mais 
-il existe aussi \textit{l'utilisateur du certificat} qui est celui qui veut effectuer une transaction avec un détenteur lors d'une
-requête; ce dernier récupère donc le certificat correspondant dans un annuaire et utilise la clé publique que contient le certificat dans sa transaction avec 
-le détenteur.
+%Le mot \textit{utilisateur} désigne le détenteur d'un certificat qui est enregistré dans le système mais 
+%il existe aussi \textit{l'utilisateur du certificat} qui est celui qui veut effectuer une transaction avec un détenteur lors d'une
+%requête; ce dernier récupère donc le certificat correspondant dans un annuaire et utilise la clé publique que contient le certificat dans sa transaction avec
+%le détenteur.
 
      
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.51]{images/requestCertificate.png}
-\centering
-\caption{Mécanisme de création des certificats }\label{fig:reqCertif}
-\end{figure}
 
-L'inconvenient de l'architecture décrite sur la fig. \ref{fig:reqCertif} est qu'elle repose sur DIET. En effet, les requêtes s'effectuent
-en passant par DIET. C'est pour cette raison que nous allons proposer une autre architecture o\`u les échanges se feront via 
-un site internet et seulement une base de données sera partagée en lecture avec le site internet (fig. \ref{fig:reqCertif2}).
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.51]{images/requestCertificate2.png}
-\centering
-\caption{Mécanisme de création des certificats via un site internet}\label{fig:reqCertif2}
-\end{figure}
+%L'inconvenient de l'architecture décrite sur la fig. \ref{fig:reqCertif} est qu'elle repose sur DIET. En effet, les requêtes s'effectuent
+%en passant par DIET. C'est pour cette raison que nous allons proposer une autre architecture o\`u les échanges se feront via 
+%un site internet et seulement une base de données sera partagée en lecture avec le site internet (fig. \ref{fig:reqCertif2}).
 
-Ce deuxième mécanisme procure une souplesse d'utilisation et détache DIET de cette gestion. \textcolor{red}{problème de la fig. \ref{fig:reqCertif2}
-Si le serveur est hacké toutes les clés sont disponibles donc vaut mieux que l'utilisateur génère ses propres clés.
-}\\
+%\begin{figure}[!h]
+%\centering
+%\includegraphics[scale=0.51]{images/requestCertificate2.png}
+%\centering
+%\caption{Mécanisme de création des certificats via un site internet}\label{fig:reqCertif2}
+%\end{figure}
 
-Avant de définir les différents scénarios possibles au cours d'une requête circulant à travers notre intergiciel, il est important
-de définir des notions importantes utilisées en sécurité s'articulant autour du sigle \textit{CAIN (Confidentialité, Authenticitification, Intégrité, Non-répudiation)}.
-En effet, l'architecture proposée s'articulant autour d'une PKI permet de couvrir ces notions:
-\begin{itemize}
- \item Confidentialité: seul le destinataire est capable de lire un message qui lui est destiné grâce au mécanisme de chiffrement asymétrique,
- \item Authentification: l'identité des entités mises en relation est assuré grâce au mécanisme de certification,
- \item intégrité: %(le message reste intact pendant le transfert)
- \item Non-répudiation:%(recommandé électronique)
-\end{itemize}
+%Ce deuxième mécanisme procure une souplesse d'utilisation et détache DIET de cette gestion. \textcolor{red}{problème de la fig. \ref{fig:reqCertif2}
+%Si le serveur est hacké toutes les clés sont disponibles donc vaut mieux que l'utilisateur génère ses propres clés.
+%}\\
+
+%Avant de définir les différents scénarios possibles au cours d'une requête circulant à travers notre intergiciel, il est important
+%de définir des notions importantes utilisées en sécurité s'articulant autour du sigle \textit{CAIN (Confidentialité, Authenticitification, Intégrité, Non-répudiation)}.
+%En effet, l'architecture proposée s'articulant autour d'une PKI permet de couvrir ces notions:
+%\begin{itemize}
+% \item Confidentialité: seul le destinataire est capable de lire un message qui lui est destiné grâce au mécanisme de chiffrement asymétrique,
+% \item Authentification: l'identité des entités mises en relation est assuré grâce au mécanisme de certification,
+% \item intégrité: %(le message reste intact pendant le transfert)
+% \item Non-répudiation:%(recommandé électronique)
+%\end{itemize}
 
 \subsubsection*{ Scénario d'une requête utilisateur via DIET}
  
-\textcolor{red}{Il faudra uniformiser le nom des acteurs utilisés dans les scénarios: soit destinateur/destinataire ou utilisateur/SeD}
+%\textcolor{red}{Il faudra uniformiser le nom des acteurs utilisés dans les scénarios: soit destinateur/destinataire ou utilisateur/SeD}
 %Ancien scénario (pas valide):
 %\textcolor{gray} {
 %  \textit{ 
@@ -614,10 +690,13 @@ En effet, l'architecture proposée s'articulant autour d'une PKI permet de couvri
 \textbf{scénario 1: couche transport sécurisée}
 \begin{itemize}
 \item Définir un mécanisme de gestion de certificats (création et révocation de certificats).
-\item Laisser la couche transport qui encapsule SSL gérer le chiffrement des données. Pour cela, rendre disponible le certificat 
+\item Laisser la couche transport qui encapsule SSL gérer le chiffrement des données. Pour cela, rendre disponible le certificat.
 de l'autorité de certification sur la plateforme et chaque utilisateur doit \^etre détenteur d'un certificat signé par l'autorité.
 \item Pour chaque communication, le certificat du protagoniste et celui de l'autorité sont fournis aux primitives de SSL.\\
 \end{itemize}
+%La prise en compte de la couche ssl au niveau de omniorb nécessitera que DIET prévoit au niveau de son API un flag pour définir le type protocole 
+%utilisé ou le .
+
 
 \textbf{scénario 2: intégrité des données}\\
 Le principe général de ce scénario est de valider l'intégrité des données.
