@@ -57,8 +57,10 @@ public:
    */
   enum ArchiveMode {
     AR_NONE = 0, /**< no archiving */
-    AR_NUMBER, /**< archive filename pattern: <filename>.<number++> */
-    AR_TIMESTAMP /**< archive filename pattern: <filename>.<timestamp> */
+    /** archive filename pattern: <em>filename</em>>.<em>number++</em> */
+    AR_NUMBER,
+    /** archive filename pattern: <em>filename</em>.<em>timestamp</em> */
+    AR_TIMESTAMP
   };
 
   /**

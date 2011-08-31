@@ -11,9 +11,9 @@
  *
  */
 
-#define DADI_VERSION_MAJOR 0
-#define DADI_VERSION_MINOR 9
-#define DADI_VERSION_PATCH 0
+#define DADI_VERSION_MAJOR 0  /**< libdadi major version */
+#define DADI_VERSION_MINOR 5  /**< libdadi minor version */
+#define DADI_VERSION_PATCH 0  /**< libdadi patch version */
 
 /* The Plugin interface definition (dynamic module loading). */
 #include "dadi/IPlugin.hh"

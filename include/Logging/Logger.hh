@@ -43,7 +43,7 @@ public:
    * @brief get logger name
    * @return this logger name
    * @warning loggers are recursively named following this pattern:
-   * <parent>.<logger>. Root logger is named "".
+   * <em>parent</em>.<em>logger</em>. Root logger is named "".
    */
   const std::string& getName() const;
 
