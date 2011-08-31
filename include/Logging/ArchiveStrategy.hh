@@ -15,6 +15,10 @@
 
 namespace dadi {
 
+/**
+ * @class ArchiveStrategy
+ * @brief archiving strategies base class (don't use it directly)
+ */
 class ArchiveStrategy : public boost::noncopyable {
 public:
   /**
@@ -35,17 +39,35 @@ public:
 
 /*****************************************************************************/
 
+/**
+ * @class ArchiveByNumberStrategy
+ * @brief implement archiving by number stategy
+ */
 class ArchiveByNumberStrategy : public ArchiveStrategy {
 public:
+  /**
+   * @brief constructor
+   */
   ArchiveByNumberStrategy();
+  /**
+   * @brief destructor
+   */
   ~ArchiveByNumberStrategy();
+  /**
+   * @brief archive current log file
+   * @param path current log file path
+   */
   void archive(const std::string& path);
 protected:
-  static const std::string pTpl_;
+  static const std::string pTpl_; /**< template archive filename */
 };
 
 /*****************************************************************************/
 
+/**
+ * @class ArchiveByTimestampStrategy
+ * @brief implement archiving timestamp stategy
+ */
 class ArchiveByTimestampStrategy : public ArchiveStrategy {
 public:
   /**
@@ -54,12 +76,20 @@ public:
    */
   explicit ArchiveByTimestampStrategy(const std::string& tpl =
                                       "%Y%m%d%H%M%S");
+  /**
+   * @brief destructor
+   */
   ~ArchiveByTimestampStrategy();
+
   /**
    * @brief use local time or utc
    * @param local
    */
   void setLocal(bool local);
+  /**
+   * @brief archive current log filex
+   * @param path current log file path
+   */
   void archive(const std::string& path);
 private:
   const std::string tpl_;

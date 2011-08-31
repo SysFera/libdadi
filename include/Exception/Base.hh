@@ -29,7 +29,7 @@ class Error : virtual public std::exception,
  */
 class NotImplementedError : public Error {};
 
-// generic error message
+/** generic error message */
 typedef boost::error_info<struct tag_errinfo_msg, std::string> errinfo_msg;
 
 

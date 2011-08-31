@@ -31,23 +31,51 @@
 
 namespace dadi {
 // plugin info lookup structure
+/**
+ * @brief pinfo_set name key
+ */
 struct name {};
+/**
+ * @brief pinfo_set interface key
+ */
 struct interface {};
 
 // key extractors
+/**
+ * @struct name_extractor
+ * @brief pinfo_set name extractor
+ */
 struct name_extractor {
-  typedef std::string result_type;
+  typedef std::string result_type; /**< extracted data type */
+  /**
+   * @brief effective extractor
+   * @return extracted member
+   */
   const result_type& operator()(PluginInfoPtr pi) const { return pi->name; }
 };
 
+/**
+ * @struct interface_extractor
+ * @brief pinfo_set interface extractor
+ */
 struct interface_extractor {
-  typedef std::string result_type;
+  typedef std::string result_type; /**< extracted data type */
+  /**
+   * @brief effective extractor
+   * @return extracted member
+   */
   const result_type& operator()(PluginInfoPtr pi) const {
     return pi->interface;
   }
 };
 
 
+/**
+ * @typedef pinfo_set
+ * @brief container of PluginInfoPtr indexed on:
+ * - name (unique ordered index)
+ * - interface (ordered index)
+ */
 typedef boost::multi_index_container<
   PluginInfoPtr,
   boost::multi_index::indexed_by<
@@ -59,7 +87,15 @@ typedef boost::multi_index_container<
       interface_extractor> >
   > pinfo_set;
 
+/**
+ * @typedef pinfo_set_by_name
+ * @brief pinfo_set index on name
+ */
 typedef pinfo_set::index<name>::type pinfo_set_by_name;
+/**
+ * @typedef pinfo_set_by_interface
+ * @brief pinfo_set index on interface
+ */
 typedef pinfo_set::index<interface>::type pinfo_set_by_interface;
 
 /**
@@ -86,6 +122,9 @@ public:
    */
   void addPath(const std::string& path);
 
+  /**
+   * @brief load plugins
+   */
   void load();
   /**
    * @brief get manifests search paths
@@ -142,6 +181,11 @@ public:
     return static_cast <Plugin *>(instance);
   }
 
+  /**
+   * @brief get a plugin instance from its interface
+   * @param pName interface name
+   * @return instance (or NULL)
+   */
   template<typename Interface>
   Interface *getByInterface(const std::string& pName) {
     void *factory(NULL);

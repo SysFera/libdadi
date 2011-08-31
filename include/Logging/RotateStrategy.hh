@@ -16,6 +16,10 @@
 
 namespace dadi {
 
+/**
+ * @class RotateStrategy
+ * @brief base class to file log rotation strategies
+ */
 class RotateStrategy : public boost::noncopyable {
 public:
   /**
@@ -35,6 +39,10 @@ public:
   virtual bool mustRotate(const std::string& path) = 0;
 };
 
+/**
+ * @class RotateBySizeStrategy
+ * @brief rotation strategy based on log file size
+ */
 class RotateBySizeStrategy : public RotateStrategy {
 public:
   /**
@@ -57,6 +65,10 @@ private:
   long size_; /**< size (bytes) threshold */
 };
 
+/**
+ * @class RotateByIntervalStrategy
+ * @brief rotation strategy based on log file time interval
+ */
 class RotateByIntervalStrategy : public RotateStrategy {
 public:
   /**
@@ -80,6 +92,10 @@ private:
   boost::posix_time::ptime last_; /**< last rotation time (UTC) */
 };
 
+/**
+ * @class RotateByTimeStrategy
+ * @brief rotation strategy based on log file age
+ */
 class RotateByTimeStrategy : public RotateStrategy {
 public:
   /**

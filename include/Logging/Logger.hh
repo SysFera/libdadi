@@ -18,8 +18,8 @@
 namespace dadi {
 
 class Logger;
-typedef boost::shared_ptr<Logger> LoggerPtr;
-typedef std::map<std::string, LoggerPtr> LoggerMap;
+typedef boost::shared_ptr<Logger> LoggerPtr; /**< shared_ptr on a Logger */
+typedef std::map<std::string, LoggerPtr> LoggerMap; /**< Logger cache */
 
 /**
  * @class Logger

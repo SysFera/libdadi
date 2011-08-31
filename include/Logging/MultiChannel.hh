@@ -18,6 +18,10 @@ namespace dadi {
 
 class Message;
 
+/**
+ * @typedef Channels
+ * @brief list of channels
+ */
 typedef std::list<ChannelPtr> Channels;
 
 /**

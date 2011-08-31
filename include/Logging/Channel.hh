@@ -47,6 +47,10 @@ public:
   virtual void log(const Message& msg) = 0;
 };
 
+/**
+ * @typedef ChannelPtr
+ * @brief shared pointer on Channel
+ */
 typedef boost::shared_ptr<Channel> ChannelPtr;
 
 } /* namespace dadi */

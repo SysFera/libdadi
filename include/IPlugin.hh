@@ -6,12 +6,12 @@
  *   |LICENCE|
  *
  */
-
 #ifndef _IPLUGIN_HH_
 #define _IPLUGIN_HH_
 
 #include "PluginInfo.hh"
 
+/** return code when plugin has been correctly loaded */
 const int PLUGIN_OK = 0;
 
 // win32 peculiarity required to export symbols in shared libraries
@@ -60,6 +60,7 @@ protected:
 
 
 extern "C" {
+  /** factory method signature */
   typedef bool (*factory_function)(void **instance);
 
 /**

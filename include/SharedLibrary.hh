@@ -92,6 +92,10 @@ private:
   boost::scoped_ptr<SharedLibraryImpl> pimpl;
 };
 
+/**
+ * @typedef SharedLibraryPtr
+ * @brief shared pointer on a SharedLibrary
+ */
 typedef boost::shared_ptr<SharedLibrary> SharedLibraryPtr;
 
 } /* namespace dadi */

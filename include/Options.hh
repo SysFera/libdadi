@@ -33,9 +33,26 @@ namespace dadi {
 
 namespace po = boost::program_options;
 
+/**
+ * @typedef Func1
+ * @brief functor:
+ * - args: std::string
+ * - returns: std::string
+ */
 typedef boost::function1<std::string, std::string> Func1;
+/**
+ * @typedef ProcessHook
+ * @brief command-line pre-processing hook functor:
+ * - args: int&, char ** (argc, argv)
+ * - returns: void
+ */
 typedef boost::function2<void, int&, char**> ProcessHook;
 
+/**
+ * @brief multitoken helper
+ * @param option
+ * @return
+ */
 template<typename T>
 po::typed_value<T>*
 set_multitoken(po::typed_value<T> *option) {
@@ -104,12 +121,22 @@ public:
   void
   addSwitch(const std::string& name, const std::string& desc);
 
-  /* wraps a boost::function0<void> as a boost::function1<void, bool>
-     in order to fool boost::program_options */
+  /**
+   * @class Wrapper
+   * @brief wraps a boost::function0<void> as a boost::function1<void, bool>
+   *      in order to fool boost::program_options
+   */
   class Wrapper {
   public:
+    /**
+     * @brief constructor
+     * @param f functor or function that return nothing and takes no argyments
+     */
     explicit Wrapper(boost::function0<void>& f) : f_(f) {}
 
+    /**
+     * @brief wrapper
+     */
     void
     operator()(const bool& res) {
       if (res) {
@@ -404,7 +431,11 @@ void
 help(const dadi::Options& opt);
 
 
-
+/**
+ * @brief simple helper that sets ConfigStore[key] = value
+ * @param key property key
+ * @param value value
+ */
 template<typename T>
 void
 setProperty(std::string key, const T& value) {
@@ -432,7 +463,9 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
 
 
 // alias to commonly used specialization
+/** alias to setProperty std::string specialization */
 #define setPropertyString setProperty<std::string >
+/** alias to setProperty std::vector<std::string> specialization */
 #define setPropertyStringList setProperty<std::vector<std::string> >
 
 #endif /* _OPTIONS_HH_ */

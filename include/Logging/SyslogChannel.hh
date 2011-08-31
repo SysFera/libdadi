@@ -73,24 +73,42 @@ public:
                 unsigned int option,
                 unsigned int facility);
 
+  /**
+   * @brief destructor
+   */
   ~SyslogChannel();
 
+  /**
+   * @brief open channel
+   */
   void open();
+  /**
+   * @brief close channel
+   */
   void close();
+  /**
+   * @brief logs message
+   * @param msg Message to log
+   */
   void log(const Message& msg);
 
 protected:
+  /**
+   * @brief get channel current priority
+   * @param msg Message to log
+   * @return priority level
+   */
   int getPrio(const Message& msg);
 
-  static const std::string ATTR_NAME;
-  static const std::string ATTR_FACILITY;
-  static const std::string ATTR_OPTION;
+  static const std::string ATTR_NAME; /**< attribute name key */
+  static const std::string ATTR_FACILITY; /**< attribute facility key */
+  static const std::string ATTR_OPTION; /**< attribute option key */
 
 private:
-  std::string name_;
-  int option_;
-  int facility_;
-  bool open_;
+  std::string name_; /**< channel name */
+  int option_; /**< syslog option */
+  int facility_; /**< syslog facility */
+  bool open_; /**< keep channel state (open/closed) */
 };
 
 

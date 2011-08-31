@@ -44,6 +44,7 @@ class FileChannel : public Channel {
 public:
   /**
    * @enum CompressionMode
+   * @brief list supported compression mode
    */
   enum CompressionMode {
     COMP_NONE = 0, /**< no compression */
@@ -54,6 +55,7 @@ public:
 
   /**
    * @enum ArchiveMode
+   * @brief list supported archive mode
    */
   enum ArchiveMode {
     AR_NONE = 0, /**< no archiving */
@@ -65,6 +67,7 @@ public:
 
   /**
    * @enum RotateMode
+   * @brief list supported rotate mode
    */
   enum RotateMode {
     ROT_NONE = 0, /**< no rotation */
@@ -76,6 +79,7 @@ public:
 
   /**
    * @enum PurgeMode
+   * @brief list supported purge mode
    */
   enum PurgeMode {
     PURGE_NONE = 0, /**< no purging bébé */
@@ -129,15 +133,17 @@ public:
    */
   const std::string& getPath() const;
 protected:
-  static const std::string ATTR_PATH;
+  static const std::string ATTR_PATH; /**< attribute path key */
+  /** attribute compression.mode key */
   static const std::string ATTR_COMPRESSION_MODE;
-  static const std::string ATTR_ARCHIVE;
-  static const std::string ATTR_ROTATE;
-  static const std::string ATTR_ROTATE_SIZE;
-  static const std::string ATTR_ROTATE_TIME;
+  static const std::string ATTR_ARCHIVE; /**< attribute archive key */
+  static const std::string ATTR_ROTATE; /**< attribute rotate key */
+  static const std::string ATTR_ROTATE_SIZE; /**< attribute rotate.size key */
+  static const std::string ATTR_ROTATE_TIME; /**< attribute rotate.time key */
+  /** attribute rotate.interval key */
   static const std::string ATTR_ROTATE_INTERVAL;
-  static const std::string ATTR_PURGE;
-  static const std::string ATTR_PURGE_COUNT;
+  static const std::string ATTR_PURGE; /**< attribute purge key */
+  static const std::string ATTR_PURGE_COUNT; /**< attribute purge.count key */
   // filter rotate.interval when using time rotate policy
   static const boost::regex regex1; /**< regular expression @internal */
   static std::map<std::string, int> attrMap; /**< properties map */

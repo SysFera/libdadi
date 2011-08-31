@@ -17,7 +17,7 @@
 namespace dadi {
 class Registry;
 class PluginInfo;
-typedef std::list<SharedLibraryPtr> LibraryCache;
+typedef std::list<SharedLibraryPtr> LibraryCache; /**< library cache */
 
 /**
  * @brief Load plugins and register them in the registry

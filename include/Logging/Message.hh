@@ -14,6 +14,7 @@
 
 namespace dadi {
 
+/** map of std::string/std::strings hold properties */
 typedef std::map<std::string, std::string> StringMap;
 
 /**
@@ -27,13 +28,13 @@ public:
    * @brief logging priorities
    */
   enum Priority {
-    PRIO_TRACE = 1,
-    PRIO_DEBUG,
-    PRIO_INFORMATION,
-    PRIO_WARNING,
-    PRIO_ERROR,
-    PRIO_CRITICAL,
-    PRIO_FATAL
+    PRIO_TRACE = 1,   /**< trace logs */
+    PRIO_DEBUG,       /**< debug logs */
+    PRIO_INFORMATION, /**< information logs */
+    PRIO_WARNING,     /**< warning logs */
+    PRIO_ERROR,       /**< error logs */
+    PRIO_CRITICAL,    /**< critical logs */
+    PRIO_FATAL        /**< fatal logs */
   };
 
   /**

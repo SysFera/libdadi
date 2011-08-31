@@ -68,6 +68,10 @@ struct PluginInfo {
   std::list<std::string> paths; /**< path hints to search libraries */
 };
 
+/**
+ * @typedef PluginInfoPtr
+ * @brief shared pointer on PluginInfo
+ */
 typedef boost::shared_ptr<PluginInfo> PluginInfoPtr;
 
 } /* namespace dadi */

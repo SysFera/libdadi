@@ -27,10 +27,15 @@ namespace dadi {
  */
 class Attributes {
 public:
+  /**
+   * @enum Format
+   * @brief supported serialization formats
+   */
   enum Format {
-    FORMAT_XML = 0,
-    FORMAT_INI,
-    FORMAT_JSON
+    FORMAT_XML = 0, /**< default serialization format */
+    FORMAT_INI,  /**< INI serialization format */
+    FORMAT_JSON, /**< JSON serialization format */
+    FORMAT_INFO /**< INFO serialization format */
   };
 
   /**
@@ -107,7 +112,7 @@ public:
   /**
    * @brief add value to attributes
    * @param path path to attribute
-   * @param value
+   * @param value attribute new value
    */
   template<typename T> void
   putAttr(const std::string& path, T value) {
@@ -126,11 +131,26 @@ public:
    * @param format XML by default
    * @return serialized attribute
    */
-  std::string saveAttr(int format = 0) const;
+    std::string saveAttr(int format = 0) const;
 
   /* operators */
+  /**
+   * @brief copy operator
+   * @param other copied object
+   * @return new copied object
+   */
   Attributes& operator=(const Attributes& other);
+  /**
+   * @brief comparison operator
+   * @param other object object to compare
+   * @return boolean
+   */
   bool operator==(const Attributes& other);
+  /**
+   * @brief comparison operator
+   * @param other object object to compare
+   * @return boolean
+   */
   bool operator!=(const Attributes& other);
 
 private:
