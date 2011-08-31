@@ -181,7 +181,7 @@ La fig. \ref{fig:archiGlobale} illustre l'architecture globale d'une plate-forme
 \caption{Architecture globale}\label{fig:archiGlobale}
 \end{figure}
 
-L'intérêt de cette étude est de définir les besoins lorsque cette suite logicielle s'intégre dans l'écosystème d'une entreprise ou de n'importe
+L'intérêt de cette étude est de définir les besoins en terme de sécurité lorsque cette suite logicielle s'intégre dans l'écosystème d'une entreprise ou de n'importe
 quel environnement privé. En effet, la particularité d'un système distribué est la mise en commun de plusieurs entités, ce qui introduit donc des problématiques
 de sécurité lorsque qu'un noeud malveillant s'introduit dans le réseau ou encore lorsqu'un utilisateur a accès à des
 informations ou à des services incompatibles avec ses privilèges. Il faut donc définir une politique de sécurité qui répond aux 
@@ -224,7 +224,7 @@ fonctionnalités qui peuvent se résumer dans le sigle \textbf{CAIN}:
 \begin{itemize}
  \item \textbf{Confidentialité:} mécanisme de chiffrement empêchant l'accès aux informations transitant via un canal à ceux qui n'en sont pas destinataires. Les
  messages cryptés peuvent être lus mais pas déchiffrés.
- \item \textbf{Authentification:} détection d'une usurpation d'identité en mettant en place des mécanismes garantissant l'identité des proganistes mises en relation.
+ \item \textbf{Authentification:} détection d'une usurpation d'identité en mettant en place des mécanismes garantissant l'identité des protagonistes mises en relation.
  \item \textbf{Intégrité:} vérification que le message n'a pas été altéré au cours de son tranfert.% Cette vérification peut se faire à l'aide 
  %d'une fonction de hachage cryptographique qui génère une empreinte de taille fixe à partir du message original et le destinaire vérifie que le hachage 
  %du message avec la même fonction de hachage donne la même empreinte.  
@@ -275,7 +275,7 @@ Nous pouvons utiliser \textit{l'analogie avec une boite aux lettres} donc seul l
  \item seul le destinataire peut lire le courrier déposé dans sa boite aux lettres.
 \end{itemize}  
 
-L'algorithme le plus répandu et le plus utilisé basé sur le chiffrement à clé publique est \textit{RSA} du nom de ces concepteurs: \textit{Rivest Shamir et
+L'algorithme le plus répandu et le plus utilisé basé sur le chiffrement à clé publique est \textit{RSA} du nom de ses concepteurs: \textit{Rivest Shamir et
 Adleman}.
 
 Une problématique n'est pas sans reste, c'est celle présentée plus haut et associée à la question suivante: 
@@ -309,7 +309,7 @@ faut néanmoins noter que \textit{MD5 et SHA-1} ne sont plus réputées s\^ur aujou
 \subsection{Quelques protocoles et environnements sécurisés}
 \subsubsection{PGP}
 
-Il existe deux principaux types de chiffrement: symétrique et asymétrique. L'inconvénient du chiffrement symétrique est l'existance 
+Il existe deux principaux types de chiffrement: symétrique et asymétrique. L'inconvénient du chiffrement symétrique est l'existence 
 au préalable d'un canal confidentiel pour échanger la clé et la clé symétrique ne garantit pas la non-répudiation puisque l'expéditeur
 et le destinataire utilise la même clé. Aussi, les systèmes asymétriques restent plus lents et inefficaces pour les grandes quantités d'information. C'est pour cette raison qu'il est intéressant
 d'utiliser des systèmes hybrides qui combinent les avantages des systèmes symétriques et asymétriques en minimisant les inconvénients de
@@ -348,7 +348,6 @@ Dans ce cas, un protocole à clé publique est utilisée pour échanger des clés pri
 %\end{enumerate}
 
 \subsubsection{Kerberos}
-
 Inconvénients: géré de fa\c{c}on centralisée.
 \textcolor{red}{TODO}
 
@@ -362,37 +361,21 @@ ou il sera déployé mais il est préférable de prévoir un système de sécurité flex
 Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
 supplémentaires). Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
 utilisateurs de l'intergiciel. Les privilèges n'étant pas les mêmes et l'accès aux ressources limités aux utilisateurs de l'intergiciel, l'authentification des 
-utilisateurs est un point important. La confidentialité, l'intégrité des données et la certification des résultats sont des axes importants à considérer dans
+utilisateurs est un point important. La mise en place d'un système d'authentification distribué serait préférable à un système centralisé. La confidentialité, l'intégrité des données et la certification des résultats sont des axes tout aussi important à considérer dans
 la solution envisagée.
 
-Les protocoles SSL/TLS se sont bien imposés dans le monde de la sécurité informatique dans les réseaux. Ces protocoles offrent les différentes fonctionnalités citées
-plus haut et se basent sur des certificats X509. 
+Les protocoles SSL/TLS se sont bien imposés dans le monde de la sécurité en informatique. Ces protocoles offrent les différentes fonctionnalités citées
+plus haut et se basent sur des certificats X509. Il serait donc intéressant de se baser sur ce type de protocoles utilisant des certificats X509.
+Ce mode de communication avec l'utilisation de certificat X509 est très répandu et s'intégrera facilement avec plusieurs autres systèmes. Le mécanisme de création et de distribution des certificats doit être souple et facile à prendre
+en main par les utilisateurs. Il est possible de prévoir une création de certificat numérique signé par l'autorité de certification de l'intergiciel
+via un site internet ergonomique. Ce choix détachera l'administrateur de cette t\^ache. 
 
-Il serait donc intéressant de se baser sur ce type de protocoles utilisant des certificats X509.
-Ce mode de communication avec l'utilisation de certificat X509 est très répandu et s'intégrera facilement avec plusieurs autres systèmes.
+L'implementation d'une couche de sécurité reduira les performances réseaux de notre intergiciel.
+L'authentification des utilisateurs, la confidentialité et l'intégrité des données restent des points important à prendre en compte dans la 
+définition de la couche sécurité et il serait intéressant de pouvoir maitriser les performances réseau en définissant le niveaux de sécurité
+à la volée. Ils devront pouvoir s'imbriquer facilement. Un utilisateur pourra pour des soucis de performances s'assurer juste de l'intégrité des 
+données, ce qui est moins coute\^ux ou aller plus loin en rajoutant la confidentialité, l'authentification et/ou la certification des résultats.
 
-L'implementation d'une couche de sécurité reduira les performances au niveau réseau de notre plateforme.
-L'authentification des utilisateurs, la confidentialité et l'intégrité des données restent des points importants à prendre en compte dans la 
-définition de la couche sécurité. 
-
-Les privilèges des utilisateurs seront d
-
-imbrication des niveaux de sécurité
-Opposition en terme de performance.
-
-Confidentialité, authentification, intégrité, non-répudiation ou tout?
-Phase de génération de certificat à décrire. 
-Utilisation de certificat?
-Identification des utilisateurs, des éléments DIET (machines) .
-Souplesse de stratégie de sécurité.
-Définir un mecanisme de tests garatissant que le système est bien sécurisé.
-Quels sont les propriétés de sécurité à garantir?
-Interopérabilité.
-Le système mis en place doit pouvoir s'interfacer le plus facilement possible avec les politiques de sécurité en vigueur dans les 
-entreprises.
-Préférable authentification distribuée et non centralisée.
-Niveau de sécurité capable d'être flexible ajouter et retirer selon son désir. Niveau de sécurité définit à la demande.
-Ergonomie et facilité de création des certificats.
 \section{ Authentification des utilisateurs }
 
 \subsection{ Proposition n°1: Utilisation de UMS }
@@ -497,7 +480,7 @@ et facilite le passage à l'échelle.
 
 La description précédente montre bien le niveau de complexité du module de sécurité ambitieux du middleware Globus qui fait coopérer des institutions
 avec des politiques de sécurité différentes. Nous allons plut\^ot nous intéresser dans ce travail à des grilles de grappes d'après la 
-catégorisation définie dans \hyperlink{Varette07}{[VARETTE07]}. Ce type de grille est moins dense en terme d'utilisateur que des grilles 
+catégorisation définie dans \hyperlink{Varette07}{[VARETTE07]}. Ce type de grille est moins dense en terme d'utilisateurs que des grilles 
 au sens Globus et donc utilisera une politique de sécurité un peu moins complexe. 
 
 
@@ -718,7 +701,7 @@ Le principe général de ce scénario est de valider l'intégrité des données.
 la m\^eme fonction de hachage est identique au hash déchiffré. \\
 \end{itemize}
 L'inconvénient du scénario précédent est qu'il nécessite au préalable pour l'utilisateur d'avoir le certificat du SeD qui répondra
-à cette requête. Il y a donc tout d'abord un échange avec DIET pour connaitre le SeD qui répondra à la requ\^ete et avoir son certificat.
+à cette requête. Il y a donc tout d'abord un échange avec DIET pour connaitre le SeD susceptible de répondre à la requ\^ete et avoir son certificat.
 
 
 \textbf{scénario 3 (bis): authentification et intégrité des données}\\
@@ -732,15 +715,15 @@ la m\^eme fonction de hachage est identique au hash déchiffré. \\
 \end{itemize}
 Cette proposition comble les lacunes de la proposition précédente en évitant un échange préalable pour obtenir le certificat
 du SeD qui répondra à sa requ\^ete mais il introduit un autre problème: le certificat d'un utilisateur pouvant être publique, il
-suffit qu'un \textit{man in the middle} intercepte le certificat de l'utilisateur pour avoir accès au contenu du message. Cependant, le message
-reste authentifié car il ne peut être déchiffré que par la clé publique de l'utilisateur corerspondant. Nous évitons un co\^ut en terme d'échange mais
+suffit qu'un \textit{man in the middle} intercepte le certificat de l'utilisateur pour avoir accès au contenu du message. 
+Le contenu est susceptible d'être visible mais il reste authentifié car il ne peut être déchiffré que par la clé publique de l'utilisateur correrspondant. Nous gagnons en terme d'échange mais
 nous perdons en confidentialité.  
 
 \textbf{scénario 4: confidentialité, authentification et non-répudiation}
 \begin{itemize}
-\item Chiffrer la donnée à envoyer en utilisant la clé publique du destinataire
-\item Envoyer le message au destinaire et son certificat.
-\item Le destinataire déchiffre le message re\c{c}u avec sa clé privée et chiffre sa réponse avec la clé publique disponible
+\item L'utilisateur chiffre la donnée à envoyer en utilisant la clé publique du SeD susceptible de répondre à sa requête.
+\item L'utilisateur envoie le message au SeD avec son certificat.
+\item Le SeD déchiffre le message re\c{c}u avec sa clé privée et chiffre sa réponse avec la clé publique disponible
 via le certificat re\c{c}u.
 \end{itemize}
 La faiblesse de ce scénario survient lorsque la quantité d'information à chiffrer est considérable.\\
@@ -750,20 +733,20 @@ Ce scénario va combler les lacunes du scénario précédent en proposant un chiffre
 \begin{itemize}
 \item Un utilisateur fait une requête via DIET.
 \item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) qui répondra à sa requête.
-\item L'utilisateur chiffre son message via la clé publique du SeD qui répondra à sa requête.
-\item L'élement de la hiérarchie DIET qui recoit la requête déchiffre le message via sa clé privée et vérifie que le certificat
-de l'utilisateur a bien été signé par l'autorité de certification du système et qu'il n'a pas été revoqué.
+\item L'utilisateur chiffre son message en utilisant un chiffrement symétrique à l'aide d'une clé K.
+\item L'utilisateur chiffre la clé K avec la clé publique du SeD qui répondra à sa requête
+\item Le SeD déchiffre à l'aide de sa clé privée la clé K.
+\item Le SeD déchiffre à l'aide de la clé K le contenu du message.
 %\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
 %\item Le CA confirme ou refute le certificat.
 %\item Si le certificat est valide, le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
 %hiérarchie DIET correspondant.
-\item L'élement de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
 
 
 \textbf{Dans la plupart des scénarios précédent, l'utilisateur de la plateforme a besoin du certificat du SeDs capable de répondre à sa requête et
 il faudra donc prévoir un mécanisme permettant d'avoir ce certificat permettant ainsi de chiffrer les données à transmettre. Autre solution, L'utilisateur signe 
-les infos qu'il envoie avec sa clé privée et le SeD déchiffre avec la clé publique correspondante}
+les infos qu'il envoie avec sa clé privée et le SeD déchiffre avec la clé publique correspondante.}
 
 \textbf{scénario 6: chiffrement communication avec le SeD (\textit{Server Daemon})}\\
 Ce scénario est très riche en ce sens qui permet non seulement d'authentifier l'utilisateur mais aussi le SeD en garantissant une communication
@@ -787,7 +770,7 @@ de l'utilisateur a bien été signé par l'autorité de certification du système et 
 \item L'élement de la hiérarchie DIET qui recoit la requête chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
 
-Dans ce scénario, seul les résultats sont chiffrés et pas les requête ce qui peut être dangereux car elles peuvent être modifiées par un
+Dans ce scénario, seul les résultats sont chiffrés et pas les requêtes ce qui peut être dangereux car elles peuvent être modifiées par un
 \textit{man in the middle}.
 
 %\textit{Pour le scénario concernant l'envoi d'une requête, il est important de noter qu'il sera fortement liée à la couche de
