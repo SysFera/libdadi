@@ -1,7 +1,7 @@
 #ifndef _ROTATESTRATEGY_HH_
 #define _ROTATESTRATEGY_HH_
 /**
- * @file   RotateStrategy.hh
+ * @file   Logging/RotateStrategy.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines log files rotate strategies
  * @section Licence

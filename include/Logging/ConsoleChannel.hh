@@ -1,7 +1,7 @@
 #ifndef _CONSOLECHANNEL_HH_
 #define _CONSOLECHANNEL_HH_
 /**
- * @file   ConsoleChannel.hh
+ * @file   Logging/ConsoleChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines channel that logs into console
  * @section Licence

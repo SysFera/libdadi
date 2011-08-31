@@ -1,7 +1,7 @@
 #ifndef _ARCHIVESTRATEGY_HH_
 #define _ARCHIVESTRATEGY_HH_
 /**
- * @file   ArchiveStrategy.hh
+ * @file   Logging/ArchiveStrategy.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines log files archive strategies
  * @section Licence

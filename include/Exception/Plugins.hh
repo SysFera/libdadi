@@ -1,7 +1,7 @@
 #ifndef _PLUGINS_ERROR_HH_
 #define _PLUGINS_ERROR_HH_
 /**
- * @file   Plugins.hh
+ * @file   Exception/Plugins.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  libdadi plugins exceptions classes
  * @section Licence

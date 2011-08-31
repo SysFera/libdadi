@@ -1,7 +1,7 @@
 #ifndef _PURGESTRATEGY_HH_
 #define _PURGESTRATEGY_HH_
 /**
- * @file   PurgeStrategy.hh
+ * @file   Logging/PurgeStrategy.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines log files purge strategies
  * @section Licence

@@ -1,7 +1,7 @@
 #ifndef _BASE_HH_
 #define _BASE_HH_
 /**
- * @file   Base.hh
+ * @file   Exception/Base.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  libdadi root exceptions classes
  * @section Licence

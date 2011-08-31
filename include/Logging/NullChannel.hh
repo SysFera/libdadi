@@ -1,7 +1,7 @@
 #ifndef _NULLCHANNEL_HH_
 #define _NULLCHANNEL_HH_
 /**
- * @file   NullChannel.hh
+ * @file   Logging/NullChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines channel that discards log messages
  * @section Licence

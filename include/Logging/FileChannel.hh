@@ -1,7 +1,7 @@
 #ifndef _FILECHANNEL_HH_
 #define _FILECHANNEL_HH_
 /**
- * @file   FileChannel.hh
+ * @file   Logging/FileChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines a file channel
  * @section Licence

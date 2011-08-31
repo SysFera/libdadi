@@ -1,7 +1,7 @@
 #ifndef _LOGGER_HH_
 #define _LOGGER_HH_
 /**
- * @file   Logger.hh
+ * @file   Logging/Logger.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  main logger class
  * @section Licence

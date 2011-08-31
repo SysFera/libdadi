@@ -1,7 +1,7 @@
 #ifndef _ATTRIBUTES_ERROR_HH_
 #define _ATTRIBUTES_ERROR_HH_
 /**
- * @file   Attributes.hh
+ * @file   Exception/Attributes.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  attributes exception classe
  * @section Licence

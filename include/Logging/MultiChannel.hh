@@ -1,7 +1,7 @@
 #ifndef _MULTICHANNEL_HH_
 #define _MULTICHANNEL_HH_
 /**
- * @file   MultiChannel.hh
+ * @file   Logging/MultiChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines special channel that redirect log messages
  * to multiple channels.

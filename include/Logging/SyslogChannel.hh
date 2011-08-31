@@ -1,7 +1,7 @@
 #ifndef _SYSLOGCHANNEL_HH_
 #define _SYSLOGCHANNEL_HH_
 /**
- * @file   SyslogChannel.hh
+ * @file   Logging/SyslogChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines syslog channel
  * @section Licence

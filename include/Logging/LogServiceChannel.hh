@@ -1,7 +1,7 @@
 #ifndef _LOGSERVICECHANNEL_HH_
 #define _LOGSERVICECHANNEL_HH_
 /**
- * @file   LogServiceChannel.hh
+ * @file   Logging/LogServiceChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines LogService channel
  * @section Licence
