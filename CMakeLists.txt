@@ -204,4 +204,4 @@ else()
   set(CPACK_PACKAGE_INSTALL_DIRECTORY "libdadi")
 endif()
 
-include(CPack)c
+include(CPack)
