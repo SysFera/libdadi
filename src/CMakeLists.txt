@@ -26,6 +26,16 @@ else()
   set(SRCS ${SRCS} SharedLibraryImpl_posix.cc)
 endif()
 
+## build libdadi
 add_library(dadi ${SRCS})
 target_link_libraries(dadi ${DADI_LIBS})
-install(TARGETS dadi DESTINATION lib)
+set_target_properties(dadi PROPERTIES
+  VERSION ${DADI_VERSION}
+  SOVERSION ${DADI_VERSION_MAJOR})
+
+## installation
+install(TARGETS dadi 
+  COMPONENT runtime
+  ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+  LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+  RUNTIME DESTINATION ${LIB_INSTALL_DIR})

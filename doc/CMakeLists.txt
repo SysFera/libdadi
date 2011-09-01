@@ -1,10 +1,11 @@
+## generate doxygen documentation
 add_custom_target(doc ALL)
 if(ENABLE_DOXYGEN)
   include(UseDoxygen)
   generate_doxygen(FORMATS ${DOXYGEN_FORMATS})
 endif()
 
-# put extras documentation here
+## generate extras documentation (specifications)
 if(ENABLE_EXTRAS_DOC)
   find_package(LATEX)
   if(PDFLATEX_COMPILER)

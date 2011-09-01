@@ -11,9 +11,7 @@
  *
  */
 
-#define DADI_VERSION_MAJOR 0  /**< libdadi major version */
-#define DADI_VERSION_MINOR 5  /**< libdadi minor version */
-#define DADI_VERSION_PATCH 0  /**< libdadi patch version */
+#include "dadi/config-in.hh"
 
 /* The Plugin interface definition (dynamic module loading). */
 #include "dadi/IPlugin.hh"
@@ -24,11 +22,11 @@
 /* Registry class (dynamic module loading). */
 #include "dadi/Registry.hh"
 /* A thread safe singleton class (utility). */
-#include "dadi/singleton.hh"
+#include "dadi/Singleton.hh"
 /* Thread safe classes to store application config (utility). */
-#include "dadi/config.hh"
+#include "dadi/Config.hh"
 /* Command line and configuration files parser */
-#include "dadi/options.hh"
+#include "dadi/Options.hh"
 /* logging framework */
 #include "dadi/Logging.hh"
 
