@@ -158,3 +158,50 @@ endif()
 
 ## enable uninstall target
 include(CMakeUninstall)
+
+## CPack stuff (alpha)
+set(CPACK_VERSION_MAJOR ${DADI_VERSION_MAJOR})
+set(CPACK_VERSION_MINOR ${DADI_VERSION_MINOR})
+set(CPACK_VERSION_PATCH ${DADI_VERSION_PATCH})
+set(CPACK_VERSION ${DADI_VERSION})
+set(CPACK_PACKAGE_VERSION ${DADI_VERSION})
+set(CPACK_PACKAGE_CONTACT "SysFera <tech@sysfera.com>")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_README "${PROJECT_SOURCE_DIR}/README")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
+  "Utility library for distributed applications")
+set(CPACK_PACKAGE_VENDOR "http://sysfera.com")
+set(CPACK_SOURCE_IGNORE_FILES
+  "~$"
+  "^${PROJECT_SOURCE_DIR}/\\\\.git"
+  "^${PROJECT_SOURCE_DIR}/build/")
+set(CPACK_COMPONENTS_ALL runtime development)
+set(CPACK_COMPONENT_RUNTIME_DISPLAY_NAME "Runtime")
+set(CPACK_COMPONENT_DEVELOPMENT_DISPLAY_NAME "Development files")
+set(CPACK_COMPONENT_RUNTIME_DESCRIPTION
+  "Utility library for distributed applications")
+set(CPACK_COMPONENT_DEVELOPMENT_DESCRIPTION "Development files for libdadi")
+set(CPACK_COMPONENT_DEVELOPMENT_DEPENDS libraries)
+set(CPACK_PACKAGE_FILE_NAME "libdadi-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "libdadi-${CPACK_VERSION}")
+
+if(NOT WIN32)
+  set(CPACK_GENERATOR "TGZ;TBZ2")
+  set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
+else()
+  include(InstallRequiredSystemLibraries)
+  set(CPACK_GENERATOR "ZIP;NSIS")
+  set(CPACK_SOURCE_GENERATOR "ZIP")
+  set(CPACK_BINARY_CYGWIN "OFF")
+  set(CPACK_SOURCE_CYGWIN "OFF")
+  set(CPACK_PACKAGE_FILE_NAME "libdadi-${CPACK_VERSION}-win32")
+  set(CPACK_BINARY_NSIS "ON")
+  set(CPACK_NSIS_MODIFY_PATH "OFF")
+  set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} libdadi")
+  set(CPACK_NSIS_HELP_LINK "http://sysfera.com")
+  set(CPACK_NSIS_URL_INFO_ABOUT "http://sysfera.com")
+  set(CPACK_NSIS_CONTACT "SysFera <tech@sysfera.com>")
+  set(CPACK_PACKAGE_INSTALL_DIRECTORY "libdadi")
+endif()
+
+include(CPack)c
