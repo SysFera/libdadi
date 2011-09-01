@@ -1,0 +1,10 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+includedir=${prefix}/@INCLUDE_INSTALL_DIR@
+libdir=${exec_prefix}/@LIB_INSTALL_DIR@
+
+Name: dadi
+Description: libdadi is an utility library for distributed applications
+Version: @DADI_VERSION@
+Libs: -L${libdir} -ldadi
+Cflags: -I${includedir}

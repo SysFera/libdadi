@@ -135,6 +135,19 @@ install(DIRECTORY "include/"
 add_subdirectory(src)
 add_subdirectory(samples)
 
+## devel utilities
+# since pkg-config placeholdes may conflicts with cmake's
+# i enforce the @ONLY flag
+configure_file("utils/dadi.pc.in"
+  "${PROJECT_BINARY_DIR}/utils/dadi.pc"
+  @ONLY)
+install(FILES "${PROJECT_BINARY_DIR}/utils/dadi.pc"
+  DESTINATION ${PKG_CONFIG_INSTALL_DIR}
+  COMPONENT development)
+install(FILES "utils/FindDadi.cmake"
+  DESTINATION ${CMAKE_MODULES_INSTALL_DIR}
+  COMPONENT development)
+
 ## tests
 if(ENABLE_TESTING)
   set(TEST_FILES_OUTPUT_PATH ${PROJECT_BINARY_DIR}/Testing/test_files)
