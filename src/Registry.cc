@@ -44,7 +44,7 @@ Registry::load() {
       directory_iterator p(d);
       for (; p != directory_iterator(); ++p) {
         if (((p->path()).extension()) == ".xml") {
-          loader_->loadPlugin(p->path().c_str());
+          loader_->loadPlugin(p->path().string().c_str());
         }
       }
     }

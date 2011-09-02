@@ -10,8 +10,7 @@ set(logging_SRCS logging/Channel.cc
   logging/Logger.cc
   logging/Message.cc
   logging/MultiChannel.cc
-  logging/NullChannel.cc
-  logging/SyslogChannel.cc)
+  logging/NullChannel.cc)
 
 if(USE_LOGSERVICE)
   set(logging_SRCS ${logging_SRCS} logging/LogServiceChannel.cc)
@@ -23,7 +22,9 @@ set(SRCS Attributes.cc Options.cc Loader.cc Registry.cc PluginInfo.cc
 if(WIN32)
   set(SRCS ${SRCS} SharedLibraryImpl_win32.cc)
 else()
-  set(SRCS ${SRCS} SharedLibraryImpl_posix.cc)
+  set(SRCS ${SRCS}
+    SharedLibraryImpl_posix.cc
+    logging/SyslogChannel.cc)
 endif()
 
 ## build libdadi

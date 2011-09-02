@@ -67,7 +67,7 @@ public:
    * @brief constructor
    * @param count number of archives to keep
    */
-  explicit PurgeByCountStrategy(int count);
+  explicit PurgeByCountStrategy(unsigned int count);
   /**
    * @brief destructor
    */
@@ -82,7 +82,7 @@ public:
 protected:
   void sort(std::vector<std::string>& paths);
 private:
-  int count_; /**< number of archiches to keep */
+  unsigned int count_; /**< number of archiches to keep */
 };
 
 } /* namespace dadi */

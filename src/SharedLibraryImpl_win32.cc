@@ -8,6 +8,7 @@
  */
 
 #include "SharedLibraryImpl_win32.hh"
+#include <windows.h>
 
 namespace dadi {
 
@@ -54,7 +55,7 @@ SharedLibraryImpl::symbolImpl(const std::string& symbol) {
   void *result(0);
 
   if (handle_) {
-    result = GetProcAddress((HMODULE)handle_, symbol.c_str());
+    result = (void *)(GetProcAddress((HMODULE)handle_, symbol.c_str()));
   }
 
   return result;
