@@ -122,6 +122,7 @@
 		Collection Sciences Sup  Dunod publishing, Mars 2007. \hyperlabel{Dumas07}} 
   \SFrefitem{Securix}{Securix: Documentation sur les PKI et PKIX. Disponible: http://frpki.org/index.php?/intro\_PKI.html. \hyperlabel{Securix}}
   \SFrefitem{VARETTE07}{Sécurité des Architectures de Calcul Distribué : Authentification et Certification des résultats. Sébastien Varrette - INP Grenoble et Université du Luxembourg. \hyperlabel{Varette07}}
+  \SFrefitem{PERRIN02}{Etude de compatibilité de systèmes Kerberos - Projet d'administration des réseaux. Philippe Perrin et Francois Lopitaux. E.N.S.E.I.R.B. Mars 2002. \hyperlabel{Perrin02}}
 \end{SFreftable}
 }
 % \renewcommand{\SFreferenceTable}{} % disable this table
@@ -348,8 +349,65 @@ Dans ce cas, un protocole à clé publique est utilisée pour échanger des clés pri
 %\end{enumerate}
 
 \subsubsection{Kerberos}
+
+Kerberos est un protocole d'authentification à tierce personne de confiance basé sur un chiffrement symétrique et con\c{c}u pour fonctionner 
+au dessus d'un réseau TCP/IP non sécurisé. Tout ce protocole repose sur l'échange de blocs de données appelés \textit{tickets} correspondant à un ensemble d'informations, délivré 
+par une authorité de confiance pour un client donné à destination d'un service donné \hyperlink{Perrin02}{[PERRIN02]}. 
+
+Nous allons tout d'abord présenter les caractéristiques et le r\^ole de l'autorité de confiance dans Kerberos appelée \textit{Key distribution Center (KDC)}.
+
+%C'est un distributeur de tickets dans lequel seront stockées des clés de cryptage symétrique. 
+Son r\^ole peut être divisé en deux services:
+\begin{itemize}
+ \item le service d'authentification (authentification Service) qui délivre les \textit{TGT\footnote{Ticket Granting Ticket}} (authentification par mot de passe)
+  pour s'adresser au \textit{TGS \footnote{Ticket Granting Service}},
+ \item le service de délivrance de tickets (TGS): la communication avec ce service se fait à l'aide d'un TGT en lui demandant un ticket pour
+  un service spécifique.
+\end{itemize}
+
+Ces deux services ne tournent pas nécessairement sur le m\^eme serveur. Il faut noter que 
+chaque sujet et service du réseau a une clé secrète partagée avec le KDC. L'utilisateur ne transmet jamais son mot de passe au service.
+
+Le mécanisme de fonctionnement de Kerberos peut se résumer en trois points essentiel:
+
+\begin{enumerate}
+ \item Un client s'authentifie une fois par session auprès d'un autorité de confiance: celle-ci lui délivre un TGT. C'est 
+ la seule fois o\`u l'utilisateur doit s'authentifier pour sa session de travail pour tous les services confondus.
+
+ \item Le client ainsi authentifié souhaite maintenant utiliser un service distant pour la première fois de sa session, il s'adresse
+ alors à l'autorité de confiance en lui présentant son TGT: celle-ci lui délivre un nouveau ticket dédié au service.
+  
+ \item Le client s'adresse alors au service, en lui présentant ce nouveau ticket: il est maintenant authentifié auprès de celui-ci. Ce
+ ticket pourra \^etre utilisé jusqu'à sa date de péremption.
+\end{enumerate}
+
+
+\subsubsection*{Authentification initiale: construction d'un TGT}
+
+Basé sur un chiffrement symétrique.
+Il assure:
+la confidentialité des communication
+l'intégrité des données, l'authentification mutuelle de deux participants à une
+une communication.
+Protège contre le rejeu (replay, man in the middle).
+
+Avantage: con\c{c}u pour fonctionner au dessus d'un réseau non sécurisé
 Inconvénients: géré de fa\c{c}on centralisée.
-\textcolor{red}{TODO}
+KDC passe mal à l'échelle.\\
+
+Windows 2000 inaugure un nouveau système d'administration
+appelé Active directory.\\
+
+Combinaison de plusieurs technologies :
+Annuaire pour la gestion de noms et des services (basé sur
+Ldap).
+Kerberos pour l'authentification des utilisateurs et la
+sécurisation des services réseaux.
+NTP (Network Time Protocol) pour la synchronisation des
+horloges.\\
+
+Implémentation de Kerberos: Windows 2000, version MIT, Heimdal du monde du logiciel libre et 
+propriétaire avec SUN: SESAM (Sun Entreprise Authentification Mechanism).
 
 \section{Analyse des besoins}
 
@@ -640,7 +698,7 @@ site retournera alors le certificat signé à l'utilisateur.
 %}\\
 
 %Avant de définir les différents scénarios possibles au cours d'une requête circulant à travers notre intergiciel, il est important
-%de définir des notions importantes utilisées en sécurité s'articulant autour du sigle \textit{CAIN (Confidentialité, Authenticitification, Intégrité, Non-répudiation)}.
+%de définir des notions importantes utilisées en sécurité s'articulant autour du sigle \textit{CAIN (Confidentialité, Authentification, Intégrité, Non-répudiation)}.
 %En effet, l'architecture proposée s'articulant autour d'une PKI permet de couvrir ces notions:
 %\begin{itemize}
 % \item Confidentialité: seul le destinataire est capable de lire un message qui lui est destiné grâce au mécanisme de chiffrement asymétrique,
@@ -947,6 +1005,21 @@ Voici quelques couches de communication qui utilisent SSL:
     \end{itemize}
 
 \end{enumerate}
+
+
+\section{Impact du système d'authentification sur DIET}
+
+L'implémentation de DIET V3 qui constitue un niveau d'abstraction entre le module de sécurité et la couche transport devra 
+prévoir le passage de paramètres utiles à l'authentification tels que: 
+
+\begin{itemize}
+ \item le type de protocole: ssl lorque le module de sécurité est activé, 
+
+ \item la passphrase associée à la clé etc.
+  
+\end{itemize}
+
+
 
 %* CORBA:\\ 
 %- Omniorb: \url{http://omniorb.sourceforge.net/omni40/omniORB/omniORB008.html}\\
