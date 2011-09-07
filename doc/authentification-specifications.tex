@@ -352,11 +352,11 @@ Dans ce cas, un protocole à clé publique est utilisée pour échanger des clés pri
 
 Kerberos, développé au \textit{Massachusetts Institute of Technology}, est un protocole d'authentification à tierce personne de confiance basé sur un chiffrement symétrique et con\c{c}u pour fonctionner 
 au dessus d'un réseau TCP/IP non sécurisé. Tout ce protocole repose sur l'échange de blocs de données appelés \textit{tickets} correspondant à un ensemble d'informations, délivré 
-par une authorité de confiance pour un client donné à destination d'un service donné \hyperlink{Perrin02}{[PERRIN02]}. 
+par une autorité de confiance pour un client donné à destination d'un service donné \hyperlink{Perrin02}{[PERRIN02]}. 
 
 Nous allons tout d'abord présenter les caractéristiques et le r\^ole de l'autorité de confiance dans Kerberos appelée \textit{Key distribution Center (KDC)}.
 %C'est un distributeur de tickets dans lequel seront stockées des clés de cryptage symétrique. 
-Son r\^ole peut être divisé en deux services:
+Son r\^ole peut être divisé en deux services qui ne tournent pas nécessairement sur le m\^eme serveur:
 \begin{itemize}
  \item le service d'authentification, \textit{Authentification Service (AS) en anglais}, qui délivre les \textit{TGT\footnote{Ticket Granting Ticket}} (authentification par mot de passe)
   pour s'adresser au \textit{TGS \footnote{Ticket Granting Service}},
@@ -364,8 +364,7 @@ Son r\^ole peut être divisé en deux services:
   un service spécifique.
 \end{itemize}
 
-Ces deux services ne tournent pas nécessairement sur le m\^eme serveur. Il faut noter que 
-chaque sujet et service du réseau a une clé secrète partagée avec le KDC. L'utilisateur ne transmet jamais son mot de passe au service.
+Il faut noter que chaque sujet et service du réseau a une clé secrète partagée avec le KDC.
 
 Le mécanisme de fonctionnement de Kerberos peut se résumer en trois points essentiel:
 
@@ -410,7 +409,7 @@ A ce niveau, une fois le client authentifié, le KDC génère une nouvelle clé de s
 entre l'utilisateur et le service sollicité. Il crée aussi un nouveau ticket contenant 
 \begin{itemize}
  \item le nom et adresse de l'utilisateur pour lequel le ticket a été crée
- \item le nom de service sollicité par l'utilisateur
+ \item le nom du service sollicité par l'utilisateur
  \item la date d'émission et la durée de vie du ticket
  \item la nouvelle clé de session
 \end{itemize}
@@ -434,15 +433,26 @@ est bien celui auquel le ticket a été délivré. Optionnellement, le service peut 
 renvoyé le tout à l'utilisateur pour qu'il soit s\^ur que le service qu'il a contacté et bien le bon puisqu'il a pu lire le ticket et récupérer la clé de session
 correspondante.
  
+nous allons citer quelques faiblesses de Kerberos:
+\begin{itemize}
+ \item le système est centralisé: le passage à l'échelle peut constituer un problème pour le KDC.
+ \item le service de datation: les authentifiants dépendent du fait que toutes les horloges soient synchroniées.
+ \item le KDC possèdes toutes les clés des utilisateurs et des services et s'il est attaqué avec succès toutes les clés doivent \^etre
+ changées.
+ \item usurpation de login: une attaque o\`u les logiciels kerberos clients réalisent le protocole Kerberos mais 
+ enregistrent également les mots de passe.  
+\end{itemize}
+
+
 \subsubsection*{Les implémentations de Kerberos}
 
 Nous allons présenter dans cette section quelques implémentation existantes de Kerberos:
 
 \begin{itemize}
  \item version du \textit{Massachusetts Institute of Technology}.
- \item version intégrée dans windows 2000. Windows 2000 a offert un système d'administration appelé \textit{Active directory} 
+ \item version intégrée dans Windows 2000. Windows 2000 a offert un système d'administration appelé \textit{Active directory} 
  qui combine plusieurs technologies: un annuaire LDAP pour la gestion de noms et des services, Kerberos pour l'authentification 
- des utilisateurs et la sécurisation des services réseaux et un protole appelé NTP (Network Time Protocol) pour la synchronisation des
+ des utilisateurs et la sécurisation des services réseaux et un protocole appelé NTP (Network Time Protocol) pour la synchronisation des
  horloges.
  \item version issue du monde libre: Heimdal.
  \item version propriétaire de SUN: SESAM (Sun Entreprise Authentification Mechanism).
@@ -1042,27 +1052,24 @@ Voici quelques couches de communication qui utilisent SSL:
       \item QPid : \url{http://qpid.apache.org/books/trunk/AMQP-Messaging-Broker-CPP-Book/html/ch01s05.html}
       \item RabbitMQ : \url{http://www.rabbitmq.com/SSL.html}
     \end{itemize}
-
 \end{enumerate}
 
 
-\section{Gestion des droits utilisateurs}
-\textcolor{red}{TODO}
-Vérification au niveau des services et Vérification au niveau de la gestion de données (DAGDA).
-Regarder le fonctionnement de cgroup.
+%\section{Gestion des droits utilisateurs}
+%\textcolor{red}{TODO}
+%Vérification au niveau des services et Vérification au niveau de la gestion de données (DAGDA).
+%Regarder le fonctionnement de cgroup.
 
 
-\section{Impact du système d'authentification sur DIET}
+%\section{Impact du système d'authentification sur DIET}
 
-L'implémentation de DIET V3 qui constitue un niveau d'abstraction entre le module de sécurité et la couche transport devra 
-prévoir le passage de paramètres utiles à l'authentification tels que: 
+%L'implémentation de DIET V3 qui constitue un niveau d'abstraction entre le module de sécurité et la couche transport devra 
+%prévoir le passage de paramètres utiles à l'authentification tels que: 
 
-\begin{itemize}
- \item le type de protocole: ssl lorque le module de sécurité est activé, 
-
- \item la passphrase associée à la clé etc.
-  
-\end{itemize}
+%\begin{itemize}
+% \item le type de protocole: ssl lorque le module de sécurité est activé, 
+% \item la passphrase associée à la clé etc.  
+%\end{itemize}
 
 
 
