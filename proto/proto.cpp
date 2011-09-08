@@ -31,7 +31,10 @@ using namespace Botan;
 using namespace std;
 
 
-static const string hash_fn = "SHA-512";
+static const string hash_fn = "MD5";
+static const int bits = 1024;
+static const int caBits = 2048;
+
 /*
  * This funtion generates a CA certificate by default
  * or a simple one in the other case
@@ -51,10 +54,10 @@ generateCertificate(string certificateName, bool CAflag = true) {
   }
 
   AutoSeeded_RNG rng;
-  RSA_PrivateKey key(rng, 2048);
+  RSA_PrivateKey key(rng, caBits);
   //cout << "key" << key. << "\n";
   //pub << X509::PEM_encode(key);
-  priv << PKCS8::PEM_encode(key);
+  priv << PKCS8::PEM_encode(key, rng, "password");
 
   X509_Cert_Options opts;
 
@@ -87,10 +90,10 @@ generateReqCertificate(string certificateName) {
 
   AutoSeeded_RNG rng;
 
-  RSA_PrivateKey priv_key(rng, 2048);
+  RSA_PrivateKey priv_key(rng, bits);
 
   std::ofstream key_file(string("Userpriv_"+certificateName).c_str());
-  key_file << PKCS8::PEM_encode(priv_key);
+  key_file << PKCS8::PEM_encode(priv_key, rng, "password");
 
   X509_Cert_Options opts;
 
@@ -131,7 +134,7 @@ CASigns(string CACertificate,
 
   X509_Certificate ca_cert(CACertificate);
   std::auto_ptr<PKCS8_PrivateKey> privkey(
-      PKCS8::load_key(CAKey, rng)
+      PKCS8::load_key(CAKey, rng, "password")
       );
   X509_CA ca(ca_cert, *privkey, hash_fn);
 
@@ -189,7 +192,7 @@ main() {
       //To generate certificate not signed by CA
       generateCertificate("test.pem", false);
 
-      /*To check the certificate generated*/
+      //To check the certificate generated
 
       //To build the CA certificate object
       X509_Certificate ca_cert(string("Cert_"+CAcertificateName));
@@ -200,7 +203,7 @@ main() {
 
       //To store the CA certificate on the list of knwon CA
       X509_Store cert_store;
-      cert_store.add_cert(ca_cert, /*trusted=*/true);
+      cert_store.add_cert(ca_cert, true); //cert_store.add_cert(ca_cert, /trusted=/true);
       cert_store.add_cert(subject1_cert);
       cert_store.add_cert(subject2_cert);
 
@@ -224,8 +227,8 @@ main() {
         cout << "test.pem_Cert not signed by the CA did not validate, code = " << code << "\n";;
       }
 
-      /*cout <<  "algo_name of req.pem_Cert: " <<  pub->algo_name()  << "\n";
-      cout <<  "content of ca_cert: \n\n" << ca_cert.to_string() << "\n\n";*/
+      //cout <<  "algo_name of req.pem_Cert: " <<  pub->algo_name()  << "\n";
+      //cout <<  "content of ca_cert: \n\n" << ca_cert.to_string() << "\n\n";
 
       //To display certificates contenet
       cout <<  "content of Cert_req.pem: \n\n" << subject1_cert.to_string() << "\n\n";
@@ -237,7 +240,7 @@ main() {
 
       AutoSeeded_RNG rng;
       //To get the private key from file
-      Private_Key* pkey= PKCS8::load_key(CAcertificateName, rng);
+      Private_Key* pkey= PKCS8::load_key(CAcertificateName, rng, "password");
 
       //To create CA object
       X509_CA ca(ca_cert, *pkey, hash_fn);
