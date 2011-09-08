@@ -433,11 +433,11 @@ est bien celui auquel le ticket a été délivré. Optionnellement, le service peut 
 renvoyé le tout à l'utilisateur pour qu'il soit s\^ur que le service qu'il a contacté et bien le bon puisqu'il a pu lire le ticket et récupérer la clé de session
 correspondante.
  
-nous allons citer quelques faiblesses de Kerberos:
+Nous allons citer quelques faiblesses de Kerberos:
 \begin{itemize}
  \item le système est centralisé: le passage à l'échelle peut constituer un problème pour le KDC.
  \item le service de datation: les authentifiants dépendent du fait que toutes les horloges soient synchroniées.
- \item le KDC possèdes toutes les clés des utilisateurs et des services et s'il est attaqué avec succès toutes les clés doivent \^etre
+ \item le KDC possède toutes les clés des utilisateurs et des services et s'il est attaqué avec succès toutes les clés doivent \^etre
  changées.
  \item usurpation de login: une attaque o\`u les logiciels kerberos clients réalisent le protocole Kerberos mais 
  enregistrent également les mots de passe.  
@@ -446,7 +446,7 @@ nous allons citer quelques faiblesses de Kerberos:
 
 \subsubsection*{Les implémentations de Kerberos}
 
-Nous allons présenter dans cette section quelques implémentation existantes de Kerberos:
+Il existe différentes implémentations de Kerberos:
 
 \begin{itemize}
  \item version du \textit{Massachusetts Institute of Technology}.
@@ -481,7 +481,8 @@ L'implementation d'une couche de sécurité reduira les performances réseaux de no
 L'authentification des utilisateurs, la confidentialité et l'intégrité des données restent des points important à prendre en compte dans la 
 définition de la couche sécurité et il serait intéressant de pouvoir maitriser les performances réseau en définissant le niveaux de sécurité
 à la volée. Ils devront pouvoir s'imbriquer facilement. Un utilisateur pourra pour des soucis de performances s'assurer juste de l'intégrité des 
-données, ce qui est moins coute\^ux ou aller plus loin en rajoutant la confidentialité, l'authentification et/ou la certification des résultats.
+données, ce qui est moins coute\^ux ou aller plus loin en rajoutant la confidentialité, l'authentification et/ou la certification des résultats. Des solutions
+issues du monde libre seront prioritaires par rapport à des solutions commerciales.
 
 \section{ Authentification des utilisateurs }
 
@@ -493,9 +494,7 @@ données, ce qui est moins coute\^ux ou aller plus loin en rajoutant la confident
 L'authentification des utilisateurs va s'inspirer principalement du module \textit{ UMS (User Managment System) } \hyperlink{UMSDesign}{[VISHNU\_D2\_1a-UMS-Design]} développé dans le cadre 
 du projet VISHNU \footnote{\url{http://www.sysfera.fr/vishnu/}}. UMS se base sur une authentification unique \textit{(Single Sign-{}On) } pour ses 
 avantages :
-
 \begin{itemize}
-
 \item l'utilisateur ne s'authentifie qu'une seule fois via un login et un mot de passe pour accèder à l'infrastructure,
 \item l'authentification est gérée de façon centralisée,
 \item la souplesse de l'utilisation de l'infrastructure (pas d'authentification systématique). 
@@ -543,13 +542,14 @@ Les administrateurs enregistrent les machines et spécifient pour chaque machine 
 		par l'utilisateur et pendant cette période, il a accès aux services autorisés au groupe auquel il appartient.
 \item \textbf{ Déconnexion }: Retour à l'état initial.
 \end{itemize}
- 	    Un cryptage des données circulant à travers le canal de communication pendant les phases précédentes peut ajouter un niveau de sécurité supplémentaire. Cependant, cette partie
-	    sera développée dans le module de transport de données.  
- 
+Un cryptage des données circulant à travers le canal de communication pendant les phases précédentes peut ajouter un niveau de sécurité supplémentaire. Cependant, cette partie
+sera développée dans le module de transport de données. Toutefois, il serait également possible d'utiliser des mécanisme de chiffrement avec
+authentifiants comme Kerberos pouvant fonctionner sur un réseau non sécurisé. 
+
           
 \subsection{ Proposition n°2: Gestion des certificats }
      
-\textbf{ Pré-{}requis:} l'autorité de certification doit être dans un environnement sûr.
+\textbf{ Pré-requis:} l'autorité de certification doit être dans un environnement sûr.
     
 Cette deuxième proposition est inspirée du module GSI \footnote{Grid Security Infrastructure} de Globus basé sur les mécanismes de PKI avec des certificats X509. Le module GSI s'appuie sur une implémentation de la GSS-{}API\footnote{
 Generic Security Services API 
@@ -590,16 +590,13 @@ avec des politiques de sécurité différentes. Nous allons plut\^ot nous intéresse
 catégorisation définie dans \hyperlink{Varette07}{[VARETTE07]}. Ce type de grille est moins dense en terme d'utilisateurs que des grilles 
 au sens Globus et donc utilisera une politique de sécurité un peu moins complexe. 
 
-
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.58]{images/globus2.png}
 \centering
 \caption{Le modèle GSI pour l'interaction avec une architecture de calcul distribué}\label{fig:globus2}
 \end{figure}
-
-
-Dans le prochain paragraphe, nous allons décrire la couche sécurité envisagée pour la version 3 de DIET.
+%Dans le prochain paragraphe, nous allons décrire la couche sécurité envisagée pour la version 3 de DIET.
 %\subsubsection{ Les infrastructures à clés publiques (PKI en anglais) }
     
 %Quelles sont les motivations d'un chiffrement à clé publique (chiffrement asymétrique)?\\ 
@@ -1009,19 +1006,23 @@ d'attaque \textit{man-in-the-middle} doit être empêché. Pour cela, il est nécess
 voulant s'ajouter à une hiérarchie soit identifié par un certificat lui donnant ou non les droits de connexion. Voir
 l'étude réalisée par Sogeti \hyperlink{Sogeti}{[LST-LIP-DIET\_Sec]}.
 
-Le scénario d'envoi d'une requête décrit ci-dessous garantit non seulement l'identification des utilisateurs mais aussi des éléments de la hiérarchie:
-\begin{itemize}
-\item Un utilisateur fait une requête via DIET.
-\item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) qui répondra à sa requête.
-\item L'utilisateur chiffre son message via la clé publique du SeD qui répondra à sa requête.
-\item L'élement de la hiérarchie DIET qui recoit la requête déchiffre le message via sa clé privée et vérifie que le certificat
-de l'utilisateur a bien été signé par l'autorité de certification du système et qu'il n'a pas été revoqué.
+Pour l'ajout d'un élément DIET a une hiérarchie, il faudra tout d'abord vérifier que les informations figurant sur son certificat, qui doit être valide (non révoqué et signé pas l'autorité de certification), correspondent
+bien à un élément enregistré dans le système. Ensuite, il faudra crypter une information avec la clé publique du certificat (temps courant par exemple) et la renvoyer
+à l'élément. Si le noeud a rajouter déchiffre le message et le renvoi c'est qu'il est bien celui qui prétend être.
+
+%Le scénario d'envoi d'une requête décrit ci-dessous garantit non seulement l'identification des utilisateurs mais aussi des éléments de la hiérarchie:
+%\begin{itemize}
+%\item Un utilisateur fait une requête via DIET.
+%\item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) qui répondra à sa requête.
+%\item L'utilisateur chiffre son message via la clé publique du SeD qui répondra à sa requête.
+%\item L'élement de la hiérarchie DIET qui recoit la requête déchiffre le message via sa clé privée et vérifie que le certificat
+%de l'utilisateur a bien été signé par l'autorité de certification du système et qu'il n'a pas été revoqué.
 %\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
 %\item Le CA confirme ou refute le certificat.
 %\item Si le certificat est valide, le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
 %hiérarchie DIET correspondant.
-\item L'élement de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.
-\end{itemize}
+%\item L'élement de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.
+%\end{itemize}
 
                   
 \section{Le cryptage des données}
