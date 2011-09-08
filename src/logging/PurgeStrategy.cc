@@ -15,7 +15,7 @@ namespace dadi {
 
 namespace bfs = boost::filesystem;
 
-boost::format PurgeStrategy::regexTpl("");//"%s\\.\\w+");
+boost::format PurgeStrategy::regexTpl("");
 
 PurgeStrategy::PurgeStrategy() {}
 
@@ -46,8 +46,8 @@ void
 PurgeStrategy::sort(std::vector<std::string>& paths) {}
 
 /*****************************************************************************/
-
-PurgeByCountStrategy::PurgeByCountStrategy(unsigned int count) : count_(count) {}
+PurgeByCountStrategy::PurgeByCountStrategy(unsigned int count)
+  : count_(count) {}
 
 PurgeByCountStrategy::~PurgeByCountStrategy() {}
 

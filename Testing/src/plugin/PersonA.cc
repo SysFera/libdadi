@@ -1,8 +1,14 @@
-#include "IPerson.hh"
-
+/**
+ * @file   Testing/src/plugin/PersonA.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  IPerson plugin implementation
+ * @section Licence
+ *   |LICENCE|
+ *
+ */
 #include <cstring>
 #include <iostream>
-#include <new>
+#include "IPerson.hh"
 
 class PersonA : public IPerson {
 protected:
@@ -14,7 +20,6 @@ void
 PersonA::do_say_hello() {
   std::cout << "Hello I'm PersonA!\n";
 }
-
 
 int
 create_plugin_instance(void **instance) {

@@ -33,7 +33,6 @@ class NotImplementedError : public Error {};
 typedef boost::error_info<struct tag_errinfo_msg, std::string> errinfo_msg;
 
 
-
 } /* namespace dadi */
 
 

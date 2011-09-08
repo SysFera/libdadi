@@ -2,32 +2,27 @@
  * @file DADIConfigFileTests.cc
  * @brief This file implements the libdadi tests for configFile
  * @author Eugène PAMBA CAPO-CHICHI (eugene.capochichi@sysfera.com)
+ * @section Licence
+ *  |LICENCE|
+ *
  */
-
-#include "Config.hh"
-#include "Options.hh"
-#include "testconfig.h"
 
 // C++ Headers
 #include <iostream>
 #include <sstream>
-#include <cmath>
-#include <cstring>
-
-// Boost Headers
 #include <boost/thread.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/test/unit_test.hpp>
+#include "Config.hh"
+#include "Options.hh"
+#include "testconfig.h"
 
-using namespace std;
-using namespace dadi;
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 
 BOOST_AUTO_TEST_SUITE(ConfigFileTests)
 
 BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
-
   BOOST_TEST_MESSAGE("#Read config file test normal call#");
 
   int argc = 3;
@@ -66,17 +61,14 @@ BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
   opt.notify();
 
   // then get configuration file path
-  std::string cfile = boost::any_cast<std::string>(config["command.file"]);
+  std::string cfile = config.get<std::string>("command.file");
   // finally parse configuration file
   // if you want to allow unregistered options, set second arg to true
   opt.parseConfigFile(cfile, false);
   opt.notify();
 
-  BOOST_REQUIRE(!config["file.name"].empty());
-  BOOST_REQUIRE(
-    boost::any_cast<std::string>(config["file.name"]) == "<testConfigFile>");
+  BOOST_REQUIRE_GT(config.count("file.name"), 0);
+  BOOST_REQUIRE_EQUAL(config.get<string>("file.name"), "<testConfigFile>");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-
-// THE END

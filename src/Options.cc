@@ -8,17 +8,15 @@
  */
 
 #include "Options.hh"
-
 #include <iostream>
 #include <fstream>
 #include <list>
 #include <map>
 #include <sstream>
 #include <string>
-#include <typeinfo>
-
 #include <boost/format.hpp>
 #include <boost/foreach.hpp>
+
 namespace dadi {
 
 #define foreach BOOST_FOREACH
@@ -101,18 +99,15 @@ Options::parseConfigFile(const std::string& file, bool unregistered) {
   // store the registred options
   store(parsed_file, vm_);
 
-  dadi::Config& store_ = dadi::Config::instance();
+  // dadi::Config& store_ = dadi::Config::instance();
   // store the unregistred options
   foreach(po::option unregoption, parsed_file.options) {
     if (unregoption.unregistered) {
-      if (unregoption.value.size() == 1) {
-        dadi::setProperty(unregoption.string_key, unregoption.value.back());
-      } else {
-        dadi::setProperty(unregoption.string_key, unregoption.value);
-      }
+     foreach(std::string value, unregoption.value) {
+    // dadi::setProperty(unregoption.string_key,value);
+     }
     }
   }
-
   // store(parse_config_file(ifs, *options, unregistered), vm_);
 }
 

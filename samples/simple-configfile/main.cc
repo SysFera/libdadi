@@ -1,6 +1,13 @@
+/**
+ * @file   samples/simple-configfile/main.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  sample program showing how to use configuration file API
+ * @section Licence
+ *   |LICENCE|
+ *
+ */
 #include <cstdlib>
 #include <iostream>
-
 #include "Config.hh"
 #include "Options.hh"
 
@@ -10,8 +17,6 @@
    name=<xxxx>
 
 */
-
-
 
 int main(int argc, char *argv[], char *envp[]) {
   dadi::Options opt;
@@ -42,7 +47,7 @@ int main(int argc, char *argv[], char *envp[]) {
   opt.notify();
 
   // then get configuration file path
-  std::string cfile = boost::any_cast<std::string>(config["command.file"]);
+  std::string cfile = config.get<std::string>("command.file");
 
   // finally parse configuration file
   // if you want to allow unregistered options, set second arg to true
@@ -55,10 +60,13 @@ int main(int argc, char *argv[], char *envp[]) {
   }
   opt.notify();
 
-  if (!config["file.name"].empty()) {
+  boost::optional<std::string> fileName =
+    config.get_optional<std::string>("file.name");
+
+  if (fileName) {
     std::cout << "==== file ====\n"
               << "file.name: "
-              << boost::any_cast<std::string>(config["file.name"])
+              << *fileName
               << "\n";
   } else {
     std::cerr << "empty key: file.name\n";

@@ -1,3 +1,11 @@
+/**
+ * @file   include/dadi-config.hh
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  libdadi internal header
+ * @section Licence
+ *   |LICENCE|
+ *
+ */
 #ifndef _CONFIG_HH_
 #define _CONFIG_HH_
 

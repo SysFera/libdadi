@@ -1,0 +1,55 @@
+diet
+{
+dagda
+{
+tempMemSize 10000
+tempFileSize 10000
+Storages
+  {
+    storage s1
+    {
+      name first
+      type mem
+      size 1000
+    }
+    storage s2
+    {
+      name second
+      type file
+      size 2000
+    }
+  }
+}
+core
+{
+ users
+ {
+  user paco
+  {
+   name paco
+   quotas 2000
+  }
+  user daouda
+  {
+   name daouda
+   quotas 3000
+  }
+ }
+
+Groups
+{
+ group g1
+  {
+   name g1
+   quotas 1000
+  }
+  group g2
+  {
+   name g2
+   quotas 2000
+  }
+}
+}
+}
+;#include ".conf"
+;#include "../groups.conf"

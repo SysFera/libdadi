@@ -3,7 +3,7 @@
 /**
  * @file   Exception/Attributes.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
- * @brief  attributes exception classe
+ * @brief  attributes exception classes
  * @section Licence
  *   |LICENCE|
  *
@@ -30,7 +30,6 @@ class UnknownAttributeError : public AttributeError {};
  * @brief report an invalid attribute (bad type)
  */
 class InvalidAttributeError : public AttributeError {};
-
 
 } /* namespace dadi */
 

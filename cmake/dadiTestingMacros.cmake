@@ -60,6 +60,8 @@ macro(dadi_test NAME)
       res_int ${content})
     string(REGEX REPLACE "BOOST_AUTO_TEST_SUITE\\(([a-zA-Z0-9_]*)\\)" "\\1/"
       testsuite ${res_int})
+
+
     ## removed commented case tests
     # TODO: fix this if test case is not commented out as coding standards
     # request, this will fail

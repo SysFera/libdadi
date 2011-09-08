@@ -1,24 +1,31 @@
+/**
+ * @file   samples/simple-logging/main.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  sample program showing how to use logging API
+ * @section Licence
+ *   |LICENCE|
+ *
+ */
+
 #include <iostream>
 #include <boost/thread.hpp>
-#include <Logging/ConsoleChannel.hh>
-#include <Logging/FileChannel.hh>
-#include <Logging/LogServiceChannel.hh>
-#include <Logging/Logger.hh>
-#include <Logging/Message.hh>
-
-using namespace dadi;
+#include "Logging/ConsoleChannel.hh"
+#include "Logging/FileChannel.hh"
+#include "Logging/LogServiceChannel.hh"
+#include "Logging/Logger.hh"
+#include "Logging/Message.hh"
 
 int
 main(int argc, char *argv[]) {
-  LoggerPtr mylogger1 = Logger::getLogger("test1");
-  LoggerPtr mylogger2 = Logger::getLogger("test1.test2");
-  LoggerPtr mylogger3 = Logger::getLogger("test1.test3");
-  mylogger1->setLevel(Message::PRIO_DEBUG);
-  mylogger2->setLevel(Message::PRIO_TRACE);
-  mylogger3->setLevel(Message::PRIO_TRACE);
-  ChannelPtr cc1(new FileChannel);
-  ChannelPtr cc2(new ConsoleChannel);
-  ChannelPtr cc3(new LogServiceChannel(argc, argv));
+  dadi::LoggerPtr mylogger1 = dadi::Logger::getLogger("test1");
+  dadi::LoggerPtr mylogger2 = dadi::Logger::getLogger("test1.test2");
+  dadi::LoggerPtr mylogger3 = dadi::Logger::getLogger("test1.test3");
+  mylogger1->setLevel(dadi::Message::PRIO_DEBUG);
+  mylogger2->setLevel(dadi::Message::PRIO_TRACE);
+  mylogger3->setLevel(dadi::Message::PRIO_TRACE);
+  dadi::ChannelPtr cc1(new dadi::FileChannel);
+  dadi::ChannelPtr cc2(new dadi::ConsoleChannel);
+  dadi::ChannelPtr cc3(new dadi::LogServiceChannel(argc, argv));
   cc1->putAttr<std::string>("path", "crap4.log");
   cc1->putAttr<std::string>("compression_mode", "none");
   cc1->putAttr<std::string>("archive", "timestamp");
@@ -29,18 +36,23 @@ main(int argc, char *argv[]) {
   mylogger2->setChannel(cc2);
   mylogger3->setChannel(cc3);
   for (int i = 0; i < 10; i++) {
-    mylogger1->log(Message("", "test: DEBUG test test", Message::PRIO_DEBUG));
-    mylogger1->log(Message("", "test: FATAL test test", Message::PRIO_FATAL));
-    mylogger2->log(Message("", "test: DEBUG test test", Message::PRIO_DEBUG));
-    mylogger2->log(Message("", "test: FATAL test test", Message::PRIO_FATAL));
-    mylogger3->log(Message("", "test: FATAL test test", Message::PRIO_FATAL));
+    mylogger1->log(
+      dadi::Message("", "test: DEBUG20 test test", dadi::Message::PRIO_DEBUG));
+    mylogger1->log(
+      dadi::Message("", "test: FATAL test test", dadi::Message::PRIO_FATAL));
+    mylogger2->log(
+      dadi::Message("", "test: DEBUG test test", dadi::Message::PRIO_DEBUG));
+    mylogger2->log(
+      dadi::Message("", "test: FATAL test test", dadi::Message::PRIO_FATAL));
+    mylogger3->log(
+      dadi::Message("", "test: FATAL test test", dadi::Message::PRIO_FATAL));
 //    boost::this_thread::sleep(boost::posix_time::seconds(1));
   }
 
-  std::cout << "size: " << ((FileChannel* )cc1.get())->getSize() << "\n";
+  std::cout << "size: " << ((dadi::FileChannel*)cc1.get())->getSize() << "\n";
   std::cout << "last modified: "
-            << ((FileChannel* )cc1.get())->getLastWriteTime() << "\n";
-  Logger::shutdown();
+            << ((dadi::FileChannel*)cc1.get())->getLastWriteTime() << "\n";
+  dadi::Logger::shutdown();
   return 0;
 }
 

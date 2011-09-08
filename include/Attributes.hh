@@ -3,7 +3,7 @@
 /**
  * @file   Attributes.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
- * @brief  defines attributes management
+ * @brief  Dadi attributes implementation
  * @section Licence
  *   |LICENCE|
  *
@@ -13,8 +13,8 @@
 #include <string>
 #include <boost/any.hpp>
 #include <boost/foreach.hpp>
-#include <boost/property_tree/ptree.hpp>
 #include "Exception/Attributes.hh"
+#include "detail/Parsers.hh"
 
 namespace dadi {
 
@@ -27,17 +27,6 @@ namespace dadi {
  */
 class Attributes {
 public:
-  /**
-   * @enum Format
-   * @brief supported serialization formats
-   */
-  enum Format {
-    FORMAT_XML = 0, /**< default serialization format */
-    FORMAT_INI,  /**< INI serialization format */
-    FORMAT_JSON, /**< JSON serialization format */
-    FORMAT_INFO /**< INFO serialization format */
-  };
-
   /**
    * @brief default constructor
    */
@@ -56,7 +45,7 @@ public:
   /* accessors */
   /**
    * @brief get value associated to path
-   * @param path path to attribute
+   * @param path attribute path
    * @return expected value
    * @throw dadi::UnknownAttributeError
    * @throw dadi::InvalidAttributeError
@@ -73,27 +62,43 @@ public:
   }
 
   /**
-   * @brief get value associated to path
-   * @param path path to attribute
-   * @return expected list of values
+   * @brief get attributes list and store it in standard container
+   * @param path attribute path
+   * @param container container path list of values
    * @throw dadi::UnknownAttributeError
    * @throw dadi::InvalidAttributeError
    */
-  template<typename T> std::list<T>
-  getAttrList(const std::string& path) const {
-    std::list<T> myList;
+  template<typename T, template <typename Element> class Container >
+  void
+  getAttrList(const std::string& path, Container<T>& container) const {
+    container.clear();
+
     try {
       BOOST_FOREACH(boost::property_tree::ptree::value_type& v,
                     pt.get_child(path)) {
-        myList.push_back(v.second.get_value<T>());
+        container.push_back(v.second.get_value<T>());
       }
     } catch (const boost::property_tree::ptree_bad_path& e) {
       BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
     } catch (const boost::property_tree::ptree_bad_data& e) {
       BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
     }
+  }
 
-    return myList;
+
+  /**
+   * @brief get the list of values associated to path and store it in a std::list
+   * @param path path to attribute
+   * @param container container path list of values
+   * @throw dadi::UnknownAttributeError
+   * @throw dadi::InvalidAttributeError
+   */
+  template<typename T>
+  std::list<T>
+  getAttrList(const std::string& path) const {
+      std::list<T> container;
+      getAttrList(path, container);
+      return container;
   }
 
   /**
@@ -131,7 +136,7 @@ public:
    * @param format XML by default
    * @return serialized attribute
    */
-    std::string saveAttr(int format = 0) const;
+  std::string saveAttr(int format = 0) const;
 
   /* operators */
   /**
@@ -145,13 +150,13 @@ public:
    * @param other object object to compare
    * @return boolean
    */
-  bool operator==(const Attributes& other);
+  bool operator==(const Attributes& other) const;
   /**
    * @brief comparison operator
    * @param other object object to compare
    * @return boolean
    */
-  bool operator!=(const Attributes& other);
+  bool operator!=(const Attributes& other) const;
 
 private:
   boost::property_tree::ptree pt; /**< property tree holding attributes */

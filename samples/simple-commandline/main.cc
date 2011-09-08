@@ -1,3 +1,11 @@
+/**
+ * @file   samples/simple-commandline/main.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  sample program showing how to use command-line file API
+ * @section Licence
+ *   |LICENCE|
+ *
+ */
 #include <cstdlib>
 #include <iostream>
 // force debug traces in dadi::setProperty

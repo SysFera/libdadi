@@ -438,9 +438,9 @@ help(const dadi::Options& opt);
  */
 template<typename T>
 void
-setProperty(std::string key, const T& value) {
+setProperty(const std::string& key, const T& value) {
   dadi::Config& store_ = dadi::Config::instance();
-  store_[key] = value;
+  store_.put(key, value);
 #ifdef NDEBUG
   std::cerr << key << ": " << value << "\n";
 #endif

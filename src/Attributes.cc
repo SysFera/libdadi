@@ -11,10 +11,6 @@
 #include <list>
 #include <sstream>
 #include <string>
-#include <boost/property_tree/xml_parser.hpp>
-#include <boost/property_tree/ini_parser.hpp>
-#include <boost/property_tree/json_parser.hpp>
-
 
 namespace dadi {
 
@@ -70,12 +66,12 @@ Attributes::operator=(const Attributes& other) {
 }
 
 bool
-Attributes::operator==(const Attributes& other) {
+Attributes::operator==(const Attributes& other) const {
   return ((this->pt) == (other.pt));
 }
 
 bool
-Attributes::operator!=(const Attributes& other) {
+Attributes::operator!=(const Attributes& other) const {
   return ((this->pt) != (other.pt));
 }
 

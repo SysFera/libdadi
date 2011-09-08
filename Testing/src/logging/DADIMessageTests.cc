@@ -2,68 +2,63 @@
  * @file DADIMessageTests.cc
  * @brief This file implements the libdadi tests for messages
  * @author Benjamin DEPARDON (benjamin.depardon@sysfera.com)
+ * @section Licence
+ *  |LICENCE|
+ *
  */
 
 #include <iostream>
-#include <Logging/Message.hh>
-#include "Config.hh"
-#include "Options.hh"
-
-// C++ Headers
-#include <iostream>
-#include <sstream>
-#include <cmath>
-
-// Boost Headers
 #include <boost/thread.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/test/unit_test.hpp>
-
-using namespace std;
-using namespace dadi;
+#include "Logging/Message.hh"
+#include "Config.hh"
+#include "Options.hh"
 
 BOOST_AUTO_TEST_SUITE(MessageTests)
 
 BOOST_AUTO_TEST_CASE(default_constructor_test) {
   BOOST_TEST_MESSAGE("#Test default constructor#");
-  Message myMsg = Message();
+  dadi::Message myMsg;
 
   // Check line == 0
   BOOST_REQUIRE_EQUAL(myMsg.getLine(), 0);
   // Check Prio == Message::PRIO_FATAL
-  BOOST_REQUIRE_EQUAL(myMsg.getPriority(), Message::PRIO_FATAL);
+  BOOST_REQUIRE_EQUAL(myMsg.getPriority(), dadi::Message::PRIO_FATAL);
 }
 
 BOOST_AUTO_TEST_CASE(constructor_3params_test) {
   BOOST_TEST_MESSAGE("#Test constructor with 3 parameters#");
-  string source = "Bridgekeeper";
-  string msgToLog = "What... is the air-speed velocity of an unladen swallow?";
-  Message myMsg = Message(source, msgToLog, Message::PRIO_DEBUG);
+  std::string source("Bridgekeeper");
+  std::string msgToLog(
+    "What... is the air-speed velocity of an unladen swallow?");
+  dadi::Message myMsg(source, msgToLog, dadi::Message::PRIO_DEBUG);
 
   // Check source
   BOOST_REQUIRE_EQUAL(myMsg.getSource(), source);
   // Check text
   BOOST_REQUIRE_EQUAL(myMsg.getText(), msgToLog);
   // Check Priority
-  BOOST_REQUIRE_EQUAL(myMsg.getPriority(), Message::PRIO_DEBUG);
+  BOOST_REQUIRE_EQUAL(myMsg.getPriority(), dadi::Message::PRIO_DEBUG);
 }
 
 
 BOOST_AUTO_TEST_CASE(constructor_5params_test) {
   BOOST_TEST_MESSAGE("#Test constructor with 5 parameters#");
-  string source = "Bridgekeeper";
-  string msgToLog = "What... is the air-speed velocity of an unladen swallow?";
-  string file = "Grail.holy";
+  std::string source("Bridgekeeper");
+  std::string msgToLog(
+    "What... is the air-speed velocity of an unladen swallow?");
+  std::string file("Grail.holy");
   int line = 42;
-  Message myMsg = Message(source, msgToLog, Message::PRIO_DEBUG, file, line);
+  dadi::Message myMsg(source, msgToLog, dadi::Message::PRIO_DEBUG, file, line);
 
   // Check source
   BOOST_REQUIRE_EQUAL(myMsg.getSource(), source);
   // Check text
   BOOST_REQUIRE_EQUAL(myMsg.getText(), msgToLog);
   // Check Priority
-  BOOST_REQUIRE_EQUAL(myMsg.getPriority(), Message::PRIO_DEBUG);
+  BOOST_REQUIRE_EQUAL(myMsg.getPriority(), dadi::Message::PRIO_DEBUG);
   // Check File
   BOOST_REQUIRE_EQUAL(myMsg.getFile(), file);
   // Check Line
@@ -73,11 +68,12 @@ BOOST_AUTO_TEST_CASE(constructor_5params_test) {
 
 BOOST_AUTO_TEST_CASE(setters_getters_test) {
   BOOST_TEST_MESSAGE("#Test setters and getters#");
-  Message myMsg = Message();
+  dadi::Message myMsg = dadi::Message();
 
-  string source = "Bridgekeeper";
-  string msgToLog = "What... is the air-speed velocity of an unladen swallow?";
-  string file = "Grail.holy";
+  std::string source("Bridgekeeper");
+  std::string msgToLog(
+    "What... is the air-speed velocity of an unladen swallow?");
+  std::string file("Grail.holy");
   int line = 42;
   long timestamp = 1234567;
 
@@ -92,9 +88,9 @@ BOOST_AUTO_TEST_CASE(setters_getters_test) {
   BOOST_REQUIRE_EQUAL(myMsg.getText(), msgToLog);
 
   // Set priority
-  myMsg.setPriority(Message::PRIO_DEBUG);
+  myMsg.setPriority(dadi::Message::PRIO_DEBUG);
   // Check Priority
-  BOOST_REQUIRE_EQUAL(myMsg.getPriority(), Message::PRIO_DEBUG);
+  BOOST_REQUIRE_EQUAL(myMsg.getPriority(), dadi::Message::PRIO_DEBUG);
 
   // Set file
   myMsg.setFile(file);
@@ -114,10 +110,11 @@ BOOST_AUTO_TEST_CASE(setters_getters_test) {
 
 BOOST_AUTO_TEST_CASE(attributes_test) {
   BOOST_TEST_MESSAGE("#Test message attributes#");
-  Message myMsg = Message();
+  dadi::Message myMsg;
 
-  string key = "Bridgekeeper";
-  string value = "What... is the air-speed velocity of an unladen swallow?";
+  std::string key = "Bridgekeeper";
+  std::string value =
+    "What... is the air-speed velocity of an unladen swallow?";
 
   // add an attribute
   myMsg[key] = value;
