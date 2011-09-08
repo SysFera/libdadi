@@ -2,6 +2,31 @@
 - If the proto's directory is created on the local Botan-1.10.1 directory: 
 g++ -O2 -ansi -W -Wall -I../build/include -L../ -lbotan-1.10 proto.cpp -o proto
 
+- In the lines which follow, we will describes the main objects and functions used for certificate generation
+  - AutoSeeded_RNG rng :  an automatic random generator
+  - RSA_PrivateKey : an object for generating an RSA private key using the ranfom generator an the size (in bit) of the key
+  - PKCS8 : PKCS means Public Key Cryptographic Standards, the number 8 is the standard for private key and the PEM_encode function (on the namespace PKCS8) gives a string containing a PEM encoded private key 
+  - X509_Cert_Options : is an object which encapsulates the options set for the certificate which will be generated for certificate. an important flag
+   for the certificate options is CA_key (opts.CA_key()) that means: the certificate is for a certificate authority;
+  - X509_Certificate : is an object which represents the certificate
+  - X509::create_self_signed_cert(opts, key, hash_fn, rng) :  is a function that returns a self signed certificate using certificate options, the private key,
+  the hash function name and a random generator.
+ - PKCS10_Request: is an object for certificat request. The number 10 is a standard for request certificat format.
+ - X509::create_cert_req(opts, priv_key, hash_fn, rng): this function returns a certificate request using the private key, the options for the
+   certificate which will be generated, the hash function name and a random generator.
+ - X509_CA: an object which represents the certificate authority. It is used to generate a new signed certificate using the certificate request.
+ - sign_request(req, rng, start_time, end_time): The object X509_CA's function sign_request returns a certificate signed by using the certificate request,
+   the random generator and the validity period of the certificate (start time and end time).
+
+- In the lines which follow, we will describes the main objects and functions used for certificate revocation
+  - X509_Store : is an object to store the certificates or the revocation list. 
+      > fuctions of X509_Store : 
+	- add_certs : this function is used to add a certificate on the internal list of the X509_Store object. If the certificate corresponds to a Certificate of authority, the flag true with a add_certs function can be
+	set.  
+	- validate_cert : the function validate_cert can be used to check a certificate (to knwow for example if a certificate has been signed by a CA presents in the X509_Store object list).
+        - add_crl : is used to add a revocation list
+  - X509_CRL : the object represents a revocation list.  
+
 GoodLuck,
 My 2cts,
 Eugène.
