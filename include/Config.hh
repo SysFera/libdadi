@@ -16,11 +16,6 @@
 namespace dadi {
 
 /**
- * @brief Config storage type (currently a boost::property_tree)
- */
-typedef boost::property_tree::ptree ConfigStore;
-
-/**
  * @class Config
  * @brief thread-safe singleton configuration store using the CRTP idiom
  */

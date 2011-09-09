@@ -13,7 +13,7 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include "Exception/Parameters.hh"
+#include <Exception/Parameters.hh>
 
 namespace dadi {
 
@@ -29,8 +29,7 @@ enum Format {
 
 /**
  * @typedef ConfigStore
- * @brief The config storage type, it is actually a tree defined by
- * boost::property-tree class
+ * @brief Configuration tree backend (currently boost::property_tree)
  */
 typedef boost::property_tree::ptree ConfigStore;
 
