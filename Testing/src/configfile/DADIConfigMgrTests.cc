@@ -31,11 +31,11 @@ BOOST_AUTO_TEST_CASE(configMgr_dagda) {
     dadi::getConfigMgr("diet.dagda"));
 
   BOOST_CHECK_EQUAL(dagdaConfigMgr->getRootKey(), "diet.dagda");
-  std::list<std::string> StoragesNames(
+  std::vector<std::string> StoragesNames(
     dagdaConfigMgr->get<std::string>("Storages", "name"));
-  std::list<std::string> StoragesTypes(
+  std::vector<std::string> StoragesTypes(
     dagdaConfigMgr->get<std::string>("Storages", "type"));
-  std::list<unsigned> StoragesSizes(
+  std::vector<unsigned> StoragesSizes(
     dagdaConfigMgr->get<unsigned>("Storages", "size"));
   BOOST_CHECK((StoragesNames.size() == StoragesTypes.size()) &&
               (StoragesTypes.size()== StoragesSizes.size()));
@@ -59,9 +59,9 @@ BOOST_AUTO_TEST_CASE(configMgr_core) {
   boost::shared_ptr<dadi::ConfigMgr> dagdaConfigMgr(
     dadi::getConfigMgr("diet.core"));
   BOOST_CHECK_EQUAL(dagdaConfigMgr->getRootKey(), "diet.core");
-  std::list<std::string> usersNames(
+  std::vector<std::string> usersNames(
     dagdaConfigMgr->get<std::string>("users", "name"));
-  std::list<unsigned> usersQuotas(
+  std::vector<unsigned> usersQuotas(
     dagdaConfigMgr->get<unsigned>("users", "quotas"));
   BOOST_REQUIRE_EQUAL(usersNames.size(), usersQuotas.size());
 

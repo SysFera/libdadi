@@ -60,7 +60,7 @@ public:
    * @param key nodes name
    */
   template<typename valueType>
-  std::list<valueType>
+  std::vector<valueType>
   get(const std::string& sectionName, const std::string& key) const {
     return proxyCache->template get<valueType>(sectionName, key);
   }
@@ -114,9 +114,9 @@ private:
      * @param key relative key
      */
     template<typename valueType>
-    std::list<valueType>
+    std::vector<valueType>
     get(const std::string& sectionName, const std::string& key) {
-      std::list<valueType> values;
+      std::vector<valueType> values;
       try {
         dadi::ConfigStore child_tree;
         BOOST_FOREACH(dadi::ConfigStore::value_type &ptree_enfant,
