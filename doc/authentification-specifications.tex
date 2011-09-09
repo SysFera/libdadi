@@ -32,6 +32,7 @@
 \usepackage[hyperlink]{sysfera}
 
 
+\newcommand{\etc}{\textit{etc.}\xspace}
 
 %%%%
 %% TODO:
@@ -167,9 +168,9 @@
 
 La suite Logicielle \textit{SysFera-DS} a été con\c{c}ue pour répondre le mieux possible aux besoins des applications.
 Elle se base sur le middleware \textit{DIET}\footnote{DIET (\textit{Distributed Interactive Engineering Toolbox}) est un middleware con\c{c}u pour le calcul à haute performance
-dans des environnements hétérogènes et distribués (workstations, clusters, grids, clouds etc). Disponible à: http://graal.ens-lyon.fr/DIET/.} 
+dans des environnements hétérogènes et distribués (workstations, clusters, grids, clouds, \etc). Disponible sur: http://www.sysfera.com/-Software-.} 
 et utilise le \textit{paradigme ASP (Application Service Provider)} ou \textit{SaaS (Software as a Service)} qui simplifie l'utilisation 
-d'un ensemble de ressources (calcul, stockage, réseau, etc) gr\^ace à des services pré-installés. 
+d'un ensemble de ressources (calcul, stockage, réseau, \etc) gr\^ace à des services pré-installés. 
 
 Nous pouvons définir cette suite comme une bo\^ite à outils qui fait coopérer des clients et des serveurs en permettant, pour chaque 
 requête cliente, de trouver le meilleur serveur capable de répondre à la requête en terme de performance, de capacité ou de co\^ut (cette résolution pouvant être séquentielle ou parallèle).
@@ -186,18 +187,18 @@ L'intérêt de cette étude est de définir les besoins en terme de sécurité lorsque
 quel environnement privé. En effet, la particularité d'un système distribué est la mise en commun de plusieurs entités, ce qui introduit donc des problématiques
 de sécurité lorsque qu'un noeud malveillant s'introduit dans le réseau ou encore lorsqu'un utilisateur a accès à des
 informations ou à des services incompatibles avec ses privilèges. Il faut donc définir une politique de sécurité qui répond aux 
-besoins des entreprises en terme de sécurité. D'ou les interrogations suivantes: 
+besoins des entreprises en terme de sécurité. D'où les interrogations suivantes: 
 
 \begin{itemize}
  \item Quels sont les politiques et les outils de sécurité répandus dans les entreprises?
   \item Notre suite logicielle doit-elle être interopérable? Doit-elle s'adapter aux politiques de sécurité en vigueur dans les entreprises? Ou 
  tout simplement des primitives de sécurité doivent être accessible via notre middleware? 
- \item Comment garantissons-nous une étancheïté entre les domaines d'exécution des tâches?
+ \item Comment garantissons-nous une étanchéité entre les domaines d'exécution des tâches?
 \end{itemize}
 
 \section{Présentation}
 
-L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisement, nous allons mettre
+L'objectif de ce document est de décrire les besoins en terme de sécurité pour la future version 3 de DIET. Plus précisément, nous allons mettre
 l'accent sur trois principaux points:
 
 \begin{itemize}
@@ -206,18 +207,19 @@ l'accent sur trois principaux points:
 \item le cryptage des données.
 \end{itemize}
 
-\textcolor{red}{Problématique: Les politiques de sécurité diffèrent selon les besoins des entreprises et à contrario il faut définir un modèle
-de sécurité utilisable quelque soit l'environnement dans lequel le \textit{middleware DIET} sera déployé.}
+\textcolor{red}{Problématique: Les politiques de sécurité diffèrent
+  selon les besoins des entreprises, il faut donc définir un modèle
+de sécurité utilisable quelque soit l'environnement dans lequel le \textit{SysFera-DS} sera déployé.}
  
 Il est donc important de noter que la politique de sécurité présentée dans ce document devra être la plus générique possible pour pouvoir
-s'adapter aux différentes infrastructures dans lesquelles \textit{DIET} sera intégré.
+s'adapter aux différentes infrastructures dans lesquelles \textit{SysFera-DS} sera intégré.
 
 \section{Analyse de l'existant}
 
 
 \subsection{Les systèmes cryptographiques}
 
-La question qui nous préoccupe en ce moment est de savoir: quel est l'interêt des systèmes cryptographiques?\\ 
+La question qui nous préoccupe en ce moment est de savoir: quel est l'intérêt des systèmes cryptographiques?\\ 
 La réponse est simple en ce sens que les systèmes cryptographiques ont pour principal objectif de lutter contre les différentes menaces
 qui peuvent survenir lors d'un échange entre des protagonistes via un canal de communication. Cette lutte se traduit par différentes 
 fonctionnalités qui peuvent se résumer dans le sigle \textbf{CAIN}: 
@@ -226,10 +228,10 @@ fonctionnalités qui peuvent se résumer dans le sigle \textbf{CAIN}:
  \item \textbf{Confidentialité:} mécanisme de chiffrement empêchant l'accès aux informations transitant via un canal à ceux qui n'en sont pas destinataires. Les
  messages cryptés peuvent être lus mais pas déchiffrés.
  \item \textbf{Authentification:} détection d'une usurpation d'identité en mettant en place des mécanismes garantissant l'identité des protagonistes mises en relation.
- \item \textbf{Intégrité:} vérification que le message n'a pas été altéré au cours de son tranfert.% Cette vérification peut se faire à l'aide 
- %d'une fonction de hachage cryptographique qui génère une empreinte de taille fixe à partir du message original et le destinaire vérifie que le hachage 
+ \item \textbf{Intégrité:} vérification que le message n'a pas été altéré au cours de son transfert.% Cette vérification peut se faire à l'aide 
+ %d'une fonction de hachage cryptographique qui génère une empreinte de taille fixe à partir du message original et le destinataire vérifie que le hachage 
  %du message avec la même fonction de hachage donne la même empreinte.  
- \item \textbf{Non-répudiation:} C'est une protection des protagonistes, non plus contre un tiers mais, entre eux en garatissant que celui 
+ \item \textbf{Non-répudiation:} C'est une protection des protagonistes, non plus contre un tiers mais, entre eux en garantissant que celui 
 qui a envoyé un message reconnaisse bien qu'il l'a fait.%(recommandé électronique)
 \end{itemize} 
 
@@ -288,39 +290,39 @@ Une problématique n'est pas sans reste, c'est celle présentée plus haut et assoc
 La réponse à cette question définit la notion d'infrastructures à clés publiques (\textit{PKI}\footnote{Public Key Infrastructure} en anglais) dans laquelle un tiers de confiance appelée \textbf{\textit{CA}}\footnote{
  Certification Authority (autorité de certification en français)} 
 rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée d'une PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
-ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc). La format le plus utilisé pour les certificats d'une PKI est celui de la norme X509.
+ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP, \etc). Le format le plus utilisé pour les certificats d'une PKI est celui de la norme X509.
 
 \subsubsection{Fonctions de hachage cryptographiques}
 
-Une fonction de hachage peut se définir comme une application qui transforme une chaine de taille quelconque en une cha\^ine de taille fixe appelée empreinte. 
+Une fonction de hachage peut se définir comme une application qui transforme une chaîne de taille quelconque en une cha\^ine de taille fixe appelée empreinte. 
 La particularité des fonctions de hachage cryptographiques est qu'elles vérifient des propriétés particulières qui rendent difficiles 
 la reconstitution du message en évitant les cas de collision, c'est à dire que deux entrées différentes aient le même résultat par la même
 fonction de hachage. Elles ne permettent donc pas de reconstituer le message mais de l'identifier; il est ainsi possible 
 de vérifier l'intégrité d'un message en comparant une empreinte générée avant un transfert avec l'empreinte du message re\c{c}u par la même
-fonction de hachage. L'idée sous-jacente étant que la modification d'un message orginal aussi simple soit-elle entraine automatiquement des modifications du hash
+fonction de hachage. L'idée sous-jacente étant que la modification d'un message original aussi simple soit-elle entraîne automatiquement des modifications du hash
 qui peuvent être importante, ce qui participe donc à la détection d'erreurs.
 
-Les fonctions de hachage sont particulièrement utiles en cryptographiques car elles permettent de réduire la quantité d'information à crypter: au lieu de crypter une grande quantité d'information, seulement l'empreinte
-qui est de taille fixe, est crytpée. 
+Les fonctions de hachage sont particulièrement utiles en cryptographie car elles permettent de réduire la quantité d'information à crypter: au lieu de crypter une grande quantité d'information, seulement l'empreinte
+qui est de taille fixe, est cryptée. 
 
 Nous pouvons utiliser \textit{l'analogie de empreinte digitale} qui permet non pas de définir d'autres caractéristiques d'une personne mais plut\^ot
-de l'identifier. Il existe plusieurs fonctions de hachage en pratique bien repandues telles que: \textit{MD5, SHA-1, SHA-256, SHA-512, Whirpool}. Il
-faut néanmoins noter que \textit{MD5 et SHA-1} ne sont plus réputées s\^ur aujourd'hui \hyperlink{Dumas07}{[DUMAS07]}.
+de l'identifier. Il existe plusieurs fonctions de hachage en pratique bien répandues telles que: \textit{MD5, SHA-1, SHA-256, SHA-512, Whirpool}. Il
+faut néanmoins noter que les méthodes \textit{MD5 et SHA-1} ne sont plus réputées sûres aujourd'hui \hyperlink{Dumas07}{[DUMAS07]}.
 
 \subsection{Quelques protocoles et environnements sécurisés}
 \subsubsection{PGP}
 
 Il existe deux principaux types de chiffrement: symétrique et asymétrique. L'inconvénient du chiffrement symétrique est l'existence 
-au préalable d'un canal confidentiel pour échanger la clé et la clé symétrique ne garantit pas la non-répudiation puisque l'expéditeur
-et le destinataire utilise la même clé. Aussi, les systèmes asymétriques restent plus lents et inefficaces pour les grandes quantités d'information. C'est pour cette raison qu'il est intéressant
+au préalable d'un canal confidentiel pour échanger la clé, et la clé symétrique ne garantit pas la non-répudiation puisque l'expéditeur
+et le destinataire utilisent la même clé. Aussi, les systèmes asymétriques restent plus lents et inefficaces pour les grandes quantités d'information. C'est pour cette raison qu'il est intéressant
 d'utiliser des systèmes hybrides qui combinent les avantages des systèmes symétriques et asymétriques en minimisant les inconvénients de
-chacun d'ou l'apparition de protocoles hybrides comme PGP\footnote{Pretty Good Privacy}. 
+chacun d'où l'apparition de protocoles hybrides comme PGP\footnote{Pretty Good Privacy}. 
 
 PGP chiffre un message avec le protocole suivant \hyperlink{Dumas07}{[DUMAS07]}:
 
 \begin{enumerate}
  \item Le texte source est chiffré avec une clé K de type 3-DES.
- \item La clé K est chiffré selon le principe RSA avec la clé publique du destinataire.
+ \item La clé K est chiffrée selon le principe RSA avec la clé publique du destinataire.
  \item Envoi du message composé de la clé K chiffré par RSA et d'un texte chiffré selon un algorithme de type 3-DES
 \end{enumerate}
 
@@ -336,7 +338,7 @@ Pour l'authentification du message (validation) et de l'identité de l'expéditeur
  \item Chiffrement de ce code en utilisant RSA avec la clé privée de l'émetteur du message.
 \end{enumerate}
 
-Dans ce cas, un protocole à clé publique est utilisée pour échanger des clés privée. Une application de PGP est le programme SSH.
+Dans ce cas, un protocole à clé publique est utilisée pour échanger des clés privées. Une application de PGP est le programme SSH.
 
 %\subsection{SSH}
 
@@ -351,7 +353,7 @@ Dans ce cas, un protocole à clé publique est utilisée pour échanger des clés pri
 \subsubsection{Kerberos}
 
 Kerberos, développé au \textit{Massachusetts Institute of Technology}, est un protocole d'authentification à tierce personne de confiance basé sur un chiffrement symétrique et con\c{c}u pour fonctionner 
-au dessus d'un réseau TCP/IP non sécurisé. Tout ce protocole repose sur l'échange de blocs de données appelés \textit{tickets} correspondant à un ensemble d'informations, délivré 
+au dessus d'un réseau TCP/IP non sécurisé. Tout ce protocole repose sur l'échange de blocs de données appelés \textit{tickets} correspondant à un ensemble d'informations, délivrés 
 par une autorité de confiance pour un client donné à destination d'un service donné \hyperlink{Perrin02}{[PERRIN02]}. 
 
 Nous allons tout d'abord présenter les caractéristiques et le r\^ole de l'autorité de confiance dans Kerberos appelée \textit{Key distribution Center (KDC)}.
@@ -366,7 +368,7 @@ Son r\^ole peut être divisé en deux services qui ne tournent pas nécessairement 
 
 Il faut noter que chaque sujet et service du réseau a une clé secrète partagée avec le KDC.
 
-Le mécanisme de fonctionnement de Kerberos peut se résumer en trois points essentiel:
+Le mécanisme de fonctionnement de Kerberos peut se résumer en trois points essentiels:
 
 \begin{enumerate}
  \item Un client s'authentifie une fois par session auprès d'une autorité de confiance: celle-ci lui délivre un TGT. C'est 
@@ -389,7 +391,7 @@ avec la propre clé de cryptage du service d'authentification donc il sera le seu
 L'AS crypte la clé de session avec le mot de passe de l'utilisateur qu'il extrait de la base de données à partir du nom de l'utilisateur. La
 clé de session figure aussi dans le ticket.
 
-Le KDC renvoie alors le TGT (crypté avec son propre mot de passe) et la clé de session (crypté avec le mot de passe de l'utilisateur).
+Le KDC renvoie alors le TGT (crypté avec son propre mot de passe) et la clé de session (cryptée avec le mot de passe de l'utilisateur).
 
 L'utilisateur peut décrypter la clé de session avec son mot de passe. La clé de session servira pour chiffrer les données entre l'utilisateur
 et le KDC pour les futures demandes de tickets au TGS. Le TGT prouve que l'utilisateur s'est bien adressé au KDC et a obtenu une clé de session.
@@ -406,18 +408,18 @@ informations en clair alors l'utilisateur est authentifié. Le KDC vérifie que le
 y figurent.
 
 A ce niveau, une fois le client authentifié, le KDC génère une nouvelle clé de session pour crypter les communications 
-entre l'utilisateur et le service sollicité. Il crée aussi un nouveau ticket contenant 
+entre l'utilisateur et le service sollicité. Il crée aussi un nouveau ticket contenant:
 \begin{itemize}
- \item le nom et adresse de l'utilisateur pour lequel le ticket a été crée
- \item le nom du service sollicité par l'utilisateur
- \item la date d'émission et la durée de vie du ticket
- \item la nouvelle clé de session
+ \item le nom et adresse de l'utilisateur pour lequel le ticket a été crée,
+ \item le nom du service sollicité par l'utilisateur,
+ \item la date d'émission et la durée de vie du ticket,
+ \item la nouvelle clé de session.
 \end{itemize}
 
 Ce ticket est crypté avec le mot de passe du service sollicité pour qu'il soit le seul à y avoir accès. La nouvelle clé de 
 session est cryptée avec le clé de session présente dans le TGT et utilisée entre le KDC et l'utilisateur pour qu'il puisse l'extraire.
 
-Le KDC transmet ce ticket de service et la nouvelle clé de session cryptée à l'utilisateur. L'utilisateur peut ainsi décrypté la clé de
+Le KDC transmet ce ticket de service et la nouvelle clé de session cryptée à l'utilisateur. L'utilisateur peut ainsi décrypter la clé de
 session  et l'utiliser avec le service sollicité.
 
 \subsubsection*{Authentification auprès d'un service}
@@ -426,17 +428,17 @@ Pour l'authentification d'un client auprès d'un service comme précédemment,
 il construit un \textit{authentifiant (nom de l'utilisateur, adresse de sa machine et l'heure courante)}. Il crypte l'authentifiant
 avec la nouvelle clé de session générée par le KDC pour crypter les informations entre l'utilisateur et le service. 
 Lorsque le service re\c{c}oit le ticket, il le décrypte avec son propre mot de passe (utilisé par le KDC pour le crypter). Il récupère
-les informations et le clé de session utilisée avec l'utilisateur pour décrypter \textit{l'authentifiant}. Il vérifie que le nom du
+les informations et la clé de session utilisée avec l'utilisateur pour décrypter \textit{l'authentifiant}. Il vérifie que le nom du
 service figurant sur le ticket est correct, ce qui confirme qu'il provient bien du KDC qui est capable de faire le lien entre le service 
 et sa clé. Il contr\^ole également les concordances entre le ticket, \textit{l'authentifiant} et la date pour confirmer que l'utilisateur connecté
 est bien celui auquel le ticket a été délivré. Optionnellement, le service peut aussi s'authentifier en cryptant une valeur (timestamp par exemple) figurant sur l'authenfiant et
-renvoyé le tout à l'utilisateur pour qu'il soit s\^ur que le service qu'il a contacté et bien le bon puisqu'il a pu lire le ticket et récupérer la clé de session
+renvoyer le tout à l'utilisateur pour qu'il soit s\^ur que le service qu'il a contacté est bien le bon puisqu'il a pu lire le ticket et récupérer la clé de session
 correspondante.
  
-Nous allons citer quelques faiblesses de Kerberos:
+Cependant, Kerberos a quelques faiblesses:
 \begin{itemize}
  \item le système est centralisé: le passage à l'échelle peut constituer un problème pour le KDC.
- \item le service de datation: les authentifiants dépendent du fait que toutes les horloges soient synchroniées.
+ \item le service de datation: les authentifiants dépendent du fait que toutes les horloges soient synchronisées.
  \item le KDC possède toutes les clés des utilisateurs et des services et s'il est attaqué avec succès toutes les clés doivent \^etre
  changées.
  \item usurpation de login: une attaque o\`u les logiciels kerberos clients réalisent le protocole Kerberos mais 
@@ -460,29 +462,57 @@ Il existe différentes implémentations de Kerberos:
 
 \section{Analyse des besoins}
 
-L'objectif de ce document est de décrire les besoins en terme de sécurité pour la version 3 de DIET. 
-La sécurité reste un axe important dans la mise en place d'une architecture distribuée mais nécessite la prise en compte 
-de contraintes logicielles et réseaux. Il est important de noter qu'il est assez difficile d'imposer la politique de sécurité d'un intergiciel dans l'environnement 
-ou il sera déployé mais il est préférable de prévoir un système de sécurité flexible qui s'intégrera facilement aux différents environnements de déploiement. 
+L'objectif de ce document est de décrire les besoins en terme de
+sécurité pour la version 3 de DIET.  La sécurité reste un axe
+important dans la mise en place d'une architecture distribuée mais
+nécessite la prise en compte  de contraintes logicielles et
+réseaux. Il est important de noter qu'il est assez difficile d'imposer
+la politique de sécurité d'un intergiciel dans l'environnement  ou il
+sera déployé mais il est préférable de prévoir un système de sécurité
+flexible qui s'intégrera facilement aux différents environnements de
+déploiement. 
 
-Les utilisateurs seront de deux types : utilisateurs ou administrateurs (les administrateurs étant des utilisateurs avec des droits
-supplémentaires). Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
-utilisateurs de l'intergiciel. Les privilèges n'étant pas les mêmes et l'accès aux ressources limités aux utilisateurs de l'intergiciel, l'authentification des 
-utilisateurs est un point important. La mise en place d'un système d'authentification distribué serait préférable à un système centralisé. La confidentialité, l'intégrité des données et la certification des résultats sont des axes tout aussi important à considérer dans
-la solution envisagée.
+Les utilisateurs seront de deux types : utilisateurs ou
+administrateurs (les administrateurs étant des utilisateurs avec des
+droits supplémentaires). Un administrateur aura la possibilité de
+créer, consulter, modifier ou supprimer les comptes des utilisateurs
+de l'intergiciel. Les privilèges n'étant pas les mêmes et l'accès aux
+ressources limités aux utilisateurs de l'intergiciel,
+l'authentification des  utilisateurs est un point important. La mise
+en place d'un système d'authentification distribué serait préférable à
+un système centralisé. La confidentialité, l'intégrité des données et
+la certification des résultats sont des axes tout aussi important à
+considérer dans la solution envisagée.
 
-Les protocoles SSL/TLS se sont bien imposés dans le monde de la sécurité en informatique. Ces protocoles offrent les différentes fonctionnalités citées
-plus haut et se basent sur des certificats X509. Il serait donc intéressant de se baser sur ce type de protocoles utilisant des certificats X509.
-Ce mode de communication avec l'utilisation de certificat X509 est très répandu et s'intégrera facilement avec plusieurs autres systèmes. Le mécanisme de création et de distribution des certificats doit être souple et facile à prendre
-en main par les utilisateurs. Il est possible de prévoir une création de certificat numérique signé par l'autorité de certification de l'intergiciel
-via un site internet ergonomique. Ce choix détachera l'administrateur de cette t\^ache. 
+Les protocoles SSL/TLS se sont bien imposés dans le monde de la
+sécurité en informatique. Ces protocoles offrent les différentes
+fonctionnalités citées plus haut et se basent sur des certificats
+X509. Il serait donc intéressant de se baser sur ce type de protocoles
+utilisant des certificats X509.  Ce mode de communication avec
+l'utilisation de certificat X509 est très répandu et s'intégrera
+facilement avec plusieurs autres systèmes. Le mécanisme de création et
+de distribution des certificats doit être souple et facile à prendre
+en main par les utilisateurs. Il est possible de prévoir une création
+de certificat numérique signé par l'autorité de certification de
+l'intergiciel via un site Internet ergonomique. Ce choix détachera
+l'administrateur de cette t\^ache. 
 
-L'implementation d'une couche de sécurité reduira les performances réseaux de notre intergiciel.
-L'authentification des utilisateurs, la confidentialité et l'intégrité des données restent des points important à prendre en compte dans la 
-définition de la couche sécurité et il serait intéressant de pouvoir maitriser les performances réseau en définissant le niveaux de sécurité
-à la volée. Ils devront pouvoir s'imbriquer facilement. Un utilisateur pourra pour des soucis de performances s'assurer juste de l'intégrité des 
-données, ce qui est moins coute\^ux ou aller plus loin en rajoutant la confidentialité, l'authentification et/ou la certification des résultats. Des solutions
-issues du monde libre seront prioritaires par rapport à des solutions commerciales.
+L'implémentation d'une couche de sécurité réduira les performances
+réseaux de notre intergiciel.  L'authentification des utilisateurs, la
+confidentialité et l'intégrité des données restent des points
+importants à prendre en compte dans la  définition de la couche
+sécurité et il serait intéressant de pouvoir maîtriser les
+performances réseau en définissant le niveaux de sécurité à la
+volée. Ils devront pouvoir s'imbriquer facilement. Un utilisateur
+pourra, pour des soucis de performances, s'assurer juste de
+l'intégrité des  données, ce qui est moins coute\^ux, ou aller plus
+loin en rajoutant la confidentialité, l'authentification et/ou la
+certification des résultats. Des solutions issues du monde libre
+seront prioritaires par rapport à des solutions commerciales.
+
+\todoPostit{Compléter}{Cette partie est trop faible et mélange analyse
+  des besoins et solutions}
+
 
 \section{ Authentification des utilisateurs }
 
@@ -495,7 +525,7 @@ L'authentification des utilisateurs va s'inspirer principalement du module \text
 du projet VISHNU \footnote{\url{http://www.sysfera.fr/vishnu/}}. UMS se base sur une authentification unique \textit{(Single Sign-{}On) } pour ses 
 avantages :
 \begin{itemize}
-\item l'utilisateur ne s'authentifie qu'une seule fois via un login et un mot de passe pour accèder à l'infrastructure,
+\item l'utilisateur ne s'authentifie qu'une seule fois via un login et un mot de passe pour accéder à l'infrastructure,
 \item l'authentification est gérée de façon centralisée,
 \item la souplesse de l'utilisation de l'infrastructure (pas d'authentification systématique). 
 \end{itemize}
@@ -513,13 +543,14 @@ supplémentaires).
 \item Un administrateur a la possibilité de définir différents types (ou groupes) d'utilisateurs \textbf{*}\footnote{
 \textit{ * signifie que cette fonctionnalité ne sera pas disponible dans le coeur de DIET mais dans de futurs développements de modules externes}
  }.
-\item Un administrateur pourra changer dynamiquement le type d'un utilisateur \textbf{*}.
+\item Un administrateur pourra changer dynamiquement le type d'un
+  utilisateur (un utilisateur pourra faire partie de plusieurs groupes)\textbf{*}.
 \item Un administrateur aura la possibilité de créer, consulter, modifier ou supprimer les comptes des
 utilisateurs ou des administrateurs de l'intergiciel. Les fonctions de création et de modification de comptes prendront en paramètre
 l'information nécessaire. Seuls les administrateurs pourront utiliser ces fonctions.
 \item Un administrateur pourra interdire l'accès à certains services pour un type bien défini d'utilisateurs.
 \item \textbf{Authentification des utilisateurs} : une fois authentifié dans l'intergiciel, l'utilisateur n'aura plus à s'authentifier
-pour utiliser les services de l'intergiciel avec leurs propres comptes. Cette authentification ouvrira une session 
+pour utiliser les services de l'intergiciel avec son propre compte. Cette authentification ouvrira une session 
 rattachée à la machine à partir de laquelle l'utilisateur se sera authentifié. Ce service fermera une session soit à la demande de l'utilisateur à qui elle appartiendra, soit parce que
 l'utilisateur aura fermé sa session locale sur la machine à laquelle la session de l'intergiciel sera rattachée, soit à cause d'une période sans
 aucun appel aux services de l'intergiciel par l'utilisateur en cause. Ces comportements de fermeture de session seront configurables par
@@ -534,11 +565,11 @@ Les administrateurs enregistrent les machines et spécifient pour chaque machine 
 \subsubsection{ Les états d'une authentification}
     
 \begin{itemize}
-\item \textbf{ Etat initial }: un utilisateur préalablement enregistré dans le système d'information de l'intergiciel, non authentifié, n'a accès à aucun
+\item \textbf{ État initial }: un utilisateur préalablement enregistré dans le système d'information de l'intergiciel, non authentifié, n'a accès à aucun
 		service.
 \item \textbf{ Connexion }: l'utilisateur sollicite un accès aux services de l'intergiciel en décrivant son identité à l'aide d'un login et d'un mot de passe.
 		L'intergiciel contrôle l'identité du demandeur. 
-\item \textbf{ Etat authentifié }: l'identité de l'utilisateur est reconnu par le système. La session authentifiée a une durée de vie liée au mode de connexion choisi 
+\item \textbf{ État authentifié }: l'identité de l'utilisateur est reconnu par le système. La session authentifiée a une durée de vie liée au mode de connexion choisi 
 		par l'utilisateur et pendant cette période, il a accès aux services autorisés au groupe auquel il appartient.
 \item \textbf{ Déconnexion }: Retour à l'état initial.
 \end{itemize}
@@ -575,7 +606,7 @@ C'est un protocole de message basé sur XML.} \hyperlink{Varette07}{[VARETTE07]}.
 La fig. \ref{fig:globus2} décrit l'interaction du modèle GSI avec une architecture de calcul distribuée \hyperlink{Varette07}{[VARETTE07]}. 
 Pour qu'un tel système fonctionne, il est important qu'il y ait une table de correspondance (appelée \textit{grid-mapfile}) entre 
 l'identité globale et l'identité locale. La première étape consiste donc à définir un mécanisme de translation entre l'identité locale
-et l'identité globale de l'utilisateur dans chaque institution pour que le \textit{Proxy Utilisateur (PU)}, ensuite crée, puisse agir au nom d'un utilisateur
+et l'identité globale de l'utilisateur dans chaque institution pour que le \textit{Proxy Utilisateur (PU)}, ensuite créé, puisse agir au nom d'un utilisateur
 pour assurer le \textit{Single Sign On}.
 
 Le \textit{Proxy Ressource (PR)} quand à lui est responsable du contr\^ole d'accès et de
@@ -619,7 +650,7 @@ au sens Globus et donc utilisera une politique de sécurité un peu moins complexe
 %La réponse à cette question définit la notion d'infrastructures à clés publiques dans laquelle un tiers de confiance appelée CA\footnote{
 % Certification Authority (autorité de certification en français)} 
 %rattache à une clé publique son propriétaire à l'aide d'un certificat numérique. L'idée des PKI est donc de ne pas distribuer des clés mais plutôt des certificats numériques contenant
-%ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP etc).
+%ces clés ainsi que l'identité du propriétaire (état civil, adresse, e-mail pour une personne, adresse IP, \etc).
  
       
 %\subsubsection*{ Les fonctions d'une architecture PKI \hyperlink{Securix}{[Securix]} }
@@ -637,7 +668,7 @@ au sens Globus et donc utilisera une politique de sécurité un peu moins complexe
 %Si la mise à jour des clés se produit en réponse à une expiration de sa date de péremption, la transition vers la nouvelle clé doit se produire avec facilité, cela exige néanmoins des mécanismes de support de notification de mise à jour. 
 %Dans le cas d'une compromission de clé, le certificat doit être déclaré invalide, et la nouvelle validité du certificat et sa disponibilité doivent être annoncées.  
 %\item \textbf{ Revocation : } Dans la plupart des cas, un certificat reste valide jusqu'à ce que sa période de validité expire. Il y a, cependant, un certain nombre de scénarios qui rendent nécessaire la révocation avant la fin de la période de validité d'un certificat. 
-%Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire est compromise etc.
+%Ceux-{}ci incluent :le propriétaire change de nom, un employé quitte la société qui lui avait délivré le certificat, la clé privée du propriétaire est compromise, \etc
 %\end{itemize}
   
 %Pour revenir à ce qui nous intéresse, la question pratique est d'introduire une infrastructure à clé publique dans DIET.
@@ -651,12 +682,12 @@ définitive choisie.
 %et la place de son autorité dans notre architecture. 
 
 \begin{itemize}
-\item Le CA est une machine distincte qui n'est pas connectée à internet. La machine se trouve dans un environnement sécurisé. 
+\item Le CA est une machine distincte qui n'est pas connectée à Internet. La machine se trouve dans un environnement sécurisé. 
 \item Le certificat de l'autorité de certification est disponible par tous les utilisateurs à l'installation de DIET.  
 \item Chaque futur utilisateur génère un couple clé publique/clé privée et effectue une demande d'ajout dans le système à un administrateur
 en lui envoyant les informations nécessaires à son identification et sa clé publique.
-\item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensable
-à la génération d'un certificat:  état civil, adresse, e-mail pour une personne etc \textit{et éventuellement une demande de certification faite 
+\item Les administrateurs assurent la création des comptes utilisateurs avec les informations nécessaires pour les identifier et indispensables
+à la génération d'un certificat:  état civil, adresse, e-mail pour une personne, \etc \textit{et éventuellement une demande de certification faite 
 par l'utilisateur}.% (cf fig. \ref{fig:reqCertif})}.
 \end{itemize}
     
@@ -677,23 +708,23 @@ généré à partir de sa clé privée qui sera directement signé par le CA et stocké 
 le \textit{request certificate} et génère un certificat signé pour l'utilisateur.
 \end{enumerate}  
 
-L'inconvenient de l'architecture décrite sur la fig. \ref{fig:reqCertif} est qu'elle repose sur DIET. En effet, les requêtes s'effectuent
+L'inconvénient de l'architecture décrite sur la fig. \ref{fig:reqCertif} est qu'elle repose sur DIET. En effet, les requêtes s'effectuent
 en passant par DIET. C'est pour cette raison que nous allons proposer une autre architecture o\`u les échanges se feront via 
-un site internet et seulement une base de données sera partagée en lecture avec le site internet (cf fig. \ref{fig:reqCertif2}).
+un site Internet et seulement une base de données sera partagée en lecture avec le site Internet (cf fig. \ref{fig:reqCertif2}).
 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.45]{images/requestCertificate2.png}
 \centering
-\caption{Mécanisme de création des certificats via un site internet}\label{fig:reqCertif2}
+\caption{Mécanisme de création des certificats via un site Internet}\label{fig:reqCertif2}
 \end{figure}
 
-Ce deuxième mécanisme procure une souplesse d'utilisation et détache DIET de cette gestion. La création de certificat se fera via un site internet en utilisant un protocole de communication sécurisé. Une option serait que la
-génération du couple clé privée/clé publique se face via le site internet en précisant la taille de la clé à générer (fig. \ref{fig:reqCertif2}). Le principal inconvenient de
+Ce deuxième mécanisme procure une souplesse d'utilisation et détache DIET de cette gestion. La création de certificat se fera via un site Internet en utilisant un protocole de communication sécurisé. Une option serait que la
+génération du couple clé privée/clé publique se face via le site Internet en précisant la taille de la clé à générer (fig. \ref{fig:reqCertif2}). Le principal inconvénient de
 cette option est qu'un serveur menacé donnera accès à toutes les clés du système; même si elles ne sont pas stockées, pendant le génération
 elles peuvent être récupérées.
 
-Il serait donc judicieux que chaque utilisateur crée son couple clé privée/clé publique, génère sa demande de certification et s'authentifie via le site internet en transmettant sa demande. Le
+Il serait donc judicieux que chaque utilisateur crée son couple clé privée/clé publique, génère sa demande de certification et s'authentifie via le site Internet en transmettant sa demande. Le
 site retournera alors le certificat signé à l'utilisateur.
 
 %\textcolor{red}{problème de la fig. \ref{fig:reqCertif2}
@@ -778,7 +809,7 @@ site retournera alors le certificat signé à l'utilisateur.
 \begin{itemize}
 \item Définir un mécanisme de gestion de certificats (création et révocation de certificats).
 \item Laisser la couche transport qui encapsule SSL gérer le chiffrement des données. Pour cela, rendre disponible le certificat.
-de l'autorité de certification sur la plateforme et chaque utilisateur doit \^etre détenteur d'un certificat signé par l'autorité.
+de l'autorité de certification sur la plate-forme et chaque utilisateur doit \^etre détenteur d'un certificat signé par l'autorité.
 \item Pour chaque communication, le certificat du protagoniste et celui de l'autorité sont fournis aux primitives de SSL.\\
 \end{itemize}
 %La prise en compte de la couche ssl au niveau de omniorb nécessitera que DIET prévoit au niveau de son API un flag pour définir le type protocole 
@@ -799,20 +830,20 @@ la m\^eme fonction de hachage est identique au hash. \\
 Le principe général de ce scénario est de valider l'intégrité des données.
 \begin{itemize}
 \item L'utilisateur génère un hash de la donnée à envoyer par une fonction de hachage cryptographique.
-\item L'utilisateur chiffre le hash obtenu avec la clé publique du SeD
+\item L'utilisateur chiffre le hash obtenu avec la clé publique du SeD.
 \item L'utilisateur transmet la donnée et le hash crypté au destinataire.
 \item Le SeD déchiffre le hash avec sa clé privée et vérifier que l'empreinte de la donnée re\c{c}ue par 
 la m\^eme fonction de hachage est identique au hash déchiffré. \\
 \end{itemize}
 L'inconvénient du scénario précédent est qu'il nécessite au préalable pour l'utilisateur d'avoir le certificat du SeD qui répondra
-à cette requête. Il y a donc tout d'abord un échange avec DIET pour connaitre le SeD susceptible de répondre à la requ\^ete et avoir son certificat.
+à cette requête. Il y a donc tout d'abord un échange avec DIET pour connaître le SeD susceptible de répondre à la requ\^ete et avoir son certificat.
 
 
 \textbf{scénario 3 (bis): authentification et intégrité des données}\\
 Le principe général de ce scénario est de valider l'intégrité des données.
 \begin{itemize}
 \item L'utilisateur génère un hash de la donnée à envoyer par une fonction de hachage cryptographique.
-\item L'utilisateur chiffre (signe) le hash obtenu avec sa clé privée
+\item L'utilisateur chiffre (signe) le hash obtenu avec sa clé privée.
 \item L'utilisateur transmet la donnée et le hash crypté (signé) à un SeD via DIET.
 \item Le SeD déchiffre le hash avec la clé publique de l'utilisateur et vérifie que l'empreinte de la donnée re\c{c}ue par 
 la m\^eme fonction de hachage est identique au hash déchiffré. \\
@@ -820,7 +851,7 @@ la m\^eme fonction de hachage est identique au hash déchiffré. \\
 Cette proposition comble les lacunes de la proposition précédente en évitant un échange préalable pour obtenir le certificat
 du SeD qui répondra à sa requ\^ete mais il introduit un autre problème: le certificat d'un utilisateur pouvant être publique, il
 suffit qu'un \textit{man in the middle} intercepte le certificat de l'utilisateur pour avoir accès au contenu du message. 
-Le contenu est susceptible d'être visible mais il reste authentifié car il ne peut être déchiffré que par la clé publique de l'utilisateur correrspondant. Nous gagnons en terme d'échange mais
+Le contenu est susceptible d'être visible mais il reste authentifié car il ne peut être déchiffré que par la clé publique de l'utilisateur correspondant. Nous gagnons en terme d'échange mais
 nous perdons en confidentialité.  
 
 \textbf{scénario 4: confidentialité, authentification et non-répudiation}
@@ -848,9 +879,9 @@ Ce scénario va combler les lacunes du scénario précédent en proposant un chiffre
 \end{itemize}
 
 
-\textbf{Dans la plupart des scénarios précédent, l'utilisateur de la plateforme a besoin du certificat du SeDs capable de répondre à sa requête et
-il faudra donc prévoir un mécanisme permettant d'avoir ce certificat permettant ainsi de chiffrer les données à transmettre. Autre solution, L'utilisateur signe 
-les infos qu'il envoie avec sa clé privée et le SeD déchiffre avec la clé publique correspondante.}
+\textbf{Dans la plupart des scénarios précédents, l'utilisateur de la plate-forme a besoin du certificat du SeD capable de répondre à sa requête et
+il faudra donc prévoir un mécanisme pour récupérer ce certificat permettant ainsi de chiffrer les données à transmettre. Autre solution, l'utilisateur signe 
+les informations qu'il envoie avec sa clé privée et le SeD déchiffre avec la clé publique correspondante.}
 
 \textbf{scénario 6: chiffrement communication avec le SeD (\textit{Server Daemon})}\\
 Ce scénario est très riche en ce sens qui permet non seulement d'authentifier l'utilisateur mais aussi le SeD en garantissant une communication
@@ -859,23 +890,26 @@ chiffré avec confidentialité, authentification et non répudiation.
 \item Un utilisateur fait une requête via DIET pour avoir le certificat d'un SeD disponible pour répondre à une requête.
 \item DIET lui renvoie le certificat du SeD (\textit{Server Daemon}) le moins occupé à un instant donné et qui répondra à sa requête.
 \item L'utilisateur chiffre son message avec la clé publique du SeD qui répondra à sa requête.
-\item L'élement de la hiérarchie DIET qui recoit la requête déchiffre le message via sa clé privée et vérifie que le certificat
-de l'utilisateur a bien été signé par l'autorité de certification du système et qu'il n'a pas été revoqué.
+\item L'élément de la hiérarchie DIET qui reçoit la requête déchiffre le message via sa clé privée et vérifie que le certificat
+de l'utilisateur a bien été signé par l'autorité de certification du système et qu'il n'a pas été révoqué.
 %\item Le CA contrôle le certificat en vérifiant la correspondance entre clé publique et identité de l'utilisateur.
-%\item Le CA confirme ou refute le certificat.
+%\item Le CA confirme ou réfute le certificat.
 %\item Si le certificat est valide, le CA déchiffre le message à l'aide de sa clé privée et le chiffre à l'aide de la clé publique de l'élément de la
 %hiérarchie DIET correspondant.
-\item L'élement de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.\\
+\item L'élément de la hiérarchie DIET chiffre sa réponse avec la clé publique de l'utilisateur.\\
 \end{itemize}
 
 \textbf{scénario 7: chiffrement de la réponse du SeD}\\
 \begin{itemize}
 \item Un utilisateur fait une requête via DIET en envoyant son certificat.
-\item L'élement de la hiérarchie DIET qui recoit la requête chiffre sa réponse avec la clé publique de l'utilisateur.
+\item L'élément de la hiérarchie DIET qui reçoit la requête chiffre sa réponse avec la clé publique de l'utilisateur.
 \end{itemize}
 
-Dans ce scénario, seul les résultats sont chiffrés et pas les requêtes ce qui peut être dangereux car elles peuvent être modifiées par un
+Dans ce scénario, seuls les résultats sont chiffrés et pas les requêtes ce qui peut être dangereux car elles peuvent être modifiées par un
 \textit{man in the middle}.
+
+\todoPostit{Ajouter}{quels scénarios sont à garder pour
+  l'implémentation. Faire un schéma montrant l'articulation de ces scénarios}
 
 %\textit{Pour le scénario concernant l'envoi d'une requête, il est important de noter qu'il sera fortement liée à la couche de
 %transport utilisée. En considérant l'exemple d'utilisation de SSL avec omniorb (omniORB-4.1.4/src/examples/SSL\_echo), les informations
@@ -897,8 +931,12 @@ Dans ce scénario, seul les résultats sont chiffrés et pas les requêtes ce qui pe
 \end{tabular}
 \end{center}
 
-En terme de vunérabilité, la principale faiblesse de l'utilisation de UMS est l'interception du jeton, tandis que pour la 
+En terme de vulnérabilité, la principale faiblesse de l'utilisation de UMS est l'interception du jeton, tandis que pour la 
 gestion de certificats c'est l'utilisation d'une entité sensible: l'autorité de certification (CA).
+
+\todoPostit{Ajouter}{description de la notation + tableau pour
+  comparer les scénarios}
+
 
 %\begin{center}
 %\begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
@@ -934,7 +972,7 @@ gestion de certificats c'est l'utilisation d'une entité sensible: l'autorité de 
 Les environnements \textit{opensource} supportant le protocole \textit{Secure Sockets Layer (SSL)} et \textit{Transport Layer Security (TLS)} susceptibles de nous accompagner au cours de notre implémentation sont:
 OpenSSL (\url{http://www.openSSL.org/}) et Botan (\url{http://botan.randombit.net/}).
 
-Le tableau ci-dessous résume les avantages et les inconvenients de ces deux outils par rapport à nos exigences.
+Le tableau ci-dessous résume les avantages et les inconvénients de ces deux outils par rapport à nos exigences.
 
 \begin{center}
 \begin{tabular}{|p{1.5cm}|p{1.5cm}|p{2.5cm}|p{1.8cm}|p{2.5cm}|p{1.6cm}|p{2cm}|p{1.5cm}|}
@@ -951,6 +989,9 @@ Le tableau ci-dessous résume les avantages et les inconvenients de ces deux outi
 Il faut noter que Botan utilise une licence BSD deux clauses qui est très permissive tandis que la licence openSSL avec sa clause 
 publicité est incompatible avec une licence GPL.
 
+\todoPostit{Ajouter}{décrire la notation.}
+
+
 %\begin{center}
 %\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
 %  \hline
@@ -960,7 +1001,7 @@ publicité est incompatible avec une licence GPL.
 %    \begin{itemize} 
 %    \item notoriété,
 %    \item implémentation robuste de SSL et TLS
-%    \item license OpenSSL (clause de publicité)
+%    \item licence OpenSSL (clause de publicité)
 %    \end{itemize}   
 % & 
 %  \begin{itemize} 
@@ -973,11 +1014,11 @@ publicité est incompatible avec une licence GPL.
 %  \hline
 %  Botan & 
 %  \begin{itemize} 
-%    \item license BSD,
+%    \item licence BSD,
 %    \item code structuré,
 %    \item facile à prendre en main,
 %    \item bien documenté,
-%    \item plusieurs examples d'utilisation,
+%    \item plusieurs exemples d'utilisation,
 %    \item basé sur le modèle objet (développé en C++).
 %  \end{itemize}
 %  & 
@@ -1033,7 +1074,7 @@ en cryptant les données circulant via le canal de communication.
 
 Le cryptage de données se fera en utilisant le protocole SSL/TLS et la politique de création de certificats décrite plus haut.
 Le chiffrement des données sera donc transparent pour les utilisateurs du système, seuls la création et
-la distribution des certificats sera gérer par les administrateur de l'infrastructure.
+la distribution des certificats seront gérés par les administrateur de l'infrastructure.
 
 Voici quelques couches de communication qui utilisent SSL:
 
@@ -1069,7 +1110,7 @@ Voici quelques couches de communication qui utilisent SSL:
 
 %\begin{itemize}
 % \item le type de protocole: ssl lorque le module de sécurité est activé, 
-% \item la passphrase associée à la clé etc.  
+% \item la passphrase associée à la clé, \etc.  
 %\end{itemize}
 
 
