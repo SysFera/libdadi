@@ -42,6 +42,11 @@ public:
    */
   Attributes(const std::string& data, int format = FORMAT_XML);
 
+  /**
+ * @brief count 
+ */
+
+
   /* accessors */
   /**
    * @brief get value associated to path
@@ -138,6 +143,13 @@ public:
    */
   std::string saveAttr(int format = 0) const;
 
+  /**
+   * @brief swap  attributes
+   * @param from another attribute
+   *
+   */
+  
+  void swap(Attributes& from);
   /* operators */
   /**
    * @brief copy operator

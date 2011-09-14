@@ -59,10 +59,14 @@ Attributes::saveAttr(int format) const {
   return ss.str();
 }
 
+void
+Attributes::swap( Attributes& from){
+ (this->pt).swap(from.pt);
+}
 Attributes&
 Attributes::operator=(const Attributes& other) {
   Attributes tmp(other);
-  (this->pt).swap(tmp.pt);
+  swap(tmp);
 }
 
 bool
