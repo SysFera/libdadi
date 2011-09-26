@@ -1,0 +1,6 @@
+libdadi is an utility library for distributed applications.
+It offers facilities like:
+* command-line parsing
+* logging
+* plugins
+* attributes
