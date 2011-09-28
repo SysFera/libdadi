@@ -60,8 +60,8 @@ Attributes::saveAttr(int format) const {
 }
 
 void
-Attributes::swap( Attributes& from){
- (this->pt).swap(from.pt);
+Attributes::swap(Attributes& from) {
+  (this->pt).swap(from.pt);
 }
 Attributes&
 Attributes::operator=(const Attributes& other) {
