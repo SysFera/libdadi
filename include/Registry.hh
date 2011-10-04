@@ -23,10 +23,12 @@
 #include <boost/multi_index/sequenced_index.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include "IPlugin.hh"
 #include "Loader.hh"
 #include "PluginInfo.hh"
+#include "Singleton.hh"
 #include "Exception/Plugins.hh"
 
 namespace dadi {
@@ -102,13 +104,10 @@ typedef pinfo_set::index<interface>::type pinfo_set_by_interface;
  * @class Registry
  * @brief hides (un)loading plugins and creation of instances from user
  */
-class Registry : public boost::noncopyable {
+class Registry : public dadi::Singleton<Registry> {
 public:
-  /**
-   * @brief constructor
-   * @return
-   */
-  Registry();
+ 
+friend class dadi::Singleton<Registry>;
   /**
    * @brief register a plugin into registry
    * @param pInfo
@@ -224,8 +223,16 @@ public:
   }
 
 private:
+
+  /**
+   * @brief constructor
+   * @return
+   */
+  Registry();
+
   std::list<std::string> paths_; /**< search paths for plugins manifests */
-  boost::scoped_ptr<Loader> loader_; /**< loader */
+//  boost::scoped_ptr<Loader> loader_; /**< loader */
+  boost::shared_ptr<Loader> loader_; /**< loader */
   pinfo_set cache_; /**< Registry cache */
 };
 
