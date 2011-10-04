@@ -30,7 +30,7 @@ PluginInfo::operator=(const PluginInfo& other) {
   std::swap(tmp.path, this->path);
   std::swap(tmp.sPtr, this->sPtr);
   tmp.factory = this->factory;
-  
+
   return *this;
 }
 

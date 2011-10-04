@@ -106,8 +106,8 @@ typedef pinfo_set::index<interface>::type pinfo_set_by_interface;
  */
 class Registry : public dadi::Singleton<Registry> {
 public:
- 
-friend class dadi::Singleton<Registry>;
+
+  friend class dadi::Singleton<Registry>;
   /**
    * @brief register a plugin into registry
    * @param pInfo
@@ -155,8 +155,8 @@ friend class dadi::Singleton<Registry>;
 
     if (index.end() == it) {
       BOOST_THROW_EXCEPTION(
-          dadi::PluginError()
-          << dadi::errinfo_msg("can not find: "+ pName));
+        dadi::PluginError()
+        << dadi::errinfo_msg("can not find: "+ pName));
     }
 
     factory = (*it)->factory;
@@ -199,8 +199,8 @@ friend class dadi::Singleton<Registry>;
 
     if (index.end() == it) {
       BOOST_THROW_EXCEPTION(
-           dadi::PluginError()
-                 << dadi::errinfo_msg("can not find: "+ pName));
+        dadi::PluginError()
+        << dadi::errinfo_msg("can not find: "+ pName));
     }
 
     factory = (*it)->factory;
