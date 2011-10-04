@@ -62,7 +62,7 @@ private:
    */
   void parseConfig(const char *mFile, PluginInfoPtr pInfo);
 
-   Registry *reg_; /**< plugin registry */
+  Registry *reg_; /**< plugin registry */
 };
 
 } /* namespace dadi */

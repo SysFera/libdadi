@@ -14,7 +14,8 @@
 #include "Registry.hh"
 
 
-int main(int argc, char *argv[]) {
+int
+main(int argc, char *argv[]) {
   if (argc < 2) {
     std::cout << "usage: loader <plugin_config>\n";
     return EXIT_FAILURE;

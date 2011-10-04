@@ -1,5 +1,5 @@
 /**
- * @file   ConfigMgrMgr.cc
+ * @file   ConfigMgr.cc
  * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
  * @brief  local configuration manager implementation
  * @section Licence

@@ -2,7 +2,7 @@
 #define _CONFIGMGR_HH_
 
 /**
- * @file   ConfigMgrMgr.hh
+ * @file   ConfigMgr.hh
  * @author Ibrahima Cissé <ibrahima.cisse@sysfera.com>
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines local configuration manager
