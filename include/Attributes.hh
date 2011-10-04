@@ -43,7 +43,7 @@ public:
   Attributes(const std::string& data, int format = FORMAT_XML);
 
   /**
- * @brief count 
+ * @brief count
  */
 
 
@@ -148,8 +148,8 @@ public:
    * @param from another attribute
    *
    */
-  
   void swap(Attributes& from);
+
   /* operators */
   /**
    * @brief copy operator

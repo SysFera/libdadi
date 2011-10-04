@@ -5,6 +5,8 @@
  * @author Ibrahima Cissé <ibrahima.cisse@sysfera.com>
  * @author Haïkel Guémar <haikel.guemar@gmail.com>
  * @brief  common utils for data serialization
+ * @section Licence
+ *  |LICENCE|
  *
  */
 

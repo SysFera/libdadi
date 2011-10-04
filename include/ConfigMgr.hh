@@ -36,23 +36,21 @@ public:
    * @ A constructor taking the config store
    * @param store
    */
-  explicit ConfigMgr(dadi::ConfigStore& store)
-    : proxyCache(new ProxyCache(store)), rootKey("undefined") {}
-
+  explicit ConfigMgr(dadi::ConfigStore& store);
 
   /**
    * @brief set the config root
    * @param key the config root key
    */
-  void setRootKey(const std::string& key) { rootKey = key; }
-  // FIXME: implementation should be .cc
+  void setRootKey(const std::string& key);
+
 
   /**
    * @brief get the config root
    * @param key the config root key
    */
-  std::string getRootKey()const { return rootKey; }
-  // FIXME: implementation should be in .cc
+  std::string getRootKey() const;
+
 
   /**
    * @brief Get a set of nodes sharing the same key inside a section
@@ -86,7 +84,7 @@ private:
      * @brief Constructor taking the store to hide
      * @param store the tree to hide
      */
-    explicit ProxyCache(const dadi::ConfigStore& store) : store_(store) {}
+    explicit ProxyCache(const dadi::ConfigStore& store);
 
     /**
      * @brief get a final node
