@@ -19,7 +19,7 @@ namespace dadi {
 Registry::Registry() : loader_(new Loader(this)) {}
 
 void
-Registry::registerPlugin(PluginInfoPtr pInfo) {
+Registry::registerPlugin( PluginInfoPtr pInfo) {
   cache_.insert(pInfo);
 
   std::cerr << boost::format("[REGISTER]: factory %1% registered\n")

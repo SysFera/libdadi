@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(plugin_assignment_operator) {
 // Test Plugin
 BOOST_AUTO_TEST_CASE(plugin_normal_load) {
   BOOST_TEST_MESSAGE("[LOADER]: start");
-  dadi::Registry reg;
+  dadi::Registry& reg= dadi::Registry::instance();
   // Add a new path where the manifest can be loaded
   reg.addPath(MANIFESTOUTPUTPATH);
   // load the plugin described into the manifest
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(plugin_normal_load) {
 // Test bad plugin directory path
 BOOST_AUTO_TEST_CASE(bad_plugin_dir_path) {
   BOOST_TEST_MESSAGE("[LOADER]: start");
-  dadi::Registry reg;
+  dadi::Registry& reg= dadi::Registry::instance();
   reg.addPath("bad plugin directory path");
   reg.load();
   BOOST_TEST_MESSAGE("[LOADER]: stop ");
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(bad_plugin_dir_path) {
 // inexistant plugin interface
 BOOST_AUTO_TEST_CASE(bad_plugin_interface) {
   BOOST_TEST_MESSAGE("[LOADER]: start");
-  dadi::Registry reg;
+  dadi::Registry& reg= dadi::Registry::instance();
   reg.addPath(MANIFESTOUTPUTPATH);
   reg.load();
   BOOST_CHECK_THROW(reg.getByInterface<IPerson>("bad Interface"),
