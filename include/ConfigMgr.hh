@@ -42,14 +42,16 @@ public:
    * @brief set the config root
    * @param key the config root key
    */
-  void setRootKey(const std::string& key);
+  void
+  setRootKey(const std::string& key);
 
 
   /**
    * @brief get the config root
    * @param key the config root key
    */
-  std::string getRootKey() const;
+  std::string
+  getRootKey() const;
 
 
   /**

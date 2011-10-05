@@ -38,23 +38,33 @@ public:
   /**
    * @brief initialize plugin
    */
-  void init() { do_init(); }
+  void
+  init() {
+    do_init();
+  }
   /**
    * @brief set PluginInfo
    * @param piPtr PluginInfoPtr
    */
-  void plugin_info(dadi::PluginInfoPtr& piPtr) { piPtr_ = piPtr; }
+  void
+  plugin_info(dadi::PluginInfoPtr& piPtr) {
+    piPtr_ = piPtr;
+  }
   /**
    * @brief get PluginInfo
    * @return PluginInfoPtr
    */
-  dadi::PluginInfoPtr& plugin_info() { return piPtr_; }
+  dadi::PluginInfoPtr&
+  plugin_info() { return piPtr_; }
+
 protected:
   /**
    * @brief implementation of init
    * @warning must be reimplemented
    */
-  virtual void do_init() = 0;
+  virtual void
+  do_init() = 0;
+
   dadi::PluginInfoPtr piPtr_; /**< PluginInfoPtr */
 };
 
@@ -70,7 +80,8 @@ extern "C" {
  * of success, false otherwise.
  * @param[out] instance
  */
-  int DADI_EXPORT create_plugin_instance(void **instance);
+  int DADI_EXPORT
+  create_plugin_instance(void **instance);
 }
 
 #endif /* _IPLUGIN_HH_ */

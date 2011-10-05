@@ -37,19 +37,22 @@ struct PluginInfo {
    * @brief assignment operator
    * @param other PluginInfo to copy
    */
-  PluginInfo& operator=(const PluginInfo& other);
+  PluginInfo&
+  operator=(const PluginInfo& other);
 
   /**
    * @brief equal to operator
    * @param other PluginInfo to compare
    */
-  bool operator==(const PluginInfo& other);
+  bool
+  operator==(const PluginInfo& other);
 
   /**
    * @brief not equal to operator
    * @param other PluginInfo to compare
    */
-  bool operator!=(const PluginInfo& other);
+  bool
+  operator!=(const PluginInfo& other);
 
   /**
    * @brief test if plugin has been correctly loaded

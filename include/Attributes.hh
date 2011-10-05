@@ -134,21 +134,24 @@ public:
    * @param[in] data serialized attributes
    * @param format XML by default
    */
-  void loadAttr(const std::string& data, int format = FORMAT_XML);
+  void
+  loadAttr(const std::string& data, int format = FORMAT_XML);
 
   /**
    * @brief serialize attributes
    * @param format XML by default
    * @return serialized attribute
    */
-  std::string saveAttr(int format = 0) const;
+  std::string
+  saveAttr(int format = 0) const;
 
   /**
    * @brief swap  attributes
    * @param from another attribute
    *
    */
-  void swap(Attributes& from);
+  void
+  swap(Attributes& from);
 
   /* operators */
   /**
@@ -156,19 +159,22 @@ public:
    * @param other copied object
    * @return new copied object
    */
-  Attributes& operator=(const Attributes& other);
+  Attributes&
+  operator=(const Attributes& other);
   /**
    * @brief comparison operator
    * @param other object object to compare
    * @return boolean
    */
-  bool operator==(const Attributes& other) const;
+  bool
+  operator==(const Attributes& other) const;
   /**
    * @brief comparison operator
    * @param other object object to compare
    * @return boolean
    */
-  bool operator!=(const Attributes& other) const;
+  bool
+  operator!=(const Attributes& other) const;
 
 private:
   boost::property_tree::ptree pt; /**< property tree holding attributes */

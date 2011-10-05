@@ -42,25 +42,29 @@ public:
    * @brief load a plugin
    * @param mFile plugin manifest
    */
-  void loadPlugin(const char *mFile);
+  void
+  loadPlugin(const char *mFile);
   /**
    * @brief set registry
    * @param reg plugin registry
    */
-  void setRegistry(Registry *reg);
+  void
+  setRegistry(Registry *reg);
 private:
   /**
    * @brief find library path in paths
    * @param lib name of the library
    * @return
    */
-  std::string findLibrary(std::string lib) const;
+  std::string
+  findLibrary(std::string lib) const;
   /**
    * @brief parse plugin manifest and load information
    * @param mFile plugin manifest to parse
    * @param pInfo PluginInfoPtr to set
    */
-  void parseConfig(const char *mFile, PluginInfoPtr pInfo);
+  void
+  parseConfig(const char *mFile, PluginInfoPtr pInfo);
 
   Registry *reg_; /**< plugin registry */
 };
