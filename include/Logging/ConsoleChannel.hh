@@ -34,7 +34,8 @@ public:
    * @param out C++ stream
    */
   explicit ConsoleChannel(std::ostream& out);
-  void log(const Message& msg);
+  void
+  log(const Message& msg);
 private:
   std::ostream& out_; /**< C++ stream */
   boost::mutex mutex_; /**< mutex protecting concurrent access */

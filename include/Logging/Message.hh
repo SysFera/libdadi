@@ -68,80 +68,94 @@ public:
    * @brief set log message source
    * @param src
    */
-  void setSource(const std::string& src);
+  void
+  setSource(const std::string& src);
   /**
    * @brief get log message source
    * @return source
    */
-  const std::string& getSource() const;
+  const std::string&
+  getSource() const;
 
   /**
    * @brief set log message text
    * @param txt log message
    */
-  void setText(const std::string& txt);
+  void
+  setText(const std::string& txt);
   /**
    * @brief get log message text
    * @return log message
    */
-  const std::string& getText() const;
+  const std::string&
+  getText() const;
 
   /**
    * @brief set log message priority
    * @param prio priority
    */
-  void setPriority(Priority prio);
+  void
+  setPriority(Priority prio);
   /**
    * @brief get log message priority
    * @return priority
    */
-  Priority getPriority() const;
+  Priority
+  getPriority() const;
 
   /**
    * @brief set log message timestamp
    * @param timestamp
    */
-  void setTimestamp(long timestamp);
+  void
+  setTimestamp(long timestamp);
   /**
    * @brief get log message timestamp
    * @return timestamp
    */
-  long getTimestamp() const;
+  long
+  getTimestamp() const;
 
   /**
    * @brief set source code filename
    * @param filename source code filename
    */
-  void setFile(const std::string& filename);
+  void
+  setFile(const std::string& filename);
   /**
    * @brief get source code filename
    * @return source code filename
    */
-  const std::string& getFile() const;
+  const std::string&
+  getFile() const;
 
   /**
    * @brief set source code line number
    * @param line source code line number
    */
-  void setLine(int line);
+  void
+  setLine(int line);
   /**
    * @brief get source code line number
    * @return source code line number
    */
-  int getLine() const;
+  int
+  getLine() const;
 
   /**
    * @brief get attribute (write access)
    * @param key
    * @return attribute value
    */
-  std::string& operator[](const std::string& key);
+  std::string&
+  operator[](const std::string& key);
   /**
    * @brief get attribute (read access)
    * @param key
    * @return attribute value
    */
-  const std::string& operator[](const std::string& key) const;
+  const std::string&
+  operator[](const std::string& key) const;
 
 private:
   std::string src_; /**< log message source */

@@ -34,7 +34,8 @@ public:
    * @warning must be reimplemented by implementors
    * @param path file to be archived
    */
-  virtual void archive(const std::string& path) = 0;
+  virtual void
+  archive(const std::string& path) = 0;
 };
 
 /*****************************************************************************/
@@ -57,7 +58,8 @@ public:
    * @brief archive current log file
    * @param path current log file path
    */
-  void archive(const std::string& path);
+  void
+  archive(const std::string& path);
 protected:
   static const std::string pTpl_; /**< template archive filename */
 };
@@ -85,12 +87,14 @@ public:
    * @brief use local time or utc
    * @param local
    */
-  void setLocal(bool local);
+  void
+  setLocal(bool local);
   /**
    * @brief archive current log filex
    * @param path current log file path
    */
-  void archive(const std::string& path);
+  void
+  archive(const std::string& path);
 private:
   const std::string tpl_;
   boost::scoped_ptr<std::locale> locale_; /**< locale with custom time_facet */
