@@ -32,7 +32,8 @@ public:
    * @brief log message
    * @param msg message to log
    */
-  void log(const Message& msg);
+  void
+  log(const Message& msg);
 };
 
 } /* namespace dadi */

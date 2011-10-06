@@ -37,21 +37,23 @@ public:
    * @warning must be reimplemented by implementors
    * @param path file (path) to be purged
    */
-  virtual void purge(const std::string& path) = 0;
+  virtual void
+  purge(const std::string& path) = 0;
 protected:
   /**
    * @brief list all archive files linked to log file
    * @param[in] basename log file (path)
    * @param[out] paths archived files
    */
-  void list(const std::string& basename,
-            std::vector<std::string>& paths);
+  void
+  list(const std::string& basename, std::vector<std::string>& paths);
   /**
    * @brief sort archives to ease
    * @warning needs to be reimplemented (does nothing by default)
    * @param paths files to be sorted
    */
-  virtual void sort(std::vector<std::string>& paths);
+  virtual void
+  sort(std::vector<std::string>& paths);
   static boost::format regexTpl; /**< regex template to filter archives */
 };
 
@@ -78,9 +80,11 @@ public:
    * @warning must be reimplemented by implementors
    * @param path file (path) to be purged
    */
-  void purge(const std::string& path);
+  void
+  purge(const std::string& path);
 protected:
-  void sort(std::vector<std::string>& paths);
+  void
+  sort(std::vector<std::string>& paths);
 private:
   unsigned int count_; /**< number of archiches to keep */
 };

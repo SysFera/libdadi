@@ -36,9 +36,12 @@ public:
    */
   ~LogServiceChannel();
 
-  void open();
-  void close();
-  void log(const Message& msg);
+  void
+  open();
+  void
+  close();
+  void
+  log(const Message& msg);
 private:
   // TODO: update LogComponentBase to be thread-safe ?
   LogComponentBase *lb; /**< LogComponentBase */

@@ -39,25 +39,31 @@ public:
    */
   virtual ~MultiChannel();
 
-  void open();
-  void close();
-  void log(const Message& msg);
+  void
+  open();
+  void
+  close();
+  void
+  log(const Message& msg);
 
   /**
    * @brief add a new channel
    * @param channel channel to be added
    */
-  void addChannel(ChannelPtr channel);
+  void
+  addChannel(ChannelPtr channel);
   /**
    * @brief remove a channel
    * @param channel channel to be removed
    */
-  void removeChannel(ChannelPtr channel);
+  void
+  removeChannel(ChannelPtr channel);
   /**
    * @brief
    * @return number of channels registered
    */
-  int getCount() const;
+  int
+  getCount() const;
 private:
   Channels channels_; /**< channels */
   boost::mutex mutex_; /**< mutex that protects concurrent access */
