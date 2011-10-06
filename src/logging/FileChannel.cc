@@ -173,7 +173,8 @@ FileChannel::setArchiveStrategy() {
 
 class Weekday {
 public:
-  unsigned int operator() (const std::string& str) {
+  unsigned int
+  operator() (const std::string& str) {
     std::map<std::string, unsigned int>::iterator it = dMap.find(str);
     if (dMap.end() != it) {
       return it->second;

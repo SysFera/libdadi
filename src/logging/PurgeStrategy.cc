@@ -54,7 +54,8 @@ PurgeByCountStrategy::~PurgeByCountStrategy() {}
 // functor: sort files by age from the newest to the oldest
 class SortFilesByAge {
 public:
-  bool operator()(const std::string& path1, const std::string& path2) {
+  bool
+  operator()(const std::string& path1, const std::string& path2) {
     std::time_t t1(bfs::last_write_time(path1));
     std::time_t t2(bfs::last_write_time(path2));
     return (t1 < t2);
