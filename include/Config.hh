@@ -29,7 +29,7 @@ public:
 
   /**
    * @brief load the config
-   * @param intputStream the source
+   * @param inputStream the source
    * @param format the source format
    */
   void
@@ -57,7 +57,7 @@ public:
 
   /**
    * @brief save the config
-   * @param outputStream the output stream
+   * @param output the output stream
    * @param format the source format
    */
   void
@@ -85,6 +85,7 @@ public:
   /**
    * @brief insert or update node value
    * @param key configuration key
+   * @param value configuration value
    */
   template <typename valueType>
   void

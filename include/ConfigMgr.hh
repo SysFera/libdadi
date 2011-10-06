@@ -48,7 +48,6 @@ public:
 
   /**
    * @brief get the config root
-   * @param key the config root key
    */
   std::string
   getRootKey() const;

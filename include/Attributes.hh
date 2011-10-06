@@ -94,7 +94,6 @@ public:
   /**
    * @brief get the list of values associated to path and store it in a std::list
    * @param path path to attribute
-   * @param container container path list of values
    * @throw dadi::UnknownAttributeError
    * @throw dadi::InvalidAttributeError
    */
