@@ -66,7 +66,7 @@ public:
   /**
    * @brief constructor
    * @param name channel name
-   * @param options syslog options
+   * @param option syslog options
    * @param facility syslog facilities
    */
   SyslogChannel(const std::string& name,
