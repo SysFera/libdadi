@@ -39,34 +39,40 @@ public:
    * @brief load shared library
    * @param path path to shared library
    */
-  void loadImpl(const std::string& path);
+  void
+  loadImpl(const std::string& path);
   /**
    * @brief unload shared library
    */
-  void unloadImpl();
+  void
+  unloadImpl();
 
   /**
    * @brief tells if a shared library has been loaded
    * @return boolean
    */
-  bool isLoadedImpl() const;
+  bool
+  isLoadedImpl() const;
   /**
    * @brief test symbol existence
    * @param symbol symbol to test
    * @return boolean
    */
-  bool hasSymbolImpl(const std::string& symbol);
+  bool
+  hasSymbolImpl(const std::string& symbol);
   /**
    * @brief get symbol from shared library
    * @param symbol symbol to obtain
    */
-  void *symbolImpl(const std::string& symbol);
+  void *
+  symbolImpl(const std::string& symbol);
 
   /**
    * @brief get path to loaded shared library
    * @return path
    */
-  const std::string& pathImpl() const;
+  const std::string&
+  pathImpl() const;
 
 private:
   std::string path_; /**< shared library path */

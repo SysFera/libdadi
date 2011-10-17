@@ -66,7 +66,7 @@ public:
   /**
    * @brief constructor
    * @param name channel name
-   * @param options syslog options
+   * @param option syslog options
    * @param facility syslog facilities
    */
   SyslogChannel(const std::string& name,
@@ -81,16 +81,19 @@ public:
   /**
    * @brief open channel
    */
-  void open();
+  void
+  open();
   /**
    * @brief close channel
    */
-  void close();
+  void
+  close();
   /**
    * @brief logs message
    * @param msg Message to log
    */
-  void log(const Message& msg);
+  void
+  log(const Message& msg);
 
 protected:
   /**
@@ -98,7 +101,8 @@ protected:
    * @param msg Message to log
    * @return priority level
    */
-  int getPrio(const Message& msg);
+  int
+  getPrio(const Message& msg);
 
   static const std::string ATTR_NAME; /**< attribute name key */
   static const std::string ATTR_FACILITY; /**< attribute facility key */

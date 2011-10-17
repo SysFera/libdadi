@@ -26,7 +26,8 @@ namespace dadi {
      * @brief get singleton instance
      * @return return reference to singleton
      */
-    static T& instance() {
+    static T&
+    instance() {
       boost::call_once(init, flag);
       return *instancePtr;
     }
@@ -34,7 +35,8 @@ namespace dadi {
     /**
      * @brief initialize instance
      */
-    static void init() {
+    static void
+    init() {
       instancePtr.reset(new T());
     }
 

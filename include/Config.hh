@@ -29,10 +29,11 @@ public:
 
   /**
    * @brief load the config
-   * @param intputStream the source
+   * @param inputStream the source
    * @param format the source format
    */
-  void load(std::istream& inputStream, Format format = FORMAT_INFO) {
+  void
+  load(std::istream& inputStream, Format format = FORMAT_INFO) {
     using boost::property_tree::read_json;
     using boost::property_tree::read_ini;
     using boost::property_tree::read_xml;
@@ -56,10 +57,11 @@ public:
 
   /**
    * @brief save the config
-   * @param outputStream the output stream
+   * @param output the output stream
    * @param format the source format
    */
-  void save(std::ostream& output, Format format = FORMAT_INFO) {
+  void
+  save(std::ostream& output, Format format = FORMAT_INFO) {
     using boost::property_tree::write_json;
     using boost::property_tree::write_ini;
     using boost::property_tree::write_xml;
@@ -83,6 +85,7 @@ public:
   /**
    * @brief insert or update node value
    * @param key configuration key
+   * @param value configuration value
    */
   template <typename valueType>
   void
@@ -168,7 +171,8 @@ public:
   /**
    * @brief clear the configuration completely
    */
-  void clear() {
+  void
+  clear() {
     boost::unique_lock<boost::shared_mutex> lock(mutex_);
     store_.clear();
   }

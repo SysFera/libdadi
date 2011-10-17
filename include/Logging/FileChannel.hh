@@ -106,32 +106,38 @@ public:
   /**
    * @brief open channel
    */
-  void open();
+  void
+  open();
   /**
    * @brief close channel
    */
-  void close();
+  void
+  close();
   /**
    * @brief log message
    * @param msg message to be logged
    */
-  void log(const Message& msg);
+  void
+  log(const Message& msg);
 
   /**
    * @brief get last modification time
    * @return timestamp or -1 if log file does not exist
    */
-  long getLastWriteTime() const;
+  long
+  getLastWriteTime() const;
   /**
    * @brief get file size
    * @return file size in bytes (b*te me i'm famous)
    */
-  long getSize() const;
+  long
+  getSize() const;
   /**
    * @brief get log file path
    * @return file path
    */
-  const std::string& getPath() const;
+  const std::string&
+  getPath() const;
 protected:
   static const std::string ATTR_PATH; /**< attribute path key */
   /** attribute compression.mode key */
@@ -151,20 +157,24 @@ protected:
   /**
    * @brief set archive strategy
    */
-  void setArchiveStrategy();
+  void
+  setArchiveStrategy();
   /**
    * @brief set rotation strategy
    */
-  void setRotateStrategy();
+  void
+  setRotateStrategy();
   /**
    * @brief set purge strategy
    */
-  void setPurgeStrategy();
+  void
+  setPurgeStrategy();
 
   /**
    * @brief purge archives
    */
-  void purge();
+  void
+  purge();
 private:
   std::string path_; /**< log file path */
   boost::scoped_ptr<RotateStrategy> pRotateStrategy_; /**< rotation strategy */

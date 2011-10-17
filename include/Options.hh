@@ -88,7 +88,8 @@ public:
    * @param type type
    * @brief constructor
    */
-  explicit OptionsGroup(const std::string& desc, bool hidden, GroupType type)
+  explicit
+  OptionsGroup(const std::string& desc, bool hidden, GroupType type)
     : options_(new po::options_description(desc)),
       hidden_(hidden),
       type_(type) {}
@@ -110,7 +111,8 @@ public:
   /**
    * @brief operator=
    */
-  OptionsGroup& operator=(const OptionsGroup& other);
+  OptionsGroup&
+  operator=(const OptionsGroup& other);
 
   /**
    * @brief add new switch
@@ -270,7 +272,8 @@ public:
    * @brief add options group
    * @param group options group
    */
-  void addGroup(OptionsGroup& group);
+  void
+  addGroup(OptionsGroup& group);
 
   /**
    * @brief add new switch
@@ -333,49 +336,57 @@ public:
    * @param key option key
    * @param count maximum number of arguments (-1: unlimited)
    */
-  void setPositional(const std::string& key, int count=-1);
+  void
+  setPositional(const std::string& key, int count=-1);
 
   /**
    * @brief parse command line
    * @param argc
    * @param argv
    */
-  void parseCommandLine(int& argc, char *argv[]);
+  void
+  parseCommandLine(int& argc, char *argv[]);
 
   /**
    * @brief parse configuration file
    * @param file configuration file path
    * @param unregistered allow unregistered option
    */
-  void parseConfigFile(const std::string& file, bool unregistered = false);
+  void
+  parseConfigFile(const std::string& file, bool unregistered = false);
 
   /**
    * @brief parse environment variables
    * @param userFunc callback
    */
-  void parseEnv(const Func1& userFunc);
+  void
+  parseEnv(const Func1& userFunc);
 
   /**
    * @brief call user-defined callbacks
    */
-  void notify();
+  void
+  notify();
 
   /**
    * @brief count options with key
    * @param key
    */
-  int count(const std::string& key) const;
+  int
+  count(const std::string& key) const;
 
   /**
    * @brief check if we have any option or not
    */
-  bool empty() const { return vm_.empty(); }
+  bool
+  empty() const { return vm_.empty(); }
 
   /**
    * @brief get the value associated to a key
    */
   template<class T>
-  const T & get(const std::string& key) const {
+  const T &
+  get(const std::string& key) const {
     return(vm_[key.c_str()].template as<T>());
   }
 
@@ -383,19 +394,22 @@ public:
    * @brief set program name
    * @param name program name
    */
-  void setName(const std::string& name);
+  void
+  setName(const std::string& name);
 
   /**
    * @brief set usage
    * @param usage set usage line displayed by help
    */
-  void setUsage(const std::string& usage);
+  void
+  setUsage(const std::string& usage);
 
   /**
    * @brief set a command parsing pre hook
    * @param PreCmdHook
    */
-  void setPreCommandHook(const ProcessHook& PreCmdHook);
+  void
+  setPreCommandHook(const ProcessHook& PreCmdHook);
 
   /**
    * @brief print options into a std::ostream
@@ -452,7 +466,8 @@ setProperty(const std::string& key, const T& value) {
  * @param v: a vector to print
  */
 template<class T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
+std::ostream&
+operator<<(std::ostream& os, const std::vector<T>& v) {
   std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, " "));
   return os;
 }

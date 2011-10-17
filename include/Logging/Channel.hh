@@ -34,17 +34,20 @@ public:
   /**
    * @brief open channel for logs
    */
-  virtual void open();
+  virtual void
+  open();
   /**
    * @brief close channel for logs
    */
-  virtual void close();
+  virtual void
+  close();
   /**
    * @brief logs message
    * @param msg Message to be logged
    * @warning must be reimplemented
    */
-  virtual void log(const Message& msg) = 0;
+  virtual void
+  log(const Message& msg) = 0;
 };
 
 /**

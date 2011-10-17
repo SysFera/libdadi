@@ -45,18 +45,21 @@ public:
    * @warning loggers are recursively named following this pattern:
    * <em>parent</em>.<em>logger</em>. Root logger is named "".
    */
-  const std::string& getName() const;
+  const std::string&
+  getName() const;
 
   /**
    * @brief set Logger Channel
    * @param channel ChannelPtr
    */
-  void setChannel(ChannelPtr channel);
+  void
+  setChannel(ChannelPtr channel);
   /**
    * @brief get Logger Channel
    * @return ChannelPtr
    */
-  ChannelPtr getChannel() const;
+  ChannelPtr
+  getChannel() const;
 
   /**
    * @brief set logger threshold
@@ -66,71 +69,85 @@ public:
    * @warning level must be between [PRIO_TRACE, PRIO_FATAL] if not,
    * it will be set by default at PRIO_INFORMATION
    */
-  void setLevel(int level);
+  void
+  setLevel(int level);
   /**
    * @brief get threshold
    * @return minimum level of logging
    */
-  int getLevel() const;
+  int
+  getLevel() const;
 
   /**
    * @brief logs Message
    * @param msg message to log
    */
-  void log(const Message& msg);
+  void
+  log(const Message& msg);
 
   /**
    * @brief checks if logger will effectively log messages with
    * priority >= level
    * @param level level to be checked
    */
-  bool is(int level) const;
+  bool
+  is(int level) const;
   /**
    * @brief alias to is(Message::PRIO_TRACE)
    */
-  bool trace() const;
+  bool
+  trace() const;
   /**
    * @brief alias to is(Message::PRIO_DEBUG)
    */
-  bool debug() const;
+  bool
+  debug() const;
   /**
    * @brief alias to is(Message::PRIO_INFORMATION)
    */
-  bool information() const;
+  bool
+  information() const;
   /**
    * @brief alias to is(Message::PRIO_WARNING)
    */
-  bool warning() const;
+  bool
+  warning() const;
   /**
    * @brief alias to is(Message::PRIO_ERROR)
    */
-  bool error() const;
+  bool
+  error() const;
   /**
    * @brief alias to is(Message::PRIO_CRITICAL)
    */
-  bool critical() const;
+  bool
+  critical() const;
   /**
    * @brief alias to is(Message::PRIO_FATAL)
    */
-  bool fatal() const;
+  bool
+  fatal() const;
 
   /**
    * @brief get root Logger
    * @return LoggerPtr to the root Logger
    */
-  static LoggerPtr getRootLogger();
+  static LoggerPtr
+  getRootLogger();
   /**
    * @brief get Logger (or create if needed)
    * @param name Logger name
    * @return LoggerPtr
    */
-  static LoggerPtr getLogger(const std::string& name);
+  static LoggerPtr
+  getLogger(const std::string& name);
   /**
    * @brief check if logger is registered
    * @param name logger name
    * @return boolean
    */
-  static bool hasLogger(const std::string& name);
+  static bool
+  hasLogger(const std::string& name);
   /**
    * @brief create a Logger with specified name, channel and level
    * since it returns a boost::shared_ptr, you can test if it is
@@ -141,9 +158,8 @@ public:
    * @param level threshold
    * @return LoggerPtr
    */
-  static LoggerPtr createLogger(const std::string& name,
-                                ChannelPtr channel,
-                                int level);
+  static LoggerPtr
+  createLogger(const std::string& name, ChannelPtr channel, int level);
   /**
    * @brief destroy a logger and all its children
    * @param name
@@ -151,16 +167,19 @@ public:
    * but as long as you hold a pointer on the logger, it won't
    * be deleted
    */
-  static void destroyLogger(const std::string& name);
+  static void
+  destroyLogger(const std::string& name);
   /**
    * @brief shutdown the logging hierarchy
    */
-  static void shutdown();
+  static void
+  shutdown();
   /**
    * @brief get all active Logger names
    * @param[out] names vector where Logger names will be stored
    */
-  static void getActiveLoggers(std::vector<std::string>& names);
+  static void
+  getActiveLoggers(std::vector<std::string>& names);
 
   static const std::string root_; /**< root logger name */
 protected:
@@ -170,32 +189,34 @@ protected:
    * @param channel Channel attached to Logger
    * @param level threshold
    */
-  Logger(const std::string& name,
-         ChannelPtr channel,
-         int level);
+  Logger(const std::string& name, ChannelPtr channel, int level);
   /**
    * @brief find a LoggerPtr in the hierarchy
    * @param name Logger name
    * @return LoggerPtr
    */
-  static LoggerPtr find(const std::string& name);
+  static LoggerPtr
+  find(const std::string& name);
   /**
    * @brief get Logger
    * @param name Logger name
    * @return LoggerPtr
    */
-  static LoggerPtr get(const std::string& name);
+  static LoggerPtr
+  get(const std::string& name);
   /**
    * @brief add Logger to hierarchy
    * @param logger LoggerPtr
    */
-  static void add(LoggerPtr logger);
+  static void
+  add(LoggerPtr logger);
   /**
    * @brief return Logger parent
    * @param name Logger name
    * @return LoggerPtr
    */
-  static LoggerPtr getParent(const std::string& name);
+  static LoggerPtr
+  getParent(const std::string& name);
 
 private:
   std::string name_; /**< logger name */

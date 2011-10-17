@@ -36,7 +36,8 @@ public:
    * @param path file (path) to be rotated
    * @return boolean (true if file must be rotated)
    */
-  virtual bool mustRotate(const std::string& path) = 0;
+  virtual bool
+  mustRotate(const std::string& path) = 0;
 };
 
 /**
@@ -60,7 +61,8 @@ public:
    * @param path file (path) to be rotated
    * @return boolean (true if file must be rotated)
    */
-  bool mustRotate(const std::string& path);
+  bool
+  mustRotate(const std::string& path);
 private:
   long size_; /**< size (bytes) threshold */
 };
@@ -86,7 +88,8 @@ public:
    * @param path file (path) to be rotated
    * @return boolean (true if file must be rotated)
    */
-  bool mustRotate(const std::string& path);
+  bool
+  mustRotate(const std::string& path);
 private:
   boost::posix_time::time_duration td_; /**< time interval between rotation */
   boost::posix_time::ptime last_; /**< last rotation time (UTC) */
@@ -115,12 +118,14 @@ public:
    * @param path file (path) to be rotated
    * @return boolean (true if file must be rotated)
    */
-  bool mustRotate(const std::string& path);
+  bool
+  mustRotate(const std::string& path);
   /**
    * @brief use local time or utc
    * @param utc
    */
-  void setLocal(bool utc = true);
+  void
+  setLocal(bool utc = true);
 private:
   static const unsigned int EVERYDAY;
   static const boost::posix_time::time_duration MIDNIGHT;

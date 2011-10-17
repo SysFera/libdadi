@@ -53,7 +53,8 @@ struct name_extractor {
    * @brief effective extractor
    * @return extracted member
    */
-  const result_type& operator()(PluginInfoPtr pi) const { return pi->name; }
+  const result_type&
+  operator()(PluginInfoPtr pi) const { return pi->name; }
 };
 
 /**
@@ -66,7 +67,8 @@ struct interface_extractor {
    * @brief effective extractor
    * @return extracted member
    */
-  const result_type& operator()(PluginInfoPtr pi) const {
+  const result_type&
+  operator()(PluginInfoPtr pi) const {
     return pi->interface;
   }
 };
@@ -112,24 +114,28 @@ public:
    * @brief register a plugin into registry
    * @param pInfo
    */
-  void registerPlugin(PluginInfoPtr pInfo);
+  void
+  registerPlugin(PluginInfoPtr pInfo);
 
   // unregister(const std::string& pName);
   /**
    * @brief add new search path for plugin manifests
    * @param path
    */
-  void addPath(const std::string& path);
+  void
+  addPath(const std::string& path);
 
   /**
    * @brief load plugins
    */
-  void load();
+  void
+  load();
   /**
    * @brief get manifests search paths
    * @return search paths
    */
-  std::list<std::string> paths() {
+  std::list<std::string>
+  paths() {
     return paths_;
   }
 
@@ -139,7 +145,8 @@ public:
    * @return instance (or NULL)
    */
   template<typename Plugin>
-  Plugin *getByName(const std::string& pName) {
+  Plugin *
+  getByName(const std::string& pName) {
     void *factory(NULL);
     Plugin *instance(NULL);
 
@@ -186,7 +193,8 @@ public:
    * @return instance (or NULL)
    */
   template<typename Interface>
-  Interface *getByInterface(const std::string& pName) {
+  Interface *
+  getByInterface(const std::string& pName) {
     void *factory(NULL);
     Interface *instance(NULL);
 

@@ -42,48 +42,56 @@ public:
    * @brief load shared library
    * @param path path to shared library
    */
-  void load(const std::string& path);
+  void
+  load(const std::string& path);
   /**
    * @brief unload loaded shared library
    */
-  void unload();
+  void
+  unload();
 
   /**
    * @brief test if any library has been loaded
    * @return boolean
    */
-  bool isLoaded() const;
+  bool
+  isLoaded() const;
   /**
    * @brief test presence of a symbol
    * @param symbol
    * @return boolean
    */
-  bool hasSymbol(const std::string& symbol);
+  bool
+  hasSymbol(const std::string& symbol);
   /**
    * @brief get symbol from shared library
    * @param symbol
    * @return symbol or NULL
    */
-  void *symbol(const std::string& symbol);
+  void *
+  symbol(const std::string& symbol);
 
   /**
    * @brief get shared library path
    * @return library native path (if any library loaded)
    */
-  const std::string& path() const;
+  const std::string&
+  path() const;
 
   /**
    * @brief return platform default library prefix
    * @return default library suffix ("lib" under Unix, "" under Windows)
    */
-  static std::string prefix();
+  static std::string
+  prefix();
 
   /**
    * @brief return platform default library suffix
    * @return default library suffix (".so" under Unix, ".dylib" under mac,
    * ".dll" under Windows)
    */
-  static std::string suffix();
+  static std::string
+  suffix();
 
 private:
   /**
