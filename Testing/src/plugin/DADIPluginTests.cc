@@ -22,7 +22,7 @@
 #include "IPerson.hh"
 // Test config headers
 #include "testconfig.h"
-
+#include "DADIPluginTestsFixture.hh"
 
 BOOST_AUTO_TEST_SUITE(PluginTests)
 
@@ -100,6 +100,30 @@ BOOST_AUTO_TEST_CASE(bad_plugin_interface) {
   BOOST_TEST_MESSAGE("[LOADER]: stop ");
 }
 
-// TODO: Shared Library handling class tests
+//  Shared Library handling class tests
 
+BOOST_AUTO_TEST_CASE(plugin_class_test) {
+  
+  BOOST_TEST_MESSAGE("[LOADER]: start");
+  
+  AdressBook addressBook;
+  
+  dadi::Registry& reg= dadi::Registry::instance();
+  // Add a new path where the manifest can be loaded
+  reg.addPath(MANIFESTOUTPUTPATH);
+  // load the plugin described into the manifest
+  reg.load();
+  // build two persons
+  IPerson_ptr pAdam (reg.getByName<IPerson>("PersonA"));
+  IPerson_ptr pEve (reg.getByName<IPerson>("PersonB"));
+  // is it builded?
+  BOOST_CHECK(pAdam);
+  BOOST_CHECK(pEve);
+
+  addressBook.add_person ("Adam",pAdam);
+  addressBook.add_person ("Eve",pEve);
+  // everybody say hello
+  addressBook.say_hello();
+  BOOST_TEST_MESSAGE("[LOADER]: stop ");
+}
 BOOST_AUTO_TEST_SUITE_END()
