@@ -1,5 +1,3 @@
-#ifndef _SHARED_LIBRARY_IMPL_POSIX_HH_
-#define _SHARED_LIBRARY_IMPL_POSIX_HH_
 /**
  * @file   SharedLibraryImpl_posix.hh
  * @author hguemar <hguemar@sysfera.com>
@@ -9,6 +7,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _SHARED_LIBRARY_IMPL_POSIX_HH_
+#define _SHARED_LIBRARY_IMPL_POSIX_HH_
 
 #include <string>
 

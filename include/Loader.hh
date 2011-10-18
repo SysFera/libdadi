@@ -1,5 +1,3 @@
-#ifndef _LOADER_HH_
-#define _LOADER_HH_
 /**
  * @file   Loader.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _LOADER_HH_
+#define _LOADER_HH_
 
 #include <list>
 #include <string>

@@ -1,5 +1,3 @@
-#ifndef _ROTATESTRATEGY_HH_
-#define _ROTATESTRATEGY_HH_
 /**
  * @file   Logging/RotateStrategy.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _ROTATESTRATEGY_HH_
+#define _ROTATESTRATEGY_HH_
 
 #include <string>
 #include <boost/noncopyable.hpp>

@@ -1,5 +1,3 @@
-#ifndef _CHANNEL_HH_
-#define _CHANNEL_HH_
 /**
  * @file Logging/Channel.hh
  * @author: Haikel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,10 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _CHANNEL_HH_
+#define _CHANNEL_HH_
+
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include "Attributes.hh"

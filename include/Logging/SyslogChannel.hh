@@ -1,5 +1,3 @@
-#ifndef _SYSLOGCHANNEL_HH_
-#define _SYSLOGCHANNEL_HH_
 /**
  * @file   Logging/SyslogChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _SYSLOGCHANNEL_HH_
+#define _SYSLOGCHANNEL_HH_
 
 #include <string>
 #include "Channel.hh"

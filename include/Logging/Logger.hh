@@ -1,5 +1,3 @@
-#ifndef _LOGGER_HH_
-#define _LOGGER_HH_
 /**
  * @file   Logging/Logger.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _LOGGER_HH_
+#define _LOGGER_HH_
 
 #include <map>
 #include <string>

@@ -1,6 +1,3 @@
-#ifndef _CONFIGMGR_HH_
-#define _CONFIGMGR_HH_
-
 /**
  * @file   ConfigMgr.hh
  * @author Ibrahima Cissé <ibrahima.cisse@sysfera.com>
@@ -10,6 +7,9 @@
  *  |LICENCE|
  *
  */
+
+#ifndef _CONFIGMGR_HH_
+#define _CONFIGMGR_HH_
 
 #include <list>
 #include <string>

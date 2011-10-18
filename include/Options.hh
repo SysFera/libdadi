@@ -1,6 +1,3 @@
-#ifndef _OPTIONS_HH_
-#define _OPTIONS_HH_
-
 /**
  * @file Options.hh
  * @brief defines a class to handle command line options.
@@ -18,6 +15,9 @@
  * configuration files
  *
  */
+
+#ifndef _OPTIONS_HH_
+#define _OPTIONS_HH_
 
 #include <algorithm>
 #include <iostream>

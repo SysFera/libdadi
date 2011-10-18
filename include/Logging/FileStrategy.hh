@@ -1,5 +1,3 @@
-#ifndef _FILESTRATEGY_HH_
-#define _FILESTRATEGY_HH_
 /**
  * @file   Logging/FileStrategy.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _FILESTRATEGY_HH_
+#define _FILESTRATEGY_HH_
 
 #include "RotateStrategy.hh"
 #include "ArchiveStrategy.hh"

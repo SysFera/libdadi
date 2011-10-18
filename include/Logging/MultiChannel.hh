@@ -1,5 +1,3 @@
-#ifndef _MULTICHANNEL_HH_
-#define _MULTICHANNEL_HH_
 /**
  * @file   Logging/MultiChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -9,6 +7,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _MULTICHANNEL_HH_
+#define _MULTICHANNEL_HH_
 
 #include <list>
 #include <boost/thread/mutex.hpp>

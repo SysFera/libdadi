@@ -1,5 +1,3 @@
-#ifndef _NULLCHANNEL_HH_
-#define _NULLCHANNEL_HH_
 /**
  * @file   Logging/NullChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _NULLCHANNEL_HH_
+#define _NULLCHANNEL_HH_
 
 #include "Channel.hh"
 

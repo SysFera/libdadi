@@ -1,5 +1,3 @@
-#ifndef _PARAMETERS_ERROR_HH_
-#define _PARAMETERS_ERROR_HH_
 /**
  * @file   Exception/Parameters.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -9,6 +7,8 @@
  *
  */
 
+#ifndef _PARAMETERS_ERROR_HH_
+#define _PARAMETERS_ERROR_HH_
 
 #include "Base.hh"
 

@@ -1,5 +1,3 @@
-#ifndef _BASE_HH_
-#define _BASE_HH_
 /**
  * @file   Exception/Base.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _BASE_HH_
+#define _BASE_HH_
 
 #include <exception>
 #include <string>

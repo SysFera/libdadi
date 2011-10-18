@@ -1,5 +1,3 @@
-#ifndef _SINGLETON_HH_
-#define _SINGLETON_HH_
 /**
  * @file   Singleton.hh
  * @author hguemar <hguemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _SINGLETON_HH_
+#define _SINGLETON_HH_
 
 #include <boost/scoped_ptr.hpp>
 #include <boost/thread/once.hpp>

@@ -1,6 +1,3 @@
-#ifndef DADI_HH
-#define DADI_HH
-
 /**
  * @file dadi.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.fr>
@@ -10,6 +7,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef DADI_HH
+#define DADI_HH
 
 #include "dadi/config-in.hh"
 

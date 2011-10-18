@@ -1,5 +1,3 @@
-#ifndef _FILECHANNEL_HH_
-#define _FILECHANNEL_HH_
 /**
  * @file   Logging/FileChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _FILECHANNEL_HH_
+#define _FILECHANNEL_HH_
 
 #include <string>
 #include <map>

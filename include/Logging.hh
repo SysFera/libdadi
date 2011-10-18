@@ -1,5 +1,3 @@
-#ifndef _LOGGING_HH_
-#define _LOGGING_HH_
 /**
  * @file   Logging.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _LOGGING_HH_
+#define _LOGGING_HH_
 
 #include "Logging/Channel.hh"
 #include "Logging/Consolechannel.hh"

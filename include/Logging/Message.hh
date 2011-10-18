@@ -1,5 +1,3 @@
-#ifndef _MESSAGE_HH_
-#define _MESSAGE_HH_
 /**
  * @file   Logging/Message.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _MESSAGE_HH_
+#define _MESSAGE_HH_
 
 #include <map>
 #include <string>

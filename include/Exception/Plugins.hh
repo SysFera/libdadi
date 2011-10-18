@@ -1,5 +1,3 @@
-#ifndef _PLUGINS_ERROR_HH_
-#define _PLUGINS_ERROR_HH_
 /**
  * @file   Exception/Plugins.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _PLUGINS_ERROR_HH_
+#define _PLUGINS_ERROR_HH_
 
 #include "Base.hh"
 

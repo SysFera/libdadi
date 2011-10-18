@@ -1,5 +1,3 @@
-#ifndef _ATTRIBUTES_ERROR_HH_
-#define _ATTRIBUTES_ERROR_HH_
 /**
  * @file   Exception/Attributes.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _ATTRIBUTES_ERROR_HH_
+#define _ATTRIBUTES_ERROR_HH_
 
 #include "Base.hh"
 

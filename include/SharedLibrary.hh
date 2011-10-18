@@ -1,5 +1,3 @@
-#ifndef _SHARED_LIBRARY_HH_
-#define _SHARED_LIBRARY_HH_
 /**
  * @file   SharedLibrary.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _SHARED_LIBRARY_HH_
+#define _SHARED_LIBRARY_HH_
 
 #include <string>
 #include <boost/noncopyable.hpp>

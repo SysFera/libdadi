@@ -1,5 +1,3 @@
-#ifndef _CONFIG_HH_
-#define _CONFIG_HH_
 /**
  * @file   Config.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,10 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _CONFIG_HH_
+#define _CONFIG_HH_
+
 #include <string>
 #include <boost/thread.hpp>
 #include "detail/Parsers.hh"

@@ -1,5 +1,3 @@
-#ifndef _PLUGIN_INFO_HH_
-#define _PLUGIN_INFO_HH_
 /**
  * @file PluginInfo.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.fr>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _PLUGIN_INFO_HH_
+#define _PLUGIN_INFO_HH_
 
 #include <list>
 #include <string>

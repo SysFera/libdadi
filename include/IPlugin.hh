@@ -6,6 +6,7 @@
  *   |LICENCE|
  *
  */
+
 #ifndef _IPLUGIN_HH_
 #define _IPLUGIN_HH_
 

@@ -1,5 +1,3 @@
-#ifndef _REGISTRY_HH_
-#define _REGISTRY_HH_
 /**
  * @file   Registry.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -9,6 +7,8 @@
  *
  */
 
+#ifndef _REGISTRY_HH_
+#define _REGISTRY_HH_
 
 #include <algorithm>
 #include <iostream>

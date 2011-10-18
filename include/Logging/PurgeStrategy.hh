@@ -1,5 +1,3 @@
-#ifndef _PURGESTRATEGY_HH_
-#define _PURGESTRATEGY_HH_
 /**
  * @file   Logging/PurgeStrategy.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _PURGESTRATEGY_HH_
+#define _PURGESTRATEGY_HH_
 
 #include <string>
 #include <vector>

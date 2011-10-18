@@ -1,5 +1,3 @@
-#ifndef _CONSOLECHANNEL_HH_
-#define _CONSOLECHANNEL_HH_
 /**
  * @file   Logging/ConsoleChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _CONSOLECHANNEL_HH_
+#define _CONSOLECHANNEL_HH_
 
 #include <iosfwd>
 #include <boost/thread/mutex.hpp>

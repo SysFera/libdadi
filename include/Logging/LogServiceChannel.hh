@@ -1,5 +1,3 @@
-#ifndef _LOGSERVICECHANNEL_HH_
-#define _LOGSERVICECHANNEL_HH_
 /**
  * @file   Logging/LogServiceChannel.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,9 @@
  *   |LICENCE|
  *
  */
+
+#ifndef _LOGSERVICECHANNEL_HH_
+#define _LOGSERVICECHANNEL_HH_
 
 #include <boost/thread/mutex.hpp>
 #include "Channel.hh"
