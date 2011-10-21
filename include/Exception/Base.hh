@@ -30,8 +30,15 @@ class Error : virtual public std::exception,
  */
 class NotImplementedError : public Error {};
 
+/**
+ * @class NotAvailableException
+ * @brief this feature is not available
+ */
+class NotAvailableException : public Error {};
+  
 /** generic error message */
 typedef boost::error_info<struct tag_errinfo_msg, std::string> errinfo_msg;
+
 
 
 } /* namespace dadi */
