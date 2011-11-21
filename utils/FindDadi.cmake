@@ -9,7 +9,7 @@
 if(NOT WIN32)
   include(FindPkgConfig)
   # run quietly since we only retrieve some hints from pkg-config
-  pkg_config_modules(DADI QUIET dadi)
+  pkg_check_modules(DADI QUIET dadi)
   # returns DADI_INCLUDE_DIRS and DADI_LIBRARY_DIRS
 endif()
 
