@@ -9,9 +9,9 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "IPerson.hh"
-#include "Loader.hh"
-#include "Registry.hh"
+#include <dadi/Logging/IPerson.hh>
+#include <dadi/Logging/Loader.hh>
+#include <dadi/Logging/Registry.hh>
 
 
 int

@@ -8,7 +8,7 @@
  */
 #include <cstring>
 #include <iostream>
-#include "IPerson.hh"
+#include <dadi/Logging/IPerson.hh>
 
 class PersonA : public IPerson {
 protected:

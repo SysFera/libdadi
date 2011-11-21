@@ -10,8 +10,8 @@
 #ifndef _FILESTRATEGY_HH_
 #define _FILESTRATEGY_HH_
 
-#include "RotateStrategy.hh"
-#include "ArchiveStrategy.hh"
-#include "PurgeStrategy.hh"
+#include <dadi/Logging/RotateStrategy.hh>
+#include <dadi/Logging/ArchiveStrategy.hh>
+#include <dadi/Logging/PurgeStrategy.hh>
 
 #endif /* _FILESTRATEGY_HH_ */

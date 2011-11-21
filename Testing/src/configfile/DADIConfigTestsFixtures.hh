@@ -12,9 +12,9 @@
 #include <boost/foreach.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/test/unit_test.hpp>
-#include "Config.hh"
-#include "ConfigMgr.hh"
-#include "Options.hh"
+#include <dadi/Config.hh>
+#include <dadi/ConfigMgr.hh>
+#include <dadi/Options.hh>
 #include "testconfig.h"
 
 class ConfLoader {

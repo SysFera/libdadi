@@ -10,7 +10,7 @@
 #ifndef _PARAMETERS_ERROR_HH_
 #define _PARAMETERS_ERROR_HH_
 
-#include "Base.hh"
+#include <dadi/Exception/Base.hh>
 
 namespace dadi {
 

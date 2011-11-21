@@ -7,7 +7,7 @@
  *
  */
 
-#include "Loader.hh"
+#include <dadi/Loader.hh>
 
 #include <iostream>
 #include <boost/filesystem.hpp>
@@ -15,9 +15,9 @@
 #include <boost/format.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
-#include "IPlugin.hh"
-#include "Registry.hh"
-#include "Exception/Plugins.hh"
+#include <dadi/IPlugin.hh>
+#include <dadi/Registry.hh>
+#include <dadi/Exception/Plugins.hh>
 
 namespace dadi {
 

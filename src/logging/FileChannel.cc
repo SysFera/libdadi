@@ -7,7 +7,7 @@
  *
  */
 
-#include "Logging/FileChannel.hh"
+#include <dadi/Logging/FileChannel.hh>
 #include <boost/assign/list_of.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/iostreams/device/file.hpp>
@@ -17,7 +17,7 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/regex.hpp>
 #include <boost/thread/locks.hpp>
-#include <Logging/Message.hh>
+#include <dadi/Logging/Message.hh>
 
 namespace dadi {
 

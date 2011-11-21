@@ -7,7 +7,7 @@
  *
  */
 
-#include "Registry.hh"
+#include <dadi/Registry.hh>
 
 #include <iostream>
 #include <boost/filesystem.hpp>

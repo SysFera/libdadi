@@ -11,8 +11,8 @@
 // force debug traces in dadi::setProperty
 #define NDEBUG
 
-#include "Config.hh"
-#include "Options.hh"
+#include <dadi/Config.hh>
+#include <dadi/Options.hh>
 
 
 int

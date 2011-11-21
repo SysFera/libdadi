@@ -7,10 +7,10 @@
  *
  */
 
-#include "Logging/LogServiceChannel.hh"
+#include <dadi/Logging/LogServiceChannel.hh>
 #include <iostream>
 #include <boost/thread/locks.hpp>
-#include <Logging/Message.hh>
+#include <dadi/Logging/Message.hh>
 
 namespace dadi {
 

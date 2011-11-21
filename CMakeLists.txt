@@ -119,15 +119,15 @@ if(ENABLE_DOC)
 endif()
 
 ## headers
-configure_file("include/dadi-config.hh.in"
-  "${PROJECT_BINARY_DIR}/include/dadi-config.hh")
-install(FILES "${PROJECT_BINARY_DIR}/include/dadi-config.hh"
+configure_file("include/dadi/dadi-config.hh.in"
+  "${PROJECT_BINARY_DIR}/include/dadi/dadi-config.hh")
+install(FILES "${PROJECT_BINARY_DIR}/include/dadi/dadi-config.hh"
   DESTINATION "${INCLUDE_INSTALL_DIR}/dadi"
   COMPONENT development)
 # do not forget the trailing slash or it will install the whole
 # directory include
 install(DIRECTORY "include/"
-  DESTINATION "${INCLUDE_INSTALL_DIR}/dadi"
+  DESTINATION "${INCLUDE_INSTALL_DIR}"
   COMPONENT development
   FILES_MATCHING PATTERN "*.hh")
 

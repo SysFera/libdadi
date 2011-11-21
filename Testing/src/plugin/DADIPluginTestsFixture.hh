@@ -33,7 +33,7 @@ class AdressBook {
 
       BOOST_FOREACH(PersonPair personPair, book){
         std::cout << personPair.first << ": " ;
-        personPair.second->say_hello(); 
+        personPair.second->say_hello();
       }
 
     }

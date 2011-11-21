@@ -13,14 +13,14 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
-#include "Logging/ConsoleChannel.hh"
-#include "Logging/FileChannel.hh"
-#include "Logging/NullChannel.hh"
-#include "Logging/MultiChannel.hh"
-#include "Logging/Logger.hh"
-#include "Logging/Message.hh"
-#include "Config.hh"
-#include "Options.hh"
+#include <dadi/Logging/ConsoleChannel.hh>
+#include <dadi/Logging/FileChannel.hh>
+#include <dadi/Logging/NullChannel.hh>
+#include <dadi/Logging/MultiChannel.hh>
+#include <dadi/Logging/Logger.hh>
+#include <dadi/Logging/Message.hh>
+#include <dadi/Config.hh>
+#include <dadi/Options.hh>
 
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 namespace {

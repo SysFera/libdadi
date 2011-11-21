@@ -7,7 +7,7 @@
  *
  */
 
-#include "PluginInfo.hh"
+#include <dadi/PluginInfo.hh>
 
 namespace dadi {
 

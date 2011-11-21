@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 #include <boost/thread/recursive_mutex.hpp>
-#include "Channel.hh"
+#include <dadi/Logging/Channel.hh>
 
 namespace dadi {
 

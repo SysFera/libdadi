@@ -15,9 +15,9 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/test/unit_test.hpp>
 // libdadi headers
-#include "Loader.hh"
-#include "Registry.hh"
-#include "PluginInfo.hh"
+#include <dadi/Loader.hh>
+#include <dadi/Registry.hh>
+#include <dadi/PluginInfo.hh>
 // Plugins headers
 #include "IPerson.hh"
 // Test config headers
@@ -103,11 +103,11 @@ BOOST_AUTO_TEST_CASE(bad_plugin_interface) {
 //  Shared Library handling class tests
 
 BOOST_AUTO_TEST_CASE(plugin_class_test) {
-  
+
   BOOST_TEST_MESSAGE("[LOADER]: start");
-  
+
   AdressBook addressBook;
-  
+
   dadi::Registry& reg= dadi::Registry::instance();
   // Add a new path where the manifest can be loaded
   reg.addPath(MANIFESTOUTPUTPATH);

@@ -7,7 +7,7 @@
  *
  */
 
-#include "Logging/Channel.hh"
+#include <dadi/Logging/Channel.hh>
 
 namespace dadi {
 

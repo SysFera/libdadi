@@ -8,8 +8,8 @@
  */
 #include <cstdlib>
 #include <iostream>
-#include "Config.hh"
-#include "Options.hh"
+#include <dadi/Config.hh>
+#include <dadi/Options.hh>
 
 /* for testing purpose, you need a configuration file formatted like this:
 

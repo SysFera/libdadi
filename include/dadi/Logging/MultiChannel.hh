@@ -13,7 +13,7 @@
 
 #include <list>
 #include <boost/thread/mutex.hpp>
-#include "Channel.hh"
+#include <dadi/Logging/Channel.hh>
 
 namespace dadi {
 

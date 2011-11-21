@@ -8,7 +8,7 @@
  *   |LICENCE|
  *
  */
-#include "IPlugin.hh"
+#include <dadi/IPlugin.hh>
 
 class DADI_EXPORT IPerson : public IPlugin {
 public:

@@ -9,11 +9,11 @@
 
 #include <iostream>
 #include <boost/thread.hpp>
-#include "Logging/ConsoleChannel.hh"
-#include "Logging/FileChannel.hh"
-#include "Logging/LogServiceChannel.hh"
-#include "Logging/Logger.hh"
-#include "Logging/Message.hh"
+#include <dadi/Logging/ConsoleChannel.hh>
+#include <dadi/Logging/FileChannel.hh>
+#include <dadi/Logging/LogServiceChannel.hh>
+#include <dadi/Logging/Logger.hh>
+#include <dadi/Logging/Message.hh>
 
 int
 main(int argc, char *argv[]) {

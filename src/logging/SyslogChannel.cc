@@ -7,9 +7,9 @@
  *
  */
 
-#include "Logging/SyslogChannel.hh"
+#include <dadi/Logging/SyslogChannel.hh>
 #include <syslog.h>
-#include <Logging/Message.hh>
+#include <dadi/Logging/Message.hh>
 
 namespace dadi {
 

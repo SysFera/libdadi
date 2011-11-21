@@ -1,7 +1,7 @@
 #ifndef _IPERSON_HH_
 #define _IPERSON_HH_
 
-#include <boost/shared_ptr.hpp>  
+#include <boost/shared_ptr.hpp>
 
 /**
  * @file   Testing/src/plugin/IPerson.hh
@@ -11,7 +11,7 @@
  *   |LICENCE|
  *
  */
-#include "IPlugin.hh"
+#include <dadi/IPlugin.hh>
 
 class DADI_EXPORT IPerson : public IPlugin {
 public:

@@ -7,7 +7,7 @@
  *
  */
 
-#include "Attributes.hh"
+#include <dadi/Attributes.hh>
 #include <list>
 #include <sstream>
 #include <string>

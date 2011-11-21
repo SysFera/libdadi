@@ -7,7 +7,7 @@
  *
  */
 
-#include "SharedLibrary.hh"
+#include <dadi/SharedLibrary.hh>
 #if defined(WIN32)
 #include "SharedLibraryImpl_win32.hh"
 #else /* WIN32 */
