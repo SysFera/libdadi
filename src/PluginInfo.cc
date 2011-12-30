@@ -18,7 +18,7 @@ PluginInfo::PluginInfo()
 PluginInfo::PluginInfo(const PluginInfo& other)
   : uuid(other.uuid), name(other.name), version(other.version),
     interface(other.interface), path(other.path),
-    factory(other.factory), sPtr(other.sPtr) {}
+    factory(other.factory), sPtr(other.sPtr), metadata(other.metadata) {}
 
 PluginInfo&
 PluginInfo::operator=(const PluginInfo& other) {
@@ -29,6 +29,7 @@ PluginInfo::operator=(const PluginInfo& other) {
   std::swap(tmp.interface, this->interface);
   std::swap(tmp.path, this->path);
   std::swap(tmp.sPtr, this->sPtr);
+  std::swap(tmp.metadata, this->metadata);
   tmp.factory = this->factory;
 
   return *this;

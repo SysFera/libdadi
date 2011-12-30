@@ -14,7 +14,9 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 #include <boost/uuid/uuid.hpp>
-#include "SharedLibrary.hh"
+#include <dadi/SharedLibrary.hh>
+#include <dadi/Attributes.hh>
+
 
 namespace dadi {
 
@@ -66,6 +68,7 @@ struct PluginInfo {
   std::string version; /**< plugin version */
   std::string interface; /**< plugin interface */
   std::string path; /**< library path */
+  Attributes metadata; /**< metadata */
   void *factory; /**< pointer to factory method */
   SharedLibraryPtr sPtr; /**< pointer to sharedLibrary */
   std::list<std::string> deps; /**< list of dependencies */

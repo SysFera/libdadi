@@ -51,5 +51,23 @@ Registry::load() {
   }
 }
 
+std::list<std::string>
+Registry::listPluginsByInterface(const std::string& pName) {
+  std::list<std::string> plugins;
+  if (!cache_.empty()) {
+    pinfo_set_by_interface& index = cache_.get<interface>();
+    pinfo_set_by_interface::iterator lb = index.lower_bound(pName);
+    pinfo_set_by_interface::iterator ub = index.upper_bound(pName);
+
+    for (pinfo_set_by_interface::iterator it = lb;
+         it != ub; ++it) {
+      plugins.push_back((*it)->name);
+    }
+  }
+
+  return plugins;
+}
+
+
 } /* namespace dadi */
 

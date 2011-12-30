@@ -131,6 +131,14 @@ public:
   void
   load();
   /**
+   * @brief list plugins implementing an interface
+   * @param pName interface name
+   * @return std::list
+   */
+  std::list<std::string>
+  listPluginsByInterface(const std::string& pName);
+
+  /**
    * @brief get manifests search paths
    * @return search paths
    */
@@ -182,7 +190,6 @@ public:
         p = getByInterface<IPlugin>(*ita);
       }
     }
-//    void *conn = sPtr->symbol("connect_IPerson_IWork");
 
     return static_cast <Plugin *>(instance);
   }
@@ -224,7 +231,6 @@ public:
 
       for (; ita != deps.end(); ++ita) {
         std::cout << *ita << "\n";
-        // IPlugin *p = get<IPlugin>(*ita);
       }
     }
     return static_cast<Interface *>(instance);
@@ -239,7 +245,6 @@ private:
   Registry();
 
   std::list<std::string> paths_; /**< search paths for plugins manifests */
-//  boost::scoped_ptr<Loader> loader_; /**< loader */
   boost::shared_ptr<Loader> loader_; /**< loader */
   pinfo_set cache_; /**< Registry cache */
 };

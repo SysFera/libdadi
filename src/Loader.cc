@@ -13,6 +13,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
+#include <boost/optional.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <dadi/IPlugin.hh>
@@ -105,6 +106,15 @@ Loader::parseConfig(const char *mFile, PluginInfoPtr pInfo) {
     pInfo->name = pt.get<std::string>("plugindescriptor.name");
     pInfo->version = pt.get<std::string>("plugindescriptor.version");
     pInfo->interface = pt.get<std::string>("plugindescriptor.interface");
+    boost::optional<ptree&> metadataTree =
+      pt.get_child_optional("plugindescriptor.metadata");
+
+    if (metadataTree) {
+      std::stringstream metadataStr;
+      write_xml(metadataStr, metadataTree.get());
+
+      (pInfo->metadata).loadAttr(metadataStr.str());
+    }
 
     try {
       BOOST_FOREACH(ptree::value_type& v,
