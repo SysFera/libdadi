@@ -184,6 +184,10 @@ private:
   boost::property_tree::ptree pt; /**< property tree holding attributes */
 };
 
+
+std::string
+str(const Attributes& attr, int format = 0);
+
 } /* namespace dadi */
 
 #endif /* _ATTRIBUTES_HH_ */

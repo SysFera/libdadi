@@ -221,5 +221,9 @@ Attributes::merge(Attributes& other) {
   pt = c();
 }
 
+std::string
+str(const Attributes& attr, int format) {
+  return attr.saveAttr(format);
+}
 
 } /* namespace dadi */
