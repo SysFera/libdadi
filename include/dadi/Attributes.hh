@@ -107,13 +107,23 @@ public:
 
   /* modifiers */
   /**
-   * @brief add value to attributes
+   * @brief update a node to attributes (or create it if it doesn't exist)
    * @param path path to attribute
    * @param value attribute new value
    */
   template<typename T> void
   putAttr(const std::string& path, T value) {
     pt.put(path, value);
+  }
+
+  /**
+   * @brief add a new node to attributes
+   * @param path path to attribute
+   * @param value attribute new value
+   */
+  template<typename T> void
+  addAttr(const std::string& path, T value) {
+    pt.add(path, value);
   }
 
   /**
