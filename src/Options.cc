@@ -62,10 +62,24 @@ Options::setPositional(const std::string& name, int count) {
   pos_.add(name.c_str(), count);
 }
 
+namespace {
+boost::function0<void> fDefaultHelp;
+} /* namespace */
+
+
 void
 Options::parseCommandLine(int& argc, char* argv[]) {
   if (!PreCmdHook_.empty()) {
     PreCmdHook_(argc, argv);
+  }
+
+  /* if user has not set a help callback, we create a new one */
+  boost::shared_ptr<po::options_description> opt = default_.get();
+  const po::option_description *help = opt->find_nothrow("help", true);
+  if (!help) {
+    boost::function0<void> fHelp(boost::bind(dadi::help, boost::cref(*this)));
+    swap(fDefaultHelp, fHelp);
+    addSwitch("help,h", "display help message", fDefaultHelp);
   }
 
   boost::shared_ptr<po::options_description> options =
@@ -77,11 +91,8 @@ Options::parseCommandLine(int& argc, char* argv[]) {
           .run(), vm_);
   } catch (const std::exception& e) {
     std::cerr << e.what() << "\n";
-    boost::shared_ptr<po::options_description> opt = default_.get();
-    const po::option_description *help = opt->find_nothrow("help", true);
-    if (help) {
-      help->semantic()->notify(true);
-    }
+    help = opt->find_nothrow("help", true);
+    help->semantic()->notify(true);
   }
 }
 
@@ -99,16 +110,13 @@ Options::parseConfigFile(const std::string& file, bool unregistered) {
   // store the registred options
   store(parsed_file, vm_);
 
-  // dadi::Config& store_ = dadi::Config::instance();
   // store the unregistred options
   foreach(po::option unregoption, parsed_file.options) {
     if (unregoption.unregistered) {
      foreach(std::string value, unregoption.value) {
-    // dadi::setProperty(unregoption.string_key,value);
      }
     }
   }
-  // store(parse_config_file(ifs, *options, unregistered), vm_);
 }
 
 void

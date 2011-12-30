@@ -461,17 +461,16 @@ setProperty(const std::string& key, const T& value) {
 }
 
 /**
- * @brief A helper function to simplify the display of vector
- * @param os: an ostream to write data in
- * @param v: a vector to print
+ * @brief simple helper that sets ConfigStore[key] = value
+ * @param key property key
+ * @param seq sequence
  */
-template<class T>
-std::ostream&
-operator<<(std::ostream& os, const std::vector<T>& v) {
-  std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, " "));
-  return os;
+template<class Sequence>
+void
+setPropertySeq(const std::string& key, const Sequence& seq) {
+  dadi::Config& config_ = dadi::Config::instance();
+  config_.add_seq(key, seq);
 }
-
 
 } /* namespace dadi */
 
@@ -480,7 +479,5 @@ operator<<(std::ostream& os, const std::vector<T>& v) {
 // alias to commonly used specialization
 /** alias to setProperty std::string specialization */
 #define setPropertyString setProperty<std::string >
-/** alias to setProperty std::vector<std::string> specialization */
-#define setPropertyStringList setProperty<std::vector<std::string> >
 
 #endif /* _OPTIONS_HH_ */
