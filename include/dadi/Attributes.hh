@@ -68,42 +68,29 @@ public:
   }
 
   /**
-   * @brief get attributes list and store it in standard container
-   * @param path attribute path
-   * @param container container path list of values
+   * @brief get the list of values associated to path and store it
+   * in a sequence
+   * @param path path to attribute
    * @throw dadi::UnknownAttributeError
    * @throw dadi::InvalidAttributeError
    */
-  template<typename T, template <typename Element> class Container >
-  void
-  getAttrList(const std::string& path, Container<T>& container) const {
-    container.clear();
+  template<class Sequence>
+  Sequence
+  getAttrList(const std::string& path) const {
+    Sequence seq;
 
     try {
-      BOOST_FOREACH(boost::property_tree::ptree::value_type& v,
+      BOOST_FOREACH(const boost::property_tree::ptree::value_type& v,
                     pt.get_child(path)) {
-        container.push_back(v.second.get_value<T>());
+        seq.push_back(v.second.data());
       }
     } catch (const boost::property_tree::ptree_bad_path& e) {
       BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
     } catch (const boost::property_tree::ptree_bad_data& e) {
       BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
     }
-  }
 
-
-  /**
-   * @brief get the list of values associated to path and store it in a std::list
-   * @param path path to attribute
-   * @throw dadi::UnknownAttributeError
-   * @throw dadi::InvalidAttributeError
-   */
-  template<typename T>
-  std::list<T>
-  getAttrList(const std::string& path) const {
-      std::list<T> container;
-      getAttrList(path, container);
-      return container;
+    return seq;
   }
 
   /**
