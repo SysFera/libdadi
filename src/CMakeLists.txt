@@ -17,7 +17,7 @@ if(USE_LOGSERVICE)
 endif()
 
 set(SRCS Attributes.cc Options.cc Loader.cc Registry.cc PluginInfo.cc
-  SharedLibrary.cc ConfigMgr.cc ${logging_SRCS})
+  SharedLibrary.cc ConfigMgr.cc cori/CoriMgr.cc ${logging_SRCS})
 
 if(WIN32)
   set(SRCS ${SRCS} SharedLibraryImpl_win32.cc)
@@ -40,3 +40,5 @@ install(TARGETS dadi
   ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
   LIBRARY DESTINATION ${LIB_INSTALL_DIR}
   RUNTIME DESTINATION ${LIB_INSTALL_DIR})
+
+add_subdirectory(cori)

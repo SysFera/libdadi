@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugindescriptor>
+  <name>@PLUGIN_NAME@</name>
+  <version>0.0.1</version>
+  <interface>ICori</interface>
+  <paths>
+    <path>@PLUGIN_PATH@</path>
+  </paths>
+  <metadata>
+    <cori>
+      <metric>cpu.core_number</metric>
+      <metric>cpu.freq</metric>
+      <metric>ram.total</metric>
+      <metric>ram.used</metric>
+      <metric>ram.free</metric>
+      <metric>swap.total</metric>
+      <metric>swap.used</metric>
+      <metric>swap.free</metric>
+      <metric>uptime</metric>
+    </cori>
+  </metadata>
+  <dependencies>
+  </dependencies>
+</plugindescriptor>

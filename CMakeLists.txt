@@ -79,6 +79,8 @@ set(Boost_USE_MULTITHREADED ON)
 # TODO: remove this as soon as Boost > 1.46 is required
 add_definitions( "-DBOOST_FILESYSTEM_VERSION=3" )
 
+find_package(Sigar REQUIRED)
+
 ## specific stuff for LogServiceChannel
 ## TODO: remove this or make it optional
 option(USE_LOGSERVICE "Build libdadi with logservice support" OFF)
