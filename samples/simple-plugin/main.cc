@@ -10,8 +10,8 @@
 #include <iostream>
 
 #include <dadi/Logging/IPerson.hh>
-#include <dadi/Logging/Loader.hh>
-#include <dadi/Logging/Registry.hh>
+#include <dadi/Loader.hh>
+#include <dadi/Registry.hh>
 
 
 int

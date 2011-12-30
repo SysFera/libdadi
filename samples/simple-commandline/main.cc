@@ -14,6 +14,9 @@
 #include <dadi/Config.hh>
 #include <dadi/Options.hh>
 
+void
+my_help(const dadi::Options& opt);
+
 
 int
 main(int argc, char *argv[], char *envp[]) {
@@ -22,7 +25,7 @@ main(int argc, char *argv[], char *envp[]) {
 
   opt.setName("simple-commandline");
   opt.setUsage("[-h] [options] -n <name> -j <number>");
-  boost::function0<void> fHelp(boost::bind(dadi::help, boost::cref(opt)));
+  boost::function0<void> fHelp(boost::bind(my_help, boost::cref(opt)));
   boost::function1<void, std::string> fName(
     boost::bind(dadi::setPropertyString, "name", _1));
   boost::function1<void, int> fJobs(
@@ -38,3 +41,8 @@ main(int argc, char *argv[], char *envp[]) {
   return EXIT_SUCCESS;
 }
 
+void
+my_help(const dadi::Options& opt) {
+  std::cout << "[my_help callback]\n";
+  dadi::help(opt);
+}
