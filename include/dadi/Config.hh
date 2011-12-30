@@ -11,6 +11,7 @@
 #define _CONFIG_HH_
 
 #include <string>
+#include <boost/foreach.hpp>
 #include <boost/thread.hpp>
 #include "detail/Parsers.hh"
 #include "Singleton.hh"
@@ -104,6 +105,48 @@ public:
   }
 
   /**
+   * @brief insert node value
+   * @param key configuration key
+   * @param value configuration value
+   */
+  template <typename valueType>
+  void
+  add(const std::string& key, const valueType& value) {
+    boost::unique_lock<boost::shared_mutex> lock(mutex_);
+
+    try {
+      store_.template add(key, value);
+    } catch (const boost::property_tree::ptree_bad_path& e) {
+      BOOST_THROW_EXCEPTION(UnknownParameterError() << errinfo_msg(e.what()));
+    } catch (const boost::property_tree::ptree_bad_data& e) {
+      BOOST_THROW_EXCEPTION(InvalidParameterError() << errinfo_msg(e.what()));
+    }
+  }
+
+  /**
+   * @brief insert a node value
+   * @param key configuration key
+   * @param seq sequence of values to insert
+   * @throw ptree_error if a key or data is invalid
+   */
+  template <class Sequence>
+  void
+  add_seq(const std::string& key, const Sequence& seq) {
+    boost::shared_lock<boost::shared_mutex> lock(mutex_);
+
+    try {
+      BOOST_FOREACH(const typename Sequence::value_type& v, seq) {
+        store_.template add(key, v);
+      }
+    } catch (const boost::property_tree::ptree_bad_path& e) {
+      BOOST_THROW_EXCEPTION(UnknownParameterError() << errinfo_msg(e.what()));
+    } catch (const boost::property_tree::ptree_bad_data& e) {
+      BOOST_THROW_EXCEPTION(InvalidParameterError() << errinfo_msg(e.what()));
+    }
+  }
+
+
+  /**
    * @brief read a node value
    * @param key configuration key
    * @return the node value
@@ -117,6 +160,31 @@ public:
 
     try {
       result = store_.get<valueType>(key);
+    } catch (const boost::property_tree::ptree_bad_path& e) {
+      BOOST_THROW_EXCEPTION(UnknownParameterError() << errinfo_msg(e.what()));
+    } catch (const boost::property_tree::ptree_bad_data& e) {
+      BOOST_THROW_EXCEPTION(InvalidParameterError() << errinfo_msg(e.what()));
+    }
+
+    return result;
+  }
+
+  /**
+   * @brief read a node value
+   * @param key configuration key
+   * @return the node value
+   * @throw ptree_error if a key or data is invalid
+   */
+  template <class Sequence>
+  Sequence
+  get_seq(const std::string& key) const {
+    boost::shared_lock<boost::shared_mutex> lock(mutex_);
+    Sequence result;
+
+    try {
+      BOOST_FOREACH(typename ConfigStore::value_type& v, store_.get_child(key)) {
+        result.push_back(v.second.data());
+      }
     } catch (const boost::property_tree::ptree_bad_path& e) {
       BOOST_THROW_EXCEPTION(UnknownParameterError() << errinfo_msg(e.what()));
     } catch (const boost::property_tree::ptree_bad_data& e) {
