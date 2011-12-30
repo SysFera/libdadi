@@ -167,11 +167,18 @@ public:
   operator==(const Attributes& other) const;
   /**
    * @brief comparison operator
-   * @param other object object to compare
+   * @param other object to compare
    * @return boolean
    */
   bool
   operator!=(const Attributes& other) const;
+  /**
+   * @brief merge 2 sets of attributes
+   * @param other object to merge
+   * @return
+   */
+  void
+  merge(Attributes& other);
 
 private:
   boost::property_tree::ptree pt; /**< property tree holding attributes */
