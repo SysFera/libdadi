@@ -48,7 +48,7 @@ public:
    * @param piPtr PluginInfoPtr
    */
   void
-  plugin_info(dadi::PluginInfoPtr& piPtr) {
+  plugin_info(const dadi::PluginInfoPtr& piPtr) {
     piPtr_ = piPtr;
   }
   /**

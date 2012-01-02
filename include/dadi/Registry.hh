@@ -177,6 +177,7 @@ public:
     factory = (*it)->factory;
     if (factory) {
       ((bool (*)(void **))(factory))((void**) &instance);
+      instance->plugin_info(*it);
     }
 
     SharedLibraryPtr sPtr = (*it)->sPtr;
@@ -221,6 +222,7 @@ public:
     factory = (*it)->factory;
     if (factory) {
       ((int (*)(void **))(factory))((void**) &instance);
+      instance->plugin_info(*it);
     }
 
     std::cout << (*it)->name << "\n";
