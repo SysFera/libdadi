@@ -24,15 +24,15 @@ namespace dadi {
 namespace io = boost::iostreams;
 typedef boost::lock_guard<boost::mutex> Lock;
 
-const std::string FileChannel::ATTR_PATH = "path";
-const std::string FileChannel::ATTR_COMPRESSION_MODE = "compression_mode";
-const std::string FileChannel::ATTR_ARCHIVE = "archive";
-const std::string FileChannel::ATTR_ROTATE = "rotate";
-const std::string FileChannel::ATTR_ROTATE_SIZE = "rotate.size";
-const std::string FileChannel::ATTR_ROTATE_TIME = "rotate.time";
-const std::string FileChannel::ATTR_ROTATE_INTERVAL = "rotate.interval";
-const std::string FileChannel::ATTR_PURGE = "purge";
-const std::string FileChannel::ATTR_PURGE_COUNT = "purge.count";
+const std::string FileChannel::ATTR_PATH = std::string("path");
+const std::string FileChannel::ATTR_COMPRESSION_MODE = std::string("compression_mode");
+const std::string FileChannel::ATTR_ARCHIVE = std::string("archive");
+const std::string FileChannel::ATTR_ROTATE = std::string("rotate");
+const std::string FileChannel::ATTR_ROTATE_SIZE = std::string("rotate.size");
+const std::string FileChannel::ATTR_ROTATE_TIME = std::string("rotate.time");
+const std::string FileChannel::ATTR_ROTATE_INTERVAL = std::string("rotate.interval");
+const std::string FileChannel::ATTR_PURGE = std::string("purge");
+const std::string FileChannel::ATTR_PURGE_COUNT = std::string("purge.count");
 const std::string DEFAULT_ROT_SIZE("1M");
 const std::string DEFAULT_ROT_INTERVAL("24:00:00");
 const int DEFAULT_PURGE_COUNT(10);

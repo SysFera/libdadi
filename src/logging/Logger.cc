@@ -13,8 +13,8 @@
 
 namespace dadi {
 
-const std::string Logger::root_;
-LoggerMap Logger::lmap_;
+const std::string Logger::root_ = std::string();
+LoggerMap Logger::lmap_ = LoggerMap();
 boost::recursive_mutex Logger::mutex_;
 
 typedef boost::lock_guard<boost::recursive_mutex> Lock;

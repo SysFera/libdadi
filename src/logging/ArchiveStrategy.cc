@@ -16,7 +16,7 @@ namespace dadi {
 
 namespace bfs = boost::filesystem;
 
-const std::string ArchiveByNumberStrategy::pTpl_ = "%s.%i";
+const std::string ArchiveByNumberStrategy::pTpl_ = std::string("%s.%i");
 
 ArchiveStrategy::ArchiveStrategy() {}
 

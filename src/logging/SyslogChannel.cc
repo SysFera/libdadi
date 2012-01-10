@@ -13,9 +13,9 @@
 
 namespace dadi {
 
-const std::string SyslogChannel::ATTR_NAME = "name";
-const std::string SyslogChannel::ATTR_OPTION = "option";
-const std::string SyslogChannel::ATTR_FACILITY = "facility";
+const std::string SyslogChannel::ATTR_NAME = std::string("name");
+const std::string SyslogChannel::ATTR_OPTION = std::string("option");
+const std::string SyslogChannel::ATTR_FACILITY = std::string("facility");
 
 SyslogChannel::SyslogChannel()
   : option_(SYSLOG_CONS), facility_(SYSLOG_USER), open_(false) {}
