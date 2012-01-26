@@ -98,47 +98,57 @@ void
 SigarCori::get_uptime(Attributes& pt) {
   sigar_uptime_t res;
   int status = sigar_uptime_get(handle, &res);
-  pt.putAttr("diet.cori.uptime", res.uptime);
+  if (SIGAR_OK == status) {
+    pt.putAttr("diet.cori.uptime", res.uptime);
+  }
 }
 
 void
 SigarCori::get_mem(Attributes& pt, std::bitset<8>& mask) {
   sigar_mem_t res;
   int status = sigar_mem_get(handle, &res);
-  if (mask.test(2)) {
-    pt.putAttr("diet.cori.ram.total", res.total);
-  }
-  if (mask.test(1)) {
-    pt.putAttr("diet.cori.ram.used", res.used);
-  }
-  if (mask.test(0)) {
-    pt.putAttr("diet.cori.ram.free", res.free);
+  if (SIGAR_OK == status) {
+    if (mask.test(2)) {
+      pt.putAttr("diet.cori.ram.total", res.total);
+    }
+    if (mask.test(1)) {
+      pt.putAttr("diet.cori.ram.used", res.used);
+    }
+    if (mask.test(0)) {
+      pt.putAttr("diet.cori.ram.free", res.free);
+    }
   }
 }
+
 
 void
 SigarCori::get_swap(Attributes& pt, std::bitset<8>& mask) {
   sigar_swap_t res;
   int status = sigar_swap_get(handle, &res);
-  if (mask.test(2)) {
-    pt.putAttr("diet.cori.swap.total", res.total);
-  }
-  if (mask.test(1)) {
-    pt.putAttr("diet.cori.swap.used", res.used);
-  }
-  if (mask.test(0)) {
-    pt.putAttr("diet.cori.swap.free", res.free);
+  if (SIGAR_OK == status) {
+    if (mask.test(2)) {
+      pt.putAttr("diet.cori.swap.total", res.total);
+    }
+    if (mask.test(1)) {
+      pt.putAttr("diet.cori.swap.used", res.used);
+    }
+    if (mask.test(0)) {
+      pt.putAttr("diet.cori.swap.free", res.free);
+    }
   }
 }
+
 
 void
 SigarCori::get_cpu(Attributes& pt, std::bitset<8>& mask) {
   sigar_cpu_info_list_t cpuinfolist;
   int status = sigar_cpu_info_list_get(handle, &cpuinfolist);
 
-  sigar_cpu_info_t res = cpuinfolist.data[0];
-  pt.putAttr("diet.cori.cpu.core_number", res.total_cores * res.cores_per_socket);
-  pt.putAttr("diet.cori.cpu.freq", res.mhz);
+  if (SIGAR_OK == status) {
+    sigar_cpu_info_t res = cpuinfolist.data[0];
+    pt.putAttr("diet.cori.cpu.core_number", res.total_cores * res.cores_per_socket);
+    pt.putAttr("diet.cori.cpu.freq", res.mhz);
+  }
   sigar_cpu_info_list_destroy(handle, &cpuinfolist);
 }
 
@@ -146,20 +156,22 @@ void
 SigarCori::get_loadavg(Attributes& pt, unsigned int time = 1) {
   sigar_loadavg_t res;
   int status = sigar_loadavg_get(handle, &res);
-  int index(0);
+  if (SIGAR_OK == status) {
+    int index(0);
 
-  switch(time) {
-  case 15:
-    index = 2;
-    break;
-  case 5:
-    index = 1;
-    break;
-  case 1:
-  default:
-    index = 0;
+    switch(time) {
+    case 15:
+      index = 2;
+      break;
+    case 5:
+      index = 1;
+      break;
+    case 1:
+    default:
+      index = 0;
+    }
+    pt.putAttr("diet.cori.loadavg", res.loadavg[index]);
   }
-  pt.putAttr("diet.cori.loadavg", res.loadavg[index]);
 }
 
 } /* namespace dadi */
