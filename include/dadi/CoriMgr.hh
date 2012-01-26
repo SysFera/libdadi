@@ -8,12 +8,12 @@
  *
  */
 
+#include <string>
+#include <vector>
+#include <dadi/ICori.hh>
 #include <dadi/Attributes.hh>
 #include <dadi/Registry.hh>
 
-#include <list>
-#include <string>
-#include <dadi/ICori.hh>
 
 namespace dadi {
 

@@ -151,7 +151,7 @@ public:
    * @brief constructor
    * @param pt initialize resulting ptree
    */
-  ptree_merge(boost::property_tree::ptree& pt) : res_(pt) {}
+  explicit ptree_merge(boost::property_tree::ptree& pt) : res_(pt) {}
 
   /**
    * @brief reset resulting ptree

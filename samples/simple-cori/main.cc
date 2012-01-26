@@ -37,14 +37,16 @@ main(int argc, char *argv[]) {
   StringVec c = config.get_seq<StringVec>("paths");
 
   dadi::Registry& reg = dadi::Registry::instance();
-  BOOST_FOREACH(const std::string& p, c)
-  reg.addPath(p);
+  BOOST_FOREACH(const std::string& p, c) {
+    reg.addPath(p);
+  }
   reg.load();
   dadi::CoriMgr mgr;
   std::cout << "===== Cori plugins loaded ====\n";
   std::list<std::string> l = mgr.listPlugins();
-  BOOST_FOREACH(std::string& v, l)
-  std::cout << v << "\n";
+  BOOST_FOREACH(std::string& v, l) {
+    std::cout << v << "\n";
+  }
   std::cout << "==============================\n\n";
 
   std::cout << "====== Metrics available =====\n"

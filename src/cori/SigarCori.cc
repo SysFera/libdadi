@@ -55,8 +55,9 @@ SigarCori::do_getMetrics(const std::string& filter) {
   ft.loadAttr(filter);
   std::list<std::string> req =
     ft.getAttrList<std::list<std::string> >("diet.cori");
-  BOOST_FOREACH(std::string &v, req)
-  keys.push_back(v);
+  BOOST_FOREACH(std::string &v, req) {
+    keys.push_back(v);
+  }
 
   std::list<std::string>::const_iterator it = keys.begin();
   for (; it != keys.end(); ++it) {
@@ -146,7 +147,8 @@ SigarCori::get_cpu(Attributes& pt, std::bitset<8>& mask) {
 
   if (SIGAR_OK == status) {
     sigar_cpu_info_t res = cpuinfolist.data[0];
-    pt.putAttr("diet.cori.cpu.core_number", res.total_cores * res.cores_per_socket);
+    unsigned int core_nb = res.total_cores * res.cores_per_socket;
+    pt.putAttr("diet.cori.cpu.core_number", core_nb);
     pt.putAttr("diet.cori.cpu.freq", res.mhz);
   }
   sigar_cpu_info_list_destroy(handle, &cpuinfolist);
@@ -159,7 +161,7 @@ SigarCori::get_loadavg(Attributes& pt, unsigned int time = 1) {
   if (SIGAR_OK == status) {
     int index(0);
 
-    switch(time) {
+    switch (time) {
     case 15:
       index = 2;
       break;
