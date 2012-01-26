@@ -151,8 +151,10 @@ SigarCori::get_loadavg(Attributes& pt, unsigned int time = 1) {
   switch(time) {
   case 15:
     index = 2;
+    break;
   case 5:
     index = 1;
+    break;
   case 1:
   default:
     index = 0;
