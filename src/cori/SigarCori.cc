@@ -108,7 +108,7 @@ SigarCori::get_uptime(Attributes& pt) {
   sigar_uptime_t res;
   int status = sigar_uptime_get(handle, &res);
   if (SIGAR_OK == status) {
-    pt.putAttr("diet.cori.uptime", res.uptime);
+    pt.putAttr("diet.cori.metrics.metric.uptime", res.uptime);
   }
 }
 
@@ -118,13 +118,13 @@ SigarCori::get_mem(Attributes& pt, std::bitset<8>& mask) {
   int status = sigar_mem_get(handle, &res);
   if (SIGAR_OK == status) {
     if (mask.test(2)) {
-      pt.putAttr("diet.cori.ram.total", res.total);
+      pt.putAttr("diet.cori.metrics.metric.ram.total", res.total);
     }
     if (mask.test(1)) {
-      pt.putAttr("diet.cori.ram.used", res.used);
+      pt.putAttr("diet.cori.metrics.metric.ram.used", res.used);
     }
     if (mask.test(0)) {
-      pt.putAttr("diet.cori.ram.free", res.free);
+      pt.putAttr("diet.cori.metrics.metric.ram.free", res.free);
     }
   }
 }
@@ -136,13 +136,13 @@ SigarCori::get_swap(Attributes& pt, std::bitset<8>& mask) {
   int status = sigar_swap_get(handle, &res);
   if (SIGAR_OK == status) {
     if (mask.test(2)) {
-      pt.putAttr("diet.cori.swap.total", res.total);
+      pt.putAttr("diet.cori.metrics.metric.swap.total", res.total);
     }
     if (mask.test(1)) {
-      pt.putAttr("diet.cori.swap.used", res.used);
+      pt.putAttr("diet.cori.metrics.metric.swap.used", res.used);
     }
     if (mask.test(0)) {
-      pt.putAttr("diet.cori.swap.free", res.free);
+      pt.putAttr("diet.cori.metrics.metric.swap.free", res.free);
     }
   }
 }
@@ -156,8 +156,8 @@ SigarCori::get_cpu(Attributes& pt, std::bitset<8>& mask) {
   if (SIGAR_OK == status) {
     sigar_cpu_info_t res = cpuinfolist.data[0];
     unsigned int core_nb = res.total_cores * res.cores_per_socket;
-    pt.putAttr("diet.cori.cpu.core_number", core_nb);
-    pt.putAttr("diet.cori.cpu.freq", res.mhz);
+    pt.putAttr("diet.cori.metrics.metric.cpu.core_number", core_nb);
+    pt.putAttr("diet.cori.metrics.metric.cpu.freq", res.mhz);
   }
   sigar_cpu_info_list_destroy(handle, &cpuinfolist);
 }
@@ -180,7 +180,7 @@ SigarCori::get_loadavg(Attributes& pt, unsigned int time = 1) {
     default:
       index = 0;
     }
-    pt.putAttr("diet.cori.loadavg", res.loadavg[index]);
+    pt.putAttr("diet.cori.metrics.metric.loadavg", res.loadavg[index]);
   }
 }
 

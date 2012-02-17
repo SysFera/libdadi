@@ -7,17 +7,21 @@
     <path>@PLUGIN_PATH@</path>
   </paths>
   <metadata>
-    <cori>
-      <metric>cpu.core_number</metric>
-      <metric>cpu.freq</metric>
-      <metric>ram.total</metric>
-      <metric>ram.used</metric>
-      <metric>ram.free</metric>
-      <metric>swap.total</metric>
-      <metric>swap.used</metric>
-      <metric>swap.free</metric>
-      <metric>uptime</metric>
-    </cori>
+    <diet>
+      <cori>
+        <metrics>
+          <metric>cpu.core_number</metric>
+          <metric>cpu.freq</metric>
+          <metric>ram.total</metric>
+          <metric>ram.used</metric>
+          <metric>ram.free</metric>
+          <metric>swap.total</metric>
+          <metric>swap.used</metric>
+          <metric>swap.free</metric>
+          <metric>uptime</metric>
+        </metrics>
+      </cori>
+    </diet>
   </metadata>
   <dependencies>
   </dependencies>

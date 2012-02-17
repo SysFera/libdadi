@@ -29,7 +29,7 @@ main(int argc, char *argv[]) {
   opt.setUsage("[-h] [options] <paths to plugins manifests>");
   boost::function1<void, StringVec> fPaths(
     boost::bind(dadi::setPropertySeq<StringVec>, "paths.path", _1));
-  opt.addOption("paths.path", "path", fPaths);
+  opt.addOption("paths,p", "path", fPaths);
   opt.setPositional("paths.path");
   opt.parseCommandLine(argc, argv);
   opt.notify();
@@ -54,11 +54,11 @@ main(int argc, char *argv[]) {
             << "\n=============================\n\n";
 
   std::cout << "========== Results ==========\n"
-            << dadi::str(mgr.getMetrics("<diet><cori>"
+            << dadi::str(mgr.getMetrics("<diet><cori><metrics>"
                                         "<metric>uptime</metric>"
                                         "<metric>ram.total</metric>"
                                         "<metric>swap.total</metric>"
-                                        "</cori></diet>"))
+                                        "</metrics></cori></diet>"))
             << "=============================\n";
 
   return 0;
