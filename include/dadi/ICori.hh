@@ -17,7 +17,7 @@
 
 namespace dadi {
 
-class DADI_EXPORT ICori : public IPlugin {
+class DADI_EXPORT ICori : virtual public IPlugin {
 public:
   Attributes
   listMetrics() {
