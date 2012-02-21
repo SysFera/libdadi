@@ -62,7 +62,7 @@ SigarCori::do_getMetrics(const std::string& filter) {
 
   ft.loadAttr(filter);
   std::list<std::string> req =
-    ft.getAttrList<std::list<std::string> >("diet.cori");
+    ft.getAttrList<std::list<std::string> >("diet.cori.metrics");
   BOOST_FOREACH(std::string &v, req) {
     keys.push_back(v);
   }
@@ -90,15 +90,20 @@ SigarCori::do_getMetrics(const std::string& filter) {
     if (*it == "swap.free") {
       swap_mask.set(0);
     }
+    if (*it == "cpu.core_number") {
+      cpu_mask.set(1);
+    }
     if (*it == "cpu.freq") {
       cpu_mask.set(0);
+    }
+    if (*it == "loadavg") {
+      get_loadavg(pt, 5);
     }
   }
 
   get_mem(pt, mem_mask);
   get_swap(pt, swap_mask);
   get_cpu(pt, cpu_mask);
-  get_loadavg(pt, 5);
 
   return pt;
 }
@@ -156,8 +161,12 @@ SigarCori::get_cpu(Attributes& pt, std::bitset<8>& mask) {
   if (SIGAR_OK == status) {
     sigar_cpu_info_t res = cpuinfolist.data[0];
     unsigned int core_nb = res.total_cores * res.cores_per_socket;
-    pt.putAttr("diet.cori.metrics.metric.cpu.core_number", core_nb);
-    pt.putAttr("diet.cori.metrics.metric.cpu.freq", res.mhz);
+    if (mask.test(1)) {
+      pt.putAttr("diet.cori.metrics.metric.cpu.core_number", core_nb);
+    }
+    if (mask.test(0)) {
+      pt.putAttr("diet.cori.metrics.metric.cpu.freq", res.mhz);
+    }
   }
   sigar_cpu_info_list_destroy(handle, &cpuinfolist);
 }
