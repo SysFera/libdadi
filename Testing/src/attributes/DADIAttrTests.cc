@@ -322,7 +322,8 @@ BOOST_AUTO_TEST_CASE(attr_save_attr_format_ini) {
 
 
 BOOST_AUTO_TEST_CASE(attr_constructor_format_ini) {
-  BOOST_TEST_MESSAGE("# Attributes constructor based on a string in an ini format");
+  BOOST_TEST_MESSAGE(
+    "# Attributes constructor based on a string in an ini format");
   std::stringstream ss;
 
   // save the attribute into a stream
