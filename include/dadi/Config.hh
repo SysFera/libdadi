@@ -51,6 +51,7 @@ public:
       break;
     case FORMAT_XML:
       read_xml(inputStream, store_);
+      break;
     case FORMAT_INFO:
     default:
       read_info(inputStream, store_);
@@ -79,6 +80,7 @@ public:
       break;
     case FORMAT_XML:
       write_xml(output, store_);
+      break;
     case FORMAT_INFO:
     default:
       write_info(output, store_);
