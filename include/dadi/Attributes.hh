@@ -65,8 +65,6 @@ public:
       BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
     } catch (const boost::property_tree::ptree_bad_data& e) {
       BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
-    } catch (const boost::bad_lexical_cast& e) {
-      BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
     }
   }
 
@@ -90,6 +88,8 @@ public:
     } catch (const boost::property_tree::ptree_bad_path& e) {
       BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
     } catch (const boost::property_tree::ptree_bad_data& e) {
+      BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
+    } catch (const boost::bad_lexical_cast& e) {
       BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
     }
 
