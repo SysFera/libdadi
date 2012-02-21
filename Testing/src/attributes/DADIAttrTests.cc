@@ -194,6 +194,134 @@ BOOST_AUTO_TEST_CASE(attr_load_attr_file_json) {
   BOOST_REQUIRE_CLOSE(1.2, f, 0.0001);
 }
 
+BOOST_AUTO_TEST_CASE(attr_load_attr_file_info) {
+  BOOST_TEST_MESSAGE("# Attributes loadAttr from info file");
+  // load serialized data from file
+  bfs::path p(TESTFILESOUTPUTPATH);
+  p /= "attr_sample01.nfo";
+  bfs::ifstream ifs(p);
+  std::stringstream ss;
+  ss << ifs.rdbuf();
+  dadi::Attributes attr1;
+  attr1.loadAttr(ss.str(), dadi::FORMAT_INFO);
+  // check that data is correctly loaded
+  std::string s = attr1.getAttr<std::string>("string");
+  BOOST_REQUIRE_EQUAL("toto", s);
+  int i = attr1.getAttr<int>("int");
+  BOOST_REQUIRE_EQUAL(1, i);
+  float f = attr1.getAttr<float>("float");
+  // coz' this is floating numbers, bro !
+  BOOST_REQUIRE_CLOSE(1.2, f, 0.0001);
+}
+
+
+BOOST_AUTO_TEST_CASE(attr_save_attr_format_info) {
+  BOOST_TEST_MESSAGE("# Attributes saveAttr into an info format");
+  std::stringstream ss;
+
+  // save the attribute into a stream
+  dadi::Attributes attr1;
+  attr1.putAttr("string", "toto");
+  attr1.putAttr("int", 1);
+  attr1.putAttr("float", 1.2);
+  ss << attr1.saveAttr(dadi::FORMAT_INFO);
+
+  // Now load what has been saved
+  dadi::Attributes attr2;
+  attr2.loadAttr(ss.str(), dadi::FORMAT_INFO);
+  // check that data is correctly loaded
+  std::string s = attr2.getAttr<std::string>("string");
+  BOOST_REQUIRE_EQUAL("toto", s);
+  int i = attr2.getAttr<int>("int");
+  BOOST_REQUIRE_EQUAL(1, i);
+  float f = attr2.getAttr<float>("float");
+  // coz' this is floating numbers, bro !
+  BOOST_REQUIRE_CLOSE(1.2, f, 0.0001);
+
+  BOOST_REQUIRE(attr1 == attr2);
+}
+
+BOOST_AUTO_TEST_CASE(attr_save_attr_format_xml) {
+  BOOST_TEST_MESSAGE("# Attributes saveAttr into an xml format");
+  std::stringstream ss;
+
+  // save the attribute into a stream
+  dadi::Attributes attr1;
+  attr1.putAttr("string", "toto");
+  attr1.putAttr("int", 1);
+  attr1.putAttr("float", 1.2);
+  ss << attr1.saveAttr(dadi::FORMAT_XML);
+
+  // Now load what has been saved
+  dadi::Attributes attr2;
+  attr2.loadAttr(ss.str(), dadi::FORMAT_XML);
+  // check that data is correctly loaded
+  std::string s = attr2.getAttr<std::string>("string");
+  BOOST_REQUIRE_EQUAL("toto", s);
+  int i = attr2.getAttr<int>("int");
+  BOOST_REQUIRE_EQUAL(1, i);
+  float f = attr2.getAttr<float>("float");
+  // coz' this is floating numbers, bro !
+  BOOST_REQUIRE_CLOSE(1.2, f, 0.0001);
+
+  BOOST_REQUIRE(attr1 == attr2);
+}
+
+BOOST_AUTO_TEST_CASE(attr_save_attr_format_json) {
+  BOOST_TEST_MESSAGE("# Attributes saveAttr into a json format");
+  std::stringstream ss;
+
+  // save the attribute into a stream
+  dadi::Attributes attr1;
+  attr1.putAttr("string", "toto");
+  attr1.putAttr("int", 1);
+  attr1.putAttr("float", 1.2);
+  ss << attr1.saveAttr(dadi::FORMAT_JSON);
+
+  // Now load what has been saved
+  dadi::Attributes attr2;
+  attr2.loadAttr(ss.str(), dadi::FORMAT_JSON);
+  // check that data is correctly loaded
+  std::string s = attr2.getAttr<std::string>("string");
+  BOOST_REQUIRE_EQUAL("toto", s);
+  int i = attr2.getAttr<int>("int");
+  BOOST_REQUIRE_EQUAL(1, i);
+  float f = attr2.getAttr<float>("float");
+  // coz' this is floating numbers, bro !
+  BOOST_REQUIRE_CLOSE(1.2, f, 0.0001);
+
+  BOOST_REQUIRE(attr1 == attr2);
+}
+
+
+BOOST_AUTO_TEST_CASE(attr_save_attr_format_ini) {
+  BOOST_TEST_MESSAGE("# Attributes saveAttr into an ini format");
+  std::stringstream ss;
+
+  // save the attribute into a stream
+  dadi::Attributes attr1;
+  attr1.putAttr("string", "toto");
+  attr1.putAttr("int", 1);
+  attr1.putAttr("float", 1.2);
+  ss << attr1.saveAttr(dadi::FORMAT_INI);
+
+  // Now load what has been saved
+  dadi::Attributes attr2;
+  attr2.loadAttr(ss.str(), dadi::FORMAT_INI);
+  // check that data is correctly loaded
+  std::string s = attr2.getAttr<std::string>("string");
+  BOOST_REQUIRE_EQUAL("toto", s);
+  int i = attr2.getAttr<int>("int");
+  BOOST_REQUIRE_EQUAL(1, i);
+  float f = attr2.getAttr<float>("float");
+  // coz' this is floating numbers, bro !
+  BOOST_REQUIRE_CLOSE(1.2, f, 0.0001);
+
+  BOOST_REQUIRE(attr1 == attr2);
+}
+
+
+
 /* getAttrList tests */
 BOOST_AUTO_TEST_CASE(getAttrList_exception_unknown_attr) {
   BOOST_TEST_MESSAGE("# Get Unknown attribute list");
