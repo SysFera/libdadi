@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(load_bad_config_file_test) {
 
 
 // test  save member function
-BOOST_AUTO_TEST_CASE(save_config_file_test) {
+BOOST_AUTO_TEST_CASE(save_config_file_test_INFO) {
   dadi::Config& config = dadi::Config::instance();
   // put some settings into the config store
   config.put("diet.version", "3.0");
@@ -155,12 +155,17 @@ BOOST_AUTO_TEST_CASE(save_config_file_test) {
   {
     std::ofstream ofs(outputFilePath.native().c_str());
     // save the config
-    config.save(ofs);
+    config.save(ofs, dadi::FORMAT_INFO);
+    bfs::ifstream ifs(outputFilePath);
   }
+  config.clear();
+  // check the config again
+  BOOST_CHECK_THROW(config.get<std::string> ("diet.version"),
+                    dadi::UnknownParameterError);
   // load this file
   {
     std::ifstream ifs(outputFilePath.native().c_str());
-    config.load(ifs);
+    config.load(ifs, dadi::FORMAT_INFO);
   }
   // check the setting
   BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
@@ -190,6 +195,10 @@ BOOST_AUTO_TEST_CASE(save_config_file_test_XML) {
     // save the config
     config.save(ofs, dadi::FORMAT_XML);
   }
+  config.clear();
+  // check the config again
+  BOOST_CHECK_THROW(config.get<std::string> ("diet.version"),
+                    dadi::UnknownParameterError);
   // load this file
   {
     std::ifstream ifs(outputFilePath.native().c_str());
@@ -223,6 +232,10 @@ BOOST_AUTO_TEST_CASE(save_config_file_test_JSON) {
     // save the config
     config.save(ofs, dadi::FORMAT_JSON);
   }
+  config.clear();
+  // check the config again
+  BOOST_CHECK_THROW(config.get<std::string> ("diet.version"),
+                    dadi::UnknownParameterError);
   // load this file
   {
     std::ifstream ifs(outputFilePath.native().c_str());
@@ -257,6 +270,10 @@ BOOST_AUTO_TEST_CASE(save_config_file_test_INI) {
     // save the config
     config.save(ofs, dadi::FORMAT_INI);
   }
+  config.clear();
+  // check the config again
+  BOOST_CHECK_THROW(config.get<std::string> ("diet.version"),
+                    dadi::UnknownParameterError);
   // load this file
   {
     std::ifstream ifs(outputFilePath.native().c_str());
