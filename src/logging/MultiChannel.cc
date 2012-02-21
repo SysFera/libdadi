@@ -8,9 +8,9 @@
  *
  */
 
-#include <dadi/Logging/MultiChannel.hh>
+#include "dadi/Logging/MultiChannel.hh"
 #include <boost/thread/locks.hpp>
-#include <dadi/Logging/Message.hh>
+#include "dadi/Logging/Message.hh"
 
 typedef boost::lock_guard<boost::mutex> Lock;
 

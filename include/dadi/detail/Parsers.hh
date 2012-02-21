@@ -15,7 +15,7 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include <dadi/Exception/Parameters.hh>
+#include "dadi/Exception/Parameters.hh"
 
 namespace dadi {
 

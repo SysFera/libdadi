@@ -14,10 +14,10 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/test/unit_test.hpp>
-#include <dadi/Config.hh>
-#include <dadi/Options.hh>
-#include <dadi/Attributes.hh>
-#include <dadi/Exception/Attributes.hh>
+#include "dadi/Config.hh"
+#include "dadi/Options.hh"
+#include "dadi/Attributes.hh"
+#include "dadi/Exception/Attributes.hh"
 #include "testconfig.h"
 
 namespace bfs = boost::filesystem;

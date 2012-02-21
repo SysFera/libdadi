@@ -12,9 +12,9 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/test/unit_test.hpp>
-#include <dadi/Logging/Message.hh>
-#include <dadi/Config.hh>
-#include <dadi/Options.hh>
+#include "dadi/Logging/Message.hh"
+#include "dadi/Config.hh"
+#include "dadi/Options.hh"
 
 BOOST_AUTO_TEST_SUITE(MessageTests)
 

@@ -7,9 +7,9 @@
  *
  */
 
-#include <dadi/Logging/Logger.hh>
+#include "dadi/Logging/Logger.hh"
 #include <boost/thread/locks.hpp>
-#include <dadi/Logging/Message.hh>
+#include "dadi/Logging/Message.hh"
 
 namespace dadi {
 

@@ -1,6 +1,6 @@
-#include <dadi/CoriMgr.hh>
+#include "dadi/CoriMgr.hh"
 #include <boost/foreach.hpp>
-#include <dadi/Registry.hh>
+#include "dadi/Registry.hh"
 
 namespace dadi {
 

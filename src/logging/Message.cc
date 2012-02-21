@@ -7,7 +7,7 @@
  *
  */
 
-#include <dadi/Logging/Message.hh>
+#include "dadi/Logging/Message.hh"
 
 namespace dadi {
 

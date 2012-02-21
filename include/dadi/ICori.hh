@@ -11,9 +11,9 @@
 #ifndef _ICORI_HH_
 #define _ICORI_HH_
 
-#include <dadi/IPlugin.hh>
+#include "dadi/IPlugin.hh"
 #include <string>
-#include <dadi/Attributes.hh>
+#include "dadi/Attributes.hh"
 
 namespace dadi {
 

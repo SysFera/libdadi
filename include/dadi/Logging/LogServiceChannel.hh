@@ -11,7 +11,7 @@
 #define _LOGSERVICECHANNEL_HH_
 
 #include <boost/thread/mutex.hpp>
-#include <dadi/Logging/Channel.hh>
+#include "dadi/Logging/Channel.hh"
 #include <LogComponentBase.hh>
 #include <LogORBMgr.hh>
 

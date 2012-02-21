@@ -11,7 +11,7 @@
 #define _SYSLOGCHANNEL_HH_
 
 #include <string>
-#include <dadi/Logging/Channel.hh>
+#include "dadi/Logging/Channel.hh"
 
 namespace dadi {
 

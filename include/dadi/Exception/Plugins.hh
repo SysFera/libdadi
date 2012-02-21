@@ -10,7 +10,7 @@
 #ifndef _PLUGINS_ERROR_HH_
 #define _PLUGINS_ERROR_HH_
 
-#include <dadi/Exception/Base.hh>
+#include "dadi/Exception/Base.hh"
 
 namespace dadi {
 

@@ -8,8 +8,8 @@
  *
  */
 
+#include "dadi/Exception/Parameters.hh"
 #include "DADIConfigTestsFixtures.hh"
-#include <dadi/Exception/Parameters.hh>
 
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 

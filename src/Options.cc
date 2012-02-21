@@ -7,7 +7,7 @@
  *
  */
 
-#include <dadi/Options.hh>
+#include "dadi/Options.hh"
 #include <iostream>
 #include <fstream>
 #include <list>

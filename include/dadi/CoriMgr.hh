@@ -10,9 +10,9 @@
 
 #include <string>
 #include <vector>
-#include <dadi/ICori.hh>
-#include <dadi/Attributes.hh>
-#include <dadi/Registry.hh>
+#include "dadi/ICori.hh"
+#include "dadi/Attributes.hh"
+#include "dadi/Registry.hh"
 
 
 namespace dadi {

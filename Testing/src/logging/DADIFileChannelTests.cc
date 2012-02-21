@@ -13,11 +13,11 @@
 #include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/thread.hpp>
-#include <dadi/Logging/FileChannel.hh>
-#include <dadi/Logging/Logger.hh>
-#include <dadi/Logging/Message.hh>
-#include <dadi/Config.hh>
-#include <dadi/Options.hh>
+#include "dadi/Logging/FileChannel.hh"
+#include "dadi/Logging/Logger.hh"
+#include "dadi/Logging/Message.hh"
+#include "dadi/Config.hh"
+#include "dadi/Options.hh"
 
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 

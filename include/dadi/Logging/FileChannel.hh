@@ -16,8 +16,8 @@
 #include <boost/regex_fwd.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/thread/mutex.hpp>
-#include <dadi/Logging/Channel.hh>
-#include <dadi/Logging/FileStrategy.hh>
+#include "dadi/Logging/Channel.hh"
+#include "dadi/Logging/FileStrategy.hh"
 
 namespace dadi {
 

@@ -10,7 +10,7 @@
 #ifndef _NULLCHANNEL_HH_
 #define _NULLCHANNEL_HH_
 
-#include <dadi/Logging/Channel.hh>
+#include "dadi/Logging/Channel.hh"
 
 namespace dadi {
 

@@ -15,9 +15,9 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/test/unit_test.hpp>
 // libdadi headers
-#include <dadi/Loader.hh>
-#include <dadi/Registry.hh>
-#include <dadi/PluginInfo.hh>
+#include "dadi/Loader.hh"
+#include "dadi/Registry.hh"
+#include "dadi/PluginInfo.hh"
 // Plugins headers
 #include "IPerson.hh"
 // Test config headers
@@ -103,7 +103,6 @@ BOOST_AUTO_TEST_CASE(bad_plugin_interface) {
 //  Shared Library handling class tests
 
 BOOST_AUTO_TEST_CASE(plugin_class_test) {
-
   BOOST_TEST_MESSAGE("[LOADER]: start");
 
   AdressBook addressBook;
@@ -114,14 +113,14 @@ BOOST_AUTO_TEST_CASE(plugin_class_test) {
   // load the plugin described into the manifest
   reg.load();
   // build two persons
-  IPerson_ptr pAdam (reg.getByName<IPerson>("PersonA"));
-  IPerson_ptr pEve (reg.getByName<IPerson>("PersonB"));
+  IPerson_ptr pAdam(reg.getByName<IPerson>("PersonA"));
+  IPerson_ptr pEve(reg.getByName<IPerson>("PersonB"));
   // is it builded?
   BOOST_CHECK(pAdam);
   BOOST_CHECK(pEve);
 
-  addressBook.add_person ("Adam",pAdam);
-  addressBook.add_person ("Eve",pEve);
+  addressBook.add_person("Adam", pAdam);
+  addressBook.add_person("Eve", pEve);
   // everybody say hello
   addressBook.say_hello();
   BOOST_TEST_MESSAGE("[LOADER]: stop ");

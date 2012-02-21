@@ -8,7 +8,7 @@
  */
 
 
-#include <dadi/ConfigMgr.hh>
+#include "dadi/ConfigMgr.hh"
 
 namespace dadi {
 

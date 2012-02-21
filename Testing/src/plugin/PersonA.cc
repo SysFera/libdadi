@@ -12,8 +12,13 @@
 
 class PersonA : public IPerson {
 protected:
-  virtual void do_init() { std::cout << "initialization of PersonA\n"; }
-  virtual void do_say_hello();
+  virtual void
+  do_init() {
+    std::cout << "initialization of PersonA\n";
+  }
+
+  virtual void
+  do_say_hello();
 };
 
 void

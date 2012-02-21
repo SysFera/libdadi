@@ -14,8 +14,8 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 #include <boost/uuid/uuid.hpp>
-#include <dadi/SharedLibrary.hh>
-#include <dadi/Attributes.hh>
+#include "dadi/SharedLibrary.hh"
+#include "dadi/Attributes.hh"
 
 
 namespace dadi {

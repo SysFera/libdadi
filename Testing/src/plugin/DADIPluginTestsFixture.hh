@@ -17,28 +17,23 @@
 // Plugins headers
 #include "IPerson.hh"
 
-typedef std::map<std::string,IPerson_ptr>::value_type PersonPair;
+typedef std::map<std::string, IPerson_ptr>::value_type PersonPair;
 
 class AdressBook {
-
   public:
-
-    void add_person (const std::string& id, const IPerson_ptr& person_ptr ) {
-
-      book[id] = person_ptr ;
-
+    void
+    add_person(const std::string& id, const IPerson_ptr& person_ptr) {
+      book[id] = person_ptr;
     }
 
-    void say_hello() {
-
-      BOOST_FOREACH(PersonPair personPair, book){
-        std::cout << personPair.first << ": " ;
+    void
+    say_hello() {
+      BOOST_FOREACH(PersonPair personPair, book) {
+        std::cout << personPair.first << ": ";
         personPair.second->say_hello();
       }
-
     }
 
   private:
-    std::map<std::string,IPerson_ptr> book;
-
+    std::map<std::string, IPerson_ptr> book;
 };

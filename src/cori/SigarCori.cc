@@ -7,7 +7,7 @@
  *
  */
 
-#include <dadi/ICori.hh>
+#include "dadi/ICori.hh"
 #include <bitset>
 #include <sstream>
 #include <string>

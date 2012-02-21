@@ -14,8 +14,8 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/test/unit_test.hpp>
-#include <dadi/Config.hh>
-#include <dadi/Options.hh>
+#include "dadi/Config.hh"
+#include "dadi/Options.hh"
 #include <dadi/testconfig.h>
 
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace

@@ -10,7 +10,7 @@
 #ifndef _ALL_HH_
 #define _ALL_HH_
 
-#include <dadi/Exception/Base.hh>
-#include <dadi/Attributes.hh>
+#include "dadi/Exception/Base.hh"
+#include "dadi/Attributes.hh"
 
 #endif /* _ALL_HH_ */
