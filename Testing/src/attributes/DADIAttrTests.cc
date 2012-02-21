@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(attr_copy_operator) {
   BOOST_REQUIRE(attr1 == attr2);
 }
 
-BOOST_AUTO_TEST_CASE(attr_equal_operator) {
+BOOST_AUTO_TEST_CASE(attr_equal_comparison_operator) {
   BOOST_TEST_MESSAGE("# Attributes equal operator");
   dadi::Attributes attr1;
   attr1.putAttr<std::string>("string", "toto");
@@ -318,6 +318,73 @@ BOOST_AUTO_TEST_CASE(attr_save_attr_format_ini) {
   BOOST_REQUIRE_CLOSE(1.2, f, 0.0001);
 
   BOOST_REQUIRE(attr1 == attr2);
+}
+
+
+BOOST_AUTO_TEST_CASE(attr_constructor_format_ini) {
+  BOOST_TEST_MESSAGE("# Attributes constructor based on a string in an ini format");
+  std::stringstream ss;
+
+  // save the attribute into a stream
+  dadi::Attributes attr1;
+  attr1.putAttr("string", "toto");
+  attr1.putAttr("int", 1);
+  attr1.putAttr("float", 1.2);
+  ss << attr1.saveAttr(dadi::FORMAT_INI);
+
+  // Now load what has been saved
+  dadi::Attributes attr2(ss.str(), dadi::FORMAT_INI);
+  // check that data is correctly loaded
+  std::string s = attr2.getAttr<std::string>("string");
+  BOOST_REQUIRE_EQUAL("toto", s);
+  int i = attr2.getAttr<int>("int");
+  BOOST_REQUIRE_EQUAL(1, i);
+  float f = attr2.getAttr<float>("float");
+  // coz' this is floating numbers, bro !
+  BOOST_REQUIRE_CLOSE(1.2, f, 0.0001);
+
+  BOOST_REQUIRE(attr1 == attr2);
+}
+
+
+BOOST_AUTO_TEST_CASE(attr_load_attr_bad_format) {
+  BOOST_TEST_MESSAGE("# Attributes load bad format");
+  std::stringstream ss;
+  ss << "bad XML format";
+
+  // Now load what has been "saved"
+  dadi::Attributes attr2;
+  BOOST_CHECK_THROW(attr2.loadAttr(ss.str(), dadi::FORMAT_XML),
+                    dadi::ParsingAttributeError);
+}
+
+
+BOOST_AUTO_TEST_CASE(attr_equal_operator) {
+  BOOST_TEST_MESSAGE("# Attributes equal operator");
+  dadi::Attributes attr1;
+  attr1.putAttr("string", "toto");
+  attr1.putAttr("int", 1);
+  attr1.putAttr("float", 1.2);
+
+  dadi::Attributes attr2;
+  attr2 = attr1;
+
+  BOOST_REQUIRE(attr1 == attr2);
+}
+
+BOOST_AUTO_TEST_CASE(attr_merge) {
+  BOOST_TEST_MESSAGE("# Attributes merge");
+  dadi::Attributes attr1;
+  attr1.putAttr("string", "toto");
+  attr1.putAttr("int", 1);
+  attr1.putAttr("float", 1.2);
+
+  dadi::Attributes attr2;
+  attr2.putAttr("holy", "grail");
+
+  attr1.merge(attr2);
+  BOOST_CHECK_NO_THROW(attr1.getAttr<std::string>("holy"));
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy"), "grail");
 }
 
 
