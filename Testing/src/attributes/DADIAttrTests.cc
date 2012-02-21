@@ -404,6 +404,20 @@ BOOST_AUTO_TEST_CASE(attr_merge) {
 
 
 
+BOOST_AUTO_TEST_CASE(attr_str) {
+  BOOST_TEST_MESSAGE("# Attributes str");
+  dadi::Attributes attr1;
+  attr1.putAttr("string", "toto");
+  attr1.putAttr("int", 1);
+  attr1.putAttr("float", 1.2);
+  std::string xml;
+  xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+  xml += "<string>toto</string>\n<int>1</int>\n<float>1.2</float>\n";
+  BOOST_CHECK_NO_THROW(dadi::str(attr1, dadi::FORMAT_XML));
+  BOOST_CHECK_EQUAL(dadi::str(attr1, dadi::FORMAT_XML), xml);
+}
+
+
 /* getAttrList tests */
 BOOST_AUTO_TEST_CASE(getAttrList_exception_unknown_attr) {
   BOOST_TEST_MESSAGE("# Get Unknown attribute list");
