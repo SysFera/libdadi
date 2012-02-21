@@ -143,7 +143,7 @@ public:
    * @return serialized attribute
    */
   std::string
-  saveAttr(int format = 0) const;
+  saveAttr(int format = FORMAT_XML) const;
 
   /**
    * @brief swap  attributes
