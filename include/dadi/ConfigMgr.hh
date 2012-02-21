@@ -13,6 +13,7 @@
 
 #include <list>
 #include <string>
+#include <vector>
 #include <boost/any.hpp>
 #include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>

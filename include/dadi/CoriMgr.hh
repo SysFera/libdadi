@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <list>
 #include "dadi/ICori.hh"
 #include "dadi/Attributes.hh"
 #include "dadi/Registry.hh"

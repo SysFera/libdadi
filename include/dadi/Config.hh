@@ -182,7 +182,8 @@ public:
     Sequence result;
 
     try {
-      BOOST_FOREACH(typename ConfigStore::value_type& v, store_.get_child(key)) {
+      BOOST_FOREACH(typename ConfigStore::value_type& v,
+                    store_.get_child(key)) {
         result.push_back(v.second.data());
       }
     } catch (const boost::property_tree::ptree_bad_path& e) {
