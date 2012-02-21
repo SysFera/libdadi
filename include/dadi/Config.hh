@@ -1,6 +1,7 @@
 /**
  * @file   Config.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
  * @brief  tree-based configuration store
  * @section Licence
  *   |LICENCE|
@@ -13,8 +14,10 @@
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/thread.hpp>
-#include "detail/Parsers.hh"
-#include "Singleton.hh"
+#include "dadi/detail/Parsers.hh"
+#include "dadi/Singleton.hh"
+#include "dadi/Exception/Parameters.hh"
+#include "dadi/Exception/Attributes.hh"
 
 namespace dadi {
 
@@ -34,6 +37,7 @@ public:
    * @brief load the config
    * @param inputStream the source
    * @param format the source format
+   * @throw ParsingAttributeError when an error occured while reading the file
    */
   void
   load(std::istream& inputStream, Format format = FORMAT_INFO) {
@@ -42,19 +46,23 @@ public:
     using boost::property_tree::read_xml;
     using boost::property_tree::read_info;
 
-    switch (format) {
-    case FORMAT_JSON:
-      read_json(inputStream, store_);
-      break;
-    case FORMAT_INI:
-      read_ini(inputStream, store_);
-      break;
-    case FORMAT_XML:
-      read_xml(inputStream, store_);
-      break;
-    case FORMAT_INFO:
-    default:
-      read_info(inputStream, store_);
+    try {
+      switch (format) {
+      case FORMAT_JSON:
+        read_json(inputStream, store_);
+        break;
+      case FORMAT_INI:
+        read_ini(inputStream, store_);
+        break;
+      case FORMAT_XML:
+        read_xml(inputStream, store_);
+        break;
+      case FORMAT_INFO:
+      default:
+        read_info(inputStream, store_);
+      }
+    } catch (const boost::property_tree::file_parser_error& e) {
+      BOOST_THROW_EXCEPTION(ParsingAttributeError() << errinfo_msg(e.what()));
     }
   }
 
@@ -63,6 +71,7 @@ public:
    * @brief save the config
    * @param output the output stream
    * @param format the source format
+   * @throw ParsingAttributeError when an error occured while writing the file
    */
   void
   save(std::ostream& output, Format format = FORMAT_INFO) {
@@ -71,19 +80,23 @@ public:
     using boost::property_tree::write_xml;
     using boost::property_tree::write_info;
 
-    switch (format) {
-    case FORMAT_JSON:
-      write_json(output, store_);
-      break;
-    case FORMAT_INI:
-      write_ini(output, store_);
-      break;
-    case FORMAT_XML:
-      write_xml(output, store_);
-      break;
-    case FORMAT_INFO:
-    default:
-      write_info(output, store_);
+    try {
+      switch (format) {
+      case FORMAT_JSON:
+        write_json(output, store_);
+        break;
+      case FORMAT_INI:
+        write_ini(output, store_);
+        break;
+      case FORMAT_XML:
+        write_xml(output, store_);
+        break;
+      case FORMAT_INFO:
+      default:
+        write_info(output, store_);
+      }
+    } catch (const boost::property_tree::file_parser_error& e) {
+      BOOST_THROW_EXCEPTION(ParsingAttributeError() << errinfo_msg(e.what()));
     }
   }
 
@@ -110,6 +123,8 @@ public:
    * @brief insert node value
    * @param key configuration key
    * @param value configuration value
+   * @throw UnknownParameterError if a key is invalid
+   * @throw InvalidParameterError if a data is invalid
    */
   template <typename valueType>
   void
@@ -129,7 +144,8 @@ public:
    * @brief insert a node value
    * @param key configuration key
    * @param seq sequence of values to insert
-   * @throw ptree_error if a key or data is invalid
+   * @throw UnknownParameterError if a key is invalid
+   * @throw InvalidParameterError if a data is invalid
    */
   template <class Sequence>
   void
@@ -152,7 +168,8 @@ public:
    * @brief read a node value
    * @param key configuration key
    * @return the node value
-   * @throw ptree_error if a key or data is invalid
+   * @throw UnknownParameterError if a key is invalid
+   * @throw InvalidParameterError if a data is invalid
    */
   template <typename valueType>
   valueType
@@ -175,7 +192,8 @@ public:
    * @brief read a node value
    * @param key configuration key
    * @return the node value
-   * @throw ptree_error if a key or data is invalid
+   * @throw UnknownParameterError if a key is invalid
+   * @throw InvalidParameterError if a data is invalid
    */
   template <class Sequence>
   Sequence
@@ -213,7 +231,7 @@ public:
    * @brief Get a subtree of the configuration settings
    * @param path configuration key
    * @return the subtree of the given path
-   * @throw a boost exception if the given path is unknown
+   * @throw an UnknownParameterError exception if the given path is unknown
    */
   ConfigStore
   get_child(const std::string& path) const {
@@ -221,7 +239,7 @@ public:
     ConfigStore subConfig;
 
     try {
-      subConfig= store_.get_child(path);
+      subConfig = store_.get_child(path);
     } catch (const boost::property_tree::ptree_bad_path& e) {
       BOOST_THROW_EXCEPTION(UnknownParameterError() << errinfo_msg(e.what()));
     }

@@ -32,6 +32,12 @@ class UnknownAttributeError : public AttributeError {};
  */
 class InvalidAttributeError : public AttributeError {};
 
+/**
+ * @class ParsingAttributeError
+ * @brief report an invalid attribute (bad parsing)
+ */
+class ParsingAttributeError : public AttributeError {};
+
 } /* namespace dadi */
 
 #endif /* _ATTRIBUTES_ERROR_HH_ */

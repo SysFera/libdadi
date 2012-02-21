@@ -27,7 +27,7 @@
 #include <boost/function.hpp>
 #include <boost/program_options.hpp>
 
-#include "Config.hh"
+#include "dadi/Config.hh"
 
 namespace dadi {
 
