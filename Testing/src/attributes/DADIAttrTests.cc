@@ -3,6 +3,7 @@
  * @brief This file implements the libdadi tests for the attributes
  * @author Kevin COULOMB (kevin.coulomb@sysfera.com)
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
  * @section Licence
  *  |LICENCE|
  *
