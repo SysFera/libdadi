@@ -1,3 +1,12 @@
+/**
+ * @file   CoriMgr.cc
+ * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @brief  dadi Collector of resources information
+ * @section Licence
+ *   |LICENCE|
+ *
+ */
+
 #include "dadi/CoriMgr.hh"
 #include <boost/foreach.hpp>
 #include "dadi/Registry.hh"

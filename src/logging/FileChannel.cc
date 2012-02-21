@@ -25,12 +25,14 @@ namespace io = boost::iostreams;
 typedef boost::lock_guard<boost::mutex> Lock;
 
 const std::string FileChannel::ATTR_PATH = std::string("path");
-const std::string FileChannel::ATTR_COMPRESSION_MODE = std::string("compression_mode");
+const std::string FileChannel::ATTR_COMPRESSION_MODE =
+  std::string("compression_mode");
 const std::string FileChannel::ATTR_ARCHIVE = std::string("archive");
 const std::string FileChannel::ATTR_ROTATE = std::string("rotate");
 const std::string FileChannel::ATTR_ROTATE_SIZE = std::string("rotate.size");
 const std::string FileChannel::ATTR_ROTATE_TIME = std::string("rotate.time");
-const std::string FileChannel::ATTR_ROTATE_INTERVAL = std::string("rotate.interval");
+const std::string FileChannel::ATTR_ROTATE_INTERVAL =
+  std::string("rotate.interval");
 const std::string FileChannel::ATTR_PURGE = std::string("purge");
 const std::string FileChannel::ATTR_PURGE_COUNT = std::string("purge.count");
 const std::string DEFAULT_ROT_SIZE("1M");

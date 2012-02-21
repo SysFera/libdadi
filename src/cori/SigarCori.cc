@@ -1,34 +1,42 @@
 /**
  * @file   SigarCori.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
- * @brief
+ * @brief Implementation of a Cori plugin for the Sigar library
  * @section Licence
  *   |LICENCE|
  *
  */
 
-#include "dadi/ICori.hh"
 #include <bitset>
 #include <sstream>
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <sigar.h>
+#include "dadi/ICori.hh"
 
 namespace dadi {
 
 class SigarCori : public ICori {
 protected:
-  virtual void do_init();
-  virtual Attributes do_listMetrics();
-  virtual Attributes do_getMetrics(const std::string& filter);
+  virtual void
+  do_init();
+  virtual Attributes
+  do_listMetrics();
+  virtual Attributes
+  do_getMetrics(const std::string& filter);
 
 private:
-  void get_uptime(Attributes& pt);
-  void get_mem(Attributes& pt, std::bitset<8>& mask);
-  void get_swap(Attributes& pt, std::bitset<8>& mask);
-  void get_cpu(Attributes& pt, std::bitset<8>& mask);
-  void get_loadavg(Attributes& pt, unsigned int time);
+  void
+  get_uptime(Attributes& pt);
+  void
+  get_mem(Attributes& pt, std::bitset<8>& mask);
+  void
+  get_swap(Attributes& pt, std::bitset<8>& mask);
+  void
+  get_cpu(Attributes& pt, std::bitset<8>& mask);
+  void
+  get_loadavg(Attributes& pt, unsigned int time);
   sigar_t *handle;
 };
 
