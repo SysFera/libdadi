@@ -83,7 +83,8 @@ public:
     try {
       BOOST_FOREACH(const boost::property_tree::ptree::value_type& v,
                     pt.get_child(path)) {
-        seq.push_back(boost::lexical_cast<typename Sequence::value_type>(v.second.data()));
+        seq.push_back(
+          boost::lexical_cast<typename Sequence::value_type>(v.second.data()));
       }
     } catch (const boost::property_tree::ptree_bad_path& e) {
       BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
