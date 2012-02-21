@@ -26,37 +26,59 @@ Attributes::Attributes(const std::string& data, int format) {
 
 void
 Attributes::loadAttr(const std::string& data, int format) {
-  using boost::property_tree::ptree;
+  using boost::property_tree::write_json;
+  using boost::property_tree::write_ini;
+  using boost::property_tree::write_xml;
+  using boost::property_tree::write_info;
   std::istringstream ss(data);
 
-  switch (format) {
-  case FORMAT_JSON:
-    read_json(ss, pt);
-    break;
-  case FORMAT_INI:
-    read_ini(ss, pt);
-    break;
-  case FORMAT_XML:
-  default:
-    read_xml(ss, pt, boost::property_tree::xml_parser::trim_whitespace);
+  try {
+    switch (format) {
+    case FORMAT_JSON:
+      read_json(ss, pt);
+      break;
+    case FORMAT_INI:
+      read_ini(ss, pt);
+      break;
+    case FORMAT_INFO:
+      read_info(ss, pt);
+      break;
+    case FORMAT_XML:
+    default:
+      read_xml(ss, pt, boost::property_tree::xml_parser::trim_whitespace);
+    }
+  } catch (const boost::property_tree::file_parser_error& e) {
+    BOOST_THROW_EXCEPTION(ParsingAttributeError() << errinfo_msg(e.what()));
   }
 }
 
 std::string
 Attributes::saveAttr(int format) const {
+  using boost::property_tree::write_json;
+  using boost::property_tree::write_ini;
+  using boost::property_tree::write_xml;
+  using boost::property_tree::write_info;
   std::ostringstream ss;
 
-  switch (format) {
-  case FORMAT_JSON:
-    write_json(ss, pt);
-    break;
-  case FORMAT_INI:
-    write_ini(ss, pt);
-    break;
-  case FORMAT_XML:
-  default:
-    boost::property_tree::xml_writer_settings<char> w(' ', 2);
-    write_xml(ss, pt, w);
+  try {
+    switch (format) {
+    case FORMAT_JSON:
+      write_json(ss, pt);
+      break;
+    case FORMAT_INI:
+      write_ini(ss, pt);
+      break;
+    case FORMAT_INFO:
+      write_info(ss, pt);
+      break;
+    case FORMAT_XML:
+    default:
+      boost::property_tree::xml_writer_settings<char> w(' ', 2);
+      write_xml(ss, pt, w);
+      break;
+    }
+  } catch (const boost::property_tree::file_parser_error& e) {
+    BOOST_THROW_EXCEPTION(ParsingAttributeError() << errinfo_msg(e.what()));
   }
 
   return ss.str();
