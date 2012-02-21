@@ -3,6 +3,7 @@
  * @brief This file implements the libdadi tests for configFile
  * @author Eugène PAMBA CAPO-CHICHI (eugene.capochichi@sysfera.com)
  * @author Ibrahima Cissé (ibrahima.cisse@sysfera.com)
+ * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
  * @section Licence
  *  |LICENCE|
  *
@@ -66,6 +67,11 @@ BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
   BOOST_REQUIRE(config.get_optional<std::string>("file.name"));
   BOOST_REQUIRE_EQUAL(config.get<std::string>("file.name"),
                       "<testConfigFile>");
+
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
 }
 
 /**************************************************************/
@@ -77,7 +83,7 @@ BOOST_AUTO_TEST_CASE(load_config_file_test) {
   // build the input file
   boost::filesystem::path configFileDir(TESTFILESOUTPUTPATH);
   configFileDir /= "cfg";
-  bfs::path inputFilePath =configFileDir / "inputFile.cfg";
+  bfs::path inputFilePath = configFileDir / "inputFile.cfg";
   // ensure that inputFile does not exist
   if (bfs::exists(inputFilePath)) {
     bfs::remove(bfs::path(inputFilePath));
@@ -94,6 +100,11 @@ BOOST_AUTO_TEST_CASE(load_config_file_test) {
   }
   // check the setting
   BOOST_CHECK_EQUAL(config.get<std::string> ("diet.version"), "3.0");
+
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
 }
 
 BOOST_AUTO_TEST_CASE(load_bad_config_file_test) {
@@ -102,7 +113,7 @@ BOOST_AUTO_TEST_CASE(load_bad_config_file_test) {
   // build the input file
   boost::filesystem::path configFileDir(TESTFILESOUTPUTPATH);
   configFileDir /= "cfg";
-  bfs::path inputFilePath =configFileDir / "inputFile.cfg";
+  bfs::path inputFilePath = configFileDir / "inputFile.cfg";
   // ensure that inputFile does not exist
   if (bfs::exists(inputFilePath)) {
     bfs::remove(bfs::path(inputFilePath));
@@ -110,16 +121,20 @@ BOOST_AUTO_TEST_CASE(load_bad_config_file_test) {
   // write some setting in the inputFile
   {
     std::ofstream ofs(inputFilePath.native().c_str());
-    ofs << "diet= version 3.0 \n }";
+    ofs << "diet= version sdfsf3.1 \n }";
   }
   // load this file
   {
     std::ifstream ifs(inputFilePath.native().c_str());
-    BOOST_REQUIRE_THROW(config.load(ifs), boost::exception);
+    BOOST_REQUIRE_THROW(config.load(ifs), dadi::ParsingAttributeError);
   }
-  // check the setting
-  BOOST_CHECK_EQUAL(config.get<std::string> ("diet.version"), "3.0");
+
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
 }
+
 
 
 // test  save member function
@@ -149,6 +164,11 @@ BOOST_AUTO_TEST_CASE(save_config_file_test) {
   }
   // check the setting
   BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
+
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
 }
 
 BOOST_AUTO_TEST_CASE(save_config_file_test_XML) {
@@ -177,6 +197,11 @@ BOOST_AUTO_TEST_CASE(save_config_file_test_XML) {
   }
   // check the setting
   BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
+
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
 }
 
 BOOST_AUTO_TEST_CASE(save_config_file_test_JSON) {
@@ -205,6 +230,11 @@ BOOST_AUTO_TEST_CASE(save_config_file_test_JSON) {
   }
   // check the setting
   BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
+
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
 }
 
 
@@ -234,6 +264,11 @@ BOOST_AUTO_TEST_CASE(save_config_file_test_INI) {
   }
   // check the setting
   BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
+
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
 }
 
 
@@ -250,6 +285,28 @@ BOOST_AUTO_TEST_CASE(clear_config_file_test) {
   // check the config again
   BOOST_CHECK_THROW(config.get<std::string> ("diet.version"),
                     dadi::UnknownParameterError);
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
+}
+
+// test the get member function
+BOOST_AUTO_TEST_CASE(get_config_file_test) {
+  dadi::Config& config = dadi::Config::instance();
+  // put some settings into the config store
+  config.put("diet.version", "Cool version");
+  // check the setting
+  BOOST_CHECK_NO_THROW(config.get<std::string>("diet.version"));
+  BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "Cool version");
+  // check the config again
+  BOOST_CHECK_THROW(config.get<int> ("diet.version"),
+                    dadi::InvalidParameterError);
+
+  /* clear the config completely at the end of each test in order not
+   * to have side effects
+   */
+  config.clear();
 }
 
 BOOST_AUTO_TEST_SUITE_END()
