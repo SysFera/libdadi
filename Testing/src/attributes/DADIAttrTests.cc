@@ -205,40 +205,55 @@ BOOST_AUTO_TEST_CASE(getAttrList_exception_unknown_attr) {
 // BOOST_AUTO_TEST_CASE(getAttrList_exception_invalid_attr_1) {
 //   BOOST_TEST_MESSAGE("# Get invalid attribute List");
 //   dadi::Attributes attr;
-//   attr.putAttr<std::string>("toto", 1);
-//   // "toto" >> i (vector<string>) KO
+//   attr.putAttr<std::string>("toto", "toto");
+//   // "toto" >> i (vector<int>) KO
 //   BOOST_REQUIRE_THROW(attr.getAttrList<std::vector<int> >("toto"),
 //                       dadi::InvalidAttributeError);
 // }
 
-BOOST_AUTO_TEST_CASE(getAttrList_valid_attr) {
-  BOOST_TEST_MESSAGE("# Get valid attribute list");
+// BOOST_AUTO_TEST_CASE(getAttrList_valid_attr) {
+//   BOOST_TEST_MESSAGE("# Get valid attribute list");
+//   dadi::Attributes attr;
+//   attr.putAttr<std::string>("toto", "toto");
+//   // "toto" >> i (vector<string>) OK
+//   BOOST_REQUIRE_NO_THROW(attr.getAttrList<std::vector<std::string> >("toto"));
+// }
+
+
+BOOST_AUTO_TEST_CASE(getAttrList_valid_attr_1) {
+  BOOST_TEST_MESSAGE("# Get valid int attribute list");
   dadi::Attributes attr;
-  attr.putAttr<std::string>("toto", "toto");
-  // "toto" >> i (vector<string>) OK
-  BOOST_REQUIRE_NO_THROW(attr.getAttrList<std::vector<std::string> >("toto"));
+  attr.putAttr<std::string>("toto.uu", "1");
+  // "toto" >> i (vector<int>) OK
+  BOOST_REQUIRE_NO_THROW(attr.getAttrList<std::vector<int> >("toto"));
+  BOOST_CHECK(attr.getAttrList<std::vector<int> >("toto")[0] == 1);
 }
 
-BOOST_AUTO_TEST_CASE(getAttrList_valid_attr2) {
-  BOOST_TEST_MESSAGE("# Get valid attribute list with 2 elements");
+BOOST_AUTO_TEST_CASE(getAttrList_valid_attr_2) {
+  BOOST_TEST_MESSAGE("# Get valid int attribute list 2");
   dadi::Attributes attr;
-  attr.putAttr<std::string>("toto", "toto1");
-  attr.putAttr<std::string>("toto", "toto2");
-  // "toto" >> i (vector<string>) OK
-  std::vector<std::string> listAttr;
-  BOOST_REQUIRE_NO_THROW(listAttr = attr.getAttrList<std::vector<std::string> >("toto"));
-  std::cout << listAttr.size() << std::endl;
-
-  listAttr = attr.getAttrList<std::vector<std::string> >("toto");
-
-  BOOST_FOREACH(const std::string& t, listAttr) {
-    std::cout << t << std::endl;
-
-  }
-
-
-  BOOST_CHECK(listAttr.size() == 2);
+  attr.putAttr<int>("toto.sldfk", 1);
+  // "toto" >> i (vector<int>) OK
+  BOOST_REQUIRE_NO_THROW(attr.getAttrList<std::vector<int> >("toto"));
+  BOOST_CHECK(attr.getAttrList<std::vector<int> >("toto")[0] == 1);
 }
+
+// BOOST_AUTO_TEST_CASE(getAttrList_valid_attr2) {
+//   BOOST_TEST_MESSAGE("# Get valid attribute list with 2 elements");
+//   dadi::Attributes attr;
+//   attr.addAttr<std::string>("toto", "toto1");
+//   attr.addAttr<std::string>("toto", "toto2");
+//   // "toto" >> i (vector<string>) OK
+//   std::vector<std::string> listAttr;
+//   BOOST_REQUIRE_NO_THROW(listAttr = attr.getAttrList<std::vector<std::string> >("toto"));
+//   std::cout << listAttr.size() << std::endl;
+
+//   BOOST_FOREACH(const std::string& t, listAttr) {
+//     std::cout << t << std::endl;
+//   }
+
+//   BOOST_CHECK(listAttr.size() == 2);
+// }
 
 // BOOST_AUTO_TEST_CASE(getAttr_exception_invalid_attr_nothrow_1) {
 //   BOOST_TEST_MESSAGE("# Get invalid attribute");

@@ -9,6 +9,7 @@
  */
 
 #include "dadi/Exception/Parameters.hh"
+#include "dadi/Config.hh"
 #include "DADIConfigTestsFixtures.hh"
 
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
@@ -95,6 +96,32 @@ BOOST_AUTO_TEST_CASE(load_config_file_test) {
   BOOST_CHECK_EQUAL(config.get<std::string> ("diet.version"), "3.0");
 }
 
+BOOST_AUTO_TEST_CASE(load_bad_config_file_test) {
+  BOOST_TEST_MESSAGE("[config Loader] LOAD BAD CONFIG BEGIN");
+  dadi::Config& config = dadi::Config::instance();
+  // build the input file
+  boost::filesystem::path configFileDir(TESTFILESOUTPUTPATH);
+  configFileDir /= "cfg";
+  bfs::path inputFilePath =configFileDir / "inputFile.cfg";
+  // ensure that inputFile does not exist
+  if (bfs::exists(inputFilePath)) {
+    bfs::remove(bfs::path(inputFilePath));
+  }
+  // write some setting in the inputFile
+  {
+    std::ofstream ofs(inputFilePath.native().c_str());
+    ofs << "diet= version 3.0 \n }";
+  }
+  // load this file
+  {
+    std::ifstream ifs(inputFilePath.native().c_str());
+    BOOST_REQUIRE_THROW(config.load(ifs), boost::exception);
+  }
+  // check the setting
+  BOOST_CHECK_EQUAL(config.get<std::string> ("diet.version"), "3.0");
+}
+
+
 // test  save member function
 BOOST_AUTO_TEST_CASE(save_config_file_test) {
   dadi::Config& config = dadi::Config::instance();
@@ -103,7 +130,7 @@ BOOST_AUTO_TEST_CASE(save_config_file_test) {
   // build the output file
   boost::filesystem::path configFileDir(TESTFILESOUTPUTPATH);
   configFileDir /= "cfg";
-  bfs::path outputFilePath =configFileDir/"outputFile.cfg";
+  bfs::path outputFilePath = configFileDir/"outputFile.cfg";
   // ensure that outputFile does not exist
   if (bfs::exists(outputFilePath)) {
     bfs::remove(bfs::path(outputFilePath));
@@ -124,6 +151,93 @@ BOOST_AUTO_TEST_CASE(save_config_file_test) {
   BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
 }
 
+BOOST_AUTO_TEST_CASE(save_config_file_test_XML) {
+  dadi::Config& config = dadi::Config::instance();
+  // put some settings into the config store
+  config.put("diet.version", "3.0");
+  // build the output file
+  boost::filesystem::path configFileDir(TESTFILESOUTPUTPATH);
+  configFileDir /= "cfg";
+  bfs::path outputFilePath = configFileDir/"outputFile.xml";
+  // ensure that outputFile does not exist
+  if (bfs::exists(outputFilePath)) {
+    bfs::remove(bfs::path(outputFilePath));
+  }
+
+  // write some setting in the inputFile
+  {
+    std::ofstream ofs(outputFilePath.native().c_str());
+    // save the config
+    config.save(ofs, dadi::FORMAT_XML);
+  }
+  // load this file
+  {
+    std::ifstream ifs(outputFilePath.native().c_str());
+    config.load(ifs, dadi::FORMAT_XML);
+  }
+  // check the setting
+  BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
+}
+
+BOOST_AUTO_TEST_CASE(save_config_file_test_JSON) {
+  dadi::Config& config = dadi::Config::instance();
+  // put some settings into the config store
+  config.put("diet.version", "3.0");
+  // build the output file
+  boost::filesystem::path configFileDir(TESTFILESOUTPUTPATH);
+  configFileDir /= "cfg";
+  bfs::path outputFilePath = configFileDir/"outputFile.json";
+  // ensure that outputFile does not exist
+  if (bfs::exists(outputFilePath)) {
+    bfs::remove(bfs::path(outputFilePath));
+  }
+
+  // write some setting in the inputFile
+  {
+    std::ofstream ofs(outputFilePath.native().c_str());
+    // save the config
+    config.save(ofs, dadi::FORMAT_JSON);
+  }
+  // load this file
+  {
+    std::ifstream ifs(outputFilePath.native().c_str());
+    config.load(ifs, dadi::FORMAT_JSON);
+  }
+  // check the setting
+  BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
+}
+
+
+BOOST_AUTO_TEST_CASE(save_config_file_test_INI) {
+  dadi::Config& config = dadi::Config::instance();
+  // put some settings into the config store
+  config.put("diet.version", "3.0");
+  // build the output file
+  boost::filesystem::path configFileDir(TESTFILESOUTPUTPATH);
+  configFileDir /= "cfg";
+  bfs::path outputFilePath = configFileDir/"outputFile.ini";
+  // ensure that outputFile does not exist
+  if (bfs::exists(outputFilePath)) {
+    bfs::remove(bfs::path(outputFilePath));
+  }
+
+  // write some setting in the inputFile
+  {
+    std::ofstream ofs(outputFilePath.native().c_str());
+    // save the config
+    config.save(ofs, dadi::FORMAT_INI);
+  }
+  // load this file
+  {
+    std::ifstream ifs(outputFilePath.native().c_str());
+    config.load(ifs, dadi::FORMAT_INI);
+  }
+  // check the setting
+  BOOST_CHECK_EQUAL(config.get<std::string>("diet.version"), "3.0");
+}
+
+
+
 // test the clear member function
 BOOST_AUTO_TEST_CASE(clear_config_file_test) {
   dadi::Config& config = dadi::Config::instance();
@@ -135,7 +249,7 @@ BOOST_AUTO_TEST_CASE(clear_config_file_test) {
   config.clear();
   // check the config again
   BOOST_CHECK_THROW(config.get<std::string> ("diet.version"),
-                    boost::exception);
+                    dadi::UnknownParameterError);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
