@@ -14,6 +14,7 @@
 #include <string>
 #include <boost/any.hpp>
 #include <boost/foreach.hpp>
+#include <boost/lexical_cast.hpp>
 #include "Exception/Attributes.hh"
 #include "detail/Parsers.hh"
 
@@ -64,6 +65,8 @@ public:
       BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
     } catch (const boost::property_tree::ptree_bad_data& e) {
       BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
+    } catch (const boost::bad_lexical_cast& e) {
+      BOOST_THROW_EXCEPTION(InvalidAttributeError() << errinfo_msg(e.what()));
     }
   }
 
@@ -82,7 +85,7 @@ public:
     try {
       BOOST_FOREACH(const boost::property_tree::ptree::value_type& v,
                     pt.get_child(path)) {
-        seq.push_back(v.second.data());
+        seq.push_back(boost::lexical_cast<typename Sequence::value_type>(v.second.data()));
       }
     } catch (const boost::property_tree::ptree_bad_path& e) {
       BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));
