@@ -450,8 +450,8 @@ BOOST_AUTO_TEST_CASE(getAttrList_valid_attr_1) {
   dadi::Attributes attr;
   attr.putAttr<std::string>("toto.uu", "1");
   // "toto" >> i (vector<int>) OK
-  BOOST_REQUIRE_NO_THROW(attr.getAttrList<std::vector<int> >("toto"));
-  BOOST_CHECK(attr.getAttrList<std::vector<int> >("toto")[0] == 1);
+  BOOST_REQUIRE_NO_THROW(attr.getAttrList<std::vector<int> >("toto.uu"));
+  BOOST_CHECK(attr.getAttrList<std::vector<int> >("toto.uu")[0] == 1);
 }
 
 BOOST_AUTO_TEST_CASE(getAttrList_valid_attr_2) {
@@ -459,8 +459,8 @@ BOOST_AUTO_TEST_CASE(getAttrList_valid_attr_2) {
   dadi::Attributes attr;
   attr.putAttr<int>("toto.sldfk", 1);
   // "toto" >> i (vector<int>) OK
-  BOOST_REQUIRE_NO_THROW(attr.getAttrList<std::vector<int> >("toto"));
-  BOOST_CHECK(attr.getAttrList<std::vector<int> >("toto")[0] == 1);
+  BOOST_REQUIRE_NO_THROW(attr.getAttrList<std::vector<int> >("toto.sldfk"));
+  BOOST_CHECK(attr.getAttrList<std::vector<int> >("toto.sldfk")[0] == 1);
 }
 
 // BOOST_AUTO_TEST_CASE(getAttrList_valid_attr2) {

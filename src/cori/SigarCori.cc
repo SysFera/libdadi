@@ -62,7 +62,7 @@ SigarCori::do_getMetrics(const std::string& filter) {
 
   ft.loadAttr(filter);
   std::list<std::string> req =
-    ft.getAttrList<std::list<std::string> >("diet.cori.metrics");
+    ft.getAttrList<std::list<std::string> >("diet.cori.metrics.metric");
   BOOST_FOREACH(std::string &v, req) {
     keys.push_back(v);
   }

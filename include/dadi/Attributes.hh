@@ -80,11 +80,27 @@ public:
   getAttrList(const std::string& path) const {
     Sequence seq;
 
+    size_t pos = path.rfind('.');
+    std::string key = path;
+    std::string subkey;
+    if (key.length() != pos && key[pos] == '.') {
+      subkey = key.substr(pos+1);
+      key.erase(pos);
+    }
+
+    // only one key, return a sequence with one value
     try {
+      if (subkey.empty()) {
+        seq.push_back(pt.get<typename Sequence::value_type>(key));
+        return seq;
+      }
+
       BOOST_FOREACH(const boost::property_tree::ptree::value_type& v,
-                    pt.get_child(path)) {
-        seq.push_back(
-          boost::lexical_cast<typename Sequence::value_type>(v.second.data()));
+                    pt.get_child(key)) {
+        if (v.first == subkey) {
+          seq.push_back(
+            boost::lexical_cast<typename Sequence::value_type>(v.second.data()));
+        }
       }
     } catch (const boost::property_tree::ptree_bad_path& e) {
       BOOST_THROW_EXCEPTION(UnknownAttributeError() << errinfo_msg(e.what()));

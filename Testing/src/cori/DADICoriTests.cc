@@ -53,7 +53,6 @@ BOOST_AUTO_TEST_CASE(Cori_Sigar) {
   BOOST_REQUIRE(mgr.listPlugins().size() != 0);
   dadi::Attributes emptyAttr;
   dadi::Attributes attr1 = mgr.listMetrics();
-  std::cout << "### " << dadi::str(attr1) << std::endl;
 
   BOOST_REQUIRE(emptyAttr != attr1);
   dadi::Attributes attr2 = mgr.getMetrics("<diet><cori><metrics>"
@@ -62,7 +61,6 @@ BOOST_AUTO_TEST_CASE(Cori_Sigar) {
                                           "<metric>swap.total</metric>"
                                           "</metrics></cori></diet>");
   BOOST_REQUIRE(emptyAttr != attr2);
-  std::cout << "### " << dadi::str(attr2) << std::endl;
 }
 
 
