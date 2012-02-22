@@ -12,6 +12,15 @@
 
 #include "PluginInfo.hh"
 
+/**
+ * @example simple-plugin/IPerson.hh
+ * This is a simple example to use the IPlugin class.
+ *
+ * @example simple-plugin/PersonA.cc
+ * Implementation of an IPerson
+ */
+
+
 /** return code when plugin has been correctly loaded */
 const int PLUGIN_OK = 0;
 

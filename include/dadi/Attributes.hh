@@ -70,10 +70,37 @@ public:
 
   /**
    * @brief get the list of values associated to path and store it
-   * in a sequence
+   * in a sequence.
    * @param path path to attribute
    * @throw dadi::UnknownAttributeError
    * @throw dadi::InvalidAttributeError
+   * @remark A list HAS TO be encapsulated in a parent tag.
+   * The following example is invalid:
+   * @verbatim
+    <metric>
+      12
+    </metric>
+    <metric>
+      42
+    </metric>
+    <metric>
+      grail
+    </metric>
+   @endverbatim
+   * The following example is valid:
+   * @verbatim
+    <metrics>
+      <metric>
+        12
+      </metric>
+      <metric>
+        42
+      </metric>
+      <metric>
+        grail
+      </metric>
+    </metrics>
+   @endverbatim
    */
   template<class Sequence>
   Sequence
@@ -84,12 +111,12 @@ public:
     std::string key = path;
     std::string subkey;
     if (key.length() != pos && key[pos] == '.') {
-      subkey = key.substr(pos+1);
+      subkey = key.substr(pos + 1);
       key.erase(pos);
     }
 
-    // only one key, return a sequence with one value
     try {
+      // only one key, return a sequence with one value
       if (subkey.empty()) {
         seq.push_back(pt.get<typename Sequence::value_type>(key));
         return seq;

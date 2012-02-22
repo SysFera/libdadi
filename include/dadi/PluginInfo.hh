@@ -17,7 +17,6 @@
 #include "dadi/SharedLibrary.hh"
 #include "dadi/Attributes.hh"
 
-
 namespace dadi {
 
 /**

@@ -20,7 +20,7 @@
 
 /**
  * @example simple-logging/main.cc
- * this is a simple example on how to use logging framework
+ * this is a simple example on how to use the logging framework
  *
  */
 

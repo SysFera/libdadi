@@ -15,6 +15,13 @@
 #include "dadi/IPlugin.hh"
 #include "dadi/Attributes.hh"
 
+/**
+ * @example simple-cori/main.cc
+ * this is a simple example on how to use the CORI framework
+ *
+ */
+
+
 namespace dadi {
 
 class DADI_EXPORT ICori : virtual public IPlugin {

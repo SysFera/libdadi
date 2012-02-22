@@ -15,6 +15,13 @@
 #include "PluginInfo.hh"
 #include "SharedLibrary.hh"
 
+/**
+ * @example simple-plugin/main.cc
+ * this is a simple example on how to use the plugin framework
+ *
+ */
+
+
 namespace dadi {
 class Registry;
 class PluginInfo;
