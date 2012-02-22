@@ -438,7 +438,8 @@ private:
 
 
 /**
- * @brief default help handler
+ * @brief default help handler. Prints on stdout the help
+ *        and calls exit(EXIT_SUCCESS)
  * @param opt Options object
  */
 void
