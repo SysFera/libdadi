@@ -1,6 +1,7 @@
 /**
  * @file   ArchiveStrategy.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
+ * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
  * @brief  defines log files archive strategies
  * @section Licence
  *   |LICENCE|
@@ -85,7 +86,6 @@ ArchiveByTimestampStrategy::archive(const std::string& path) {
   fmtr % path % oss.str();
 
   std::string newPath = fmtr.str();
-
   if (bfs::exists(newPath)) {
     int n(-1);
     std::string currentPath;
@@ -101,6 +101,8 @@ ArchiveByTimestampStrategy::archive(const std::string& path) {
       bfs::rename(oldPath, currentPath);
       currentPath = oldPath;
     }
+    fmtr % newPath % 0;
+    bfs::rename(newPath, fmtr.str());
   }
 
   bfs::rename(path, newPath);
