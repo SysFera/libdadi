@@ -405,9 +405,6 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
       }
     }
     BOOST_REQUIRE_EQUAL(files.size(), 3);
-    BOOST_CHECK_EQUAL(files[0].native(), tmpFile.native());
-    BOOST_CHECK_EQUAL(files[1].native(), std::string(tmpFile.native() + ".0"));
-    BOOST_CHECK_EQUAL(files[2].native(), std::string(tmpFile.native() + ".1"));
   }
   bfs::remove_all(tmpFile);
   bfs::remove_all(tmpFile.native() + ".0");
@@ -467,7 +464,6 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
       }
     }
     BOOST_REQUIRE_EQUAL(files.size(), 3);
-    BOOST_CHECK_EQUAL(files[0].native(), tmpFile.native());
   }
   bfs::remove_all(tmpDir);
   // end  timestamp test
