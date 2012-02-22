@@ -269,6 +269,186 @@ BOOST_AUTO_TEST_CASE(compression_methods_test) {
 }
 
 
+BOOST_AUTO_TEST_CASE(rotate_methods_test) {
+  BOOST_TEST_MESSAGE("#Rotate methods test#");
+
+  namespace fs = boost::filesystem;
+  std::string source("Bridgekeeper");
+  std::string msgToLog(
+    "What... is the air-speed velocity of an unladen swallow?");
+  dadi::Message myMsg =
+    dadi::Message(source, msgToLog, dadi::Message::PRIO_DEBUG);
+
+  // Create working directory
+  bfs::path tmpDir = bfs::temp_directory_path();
+  tmpDir /= "%%%%-%%%%-%%%%-%%%%";
+  tmpDir = bfs::unique_path(tmpDir);
+  BOOST_TEST_MESSAGE("tmp directory = " + tmpDir.native());
+
+  // Create file name
+  bfs::path tmpFile = tmpDir;
+  tmpFile /= "tmpFile.log";
+  BOOST_TEST_MESSAGE("tmp file = " + tmpFile.native());
+
+  ///////////////////////////////////
+  // Create Channel with no rotation
+  BOOST_TEST_MESSAGE("# Testing no rotation methods #");
+  {
+    bfs::create_directory(tmpDir);
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+    // set archive mode
+    myFileC->putAttr("archive", "timestamp");
+
+    // Set rotate mode to 1 second
+    myFileC->putAttr("rotate", "none");
+
+    // Log a message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+    // wait 1s
+    sleep(1);
+
+    // Log another message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+    // wait 1s
+    sleep(1);
+
+    // Log another message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
+  }
+
+  // load this file
+  {
+    fs::directory_iterator end_iter;
+    std::vector<fs::path> files;
+    if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
+      unsigned int i = 0;
+      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+        if (fs::is_regular_file(dir_iter->status())) {
+          files.push_back(*dir_iter);
+        }
+      }
+    }
+    BOOST_REQUIRE_EQUAL(files.size(), 1);
+    bfs::remove_all(tmpDir);
+  }
+  // end  no rotation test
+  //////////////////////////
+
+  ///////////////////////////////////
+  // Create Channel with size rotation and archive based on number
+  BOOST_TEST_MESSAGE("# Testing rotation based on size methods, archive number #");
+  {
+    bfs::create_directory(tmpDir);
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+    // set archive mode
+    myFileC->putAttr("archive", "number");
+    myFileC->putAttr("purge", "none");
+
+    // Set rotate mode to 1 second
+    myFileC->putAttr("rotate", "size");
+    myFileC->putAttr("rotate.size", "57");
+
+    // Log 5 messages
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
+  }
+
+  // load this file
+  {
+    fs::directory_iterator end_iter;
+    std::vector<fs::path> files;
+    if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
+      unsigned int i = 0;
+      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+        if (fs::is_regular_file(dir_iter->status())) {
+          files.push_back(*dir_iter);
+        }
+      }
+    }
+    // 6 files are generated: 5 full, and 1 empty
+    BOOST_REQUIRE_EQUAL(files.size(), 6);
+    bfs::remove_all(tmpDir);
+  }
+  // end  size rotation and archive number test
+  //////////////////////////
+
+  ///////////////////////////////////
+  // Create Channel with size rotation and archive based on utc timestamp
+  BOOST_TEST_MESSAGE("# Testing rotation based on size methods, archive utc timestamp #");
+  {
+    bfs::create_directory(tmpDir);
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+    // set archive mode
+    myFileC->putAttr("archive", "timestamp");
+    myFileC->putAttr("purge", "none");
+
+    // Set rotate mode to 1 second
+    myFileC->putAttr("rotate", "size");
+    myFileC->putAttr("rotate.size", "57");
+
+    // Log 5 messages
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
+  }
+
+  // load this file
+  {
+    fs::directory_iterator end_iter;
+    std::vector<fs::path> files;
+    if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
+      unsigned int i = 0;
+      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+        if (fs::is_regular_file(dir_iter->status())) {
+          files.push_back(*dir_iter);
+        }
+      }
+    }
+    // 6 files are generated: 5 full, and 1 empty
+    BOOST_REQUIRE_EQUAL(files.size(), 6);
+    bfs::remove_all(tmpDir);
+  }
+  // end  size rotation and utc timestamp archive test
+  //////////////////////////
+}
+
+
 
 BOOST_AUTO_TEST_CASE(archive_methods_test) {
   BOOST_TEST_MESSAGE("#Archive methods test#");
