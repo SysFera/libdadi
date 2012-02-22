@@ -10,6 +10,12 @@
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
+#include <boost/iostreams/device/file.hpp>
+#include <boost/iostreams/filter/bzip2.hpp>
+#include <boost/iostreams/filter/gzip.hpp>
+#include <boost/iostreams/filter/zlib.hpp>
+#include <boost/iostreams/copy.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/thread.hpp>
@@ -112,8 +118,8 @@ BOOST_AUTO_TEST_CASE(path_to_directory_test) {
 }
 
 
-BOOST_AUTO_TEST_CASE(open_file_exits_test) {
-  BOOST_TEST_MESSAGE("#Open file exists test#");
+BOOST_AUTO_TEST_CASE(compression_methods_test) {
+  BOOST_TEST_MESSAGE("#Compression methods test#");
 
   std::string source("Bridgekeeper");
   std::string msgToLog(
@@ -128,66 +134,137 @@ BOOST_AUTO_TEST_CASE(open_file_exits_test) {
   bfs::create_directory(tmpDir);
   BOOST_TEST_MESSAGE("tmp directory = " + tmpDir.native());
 
-  // Create file
+  // Create file name
   bfs::path tmpFile = tmpDir;
   tmpFile /= "tmpFile.log";
   BOOST_TEST_MESSAGE("tmp file = " + tmpFile.native());
 
-  // Create Channel
-  FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+  /////////////////////////////////////
+  // Create Channel with no compression
+  BOOST_TEST_MESSAGE("# Testing compression methods: no compression #");
+  {
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
 
-  // Check correct path
-  BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
 
-  /* We test open for every combination of:
-   *  - CompressionMode
-   *  - ArchiveMode
-   *  - RotateMode
-   *  - PurgeMode
-   */
-  std::string rotateSize("2M");
-  std::string rotateTime("1:00:00");
-  std::string rotateInterval("1,12:00:00");
-  unsigned int purgeCount = 3;
+    // Log a message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
 
-  myFileC->putAttr("rotate.size", rotateSize);
-  myFileC->putAttr("rotate.time", rotateTime);
-  myFileC->putAttr("rotate.interval", rotateInterval);
-  myFileC->putAttr("purge.count", purgeCount);
-
-  for (unsigned int cm = dadi::FileChannel::COMP_NONE;
-       cm < dadi::FileChannel::COMP_ZLIB; ++cm) {
-    // set Compression Mode
-    myFileC->putAttr("compression_mode", cm);
-
-    for (unsigned int am = dadi::FileChannel::AR_NONE;
-         am < dadi::FileChannel::AR_TIMESTAMP; ++am) {
-      // set Archive Mode
-      myFileC->putAttr("archive", am);
-
-      for (unsigned int rm = dadi::FileChannel:: ROT_NONE;
-           rm < dadi::FileChannel::ROT_LINE; ++rm) {
-        // set Rotate Mode
-        myFileC->putAttr("rotate", rm);
-
-        for (unsigned int pm = dadi::FileChannel::PURGE_NONE;
-             pm < dadi::FileChannel::PURGE_AGE; ++pm) {
-          // set Purge Mode
-          myFileC->putAttr("purge", pm);
-
-          // Log a message
-          BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
-
-          // To check that the file with message logged is created
-          BOOST_REQUIRE(bfs::exists(tmpFile));
-
-          // Close Channel
-          BOOST_REQUIRE_NO_THROW(myFileC->close());
-        }
-      }
-    }
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
   }
-  // Delete working file
+
+  // load this file
+  {
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> tmp;
+    tmp.push(boost::iostreams::file_source(tmpFile.native()));
+    std::stringstream strstream;
+    BOOST_REQUIRE_NO_THROW(boost::iostreams::copy(tmp, strstream));
+    BOOST_REQUIRE(std::string(myMsg.getText() + "\n") == strstream.str());
+  }
+  bfs::remove_all(tmpFile);
+  // end no compression test
+  //////////////////////////
+
+  ///////////////////////////
+  // Create Channel with gzip
+  BOOST_TEST_MESSAGE("# Testing compression methods gzip #");
+  {
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+    myFileC->putAttr("compression_mode", "gzip");
+    // Log a message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
+  }
+
+  // load this file
+  {
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> tmp;
+    tmp.push(boost::iostreams::gzip_decompressor());
+    tmp.push(boost::iostreams::file_source(tmpFile.native()));
+    std::stringstream strstream;
+    BOOST_REQUIRE_NO_THROW(boost::iostreams::copy(tmp, strstream));
+    BOOST_REQUIRE(std::string(myMsg.getText() + "\n") == strstream.str());
+  }
+  bfs::remove_all(tmpFile);
+  // end gzip test
+  ///////////////
+
+  ////////////////////////////
+  // Create Channel with bzip2
+  BOOST_TEST_MESSAGE("# Testing compression methods bzip2 #");
+  {
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+    myFileC->putAttr("compression_mode", "bzip2");
+    // Log a message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
+  }
+
+  // load this file
+  {
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> tmp;
+    tmp.push(boost::iostreams::bzip2_decompressor());
+    tmp.push(boost::iostreams::file_source(tmpFile.native()));
+    std::stringstream strstream;
+    BOOST_REQUIRE_NO_THROW(boost::iostreams::copy(tmp, strstream));
+    BOOST_REQUIRE(std::string(myMsg.getText() + "\n") == strstream.str());
+  }
+  bfs::remove_all(tmpFile);
+  // end bzip2 test
+  ////////////////
+
+  ////////////////////////////
+  // Create Channel with zlib
+  BOOST_TEST_MESSAGE("# Testing compression methods zlib #");
+  {
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+    myFileC->putAttr("compression_mode", "zlib");
+    // Log a message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
+  }
+
+  // load this file
+  {
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> tmp;
+    tmp.push(boost::iostreams::zlib_decompressor());
+    tmp.push(boost::iostreams::file_source(tmpFile.native()));
+    std::stringstream strstream;
+    BOOST_REQUIRE_NO_THROW(boost::iostreams::copy(tmp, strstream));
+    BOOST_REQUIRE(std::string(myMsg.getText() + "\n") == strstream.str());
+  }
+  bfs::remove_all(tmpFile);
+  // end zlib test
+  ////////////////
+
   bfs::remove_all(tmpDir);
 }
 
