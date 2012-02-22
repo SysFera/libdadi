@@ -315,6 +315,13 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
     BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
     BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
 
+    // wait 1s
+    sleep(1);
+
+    // Log another message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
     // To check that the file with message logged is created
     BOOST_REQUIRE(bfs::exists(tmpFile));
     // Close Channel
@@ -372,6 +379,13 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
     BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
     BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
 
+    // wait 1s
+    sleep(1);
+
+    // Log another message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
     // To check that the file with message logged is created
     BOOST_REQUIRE(bfs::exists(tmpFile));
     // Close Channel
@@ -390,12 +404,14 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
         }
       }
     }
-    BOOST_REQUIRE_EQUAL(files.size(), 2);
+    BOOST_REQUIRE_EQUAL(files.size(), 3);
     BOOST_CHECK_EQUAL(files[0].native(), tmpFile.native());
     BOOST_CHECK_EQUAL(files[1].native(), std::string(tmpFile.native() + ".0"));
+    BOOST_CHECK_EQUAL(files[2].native(), std::string(tmpFile.native() + ".1"));
   }
   bfs::remove_all(tmpFile);
   bfs::remove_all(tmpFile.native() + ".0");
+  bfs::remove_all(tmpFile.native() + ".1");
   // end number archive test
   //////////////////////////
 
@@ -425,6 +441,13 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
     BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
     BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
 
+    // wait 1s
+    sleep(1);
+
+    // Log another message
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+    BOOST_REQUIRE_NO_THROW(myFileC->log(myMsg));
+
     // To check that the file with message logged is created
     BOOST_REQUIRE(bfs::exists(tmpFile));
     // Close Channel
@@ -443,14 +466,12 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
         }
       }
     }
-    BOOST_REQUIRE_EQUAL(files.size(), 2);
+    BOOST_REQUIRE_EQUAL(files.size(), 3);
     BOOST_CHECK_EQUAL(files[0].native(), tmpFile.native());
   }
-  bfs::remove_all(tmpFile);
+  bfs::remove_all(tmpDir);
   // end  timestamp test
   //////////////////////////
-
-  bfs::remove_all(tmpDir);
 }
 
 
