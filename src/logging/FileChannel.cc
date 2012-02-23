@@ -229,16 +229,14 @@ FileChannel::setRotateStrategy() {
     std::string s(getAttr<std::string>(FileChannel::ATTR_ROTATE_INTERVAL, ""));
     boost::smatch res;
     if (boost::regex_match(s, res, regex1)) {
-      std::cout << "nb: " << res.size() << "\n";
-      std::cout << res[1] << " | " << res[2] << "\n";
-        bool utc = getAttr<bool>(FileChannel::ATTR_ROTATE_TIME, true);
-        time_duration td(duration_from_string(res[2].str()));
-        unsigned int day = Weekday()(res[1].str());
-        RotateByTimeStrategy *rPtr = new RotateByTimeStrategy(td, day);
-        if (!utc) {
-          rPtr->setLocal(true);
-        }
-        pRotateStrategy_.reset(rPtr);
+      bool utc = getAttr<bool>(FileChannel::ATTR_ROTATE_TIME, true);
+      time_duration td(duration_from_string(res[2].str()));
+      unsigned int day = Weekday()(res[1].str());
+      RotateByTimeStrategy *rPtr = new RotateByTimeStrategy(td, day);
+      if (!utc) {
+        rPtr->setLocal(true);
+      }
+      pRotateStrategy_.reset(rPtr);
     } else {
       pRotateStrategy_.reset(new RotateByTimeStrategy);
     }
