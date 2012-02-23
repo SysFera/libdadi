@@ -16,7 +16,7 @@
 #include <boost/test/unit_test.hpp>
 #include "dadi/Config.hh"
 #include "dadi/Options.hh"
-#include <dadi/testconfig.h>
+#include "testconfig.h"
 
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 
@@ -53,9 +53,9 @@ BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
   opt.addOption("config-file,c", "configuration file", fFile, true);
   opt.addGroup(fileGroup);
 
-  argv[0] = (char *)"./simple-configfile";
-  argv[1] = (char *)"-c";
-  argv[2] = (char *)configFilepath.c_str();
+  argv[0] = const_cast<char *>("./simple-configfile");
+  argv[1] = const_cast<char *>("-c");
+  argv[2] = const_cast<char *>(configFilepath.c_str());
 
   opt.parseCommandLine(argc, argv);
   opt.notify();
@@ -67,8 +67,7 @@ BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
   opt.parseConfigFile(cfile, false);
   opt.notify();
 
-  BOOST_REQUIRE_GT(config.count("file.name"), 0);
-  BOOST_REQUIRE_EQUAL(config.get<string>("file.name"), "<testConfigFile>");
+  BOOST_REQUIRE_EQUAL(config.get<std::string>("file.name"), "<testConfigFile>");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
