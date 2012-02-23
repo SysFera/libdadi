@@ -26,42 +26,6 @@
 
 BOOST_AUTO_TEST_SUITE(PluginTests)
 
-// Test  plugin info class bool operator
-BOOST_AUTO_TEST_CASE(plugin_bool_operator) {
-  BOOST_TEST_MESSAGE("Plugin info bool operator[BEGIN]");
-  dadi::PluginInfo pluginInfo;
-  BOOST_CHECK(!pluginInfo);
-  pluginInfo.name = "some plugin";
-  pluginInfo.interface = "some interface";
-  pluginInfo.path = "some path";
-  pluginInfo.factory = const_cast<char*>("some factory");
-  BOOST_CHECK(static_cast<bool>(pluginInfo));
-  BOOST_TEST_MESSAGE("Plugin info bool operator[END]");
-}
-
-// Test  plugin info class copy constructor
-BOOST_AUTO_TEST_CASE(plugin_assignment_operator) {
-  BOOST_TEST_MESSAGE("Plugin info copy constructor [BEGIN]");
-
-  dadi::PluginInfo firstPluginInfo;
-  firstPluginInfo.name = "some plugin";
-  firstPluginInfo.interface = "some interface";
-  firstPluginInfo.path = "some path";
-  firstPluginInfo.factory = const_cast<char*>("some factory");
-
-  dadi::PluginInfo secondPluginInfo(firstPluginInfo);
-
-  BOOST_CHECK(static_cast<bool>(secondPluginInfo));
-
-  BOOST_CHECK((firstPluginInfo.name == secondPluginInfo.name) &&
-              (firstPluginInfo.interface == secondPluginInfo.interface) &&
-              (firstPluginInfo.path == secondPluginInfo.path) &&
-              (firstPluginInfo.factory == secondPluginInfo.factory));
-
-  BOOST_TEST_MESSAGE("Plugin info copy constructor [END]");
-}
-
-
 // Test Plugin
 BOOST_AUTO_TEST_CASE(plugin_normal_load) {
   BOOST_TEST_MESSAGE("[LOADER]: start");
