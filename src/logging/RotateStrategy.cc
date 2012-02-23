@@ -23,7 +23,7 @@ namespace gtime = boost::gregorian;
 const unsigned int RotateByTimeStrategy::EVERYDAY = 7;
 const ptime::time_duration RotateByTimeStrategy::MIDNIGHT(0, 0, 0);
 // case insensitive
-const boost::regex regSz("(?i)(?<nb>\\d+)(?<mul>k|m)?", boost::regex::perl);
+const boost::regex regSz("(?i)(?<nb>\\d+)(?<mul>k|m|g)?", boost::regex::perl);
 
 /*****************************************************************************/
 
@@ -45,6 +45,8 @@ RotateBySizeStrategy::RotateBySizeStrategy(const std::string& size) {
       size_ *= 1024;
     } else if ('m' == mul) {
       size_ *= 1024*1024;
+    } else if ('g' == mul) {
+      size_ *= 1024*1024*1024;
     }
   }
 }

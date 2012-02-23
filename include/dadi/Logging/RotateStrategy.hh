@@ -49,7 +49,9 @@ class RotateBySizeStrategy : public RotateStrategy {
 public:
   /**
    * @brief constructor
-   * @param size file size threshold (bytes)
+   * @param size file size threshold (in bytes, must be an integer value)
+   * @note By default the size is in bytes, but one can enter a multiplier:
+   * m|k|g, respectively for MB, kB and GB.
    */
   explicit RotateBySizeStrategy(const std::string& size);
   /**
