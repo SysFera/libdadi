@@ -34,8 +34,11 @@ BOOST_AUTO_TEST_CASE(plugin_bool_operator) {
   dadi::PluginInfo pluginInfo;
   BOOST_CHECK(!pluginInfo);
   pluginInfo.name = "some plugin";
+  BOOST_CHECK(!static_cast<bool>(pluginInfo));
   pluginInfo.interface = "some interface";
+  BOOST_CHECK(!static_cast<bool>(pluginInfo));
   pluginInfo.path = "some path";
+  BOOST_CHECK(!static_cast<bool>(pluginInfo));
   pluginInfo.factory = const_cast<char*>("some factory");
   BOOST_CHECK(static_cast<bool>(pluginInfo));
   BOOST_TEST_MESSAGE("Plugin info bool operator[END]");
