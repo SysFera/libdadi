@@ -49,9 +49,9 @@ BOOST_AUTO_TEST_CASE(read_config_file_normal_call) {
   opt.addOption("config-file,c", "configuration file", fFile, true);
   opt.addGroup(fileGroup);
 
-  argv[0] = (char *)"./simple-configfile";
-  argv[1] = (char *)"-c";
-  argv[2] = (char *)configFilePath.c_str();
+  argv[0] = const_cast<char *>("./simple-configfile");
+  argv[1] = const_cast<char *>("-c");
+  argv[2] = const_cast<char *>(configFilePath.c_str());
 
   opt.parseCommandLine(argc, argv);
   opt.notify();
