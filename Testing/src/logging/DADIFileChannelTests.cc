@@ -28,7 +28,8 @@
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 
 static const std::string SRCSTR = "Bridgekeeper";
-static const std::string MSGSTR = "What... is the air-speed velocity of an unladen swallow?";
+static const std::string MSGSTR =
+  "What... is the air-speed velocity of an unladen swallow?";
 
 
 namespace {
@@ -336,7 +337,8 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
     std::vector<fs::path> files;
     if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
       unsigned int i = 0;
-      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+      for (fs::directory_iterator dir_iter(tmpDir);
+           dir_iter != end_iter; ++dir_iter, ++i) {
         if (fs::is_regular_file(dir_iter->status())) {
           files.push_back(*dir_iter);
         }
@@ -350,7 +352,8 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
 
   ///////////////////////////////////
   // Create Channel with size rotation and archive based on number
-  BOOST_TEST_MESSAGE("# Testing rotation based on size methods, archive number #");
+  BOOST_TEST_MESSAGE("# Testing rotation based on size methods,"
+                     << " archive number #");
   {
     bfs::create_directory(tmpDir);
     FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
@@ -385,7 +388,8 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
     std::vector<fs::path> files;
     if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
       unsigned int i = 0;
-      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+      for (fs::directory_iterator dir_iter(tmpDir);
+           dir_iter != end_iter; ++dir_iter, ++i) {
         if (fs::is_regular_file(dir_iter->status())) {
           files.push_back(*dir_iter);
         }
@@ -399,8 +403,10 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
   //////////////////////////
 
   ///////////////////////////////////
-  // Create Channel with size (in bytes) rotation and archive based on utc timestamp
-  BOOST_TEST_MESSAGE("# Testing rotation based on size (in bytes) methods, archive utc timestamp #");
+  // Create Channel with size (in bytes) rotation
+  // and archive based on utc timestamp
+  BOOST_TEST_MESSAGE("# Testing rotation based on size (in bytes) methods,"
+                     << " archive utc timestamp #");
   {
     bfs::create_directory(tmpDir);
     FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
@@ -435,7 +441,8 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
     std::vector<fs::path> files;
     if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
       unsigned int i = 0;
-      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+      for (fs::directory_iterator dir_iter(tmpDir);
+           dir_iter != end_iter; ++dir_iter, ++i) {
         if (fs::is_regular_file(dir_iter->status())) {
           files.push_back(*dir_iter);
         }
@@ -450,8 +457,10 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
 
   unsigned int size;
   ///////////////////////////////////
-  // Create Channel with size (in kbytes) rotation and archive based on utc timestamp
-  BOOST_TEST_MESSAGE("# Testing rotation based on size (in kbytes) methods, archive number #");
+  // Create Channel with size (in kbytes) rotation
+  // and archive based on utc timestamp
+  BOOST_TEST_MESSAGE("# Testing rotation based on size (in kbytes) methods,"
+                     << " archive number #");
   {
     bfs::create_directory(tmpDir);
     FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
@@ -485,7 +494,8 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
     std::vector<fs::path> files;
     if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
       unsigned int i = 0;
-      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+      for (fs::directory_iterator dir_iter(tmpDir);
+           dir_iter != end_iter; ++dir_iter, ++i) {
         if (fs::is_regular_file(dir_iter->status())) {
           files.push_back(*dir_iter);
         }
@@ -494,9 +504,11 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
     // 3 files are generated: 2 full, and 1 empty
     BOOST_REQUIRE_EQUAL(files.size(), 4);
     // size is not necessarily a multiple of the message size
-    double tolerance = 100 * (ceil(double(size) / (MSGSTR.size() + 1))
-                              * (MSGSTR.size() + 1) / double(size) - 1);
-    BOOST_REQUIRE_CLOSE(bfs::file_size(tmpFile.native() + ".0"), double(size), tolerance);
+    double tolerance = 100 * (
+      ceil(static_cast<double>(size) / (MSGSTR.size() + 1))
+      * (MSGSTR.size() + 1) / static_cast<double>(size) - 1);
+    BOOST_REQUIRE_CLOSE(bfs::file_size(tmpFile.native() + ".0"),
+                        static_cast<double>(size), tolerance);
     bfs::remove_all(tmpDir);
   }
   // end  size (in kbytes) rotation and utc timestamp archive test
@@ -504,8 +516,10 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
 
 
   ///////////////////////////////////
-  // Create Channel with size (in mbytes) rotation and archive based on utc timestamp
-  BOOST_TEST_MESSAGE("# Testing rotation based on size (in mbytes) methods, archive number #");
+  // Create Channel with size (in mbytes) rotation
+  // and archive based on utc timestamp
+  BOOST_TEST_MESSAGE("# Testing rotation based on size (in mbytes) methods,"
+                     << " archive number #");
   {
     bfs::create_directory(tmpDir);
     FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
@@ -539,7 +553,8 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
     std::vector<fs::path> files;
     if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
       unsigned int i = 0;
-      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+      for (fs::directory_iterator dir_iter(tmpDir);
+           dir_iter != end_iter; ++dir_iter, ++i) {
         if (fs::is_regular_file(dir_iter->status())) {
           files.push_back(*dir_iter);
         }
@@ -548,9 +563,11 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
     // 4 files are generated: 3 full, and 1 empty
     BOOST_REQUIRE_EQUAL(files.size(), 4);
     // size is not necessarily a multiple of the message size
-    double tolerance = 100 * (ceil(double(size) / (MSGSTR.size() + 1))
-                              * (MSGSTR.size() + 1) / double(size) - 1);
-    BOOST_REQUIRE_CLOSE(bfs::file_size(tmpFile.native() + ".0"), double(size), tolerance);
+    double tolerance = 100 * (
+      ceil(static_cast<double>(size) / (MSGSTR.size() + 1))
+      * (MSGSTR.size() + 1) / static_cast<double>(size) - 1);
+    BOOST_REQUIRE_CLOSE(bfs::file_size(tmpFile.native() + ".0"),
+                        static_cast<double>(size), tolerance);
     bfs::remove_all(tmpDir);
   }
   // end  size (in mbytes) rotation and utc timestamp archive test
@@ -623,7 +640,8 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
     fs::directory_iterator end_iter;
     std::vector<fs::path> files;
     if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
-      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter) {
+      for (fs::directory_iterator dir_iter(tmpDir);
+           dir_iter != end_iter; ++dir_iter) {
         if (fs::is_regular_file(dir_iter->status())) {
           files.push_back(*dir_iter);
         }
@@ -688,7 +706,8 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
     std::vector<fs::path> files;
     if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
       unsigned int i = 0;
-      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+      for (fs::directory_iterator dir_iter(tmpDir);
+           dir_iter != end_iter; ++dir_iter, ++i) {
         if (fs::is_regular_file(dir_iter->status())) {
           files.push_back(*dir_iter);
         }
@@ -747,7 +766,8 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
     std::vector<fs::path> files;
     if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
       unsigned int i = 0;
-      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+      for (fs::directory_iterator dir_iter(tmpDir);
+           dir_iter != end_iter; ++dir_iter, ++i) {
         if (fs::is_regular_file(dir_iter->status())) {
           files.push_back(*dir_iter);
         }
