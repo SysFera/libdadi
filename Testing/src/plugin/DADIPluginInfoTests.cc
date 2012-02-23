@@ -75,8 +75,10 @@ BOOST_AUTO_TEST_CASE(plugin_assignment_operator) {
   firstPluginInfo.interface = "some interface";
   firstPluginInfo.path = "some path";
   firstPluginInfo.factory = const_cast<char*>("some factory");
+  BOOST_CHECK(static_cast<bool>(firstPluginInfo));
 
-  dadi::PluginInfo secondPluginInfo = firstPluginInfo;
+  dadi::PluginInfo secondPluginInfo;
+  secondPluginInfo = firstPluginInfo;
 
   BOOST_CHECK(static_cast<bool>(secondPluginInfo));
 
