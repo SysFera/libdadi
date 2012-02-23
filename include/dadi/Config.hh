@@ -104,6 +104,8 @@ public:
    * @brief insert or update node value
    * @param key configuration key
    * @param value configuration value
+   * @throw UnknownParameterError
+   * @throw InvalidParameterError
    */
   template <typename valueType>
   void

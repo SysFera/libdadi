@@ -91,6 +91,8 @@ private:
     /**
      * @brief get a final node
      * @param key  node name
+     * @throw UnknownParameterError
+     * @throw InvalidParameterError
      */
     template<typename valueType>
     valueType
@@ -112,6 +114,8 @@ private:
     /**
      * @brief get an intermediary node
      * @param key relative key
+     * @throw UnknownParameterError
+     * @throw InvalidParameterError
      */
     template<typename valueType>
     std::vector<valueType>

@@ -18,6 +18,7 @@
 #include <boost/regex.hpp>
 #include <boost/thread/locks.hpp>
 #include "dadi/Logging/Message.hh"
+#include "dadi/Exception/All.hh"
 
 namespace dadi {
 
@@ -82,12 +83,13 @@ FileChannel::open() {
   if (path_.empty()) {
     try {
       path_ = getAttr<std::string>(FileChannel::ATTR_PATH);
-    } catch (...) {
-      throw std::string("missing path name");
+    } catch (const dadi::Error& e) {
+      // FIXME do we need to catch each error separately?
+      // FIXME add more information?
+      BOOST_THROW_EXCEPTION(e);
     }
   }
-  // FIXME: check that path_ does not point to a directory or
-  // throw an exception
+  // FIXME check that path_ does not point to a directory or throw an exception
   int cMode_ =
     attrMap[getAttr<std::string>(FileChannel::ATTR_COMPRESSION_MODE, "")];
   switch (cMode_) {

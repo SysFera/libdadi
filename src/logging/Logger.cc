@@ -131,7 +131,8 @@ Logger::createLogger(const std::string& name,
   Lock lock(mutex_);
 
   if (find(name)) {
-    throw std::string("Already exists");
+    // FIXME Throw a proper exception using BOOST
+    throw std::string("Logger ") + name + std::string("already exists");
   }
 
   LoggerPtr newLogger(new Logger(name, channel, level));
