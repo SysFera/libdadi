@@ -70,9 +70,9 @@ public:
    * @brief define group visibility
    */
   typedef enum {
-    CMD = 0,
-    CFG,
-    ENV,
+    CMD = 0,  /** Command line option group */
+    CFG,      /** Configuration file option group */
+    ENV,      /** Environment variable option group */
   } GroupType;
 
   /**

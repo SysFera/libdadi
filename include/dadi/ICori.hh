@@ -31,7 +31,7 @@ namespace dadi {
 class DADI_EXPORT ICori : virtual public IPlugin {
 public:
   /**
-   * @brief list metrics provided
+   * @brief List all metrics provided by this plugin
    * @return Attributes listing provided metrics
    */
   Attributes
@@ -40,9 +40,9 @@ public:
   }
 
   /**
-   * @brief get metrics requested
+   * @brief get requested metrics
    * @param filter Cori request
-   * @return Attributes containing metrics requested
+   * @return Attributes containing requested metrics
    */
   Attributes
   getMetrics(const std::string& filter) {
