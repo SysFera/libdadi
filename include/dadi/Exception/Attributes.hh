@@ -2,8 +2,8 @@
  * @file   Exception/Attributes.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  attributes exception classes
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

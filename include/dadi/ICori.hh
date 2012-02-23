@@ -2,8 +2,8 @@
  * @file   ICori.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  define Cori plugin base class
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

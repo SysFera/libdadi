@@ -2,8 +2,8 @@
  * @file DADIConfigFileTestsFixtures.hh
  * @brief ConfigFile tests fixtures
  * @author Ibrahima Cissé (ibrahima.cisse@sysfera.com)
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 #include <iostream>

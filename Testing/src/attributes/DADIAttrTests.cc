@@ -4,8 +4,8 @@
  * @author Kevin COULOMB (kevin.coulomb@sysfera.com)
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  *
  */
 

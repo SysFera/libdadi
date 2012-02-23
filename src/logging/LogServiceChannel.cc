@@ -2,8 +2,8 @@
  * @file   LogServiceChannel.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  LogServiceChannel implementation
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

@@ -2,8 +2,8 @@
  * @file Logging/Channel.hh
  * @author: Haikel Guémar <haikel.guemar@sysfera.com>
  * @brief defines an abstract base class for channels
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

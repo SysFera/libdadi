@@ -2,8 +2,8 @@
  * @file   Testing/src/plugin/IPerson.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  IPerson plugin interface
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

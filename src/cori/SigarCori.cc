@@ -2,8 +2,8 @@
  * @file   SigarCori.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief Implementation of a Cori plugin for the Sigar library
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

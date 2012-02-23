@@ -2,8 +2,8 @@
  * @file   Exception/Base.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  libdadi root exceptions classes
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

@@ -4,8 +4,8 @@
  * @file   samples/simple-plugin/IPerson.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  IPerson plugin interface
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 #include <dadi/IPlugin.hh>

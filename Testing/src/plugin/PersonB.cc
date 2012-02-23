@@ -2,8 +2,8 @@
  * @file   Testing/src/plugin/PersonB.cc
  * @author Ibrahima Cisse <ibrahima.cisse@sysfera.com>
  * @brief  IPerson plugin implementation
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 #include <cstring>

@@ -2,8 +2,8 @@
  * @file DADIConfigMgrTests.cc
  * @brief This file implements the libdadi tests for configFile
  * @author Ibrahima Cissé (ibrahima.cisse@sysfera.com
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  *
  */
 

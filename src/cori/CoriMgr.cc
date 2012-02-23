@@ -2,8 +2,8 @@
  * @file   CoriMgr.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  dadi Collector of resources information
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

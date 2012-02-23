@@ -3,8 +3,8 @@
  * @author hguemar <hguemar@sysfera.com>
  * @brief  Win32 implementation of class SharedLibrary
  * based on LoadLibrary calls
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

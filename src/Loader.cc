@@ -2,8 +2,8 @@
  * @file   Loader.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  plugin loader
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

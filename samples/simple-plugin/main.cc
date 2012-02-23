@@ -2,8 +2,8 @@
  * @file   samples/simple-plugin/main.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  sample program showing how to use plugin API
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 #include <cstdlib>

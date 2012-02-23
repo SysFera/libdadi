@@ -2,8 +2,8 @@
  * @file   Exception/Plugins.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  libdadi plugins exceptions classes
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

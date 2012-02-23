@@ -2,8 +2,8 @@
  * @file   IPlugin.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines plugin abstract base class
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

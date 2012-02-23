@@ -4,8 +4,8 @@
  * @author Eugène PAMBA CAPO-CHICHI (eugene.capochichi@sysfera.com)
  * @author Ibrahima Cissé (ibrahima.cisse@sysfera.com)
  * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  *
  */
 

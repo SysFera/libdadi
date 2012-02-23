@@ -2,8 +2,8 @@
  * @file   SyslogChannel.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  SyslogChannel implementation
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

@@ -2,8 +2,8 @@
  * @file TestRunner.cc
  * @brief Boost Test entry point
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  *
  */
 

@@ -2,8 +2,8 @@
  * @file   SharedLibrary.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  Abstract platform specific shared libraries loading
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

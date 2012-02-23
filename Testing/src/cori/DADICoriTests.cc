@@ -2,8 +2,8 @@
  * @file DADICoriTests.cc
  * @brief This file implements the libdadi tests for the attributes
  * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  *
  */
 

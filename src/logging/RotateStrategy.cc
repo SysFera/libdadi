@@ -2,8 +2,8 @@
  * @file   RotateStrategy.cc
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines log files rotate strategies
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

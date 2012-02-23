@@ -2,8 +2,8 @@
  * @file   Testing/src/plugin/PersonA.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  IPerson plugin implementation
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 #include <cstring>

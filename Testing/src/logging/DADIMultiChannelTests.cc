@@ -2,8 +2,8 @@
  * @file DADIMultiChannelTests.cc
  * @brief This file implements the libdadi tests for multi channel logger
  * @author Benjamin DEPARDON (benjamin.depardon@sysfera.com)
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  */
 
 #include <iostream>

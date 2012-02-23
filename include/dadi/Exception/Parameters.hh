@@ -2,8 +2,8 @@
  * @file   Exception/Parameters.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  libdadi parameters exceptions classes
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

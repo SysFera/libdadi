@@ -3,8 +3,8 @@
  * @author Ibrahima Cissé <ibrahima.cisse@sysfera.com>
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  defines local configuration manager
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  *
  */
 

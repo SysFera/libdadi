@@ -2,8 +2,8 @@
  * @file   Testing/src/plugin/DADIPluginInfoTests.cc
  * @author Benjamin Depardon <benjamin.depardon@sysfera.com>                   x
  * @brief  libdadi PluginInfo test suite
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

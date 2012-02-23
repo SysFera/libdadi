@@ -2,8 +2,8 @@
  * @file DADIMessageTests.cc
  * @brief This file implements the libdadi tests for messages
  * @author Benjamin DEPARDON (benjamin.depardon@sysfera.com)
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  *
  */
 

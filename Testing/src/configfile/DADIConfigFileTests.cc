@@ -2,8 +2,8 @@
  * @file DADIConfigFileTests.cc
  * @brief This file implements the libdadi tests for configFile
  * @author Eugène PAMBA CAPO-CHICHI (eugene.capochichi@sysfera.com)
- * @section Licence
- *  |LICENCE|
+ * @section License
+ *  |LICENSE|
  *
  */
 

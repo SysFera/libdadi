@@ -2,8 +2,8 @@
  * @file   Testing/src/plugin/DADIPluginTestsFixture.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>                   x
  * @brief  libdadi plugin test suite
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

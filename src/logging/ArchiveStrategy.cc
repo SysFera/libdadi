@@ -3,8 +3,8 @@
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @author Benjamin Depardon <benjamin.depardon@sysfera.com>
  * @brief  defines log files archive strategies
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 

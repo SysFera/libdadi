@@ -2,8 +2,8 @@
  * @file   Attributes.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
  * @brief  Dadi attributes implementation
- * @section Licence
- *   |LICENCE|
+ * @section License
+ *   |LICENSE|
  *
  */
 
