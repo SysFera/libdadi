@@ -18,22 +18,46 @@
 
 namespace dadi {
 
+/**
+ * @class CoriMgr
+ * @brief Abstract the Cori metrics providers
+ */
 class CoriMgr {
 public:
+ /**
+  * @brief default constructor
+  */
   CoriMgr();
+  /**
+   * @brief destructor
+   */
   ~CoriMgr();
 
+  /**
+   * @brief list Cori plugins available
+   * @return list of plugins names
+   */
   std::list<std::string>
   listPlugins();
 
+
+  /**
+   * @brief list metrics available
+   * @return Attributes object containing all metrics availables
+   */
   Attributes
   listMetrics();
 
+  /**
+   * @brief takes a Cori request and return metrics
+   * @param filter Cori request
+   * @return
+   */
   Attributes
   getMetrics(const std::string& filter);
 
 private:
-  std::vector<ICori *> plugins;
+  std::vector<ICori *> plugins; /**< ICori plugins loaded */
 };
 
 } /* namespace dadi */

@@ -271,7 +271,7 @@ BOOST_AUTO_TEST_CASE(compression_methods_test) {
   bfs::remove_all(tmpDir);
 }
 
-
+// FIXME: should be broken into multiple test case (needs a fixture)
 BOOST_AUTO_TEST_CASE(rotate_methods_test) {
   BOOST_TEST_MESSAGE("#Rotate methods test#");
 
