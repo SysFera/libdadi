@@ -27,6 +27,10 @@
 
 namespace bfs = boost::filesystem;  // an alias for boost filesystem namespace
 
+static const std::string SRCSTR = "Bridgekeeper";
+static const std::string MSGSTR = "What... is the air-speed velocity of an unladen swallow?";
+
+
 namespace {
 typedef boost::scoped_ptr<dadi::FileChannel> FChannelPtr;
 }
@@ -64,9 +68,8 @@ BOOST_AUTO_TEST_CASE(constructor_file_does_not_exist_test) {
 BOOST_AUTO_TEST_CASE(constructor_file_exits_test) {
   BOOST_TEST_MESSAGE("#Constructor file exists test#");
 
-  std::string source("Bridgekeeper");
-  std::string msgToLog(
-    "What... is the air-speed velocity of an unladen swallow?");
+  std::string source(SRCSTR);
+  std::string msgToLog(MSGSTR);
   dadi::Message myMsg =
     dadi::Message(source, msgToLog, dadi::Message::PRIO_DEBUG);
 
@@ -121,9 +124,8 @@ BOOST_AUTO_TEST_CASE(path_to_directory_test) {
 BOOST_AUTO_TEST_CASE(compression_methods_test) {
   BOOST_TEST_MESSAGE("#Compression methods test#");
 
-  std::string source("Bridgekeeper");
-  std::string msgToLog(
-    "What... is the air-speed velocity of an unladen swallow?");
+  std::string source(SRCSTR);
+  std::string msgToLog(MSGSTR);
   dadi::Message myMsg =
     dadi::Message(source, msgToLog, dadi::Message::PRIO_DEBUG);
 
@@ -273,9 +275,8 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
   BOOST_TEST_MESSAGE("#Rotate methods test#");
 
   namespace fs = boost::filesystem;
-  std::string source("Bridgekeeper");
-  std::string msgToLog(
-    "What... is the air-speed velocity of an unladen swallow?");
+  std::string source(SRCSTR);
+  std::string msgToLog(MSGSTR);
   dadi::Message myMsg =
     dadi::Message(source, msgToLog, dadi::Message::PRIO_DEBUG);
 
@@ -398,8 +399,8 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
   //////////////////////////
 
   ///////////////////////////////////
-  // Create Channel with size rotation and archive based on utc timestamp
-  BOOST_TEST_MESSAGE("# Testing rotation based on size methods, archive utc timestamp #");
+  // Create Channel with size (in bytes) rotation and archive based on utc timestamp
+  BOOST_TEST_MESSAGE("# Testing rotation based on size (in bytes) methods, archive utc timestamp #");
   {
     bfs::create_directory(tmpDir);
     FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
@@ -444,9 +445,119 @@ BOOST_AUTO_TEST_CASE(rotate_methods_test) {
     BOOST_REQUIRE_EQUAL(files.size(), 6);
     bfs::remove_all(tmpDir);
   }
-  // end  size rotation and utc timestamp archive test
+  // end  size (in bytes) rotation and utc timestamp archive test
+  //////////////////////////
+
+  unsigned int size;
+  ///////////////////////////////////
+  // Create Channel with size (in kbytes) rotation and archive based on utc timestamp
+  BOOST_TEST_MESSAGE("# Testing rotation based on size (in kbytes) methods, archive number #");
+  {
+    bfs::create_directory(tmpDir);
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+    size = 1024;
+
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+    // set archive mode
+    myFileC->putAttr("archive", "number");
+    myFileC->putAttr("purge", "none");
+
+    // Set rotate mode to 1 second
+    myFileC->putAttr("rotate", "size");
+    myFileC->putAttr("rotate.size", "1k");
+
+    // Log 3kB messages
+    for (unsigned int i = 0; i * MSGSTR.size() < size * 3; ++i) {
+      myFileC->log(myMsg);
+    }
+
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
+  }
+
+  // load this file
+  {
+    fs::directory_iterator end_iter;
+    std::vector<fs::path> files;
+    if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
+      unsigned int i = 0;
+      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+        if (fs::is_regular_file(dir_iter->status())) {
+          files.push_back(*dir_iter);
+        }
+      }
+    }
+    // 3 files are generated: 2 full, and 1 empty
+    BOOST_REQUIRE_EQUAL(files.size(), 4);
+    // size is not necessarily a multiple of the message size
+    double tolerance = 100 * (ceil(double(size) / (MSGSTR.size() + 1))
+                              * (MSGSTR.size() + 1) / double(size) - 1);
+    BOOST_REQUIRE_CLOSE(bfs::file_size(tmpFile.native() + ".0"), double(size), tolerance);
+    bfs::remove_all(tmpDir);
+  }
+  // end  size (in kbytes) rotation and utc timestamp archive test
+  //////////////////////////
+
+
+  ///////////////////////////////////
+  // Create Channel with size (in mbytes) rotation and archive based on utc timestamp
+  BOOST_TEST_MESSAGE("# Testing rotation based on size (in mbytes) methods, archive number #");
+  {
+    bfs::create_directory(tmpDir);
+    FChannelPtr myFileC(new dadi::FileChannel(tmpFile.native()));
+    size = 1024 * 1024;
+
+    // Check correct path
+    BOOST_REQUIRE_EQUAL(myFileC->getPath(), tmpFile);
+
+    // set archive mode
+    myFileC->putAttr("archive", "number");
+    myFileC->putAttr("purge", "none");
+
+    // Set rotate mode to 1 second
+    myFileC->putAttr("rotate", "size");
+    myFileC->putAttr("rotate.size", "1m");
+
+    // Log 3MB messages
+    for (unsigned int i = 0; i * MSGSTR.size() < size * 3; ++i) {
+      myFileC->log(myMsg);
+    }
+
+    // To check that the file with message logged is created
+    BOOST_REQUIRE(bfs::exists(tmpFile));
+    // Close Channel
+    BOOST_REQUIRE_NO_THROW(myFileC->close());
+  }
+
+  // load this file
+  {
+    fs::directory_iterator end_iter;
+    std::vector<fs::path> files;
+    if (fs::exists(tmpDir) && fs::is_directory(tmpDir)) {
+      unsigned int i = 0;
+      for (fs::directory_iterator dir_iter(tmpDir); dir_iter != end_iter; ++dir_iter, ++i) {
+        if (fs::is_regular_file(dir_iter->status())) {
+          files.push_back(*dir_iter);
+        }
+      }
+    }
+    // 4 files are generated: 3 full, and 1 empty
+    BOOST_REQUIRE_EQUAL(files.size(), 4);
+    // size is not necessarily a multiple of the message size
+    double tolerance = 100 * (ceil(double(size) / (MSGSTR.size() + 1))
+                              * (MSGSTR.size() + 1) / double(size) - 1);
+    BOOST_REQUIRE_CLOSE(bfs::file_size(tmpFile.native() + ".0"), double(size), tolerance);
+    bfs::remove_all(tmpDir);
+  }
+  // end  size (in mbytes) rotation and utc timestamp archive test
   //////////////////////////
 }
+
+
 
 
 
@@ -454,9 +565,8 @@ BOOST_AUTO_TEST_CASE(archive_methods_test) {
   BOOST_TEST_MESSAGE("#Archive methods test#");
 
   namespace fs = boost::filesystem;
-  std::string source("Bridgekeeper");
-  std::string msgToLog(
-    "What... is the air-speed velocity of an unladen swallow?");
+  std::string source(SRCSTR);
+  std::string msgToLog(MSGSTR);
   dadi::Message myMsg =
     dadi::Message(source, msgToLog, dadi::Message::PRIO_DEBUG);
 
