@@ -7,6 +7,9 @@
  *
  */
 
+#ifndef _DADIPLUGINTESTSFIXTURE_HH_
+#define _DADIPLUGINTESTSFIXTURE_HH_
+
 // Standard Headers
 #include <map>
 #include <string>
@@ -37,3 +40,5 @@ class AdressBook {
   private:
     std::map<std::string, IPerson_ptr> book;
 };
+
+#endif  /* _DADIPLUGINTESTSFIXTURE_HH_ */

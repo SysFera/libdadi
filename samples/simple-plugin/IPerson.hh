@@ -1,5 +1,3 @@
-#ifndef _IPERSON_HH_
-#define _IPERSON_HH_
 /**
  * @file   samples/simple-plugin/IPerson.hh
  * @author Haïkel Guémar <haikel.guemar@sysfera.com>
@@ -8,6 +6,12 @@
  *   |LICENSE|
  *
  */
+
+
+#ifndef _IPERSON_HH_
+#define _IPERSON_HH_
+
+
 #include <dadi/IPlugin.hh>
 
 class DADI_EXPORT IPerson : public IPlugin {
@@ -19,9 +23,9 @@ public:
 
 protected:
   virtual void
-  do_init()=0;
+  do_init() = 0;
   virtual void
-  do_say_hello()=0;
+  do_say_hello() = 0;
 };
 
-#endif /* _IPERSON_HH_ */
+#endif  /* _IPERSON_HH_ */

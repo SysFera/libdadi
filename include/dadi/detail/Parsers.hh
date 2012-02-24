@@ -1,5 +1,3 @@
-#ifndef _PARSERS_HH_
-#define _PARSERS_HH_
 /**
  * @file   detail/Parsers.hh
  * @author Ibrahima Cissé <ibrahima.cisse@sysfera.com>
@@ -9,6 +7,10 @@
  *  |LICENSE|
  *
  */
+
+#ifndef _PARSERS_HH_
+#define _PARSERS_HH_
+
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
@@ -37,4 +39,4 @@ typedef boost::property_tree::ptree ConfigStore;
 
 } /* namespace dadi */
 
-#endif /* _PARSERS_HH_ */
+#endif  /* _PARSERS_HH_ */

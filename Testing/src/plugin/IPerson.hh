@@ -32,4 +32,5 @@ protected:
   do_say_hello() = 0;
 };
 typedef boost::shared_ptr<IPerson> IPerson_ptr;
-#endif /* _IPERSON_HH_ */
+
+#endif  /* _IPERSON_HH_ */

@@ -6,6 +6,10 @@
  *   |LICENSE|
  *
  */
+
+#ifndef _DADICONFIGTESTSFIXTURES_HH_
+#define _DADICONFIGTESTSFIXTURES_HH_
+
 #include <iostream>
 #include <boost/thread.hpp>
 #include <boost/filesystem.hpp>
@@ -36,3 +40,5 @@ public:
 
   ~ConfLoader() {}
 };
+
+#endif  /* _DADICONFIGTESTSFIXTURES_HH_ */
