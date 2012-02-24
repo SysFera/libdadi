@@ -39,4 +39,4 @@ public:
 
 } /* namespace dadi */
 
-#endif /* _NULLCHANNEL_HH_ */
+#endif  /* _NULLCHANNEL_HH_ */

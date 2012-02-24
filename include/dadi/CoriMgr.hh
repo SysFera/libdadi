@@ -8,6 +8,10 @@
  *
  */
 
+
+#ifndef _CORIMGR_HH_
+#define _CORIMGR_HH_
+
 #include <string>
 #include <vector>
 #include <list>
@@ -61,3 +65,6 @@ private:
 };
 
 } /* namespace dadi */
+
+
+#endif  /* _CORIMGR_HH_ */

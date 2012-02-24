@@ -68,4 +68,4 @@ protected:
 
 } /* namespace dadi */
 
-#endif /* _ICORI_HH_ */
+#endif  /* _ICORI_HH_ */

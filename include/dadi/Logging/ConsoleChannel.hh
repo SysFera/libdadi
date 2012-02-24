@@ -44,4 +44,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _CONSOLECHANNEL_HH_ */
+#endif  /* _CONSOLECHANNEL_HH_ */

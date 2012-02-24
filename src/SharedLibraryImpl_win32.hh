@@ -8,8 +8,8 @@
  *
  */
 
-#ifndef _SHARED_LIBRARY_IMPL_WIN32_HH_
-#define _SHARED_LIBRARY_IMPL_WIN32_HH_
+#ifndef _SHAREDLIBRARYIMPL_WIN32_HH_
+#define _SHAREDLIBRARYIMPL_WIN32_HH_
 
 #include <string>
 
@@ -83,4 +83,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _SHARED_LIBRARY_IMPL_WIN32_HH_ */
+#endif  /* _SHAREDLIBRARYIMPL_WIN32_HH_ */

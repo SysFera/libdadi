@@ -8,8 +8,8 @@
  *
  */
 
-#ifndef DADI_HH
-#define DADI_HH
+#ifndef _DADI_HH_
+#define _DADI_HH_
 
 #include "dadi/config-in.hh"
 
@@ -46,4 +46,4 @@
  *
  */
 
-#endif
+#endif  /* _DADI_HH_ */

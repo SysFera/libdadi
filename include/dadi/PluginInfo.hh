@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _PLUGIN_INFO_HH_
-#define _PLUGIN_INFO_HH_
+#ifndef _PLUGININFO_HH_
+#define _PLUGININFO_HH_
 
 #include <list>
 #include <string>
@@ -82,4 +82,4 @@ typedef boost::shared_ptr<PluginInfo> PluginInfoPtr;
 
 } /* namespace dadi */
 
-#endif /* _PLUGIN_INFO_HH_ */
+#endif  /* _PLUGININFO_HH_ */

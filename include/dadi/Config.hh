@@ -276,4 +276,4 @@ private:
 };
 }
 
-#endif /* _CONFIG_HH_ */
+#endif  /* _CONFIG_HH_ */

@@ -94,4 +94,4 @@ extern "C" {
   create_plugin_instance(void **instance);
 }
 
-#endif /* _IPLUGIN_HH_ */
+#endif  /* _IPLUGIN_HH_ */

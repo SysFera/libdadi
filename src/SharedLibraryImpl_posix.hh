@@ -8,8 +8,8 @@
  *
  */
 
-#ifndef _SHARED_LIBRARY_IMPL_POSIX_HH_
-#define _SHARED_LIBRARY_IMPL_POSIX_HH_
+#ifndef _SHAREDLIBRARYIMPL_POSIX_HH_
+#define _SHAREDLIBRARYIMPL_POSIX_HH_
 
 #include <string>
 
@@ -82,5 +82,5 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _SHARED_LIBRARY_IMPL_POSIX_HH_ */
+#endif  /* _SHAREDLIBRARYIMPL_POSIX_HH_ */
 

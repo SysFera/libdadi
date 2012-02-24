@@ -140,4 +140,4 @@ private:
 } /* namespace dadi */
 
 
-#endif /* _ROTATESTRATEGY_HH_ */
+#endif  /* _ROTATESTRATEGY_HH_ */

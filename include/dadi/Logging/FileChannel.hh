@@ -187,4 +187,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _FILECHANNEL_HH_ */
+#endif  /* _FILECHANNEL_HH_ */

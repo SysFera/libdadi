@@ -92,4 +92,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _PURGESTRATEGY_HH_ */
+#endif  /* _PURGESTRATEGY_HH_ */

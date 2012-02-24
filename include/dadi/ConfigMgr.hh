@@ -162,4 +162,4 @@ getConfigMgr(const std::string& rootKey) {
 }
 }
 
-#endif /* _CONFIGMGR_HH_ */
+#endif  /* _CONFIGMGR_HH_ */

@@ -253,4 +253,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _REGISTRY_HH_ */
+#endif  /* _REGISTRY_HH_ */

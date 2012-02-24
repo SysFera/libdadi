@@ -60,4 +60,4 @@ typedef boost::shared_ptr<Channel> ChannelPtr;
 
 } /* namespace dadi */
 
-#endif /* _CHANNEL_HH_ */
+#endif  /* _CHANNEL_HH_ */

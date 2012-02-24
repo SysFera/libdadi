@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _SHARED_LIBRARY_HH_
-#define _SHARED_LIBRARY_HH_
+#ifndef _SHAREDLIBRARY_HH_
+#define _SHAREDLIBRARY_HH_
 
 #include <string>
 #include <boost/noncopyable.hpp>
@@ -109,5 +109,5 @@ typedef boost::shared_ptr<SharedLibrary> SharedLibraryPtr;
 
 } /* namespace dadi */
 
-#endif /* _SHARED_LIBRARY_HH_ */
+#endif  /* _SHAREDLIBRARY_HH_ */
 

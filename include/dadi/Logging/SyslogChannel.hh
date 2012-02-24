@@ -119,4 +119,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _SYSLOGCHANNEL_HH_ */
+#endif  /* _SYSLOGCHANNEL_HH_ */

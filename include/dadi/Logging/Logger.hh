@@ -229,4 +229,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _LOGGER_HH_ */
+#endif  /* _LOGGER_HH_ */

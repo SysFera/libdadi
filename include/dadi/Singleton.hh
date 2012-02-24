@@ -54,4 +54,4 @@ namespace dadi {
 
 } /* namespace dadi */
 
-#endif /* _SINGLETON_HH_ */
+#endif  /* _SINGLETON_HH_ */

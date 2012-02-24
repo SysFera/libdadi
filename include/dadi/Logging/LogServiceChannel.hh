@@ -52,4 +52,4 @@ private:
 } /* namespace dadi */
 
 
-#endif /* _LOGSERVICECHANNEL_HH_ */
+#endif  /* _LOGSERVICECHANNEL_HH_ */

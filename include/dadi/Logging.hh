@@ -24,4 +24,4 @@
  *
  */
 
-#endif /* _LOGGING_HH_ */
+#endif  /* _LOGGING_HH_ */

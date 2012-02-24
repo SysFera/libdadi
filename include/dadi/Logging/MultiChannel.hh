@@ -73,4 +73,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _MULTICHANNEL_HH_ */
+#endif  /* _MULTICHANNEL_HH_ */

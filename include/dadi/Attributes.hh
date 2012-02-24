@@ -237,4 +237,4 @@ str(const Attributes& attr, int format = 0);
 
 } /* namespace dadi */
 
-#endif /* _ATTRIBUTES_HH_ */
+#endif  /* _ATTRIBUTES_HH_ */

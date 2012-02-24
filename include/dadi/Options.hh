@@ -481,4 +481,4 @@ setPropertySeq(const std::string& key, const Sequence& seq) {
 /** alias to setProperty std::string specialization */
 #define setPropertyString setProperty<std::string >
 
-#endif /* _OPTIONS_HH_ */
+#endif  /* _OPTIONS_HH_ */

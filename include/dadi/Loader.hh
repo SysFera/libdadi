@@ -79,4 +79,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _LOADER_HH_ */
+#endif  /* _LOADER_HH_ */

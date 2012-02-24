@@ -104,4 +104,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _ARCHIVESTRATEGY_HH_ */
+#endif  /* _ARCHIVESTRATEGY_HH_ */

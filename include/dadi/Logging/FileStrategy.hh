@@ -14,4 +14,4 @@
 #include "dadi/Logging/ArchiveStrategy.hh"
 #include "dadi/Logging/PurgeStrategy.hh"
 
-#endif /* _FILESTRATEGY_HH_ */
+#endif  /* _FILESTRATEGY_HH_ */

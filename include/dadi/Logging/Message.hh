@@ -170,4 +170,4 @@ private:
 
 } /* namespace dadi */
 
-#endif /* _MESSAGE_HH_ */
+#endif  /* _MESSAGE_HH_ */
