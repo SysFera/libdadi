@@ -310,7 +310,7 @@ public:
   addOption(const std::string& name,
             const std::string& desc,
             T& value, bool required = false) {
-    return default_.addOption(name, desc, required);
+    return default_.addOption(name, desc, value,required);
   }
 
 
