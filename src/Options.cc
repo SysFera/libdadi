@@ -85,6 +85,8 @@ Options::parseCommandLine(int& argc, char* argv[]) {
   boost::shared_ptr<po::options_description> options =
     groups(OptionsGroup::CMD);
 
+  options->add(*groups(OptionsGroup::ENV));
+
   try {
     store(po::command_line_parser(argc, argv)
           .options(*options).positional(pos_)
