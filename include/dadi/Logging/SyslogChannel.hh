@@ -16,6 +16,10 @@
 namespace dadi {
 
 
+/**
+ * @class SyslogChannel
+ * @brief Channel that logs into syslogs
+ */
 class SyslogChannel : public Channel {
 public:
   /**
@@ -25,11 +29,17 @@ public:
    * @see syslog.h (from 4.4BSD)
    */
   enum Option {
+    /** log the pid with each message */
     SYSLOG_PID = 0x01,
+    /** log on the console if errors in sending */
     SYSLOG_CONS = 0x02,
+    /** delay open until first syslog() (default) */
     SYSLOG_ODELAY = 0x04,
+    /** don't delay open */
     SYSLOG_NDELAY = 0x08,
+    /** don't wait for console forks: DEPRECATED */
     SYSLOG_NOWAIT = 0x10,
+    /** log to stderr as well */
     SYSLOG_PERROR = 0x20
   };
 
@@ -38,25 +48,45 @@ public:
    * @brief syslog facilities
    */
   enum Facility {
+    /** kernel messages */
     SYSLOG_KERN = (0<<3),
+    /** random user-level messages */
     SYSLOG_USER = (1<<3),
+    /** mail system */
     SYSLOG_MAIL = (2<<3),
+    /** system daemons */
     SYSLOG_DAEMON = (3<<3),
+    /** security/authorization messages */
     SYSLOG_AUTH = (4<<3),
+    /** messages generated internally by syslogd */
     SYSLOG_SYSLOG = (5<<3),
+    /** line printer subsystem */
     SYSLOG_LPR = (6<<3),
+    /** network news subsystem */
     SYSLOG_NEWS = (7<<3),
+    /** UUCP subsystem */
     SYSLOG_UUCP = (8<<3),
+    /** clock daemon */
     SYSLOG_CRON = (9<<3),
+    /** security/authorization messages (private) */
     SYSLOG_AUTHPRIV = (10<<3),
+    /** ftp daemon */
     SYSLOG_FTP = (11<<3),
+    /** reserved for local use */
     SYSLOG_LOCAL0 = (16<<3),
+    /** reserved for local use */
     SYSLOG_LOCAL1 = (17<<3),
+    /** reserved for local use */
     SYSLOG_LOCAL2 = (18<<3),
+    /** reserved for local use */
     SYSLOG_LOCAL3 = (19<<3),
+    /** reserved for local use */
     SYSLOG_LOCAL4 = (20<<3),
+    /** reserved for local use */
     SYSLOG_LOCAL5 = (21<<3),
+    /** reserved for local use */
     SYSLOG_LOCAL6 = (22<<3),
+    /** reserved for local use */
     SYSLOG_LOCAL7 = (23<<3)
   };
 
@@ -70,8 +100,9 @@ public:
    * @param option syslog options
    * @param facility syslog facilities
    */
-  SyslogChannel(const std::string& name,
-                unsigned int option,
+
+
+  SyslogChannel(const std::string& name,                unsigned int option,
                 unsigned int facility);
 
   /**
@@ -105,9 +136,9 @@ protected:
   int
   getPrio(const Message& msg);
 
-  static const std::string ATTR_NAME; /**< attribute name key */
-  static const std::string ATTR_FACILITY; /**< attribute facility key */
-  static const std::string ATTR_OPTION; /**< attribute option key */
+  static const std::string ATTR_NAME;  /**< attribute name key */
+  static const std::string ATTR_FACILITY;  /**< attribute facility key */
+  static const std::string ATTR_OPTION;  /**< attribute option key */
 
 private:
   std::string name_; /**< channel name */
