@@ -76,8 +76,6 @@ find_package(Threads REQUIRED)
 # fix DSO linking issue due to thread library
 set(Boost_LIBRARIES ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 set(Boost_USE_MULTITHREADED ON)
-# TODO: remove this as soon as Boost > 1.46 is required
-add_definitions( "-DBOOST_FILESYSTEM_VERSION=3" )
 
 find_package(Sigar REQUIRED)
 
