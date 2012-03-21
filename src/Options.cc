@@ -151,6 +151,8 @@ Options::notify() {
       if (help) {
         help->semantic()->notify(true);
       }
+    } else {
+      throw e;
     }
   }
 }
