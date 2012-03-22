@@ -282,7 +282,9 @@ public:
    * @brief add a new option without argument (a.k.a switch)
    */
   void
-  addSwitch(const std::string& name, const std::string& desc);
+  addSwitch(const std::string& name, const std::string& desc) {
+    default_.addSwitch(name, desc);
+  }
 
   /**
    * @brief add new option
