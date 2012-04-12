@@ -42,7 +42,8 @@ private:
 
 void
 SigarCori::do_init() {
-  assert(SIGAR_OK == sigar_open(&handle));
+  int status = sigar_open(&handle);
+  assert(SIGAR_OK == status);
 }
 
 Attributes
@@ -205,5 +206,3 @@ create_plugin_instance(void **instance) {
 
   return PLUGIN_OK;
 }
-
-
