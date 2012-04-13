@@ -49,9 +49,12 @@ CoriMgr::listMetrics() {
 
 Attributes
 CoriMgr::getMetrics(const std::string& filter) {
+  const std::string& filter_ =
+  filter.empty() ? filter : dadi::str(listMetrics());
+
   Attributes a;
   BOOST_FOREACH(ICori *p, plugins) {
-    Attributes b = p->getMetrics(filter);
+    Attributes b = p->getMetrics(filter_);
     a.merge(b);
   }
 
