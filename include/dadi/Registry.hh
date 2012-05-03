@@ -126,6 +126,13 @@ public:
   addPath(const std::string& path);
 
   /**
+   * @brief remove search path for plugin manifests
+   * @param path
+   */
+  void
+  removePath(const std::string& path);
+
+  /**
    * @brief load plugins
    */
   void

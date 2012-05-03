@@ -28,8 +28,16 @@ Registry::registerPlugin(PluginInfoPtr pInfo) {
 
 void
 Registry::addPath(const std::string& path) {
+  paths_.sort();
+  paths_.unique();
   paths_.push_back(path);
 }
+
+void
+Registry::removePath(const std::string& path) {
+    paths_.remove(path);
+}
+
 
 void
 Registry::load() {
@@ -70,4 +78,3 @@ Registry::listPluginsByInterface(const std::string& pName) {
 
 
 } /* namespace dadi */
-
