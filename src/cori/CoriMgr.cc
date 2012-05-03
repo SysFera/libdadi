@@ -14,15 +14,18 @@
 
 namespace dadi {
 
-CoriMgr::CoriMgr() {
+CoriMgr::CoriMgr(bool loadDefault) {
   dadi::Registry& reg = dadi::Registry::instance();
-  const std::list<std::string>& paths = reg.paths();
-  std::list<std::string>::const_iterator it =
+  if (loadDefault) {
+    const std::list<std::string>& paths = reg.paths();
+    std::list<std::string>::const_iterator it =
     std::find(paths.begin(), paths.end(), CORI_PLUGINS_SYSTEM_DEFAULT_PATH);
-  if (it == paths.end()) {
-    reg.addPath(CORI_PLUGINS_SYSTEM_DEFAULT_PATH);
+    if (it == paths.end()) {
+      reg.addPath(CORI_PLUGINS_SYSTEM_DEFAULT_PATH);
+    }
+    reg.load();
   }
-  reg.load();
+
   std::list<std::string> names = reg.listPluginsByInterface("ICori");
   BOOST_FOREACH(const std::string& name, names) {
     ICori* p = reg.getByName<ICori>(name);

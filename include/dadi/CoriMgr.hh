@@ -30,8 +30,9 @@ class CoriMgr {
 public:
  /**
   * @brief default constructor
+  * @param loadDefault load default path
   */
-  CoriMgr();
+  CoriMgr(bool loadDefault = true);
   /**
    * @brief destructor
    */
