@@ -26,10 +26,7 @@ BOOST_AUTO_TEST_SUITE(CoriTests)
 
 BOOST_AUTO_TEST_CASE(Cori_empty_manager) {
   BOOST_TEST_MESSAGE("# Cori empty manager");
-
-  dadi::Registry& reg = dadi::Registry::instance();
-  reg.load();
-  dadi::CoriMgr mgr;
+  dadi::CoriMgr mgr(false);
   BOOST_REQUIRE_EQUAL(mgr.listPlugins().size(), 0);
   dadi::Attributes emptyAttr;
   dadi::Attributes attr1 = mgr.listMetrics();
