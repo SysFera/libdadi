@@ -9,12 +9,20 @@
 
 #include "dadi/CoriMgr.hh"
 #include <boost/foreach.hpp>
+#include "dadi/dadi-config.hh"
 #include "dadi/Registry.hh"
 
 namespace dadi {
 
 CoriMgr::CoriMgr() {
   dadi::Registry& reg = dadi::Registry::instance();
+  const std::list<std::string>& paths = reg.paths();
+  std::list<std::string>::const_iterator it =
+    std::find(paths.begin(), paths.end(), CORI_PLUGINS_SYSTEM_DEFAULT_PATH);
+  if (it == paths.end()) {
+    reg.addPath(CORI_PLUGINS_SYSTEM_DEFAULT_PATH);
+  }
+  reg.load();
   std::list<std::string> names = reg.listPluginsByInterface("ICori");
   BOOST_FOREACH(const std::string& name, names) {
     ICori* p = reg.getByName<ICori>(name);
@@ -50,7 +58,7 @@ CoriMgr::listMetrics() {
 Attributes
 CoriMgr::getMetrics(const std::string& filter) {
   const std::string& filter_ =
-  filter.empty() ? filter : dadi::str(listMetrics());
+  !filter.empty() ? filter : dadi::str(listMetrics());
 
   Attributes a;
   BOOST_FOREACH(ICori *p, plugins) {

@@ -14,5 +14,6 @@
 #define DADI_VERSION_MINOR @DADI_VERSION_MINOR@  /**< libdadi minor version */
 #define DADI_VERSION_PATCH @DADI_VERSION_PATCH@  /**< libdadi patch version */
 
+const char *CORI_PLUGINS_SYSTEM_DEFAULT_PATH = "@CORI_PLUGINS_SYSTEM_DEFAULT_PATH@";
 
 #endif /* _CONFIG_HH_ */

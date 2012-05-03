@@ -43,6 +43,8 @@ set(CMAKE_MODULES_INSTALL_DIR "share/cmake/Modules" CACHE PATH
   "CMake modules installation path")
 set(PKG_CONFIG_INSTALL_DIR "${LIB_INSTALL_DIR}/pkgconfig" CACHE PATH
   "Pkg-config modules installation path")
+set(PLUGINS_INSTALL_DIR "libexec" CACHE PATH
+  "libdadi plugins installation path")
 
 ## options
 # shared libraries
@@ -119,6 +121,8 @@ if(ENABLE_DOC)
 endif()
 
 ## headers
+file(TO_NATIVE_PATH "${CMAKE_INSTALL_PREFIX}/${PLUGINS_INSTALL_DIR}/cori"
+  CORI_PLUGINS_SYSTEM_DEFAULT_PATH)
 configure_file("include/dadi/dadi-config.hh.in"
   "${PROJECT_BINARY_DIR}/include/dadi/dadi-config.hh")
 install(FILES "${PROJECT_BINARY_DIR}/include/dadi/dadi-config.hh"
