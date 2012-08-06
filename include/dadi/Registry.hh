@@ -183,7 +183,7 @@ public:
 
     factory = (*it)->factory;
     if (factory) {
-      ((bool (*)(void **))(factory))((void**) &instance);
+      reinterpret_cast<factory_function>(factory)(reinterpret_cast<void**>(&instance));
       instance->plugin_info(*it);
     }
 
@@ -228,7 +228,7 @@ public:
 
     factory = (*it)->factory;
     if (factory) {
-      ((int (*)(void **))(factory))((void**) &instance);
+      reinterpret_cast<factory_function>(factory)(reinterpret_cast<void**>(&instance));
       instance->plugin_info(*it);
     }
 
