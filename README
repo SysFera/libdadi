@@ -4,3 +4,5 @@ It offers facilities like:
 * logging
 * plugins
 * attributes
+* exceptions base classes
+* CoRI (Collector of Resources Information)
