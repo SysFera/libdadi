@@ -24,7 +24,6 @@ LogServiceChannel::LogServiceChannel(int argc, char *argv[]) {
       return;
     }
     bool success(false);
-    short ret(LS_OK);
 
     // TODO: get logger name
     lb = new LogComponentBase(&success, argc, argv, 0, "myComponent");
