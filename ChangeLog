@@ -1,0 +1,75 @@
++---------------+
+| libdadi 0.5.1 |
++---------------+
+	* Features:
+		- Registry: new method: removePath
+		- cori: add optional boolean parameter to CoriMgr constructor to load of not default plugins paths
+		- cori: install plugins in /libexec/cori
+		- cori: handle empty requests, no requests, sends all metrics available
+		- SigarCori: sigar handle should not be initialized in an assert macro
+	 	- Improved doc
+	 	- Removed a todo
+	 	- update env options management
+	 	- updated Options::add_option function, add missing parameter
+	 	- Replaced licence by license
+	 	- Improved doc. Added a few fixmes on exceptions
+	 	- Removed debug prints on cout
+	 	- Improved documentation
+	 	- documentation: add some bits
+	 	- activated DADIConfigFileTests
+	 	- Added support for size in GB.
+	 	- Documented getAttrList. Added a few more examples.
+	 	- More explicit documentation about help()
+	 	- added author
+	 	- Only get requested metrics
+	 	- Support INFO format. Throws an exception when parsing problems occured
+	 	- Added a new exception: ParsingAttributeError
+	 	- Config: missing break
+	 	- Set ICori as a virtual descendant of IPlugin
+	 	- SigarCori: check status return by sigar calls before filling the response
+	 	- Change static initialisation of strings using explicit copy constructor
+	 	- plugins: attach properly PluginInfo to plugins instances
+	 	- samples: add simple-cori to showcase CoriMgr use
+	 	- CoRI: import CoRI interface and first CoRI plugin (Sigar)
+	 	- Plugins: now load metadata properly (previous bug) add Registry::listPluginsByInterface method to list plugins loaded remove dead code
+	 	- Config: add new helper setPropertySeq (allows to sequences properties) automatically use default help callback (no need to set it manually) remove dead code remove useless operator<<
+	 	- Config: add new methods add/add_seq/get_seq
+	 	- Attributes: add free function str() that serialize an Attributes
+	 	- Attributes: add merge operation
+	 	- Attributes: add template method addAttr (add new node instead of updating existing node unlike putAttr)
+	* Bug Fix:
+		- Fixed test on = operator
+	 	- Fixed a bug in = operator
+		- Attributes: fixup getAttrList method, it now takes the full key Attributes/Cori tests were also fixed up accordingly
+		- Registry: various fixes
+	 	- Tests: fix Cori test suite
+	 	- Options: fix unimplemented method Options::addSwitch(std::string, std::string)
+		- Commandline framework does not throw exceptions when required option is missing
+		- Plugins: fix paths in installed plugins manifest
+		- Cori: fix bugs
+		- Fixed cpplint issues
+	 	- Removed cpplint errors
+	 	- Explicitely use FORMAT_XML instead of 0
+	 	- samples: various bug fixes
+	 	- Attributes: fix template method getAttrList
+	 	- Cori: fix build on OS X
+	 	- Attributes: misplaced catch bad::lexical_cast
+	 	- SigarCori plugin: missing breaks in switch from SigarCori::get_loadavg
+	 	- cmake: fix plugins.cmake to support multiple sources plugin
+	 	- Attributes: fix getAttrList when ptree::data_type differs from Sequence::value_type
+	 	- A few cpplint errors corrections. Use the quoted form for includes within the libdadi project
+	 	- Fixed a bug in timestamp archive strategy
+	* Source code organization:
+		- Added Eclipse IDE project files
+		- tests: test that commandline raises an exception when a required option is not given
+		- Improved tests on bool operator
+	 	- Added tests on PluginInfo
+		- Removed tests on file names, as we cannot guaranty the order in which the files are found
+		- removed unused variables
+		- Updated README with exceptions & CoRI
+	 	- Display DADI_INSTALL_DIR
+	 	- use reinterpret_cast instead of C casts
+	 	- Updated UseLATEX.cmake
+	 	- Tests: a lot have been added (rotation and archive strategies, CoRI, str method, attr_merge, equal operator, merge, loadAttr, constructor, serialization/deserialization, compression methods)
+	 	- enforce SysFera coding standards (cpplint warnings)
+	 	- Beginning of tests for getAttrList
