@@ -62,10 +62,14 @@ SigarCori::do_getMetrics(const std::string& filter) {
   std::bitset<8> cpu_mask(0);
 
   ft.loadAttr(filter);
-  std::list<std::string> req =
-    ft.getAttrList<std::list<std::string> >("diet.cori.metrics.metric");
-  BOOST_FOREACH(std::string &v, req) {
-    keys.push_back(v);
+  try {
+    std::list<std::string> req =
+      ft.getAttrList<std::list<std::string> >("diet.cori.metrics.metric");
+    BOOST_FOREACH(std::string &v, req) {
+      keys.push_back(v);
+    }
+  } catch (const dadi::UnknownAttributeError& e) {
+    return pt;
   }
 
   std::list<std::string>::const_iterator it = keys.begin();
