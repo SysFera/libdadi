@@ -80,6 +80,7 @@ set(Boost_LIBRARIES ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 set(Boost_USE_MULTITHREADED ON)
 
 find_package(Sigar REQUIRED)
+find_package(CURL REQUIRED)
 
 ## specific stuff for LogServiceChannel
 ## TODO: remove this or make it optional
