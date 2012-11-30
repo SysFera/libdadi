@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugindescriptor>
+  <name>@PLUGIN_NAME@</name>
+  <version>0.0.1</version>
+  <interface>ICori</interface>
+  <paths>
+    <path>@PLUGIN_PATH@</path>
+  </paths>
+  <metadata>
+    <predict_transfers_url>http://127.0.1.1/pilgrim/predict_transfers/g5k_test</predict_transfers_url>
+    <diet>
+      <pilgrim>
+        <metrics>
+          <metric>
+            predict_transfers
+          </metric>
+        </metrics>
+      </pilgrim>
+    </diet>
+  </metadata>
+  <dependencies>
+  </dependencies>
+</plugindescriptor>
