@@ -394,12 +394,28 @@ BOOST_AUTO_TEST_CASE(attr_merge) {
   attr2.addAttr("holy.character", "Patsy");
   attr2.addAttr("holy.castle", "arggghhh");
 
+  dadi::Attributes attr3;
+  dadi::Attributes attr4;
+
   attr1.merge(attr2);
   BOOST_CHECK_NO_THROW(attr1.getAttr<std::string>("holy"));
   BOOST_REQUIRE_EQUAL(attr1.getAttr<int>("int2"), 2);
   BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy"), "god");
   BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy.castle"), "arggghhh");
   BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy.weapon"), "sword");
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy.grail"), "lost");
+  attr1.merge(attr3);
+  BOOST_CHECK_NO_THROW(attr1.getAttr<std::string>("holy"));
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<int>("int2"), 2);
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy"), "god");
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy.castle"), "arggghhh");
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy.weapon"), "sword");
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy.grail"), "lost");
+  attr3.merge(attr4);
+  attr3.merge(attr2);
+  BOOST_CHECK_NO_THROW(attr1.getAttr<std::string>("holy.castle"));
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<int>("int2"), 2);
+  BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy.castle"), "arggghhh");
   BOOST_REQUIRE_EQUAL(attr1.getAttr<std::string>("holy.grail"), "lost");
 }
 
