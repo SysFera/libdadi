@@ -200,23 +200,25 @@ public:
     if (child.empty()) {
       /* if same node exists don't add it */
       std::string currentPath = path.dump();
-      size_t pos = currentPath.length() - currentPath.find_last_of('.');
-      std::string parentPath = erase_tail_copy(currentPath, pos);
-      bool exists(false);
-      // check if new parent node exists before
-      boost::optional<ptree&> parent = res_.get_child_optional(parentPath);
-      if (parent) {
-        BOOST_FOREACH(ptree::value_type& v, parent.get()) {
-          std::string p =
-          boost::str(boost::format("%1%.%2%") % parentPath % v.first);
-          if ((p == path.dump()) && v.second.data() == child.data()) {
-            exists = true;
+      if (currentPath.length() > 0) {
+        size_t pos = currentPath.length() - currentPath.find_last_of('.');
+        std::string parentPath = erase_tail_copy(currentPath, pos);
+        bool exists(false);
+        // check if new parent node exists before
+        boost::optional<ptree&> parent = res_.get_child_optional(parentPath);
+        if (parent) {
+          BOOST_FOREACH(ptree::value_type& v, parent.get()) {
+            std::string p =
+              boost::str(boost::format("%1%.%2%") % parentPath % v.first);
+            if ((p == path.dump()) && v.second.data() == child.data()) {
+              exists = true;
+            }
           }
         }
-      }
 
-      if (!exists) {
-        res_.add(path, child.data());
+        if (!exists) {
+          res_.add(path, child.data());
+        }
       }
     }
   }
